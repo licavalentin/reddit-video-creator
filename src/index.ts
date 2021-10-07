@@ -104,30 +104,35 @@ const createPost = async () => {
       const endIndex = startIndex + numOfComments;
       const listOfComments = comments.slice(startIndex, endIndex);
 
-      const folder = join(renderPath, `${index + 1}-${createRandomString(4)}`);
+      if (listOfComments.length !== 0) {
+        const folder = join(
+          renderPath,
+          `${index + 1}-${createRandomString(4)}`
+        );
 
-      mkdirSync(folder);
+        mkdirSync(folder);
 
-      for (const comments of listOfComments) {
-        await createCommentImage(comments, folder);
-      }
-
-      const folders = getFolders(folder);
-
-      for (const currentFolder of folders) {
-        const folderPath = join(folder, currentFolder);
-        const imagePath = join(folderPath, "image.jpg");
-        const textPath = join(folderPath, "text.txt");
-        const audioPath = join(folderPath, "audio.wav");
-        try {
-          const duration = await generateAudio(textPath, audioPath);
-          await generateVideo(imagePath, audioPath, folderPath, duration);
-        } catch (error) {
-          console.log(error);
+        for (const comments of listOfComments) {
+          await createCommentImage(comments, folder);
         }
-      }
 
-      await mergeVideos("video", folder, folder);
+        const folders = getFolders(folder);
+
+        for (const currentFolder of folders) {
+          const folderPath = join(folder, currentFolder);
+          const imagePath = join(folderPath, "image.jpg");
+          const textPath = join(folderPath, "text.txt");
+          const audioPath = join(folderPath, "audio.wav");
+          try {
+            const duration = await generateAudio(textPath, audioPath);
+            await generateVideo(imagePath, audioPath, folderPath, duration);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+
+        await mergeVideos("video", folder, folder);
+      }
 
       cluster.worker.kill();
     }
