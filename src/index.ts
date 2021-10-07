@@ -1,180 +1,136 @@
-const cluster = require("cluster");
-const { cpus, tmpdir } = require("os");
-const { join } = require("path");
-const { execFile } = require("child_process");
-const { readdirSync, statSync, existsSync, mkdir } = require("fs");
+import { cpus, tmpdir } from "os";
+import cluster from "cluster";
+import { readFileSync, mkdirSync } from "fs";
+import { join } from "path";
 
-const tempPath = join(tmpdir(), "reddit-video-creator");
+import slugify from "slugify";
 
-if (!existsSync(tempPath)) {
-  mkdir(tempPath);
-}
+import { Post } from "./interface/reddit";
+import { Comment } from "./interface/video";
 
-const cliPath = join(tempPath, "cli");
-const renderPath = join(tempPath, "render");
-const balconPath = join(cliPath, "balcon", "balcon.exe");
-const ffmpegPath = join(cliPath, "ffmpeg", "ffmpeg.exe");
-const ffprobePath = join(cliPath, "ffmpeg", "ffprobe.exe");
+import {
+  getArgument,
+  resetTemp,
+  createRandomString,
+  getFolders,
+  roundUp,
+} from "./utils/helper";
+import { measureComments } from "./images/measureComments";
+import { transformComments } from "./images/transformComments";
+import { createPostTitle } from "./images/postTitle";
+import { createCommentImage } from "./images/image";
+import { generateVideo, mergeVideos } from "./video/index";
+import generateAudio from "./audio/index";
 
-const argumentHandler = (name) => {
-  for (const arg of process.argv) {
-    if (arg.includes("=")) {
-      const argCommand = arg.split("=");
+const getComments = async () => {
+  const {
+    post,
+    comments,
+    exportPath,
+  }: { post: Post; comments: Comment[]; exportPath: string } = JSON.parse(
+    readFileSync(getArgument("POST")).toString()
+  );
 
-      if (argCommand[0] === name) {
-        return argCommand[1];
-      }
-    }
-  }
+  const measuredComments = await measureComments(comments);
 
-  return null;
+  const transformedComments = await transformComments(measuredComments);
+
+  return {
+    post,
+    comments: transformedComments,
+    exportPath,
+  };
 };
 
-const getVoices = () => {
-  return new Promise((resolve) => {
-    execFile(balconPath, ["-l"], (error, stdout) => {
-      if (error) {
-        throw error;
-      }
+/**
+ * Generate single comment tree images
+ * @param title Post Title
+ * @param comments Comments List
+ * @param exportPath Path to export final output
+ */
+const createPost = async () => {
+  try {
+    const tempPath = join(tmpdir(), "reddit-video-creator");
 
-      const listOfVoice = stdout
-        .trim()
-        .split("\n")
-        .map((v) => v.trim())
-        .filter((v) => v !== "SAPI 5:");
+    if (cluster.isPrimary) {
+      await resetTemp();
 
-      resolve(listOfVoice);
-    });
-  });
-};
-
-const getFolders = (path) => {
-  const files = readdirSync(path) ?? [];
-
-  files.sort(function (a, b) {
-    return (
-      statSync(join(path, a)).mtime.getTime() -
-      statSync(join(path, b)).mtime.getTime()
-    );
-  });
-
-  return files;
-};
-
-const getAudioDuration = async (path) => {
-  return new Promise((resolve) => {
-    const params = [
-      "-v",
-      "error",
-      "-select_streams",
-      "a:0",
-      "-show_format",
-      "-show_streams",
-    ];
-
-    execFile(ffprobePath, [...params, path], async (error, stdout) => {
-      if (error) {
-        throw error;
+      for (let index = 0; index < cpus().length; index++) {
+        cluster.fork();
       }
 
-      const matched = stdout.match(/duration="?(\d*\.\d*)"?/);
+      let count = cpus().length;
 
-      if (matched && matched[1]) resolve(parseFloat(matched[1]));
-    });
-  });
-};
+      cluster.on("exit", async () => {
+        count--;
 
-const generateAudio = async (textPath, path) => {
-  const voice = argumentHandler("VOICE") ?? (await getVoices()[0]);
+        if (count === 0) {
+          const { post, exportPath } = await getComments();
 
-  return new Promise((resolve) => {
-    execFile(
-      balconPath,
-      ["-f", textPath, "-w", path, "-n", voice],
-      async (error) => {
-        if (error) {
-          throw error;
+          await createPostTitle({
+            awards: post.all_awardings.map((award) => award.name),
+            points: roundUp(post.ups),
+            title: post.title,
+            userName: post.author,
+          });
+
+          const randomString = createRandomString(3);
+          const postTitle = slugify(post.title, {
+            remove: /[*+~.()'"?!:@]/g,
+            lower: true,
+            strict: true,
+          });
+
+          await mergeVideos(
+            `${postTitle}-${randomString}`,
+            tempPath,
+            exportPath
+          );
         }
+      });
+    } else {
+      const { comments } = await getComments();
 
-        const duration = await getAudioDuration(path);
+      const leftComments = comments.length % cpus().length;
+      const commentsPerCpu = Math.floor(comments.length / cpus().length);
 
-        resolve(duration);
+      const index = cluster.worker.id - 1;
+      const numOfComments =
+        commentsPerCpu + (index === cpus().length - 1 ? leftComments : 0);
+      const startIndex = index !== 0 ? index * commentsPerCpu : 0;
+      const endIndex = startIndex + numOfComments;
+      const listOfComments = comments.slice(startIndex, endIndex);
+
+      const folder = join(tempPath, `${index + 1}-${createRandomString(4)}`);
+
+      mkdirSync(folder);
+
+      for (const comments of listOfComments) {
+        await createCommentImage(comments, folder);
       }
-    );
-  });
-};
 
-const generateVideo = async (image, audio, path, duration) => {
-  return new Promise((resolve) => {
-    console.log("Creating Video");
+      const folders = getFolders(folder);
 
-    execFile(
-      ffmpegPath,
-      [
-        "-loop",
-        "1",
-        "-i",
-        image,
-        "-i",
-        audio,
-        "-c:v",
-        "libx264",
-        "-tune",
-        "stillimage",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "192k",
-        "-pix_fmt",
-        "yuv420p",
-        "-shortest",
-        "-t",
-        duration.toString(),
-        join(path, `video.mp4`),
-      ],
-      (error) => {
-        if (error) {
-          console.log("Video couldn't create successfully");
-          throw error;
+      for (const currentFolder of folders) {
+        const folderPath = join(folder, currentFolder);
+        const imagePath = join(folderPath, "image.jpg");
+        const textPath = join(folderPath, "text.txt");
+        const audioPath = join(folderPath, "audio.wav");
+        try {
+          const duration = await generateAudio(textPath, audioPath);
+          await generateVideo(imagePath, audioPath, folderPath, duration);
+        } catch (error) {
+          console.log(error);
         }
-
-        console.log("Video created successfully");
-
-        resolve(null);
       }
-    );
-  });
-};
 
-const renderVideo = async () => {
-  const folders = getFolders(renderPath);
-  const leftFolders = folders.length % cpus().length;
-  const folderPerCpu = Math.floor(folders.length / cpus().length);
-  if (cluster.isMaster) {
-    for (const cpu of cpus()) {
-      cluster.fork();
+      await mergeVideos("video", folder, folder);
+
+      cluster.worker.kill();
     }
-  } else {
-    const index = cluster.worker.id - 1;
-    const numOfFolders =
-      folderPerCpu + (index === cpus().length - 1 ? leftFolders : 0);
-    const startIndex = index !== 0 ? index * folderPerCpu : 0;
-    const endIndex = startIndex + numOfFolders;
-    const listOfFolders = folders.slice(startIndex, endIndex);
-    for (const folder of listOfFolders) {
-      const folderPath = join(renderPath, folder);
-      const imagePath = join(folderPath, "image.jpg");
-      const textPath = join(folderPath, "text.txt");
-      const audioPath = join(folderPath, "audio.wav");
-      try {
-        const duration = await generateAudio(textPath, audioPath);
-        await generateVideo(imagePath, audioPath, folderPath, duration);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    cluster.worker.kill();
+  } catch (err) {
+    console.log(err);
   }
 };
 
-renderVideo();
+createPost();

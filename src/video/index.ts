@@ -1,0 +1,119 @@
+import { execFile } from "child_process";
+import { join } from "path";
+import { writeFileSync } from "fs";
+
+import { getArgument, getFolders } from "../utils/helper";
+
+/**
+ * Generate Video from image and audio
+ *
+ * @param {string} image Path for image file
+ * @param {string} audio Path for audio file
+ * @param {string} path Export assets path
+ * @param {number} duration Video duration
+ */
+export const generateVideo = async (
+  image: string,
+  audio: string,
+  path: string,
+  duration: number
+) => {
+  const ffmpegPath = getArgument("FFMPEG");
+
+  return new Promise((resolve) => {
+    console.log("Creating Video", "action");
+
+    execFile(
+      ffmpegPath,
+      [
+        "-loop",
+        "1",
+        "-i",
+        image,
+        "-i",
+        audio,
+        "-c:v",
+        "libx264",
+        "-tune",
+        "stillimage",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k",
+        "-pix_fmt",
+        "yuv420p",
+        "-shortest",
+        "-t",
+        duration.toString(),
+        join(path, `video.mp4`),
+      ],
+      (error: any) => {
+        if (error) {
+          console.log("Video couldn't create successfully", "error");
+          throw error;
+        }
+
+        console.log("Video created successfully", "success");
+
+        resolve(null);
+      }
+    );
+  });
+};
+
+/**
+ * Merge All Videos together
+ * @param title Post title
+ * @param inputPath Input Path
+ * @param exportPath Path to export final output
+ */
+export const mergeVideos = async (
+  title: string,
+  inputPath: string,
+  exportPath: string
+) => {
+  console.log("Merging Videos", "action");
+
+  const folders = getFolders(inputPath);
+
+  const outPutFilePath = join(exportPath, `${title}.mp4`);
+
+  const listPath = join(inputPath, "list.txt");
+
+  const videos = folders.map(
+    (folder) => `file '${join(inputPath, folder, "video.mp4")}`
+  );
+
+  writeFileSync(listPath, videos.join(" \n"));
+
+  const merge = () =>
+    new Promise((resolve) => {
+      const ffmpegPath = getArgument("FFMPEG");
+
+      execFile(
+        ffmpegPath,
+        [
+          "-safe",
+          "0",
+          "-f",
+          "concat",
+          "-i",
+          listPath,
+          "-c",
+          "copy",
+          outPutFilePath,
+        ],
+        (error) => {
+          if (error) {
+            console.log("Videos couldn't merge successfully", "error");
+            throw error;
+          }
+
+          console.log("Videos merged successfully", "success");
+          resolve(null);
+        }
+      );
+    });
+
+  await merge();
+};

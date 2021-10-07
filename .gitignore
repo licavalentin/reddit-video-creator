@@ -29,3 +29,6 @@ build
 
 *.exe
 src/cli
+assets
+cli
+data

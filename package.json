@@ -1,21 +1,31 @@
 {
-  "name": "test",
+  "name": "reddit-video-creator",
   "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
+  "bin": "build/index.js",
   "scripts": {
     "build:app": "rm -rf build dist && tsc -p .",
-    "build:exe": "pkg --output=test.exe --targets=node16-win-x64 build/index.js",
-    "build": "npm run build:app && npm run build:exe"
+    "build:exe": "rm -rf ./reddit-video-creator.exe && pkg .",
+    "build": "npm run build:app && npm run build:exe",
+    "start": "npm run build:app && node ./build/index.js BALCON=./cli/balcon/balcon.exe FFMPEG=./cli/ffmpeg/ffmpeg.exe FFPROBE=./cli/ffmpeg/ffprobe.exe DATA=./data ASSETS=./assets POST=./data/post.json"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "jimp": "^0.16.1",
-    "pkg": "^5.3.3"
+    "pkg": "^5.3.3",
+    "slugify": "^1.6.1"
   },
   "devDependencies": {
     "@types/node": "^16.10.2",
     "typescript": "^4.4.3"
+  },
+  "pkg": {
+    "scripts": "build/**/*.js",
+    "targets": [
+      "node16-win-x64"
+    ],
+    "outputPath": "./"
   }
 }
