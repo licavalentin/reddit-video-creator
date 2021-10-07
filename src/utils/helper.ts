@@ -8,7 +8,8 @@ import {
 } from "fs";
 import { join } from "path";
 
-import { tempPath } from "../config/paths";
+import { renderPath } from "../config/paths";
+import { Arguments } from "../interface/utils";
 
 /**
  * Create Random String
@@ -26,14 +27,14 @@ export const createRandomString = (size: number) =>
 export const getFolders = (path: string | null): string[] => {
   const files: string[] = readdirSync(path) ?? [];
 
-  const filesList = [];
+  const filesList: string[] = [];
 
   for (const file of files) {
     const index = parseInt(file.split("-")[0], 10);
     filesList[index] = file;
   }
 
-  return filesList;
+  return filesList.filter((item) => !item.includes(".json"));
 };
 
 /**
@@ -75,15 +76,15 @@ export const deleteFolder = (path: string) => {
  * Reset Temp folder for new process
  */
 export const resetTemp = async () => {
-  deleteFolder(tempPath);
-  mkdirSync(tempPath);
+  deleteFolder(renderPath);
+  mkdirSync(renderPath);
 };
 
 /**
  * Get Argument value
  * @param key Argument key
  */
-export const getArgument = (key: string) => {
+export const getArgument = (key: Arguments) => {
   let value: string | null = null;
 
   const args = process.argv

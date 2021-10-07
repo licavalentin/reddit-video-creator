@@ -35,6 +35,13 @@ const getAudioDuration = async (path: string): Promise<number> => {
   return new Promise((resolve) => {
     const ffprobePath = getArgument("FFPROBE");
 
+    // const ffmpegPath = getArgument("FFMPEG");
+
+    // ffmpeg -i file.mp4 2>&1 | grep Duration | sed 's/Duration: \(.*\), start/\1/g'
+    // return stdout.trim().split("Duration: ").join("").split(",")[0];
+
+    // const test = ["-i", path, "2>&1", "|", "grep", "Duration"];
+
     const params = [
       "-v",
       "error",

@@ -1,10 +1,11 @@
-import { cpus, tmpdir } from "os";
+import { cpus } from "os";
 import cluster from "cluster";
-import { readFileSync, mkdirSync } from "fs";
+import { readFileSync, mkdirSync, existsSync } from "fs";
 import { join } from "path";
 
 import slugify from "slugify";
 
+import { renderPath, tempPath } from "./config/paths";
 import { Post } from "./interface/reddit";
 import { Comment } from "./interface/video";
 
@@ -50,9 +51,11 @@ const getComments = async () => {
  */
 const createPost = async () => {
   try {
-    const tempPath = join(tmpdir(), "reddit-video-creator");
-
     if (cluster.isPrimary) {
+      if (!existsSync(tempPath)) {
+        return;
+      }
+
       await resetTemp();
 
       for (let index = 0; index < cpus().length; index++) {
@@ -83,7 +86,7 @@ const createPost = async () => {
 
           await mergeVideos(
             `${postTitle}-${randomString}`,
-            tempPath,
+            renderPath,
             exportPath
           );
         }
@@ -101,7 +104,7 @@ const createPost = async () => {
       const endIndex = startIndex + numOfComments;
       const listOfComments = comments.slice(startIndex, endIndex);
 
-      const folder = join(tempPath, `${index + 1}-${createRandomString(4)}`);
+      const folder = join(renderPath, `${index + 1}-${createRandomString(4)}`);
 
       mkdirSync(folder);
 

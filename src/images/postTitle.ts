@@ -3,7 +3,7 @@ import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import { tempPath } from "../config/paths";
+import { renderPath } from "../config/paths";
 import { commentDetails, imageDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 
@@ -124,7 +124,7 @@ export const createPostTitle = async ({
     );
 
     // Read text
-    const folderPath = join(tempPath, "0-post-title");
+    const folderPath = join(renderPath, "0-post-title");
 
     if (!existsSync(folderPath)) {
       mkdirSync(folderPath);
