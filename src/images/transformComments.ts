@@ -2,10 +2,10 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
+import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { Comment } from "../interface/video";
-import { getArgument } from "../utils/helper";
 
 /**
  * Fit comments to screen size
@@ -13,9 +13,6 @@ import { getArgument } from "../utils/helper";
  * @returns New list of comments
  */
 export const transformComments = async (comments: Comment[]) => {
-  const assetsPath = getArgument("ASSETS");
-  const fontPath = join(assetsPath, "font");
-
   // Load font
   const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
 

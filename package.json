@@ -5,10 +5,11 @@
   "main": "build/index.js",
   "bin": "build/index.js",
   "scripts": {
-    "build:app": "rm -rf build dist && tsc -p .",
+    "copy:assets": "cp -R src/assets src/data build",
+    "build:app": "rm -rf build dist && tsc -p . && npm run copy:assets",
     "build:exe": "rm -rf ./reddit-video-creator.exe && pkg .",
     "build": "npm run build:app && npm run build:exe",
-    "start": "npm run build:app && node ./build/index.js BALCON=./cli/balcon/balcon.exe FFMPEG=./cli/ffmpeg/ffmpeg.exe FFPROBE=./cli/ffmpeg/ffprobe.exe DATA=./data ASSETS=./assets POST=./data/post.json"
+    "start": "npm run build:app && node ./build/index.js BALCON=./cli/balcon/balcon.exe FFMPEG=./cli/ffmpeg/ffmpeg.exe FFPROBE=./cli/ffmpeg/ffprobe.exe POST=./data/post.json"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,10 @@
   },
   "pkg": {
     "scripts": "build/**/*.js",
+    "assets": [
+      "build/assets/**/*",
+      "build/data/**/*"
+    ],
     "targets": [
       "node16-win-x64"
     ],

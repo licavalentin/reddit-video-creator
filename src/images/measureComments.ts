@@ -2,10 +2,10 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
+import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { Comment } from "../interface/video";
-import { getArgument } from "../utils/helper";
 
 /**
  * Generate array of sentences from comment
@@ -42,9 +42,6 @@ const splitText = (text: string): string[] => {
  */
 export const measureComments = async (comments: Comment[]) => {
   try {
-    const assetsPath = getArgument("ASSETS");
-    const fontPath = join(assetsPath, "font");
-
     const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
 
     return comments.map((comment) => {

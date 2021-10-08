@@ -5,6 +5,8 @@
 //     awards: string[];
 //   },
 //   path: string
-// ) => {};
+// ) => {
+//   return;
+// };
 
 export {};

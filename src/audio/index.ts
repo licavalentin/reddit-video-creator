@@ -95,6 +95,8 @@ const generateAudio = (textPath: string, path: string): Promise<number> => {
 
         const duration = await getAudioDuration(path);
 
+        console.log("process-audio-done");
+
         resolve(duration);
       }
     );

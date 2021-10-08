@@ -23,7 +23,11 @@ import { createCommentImage } from "./images/image";
 import { generateVideo, mergeVideos } from "./video/index";
 import generateAudio from "./audio/index";
 
-const getComments = async () => {
+const getComments: (isMain?: boolean) => Promise<{
+  post: Post;
+  comments: Comment[][];
+  exportPath: string;
+}> = async (isMain = false) => {
   const {
     post,
     comments,
@@ -33,6 +37,17 @@ const getComments = async () => {
   );
 
   const measuredComments = await measureComments(comments);
+
+  if (isMain) {
+    let processCount: number = 0;
+
+    for (const comment of measuredComments) {
+      processCount += comment.text.length;
+    }
+
+    console.log(`total-processes=${processCount}`);
+    return;
+  }
 
   const transformedComments = await transformComments(measuredComments);
 
@@ -57,6 +72,8 @@ const createPost = async () => {
       }
 
       await resetTemp();
+
+      await getComments(true);
 
       for (let index = 0; index < cpus().length; index++) {
         cluster.fork();
@@ -89,10 +106,17 @@ const createPost = async () => {
             renderPath,
             exportPath
           );
+
+          console.log(
+            `process-done=${join(
+              exportPath,
+              `${postTitle}-${randomString}.mp4`
+            )}`
+          );
         }
       });
     } else {
-      const { comments } = await getComments();
+      const { comments } = await getComments(false);
 
       const leftComments = comments.length % cpus().length;
       const commentsPerCpu = Math.floor(comments.length / cpus().length);
@@ -132,6 +156,8 @@ const createPost = async () => {
         }
 
         await mergeVideos("video", folder, folder);
+
+        console.log("process-merge-done");
       }
 
       cluster.worker.kill();

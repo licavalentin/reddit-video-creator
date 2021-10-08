@@ -2,8 +2,8 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
+import { imagePath, fontPath } from "../config/paths";
 import { FontFace } from "../interface/image";
-import { getArgument } from "../utils/helper";
 
 /**
  * Generate voting image
@@ -15,10 +15,6 @@ export const generateVoting = async (
   width: number,
   voteCount: string | undefined
 ) => {
-  const assetsPath = getArgument("ASSETS");
-  const fontPath = join(assetsPath, "font");
-  const imagePath = join(assetsPath, "images");
-
   const arrowImage = await Jimp.read(join(imagePath, "arrow.png"));
   const arrowWidth = width - 30;
   const arrow = arrowImage.resize(arrowWidth, arrowWidth);

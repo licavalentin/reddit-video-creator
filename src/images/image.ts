@@ -3,11 +3,12 @@ import { writeFileSync, mkdirSync } from "fs";
 
 import Jimp from "jimp";
 
+import { fontPath, imagePath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { Comment } from "../interface/video";
 
-import { getFolders, createRandomString, getArgument } from "../utils/helper";
+import { getFolders, createRandomString } from "../utils/helper";
 
 /**
  * Generate images from comments
@@ -18,10 +19,6 @@ export const createCommentImage = async (
   inputPath: string
 ) => {
   try {
-    const assetsPath = getArgument("ASSETS");
-    const fontPath = join(assetsPath, "font");
-    const imagePath = join(assetsPath, "images");
-
     // Load Font
     const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
     const fontLight = await Jimp.loadFont(join(fontPath, FontFace.Light));
@@ -139,7 +136,7 @@ export const createCommentImage = async (
       writeFileSync(textPath, writtenText);
 
       // Write Image
-      console.log("Creating comment image", "action");
+      // console.log("Creating comment image", "action");
 
       // Create image file path
       const imagePath = join(folderPath, `image.jpg`);
@@ -148,9 +145,11 @@ export const createCommentImage = async (
       const base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
       writeFileSync(imagePath, base64Data, "base64");
 
-      console.log("Image created successfully", "success");
+      // console.log("Image created successfully", "success");
 
       await writeText(comment);
+
+      console.log("process-image-done");
     };
 
     for (const comment of comments) {

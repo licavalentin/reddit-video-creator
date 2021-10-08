@@ -1,0 +1,37 @@
+[]. Thumbnail
+    []. Create main text
+        []. Implement changing color of text given from ui
+        []. implement changing font size based on text length
+        []. Create folders where you can place different images for dynamically creating thumbnails
+            []. Require login if you like to post to youtube dinamicly and automatike
+    []. Implement author
+    []. implement thumbnail image
+    []. Implement post rewards
+
+
+[x]. Comments
+    [x]. Improve design 
+        []. Look up some designs you may find online and kinda create different themes ??
+    []. Find a way to \n text
+    []. censure curse words, by replacing words with a family friendly words but not losing its context
+    []. implement dynamic getting comments by analysing data
+        []. probably create kinda like an ai to dynamicly select data based on most common results
+
+
+[]. youtube
+    []. automatizoje postimin pas krijimit te videos
+
+[]. bug qe komentet dalin jasht ekrani
+[]. konvertoje te gjith logjiken e projektit ne exe me pkg
+    []. ke me te leht te implementosh authurization
+        []. ruaj noj file diku online ku te listosh user qe kan appin dhe emrin
+        []. nje file tjtr ku poston kerkes per me u shtu
+        []. per auth perdor hhd id dhe kjo do crytohet me ni kod dhe e qo ne server qe nese dikush e shikon ne network request nuk do kuptoje dote request 
+        https://workers.cloudflare.com/
+        []. Kill switch
+            []. krijo serverin dhe hostoji diku qe eshte live 24/7
+            []. npm i hddserial -  merr id e hdd dhe ruje ne server
+[]. https://github.com/libgdx/libgdx/wiki/Hiero shiko te implemtentosh ndryshimin e fontit
+[]. download ffmpeg nga google drive
+[]. 
+

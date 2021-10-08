@@ -3,14 +3,13 @@ import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import { renderPath } from "../config/paths";
+import { renderPath, dataPath, fontPath, assetsPath } from "../config/paths";
 import { commentDetails, imageDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 
 import { generateVoting } from "./voting";
 import generateAudio from "../audio/index";
 import { generateVideo } from "../video/index";
-import { getArgument } from "../utils/helper";
 
 /**
  * Create Video for Reddit post title
@@ -42,9 +41,6 @@ export const createPostTitle = async ({
 
     const voting = await generateVoting(80, points);
 
-    const assetsPath = getArgument("ASSETS");
-    const fontPath = join(assetsPath, "font");
-
     const font = await Jimp.loadFont(join(fontPath, FontFace.MediumTitle));
 
     const maxWidth = imageDetails.width - commentDetails.widthMargin;
@@ -71,8 +67,6 @@ export const createPostTitle = async ({
       userNameText,
       maxWidth
     );
-
-    const dataPath = getArgument("DATA");
 
     // Add post award images
     const awardsPath = join(assetsPath, "images", "reddit-awards");
@@ -126,21 +120,19 @@ export const createPostTitle = async ({
     // Read text
     const folderPath = join(renderPath, "0-post-title");
 
-    if (!existsSync(folderPath)) {
-      mkdirSync(folderPath);
-    }
+    mkdirSync(folderPath);
 
     const imagePath = join(folderPath, "image.jpg");
     const textPath = join(folderPath, "text.txt");
 
     // Write image
-    console.log("Creating post title image", "action");
+    // console.log("Creating post title image", "action");
 
     const base64 = await image.getBase64Async(Jimp.MIME_JPEG);
     const base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
     writeFileSync(imagePath, base64Data, "base64");
 
-    console.log("Image created successfully", "success");
+    // console.log("Image created successfully", "success");
 
     writeFileSync(textPath, title);
 
