@@ -135,12 +135,7 @@ const createPost = async () => {
 
           writeFileSync(dataFilePath, post.title);
 
-          console.log(
-            `process-done=${join(
-              postFolder,
-              `${postTitle}-${randomString}.mp4`
-            )}`
-          );
+          console.log(`process-done=${join(postFolder, `video.mp4`)}`);
         }
       });
     } else {
