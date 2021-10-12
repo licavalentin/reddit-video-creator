@@ -1,12 +1,13 @@
 import { cpus } from "os";
 import cluster from "cluster";
-import { readFileSync, mkdirSync, existsSync } from "fs";
+import { readFileSync, mkdirSync, existsSync, writeFileSync } from "fs";
 import { join } from "path";
 
 import slugify from "slugify";
 
 import { renderPath, tempPath } from "./config/paths";
 import { Post } from "./interface/reddit";
+import { Crop } from "./interface/image";
 import { Comment } from "./interface/video";
 
 import {
@@ -22,19 +23,28 @@ import { createPostTitle } from "./images/postTitle";
 import { createCommentImage } from "./images/image";
 import { generateVideo, mergeVideos } from "./video/index";
 import generateAudio from "./audio/index";
+import { generateThumbnail } from "./images/thumbnail";
 
 const getComments: (isMain?: boolean) => Promise<{
   post: Post;
   comments: Comment[][];
+  backgroundPath: string;
   exportPath: string;
+  cropDetails: Crop;
 }> = async (isMain = false) => {
   const {
     post,
     comments,
     exportPath,
-  }: { post: Post; comments: Comment[]; exportPath: string } = JSON.parse(
-    readFileSync(getArgument("POST")).toString()
-  );
+    backgroundPath,
+    cropDetails,
+  }: {
+    post: Post;
+    comments: Comment[];
+    exportPath: string;
+    backgroundPath: string;
+    cropDetails: Crop;
+  } = JSON.parse(readFileSync(getArgument("POST")).toString());
 
   const measuredComments = await measureComments(comments);
 
@@ -54,7 +64,9 @@ const getComments: (isMain?: boolean) => Promise<{
   return {
     post,
     comments: transformedComments,
+    backgroundPath,
     exportPath,
+    cropDetails,
   };
 };
 
@@ -85,7 +97,8 @@ const createPost = async () => {
         count--;
 
         if (count === 0) {
-          const { post, exportPath } = await getComments();
+          const { post, exportPath, backgroundPath, cropDetails } =
+            await getComments();
 
           await createPostTitle({
             awards: post.all_awardings.map((award) => award.name),
@@ -101,15 +114,30 @@ const createPost = async () => {
             strict: true,
           });
 
-          await mergeVideos(
-            `${postTitle}-${randomString}`,
-            renderPath,
-            exportPath
+          const postFolder = join(exportPath, `${postTitle}-${randomString}`);
+
+          mkdirSync(postFolder);
+
+          await mergeVideos(`video`, renderPath, postFolder);
+
+          await generateThumbnail(
+            {
+              title: post.title,
+              awards: post.all_awardings.map((award) => award.name),
+              subreddit: post.subreddit,
+            },
+            backgroundPath,
+            cropDetails,
+            postFolder
           );
+
+          const dataFilePath = join(postFolder, "data.txt");
+
+          writeFileSync(dataFilePath, post.title);
 
           console.log(
             `process-done=${join(
-              exportPath,
+              postFolder,
               `${postTitle}-${randomString}.mp4`
             )}`
           );

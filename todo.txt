@@ -35,3 +35,13 @@
 []. download ffmpeg nga google drive
 []. 
 
+
+Si te besh thumbnailin
+
+calculate max padding for container
+pastaj shto texktin e emrit te subbreddit bashk me 3 imazhe
+gjithashtu kalkulo dhe width ku duhet te jete teksti
+
+
+llop ne font te ndryshme ni sa te gjej te veten psh derisa height i textit te title te jet < se height i kutise
+

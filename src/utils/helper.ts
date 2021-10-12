@@ -82,7 +82,6 @@ export const resetTemp = async () => {
 
 /**
  * Get Argument value
- * @param key Argument key
  */
 export const getArgument = (key: Arguments) => {
   let value: string | null = null;
@@ -99,4 +98,11 @@ export const getArgument = (key: Arguments) => {
   }
 
   return value;
+};
+
+/**
+ * Get Aspect Ratio for images
+ */
+export const getAspectRatio = async (width: number, height: number) => {
+  return height == 0 ? width : getAspectRatio(height, width % height);
 };

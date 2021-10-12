@@ -7,8 +7,14 @@ const imageDetails = {
 const commentDetails = {
   margin: 50,
   indentation: 100,
-  heightMargin: 300,
+  heightMargin: 400,
   widthMargin: 400,
 };
 
-export { imageDetails, commentDetails };
+const thumbnailDetail = {
+  heightMargin: 60,
+  widthMargin: 50,
+  titleMargin: 0,
+};
+
+export { imageDetails, commentDetails, thumbnailDetail };

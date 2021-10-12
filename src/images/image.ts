@@ -133,20 +133,14 @@ export const createCommentImage = async (
       // Create text file path
       const textPath = join(folderPath, "text.txt");
       // Write text into file
-      writeFileSync(textPath, writtenText);
+      writeFileSync(textPath, writtenText.replace(/\W+/g, " "));
 
       // Write Image
-      // console.log("Creating comment image", "action");
-
       // Create image file path
       const imagePath = join(folderPath, `image.jpg`);
-
       const base64 = await image.getBase64Async(Jimp.MIME_JPEG);
       const base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
       writeFileSync(imagePath, base64Data, "base64");
-
-      // console.log("Image created successfully", "success");
-
       await writeText(comment);
 
       console.log("process-image-done");

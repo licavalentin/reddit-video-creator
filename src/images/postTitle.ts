@@ -134,7 +134,7 @@ export const createPostTitle = async ({
 
     // console.log("Image created successfully", "success");
 
-    writeFileSync(textPath, title);
+    writeFileSync(textPath, title.replace(/\W+/g, " "));
 
     const audioPath = join(folderPath, "audio.wav");
 
