@@ -7,11 +7,13 @@ import { getArgument } from "../utils/helper";
  * @returns List of voices
  */
 export const getVoices = async (): Promise<string[]> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const balconPath = getArgument("BALCON");
 
     execFile(balconPath, ["-l"], (error, stdout) => {
       if (error) {
+        console.log(error);
+
         throw error;
       }
 
@@ -32,7 +34,7 @@ export const getVoices = async (): Promise<string[]> => {
  * @returns Duration in milliseconds
  */
 const getAudioDuration = async (path: string): Promise<number> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const ffprobePath = getArgument("FFPROBE");
 
     // const ffmpegPath = getArgument("FFMPEG");
@@ -56,6 +58,7 @@ const getAudioDuration = async (path: string): Promise<number> => {
       [...params, path],
       async (error: any, stdout: any) => {
         if (error) {
+          console.log(error);
           throw error;
         }
 
@@ -90,6 +93,7 @@ const generateAudio = (textPath: string, path: string): Promise<number> => {
       ["-f", textPath, "-w", path, "-n", selectedVoice],
       async (error: any, stdout: any) => {
         if (error) {
+          console.log(error);
           throw error;
         }
 

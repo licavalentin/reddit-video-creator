@@ -12,7 +12,10 @@ import { Comment } from "../interface/video";
  * @param {string} text Comment text
  */
 const splitText = (text: string): string[] => {
-  const words = text.split(" ");
+  const words = text
+    .split(" ")
+    .map((t) => t.trim())
+    .filter((text) => text !== "");
 
   const sentences: string[] = [];
 

@@ -49,6 +49,8 @@ export const generateVideo = async (
       ],
       (error: any) => {
         if (error) {
+          console.log(error);
+
           // console.log("Video couldn't create successfully", "error");
           throw error;
         }
@@ -73,8 +75,6 @@ export const mergeVideos = async (
   inputPath: string,
   exportPath: string
 ) => {
-  // console.log("Merging Videos", "action");
-
   const folders = getFolders(inputPath);
 
   const outPutFilePath = join(exportPath, `${title}.mp4`);
@@ -88,7 +88,7 @@ export const mergeVideos = async (
   writeFileSync(listPath, videos.join(" \n"));
 
   const merge = () =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
       const ffmpegPath = getArgument("FFMPEG");
 
       execFile(
@@ -106,15 +106,20 @@ export const mergeVideos = async (
         ],
         (error) => {
           if (error) {
-            // console.log("Videos couldn't merge successfully", "error");
-            throw error;
+            console.log(error);
+
+            reject(error);
           }
 
-          // console.log("Videos merged successfully", "success");
           resolve(null);
         }
       );
     });
 
-  await merge();
+  try {
+    await merge();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
