@@ -28,7 +28,5 @@ dist
 build
 
 *.exe
-src/cli
-assets
 cli
-data
+post.json
