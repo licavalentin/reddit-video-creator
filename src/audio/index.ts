@@ -92,10 +92,10 @@ const generateAudio = (textPath: string, path: string): Promise<number> => {
       balconPath,
       ["-f", textPath, "-w", path, "-n", selectedVoice],
       async (error: any, stdout: any) => {
-        if (error) {
-          console.log(error);
-          throw error;
-        }
+        // if (error) {
+        //   console.log(error);
+        //   throw error;
+        // }
 
         const duration = await getAudioDuration(path);
 

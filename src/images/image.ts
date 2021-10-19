@@ -133,7 +133,10 @@ export const createCommentImage = async (
       // Create text file path
       const textPath = join(folderPath, "text.txt");
       // Write text into file
-      writeFileSync(textPath, writtenText.replace(/\W+/g, " "));
+      writeFileSync(
+        textPath,
+        writtenText.replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, "").replace(/\*/g, "")
+      );
 
       // Write Image
       // Create image file path

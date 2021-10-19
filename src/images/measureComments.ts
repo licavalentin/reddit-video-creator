@@ -1,6 +1,7 @@
 import { join } from "path";
 
 import Jimp from "jimp";
+import { decode } from "html-entities";
 
 import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
@@ -12,10 +13,24 @@ import { Comment } from "../interface/video";
  * @param {string} text Comment text
  */
 const splitText = (text: string): string[] => {
-  const words = text
+  const words = decode(
+    text
+      // Remove emoji
+      .replace(
+        /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+        ""
+      )
+      // Remove \n etc
+      .replace(/\r?\n|\r/g, " ")
+      // Remove url
+      .replace(/(?:https?|ftp):\/\/[\n\S]+/g, "")
+  )
     .split(" ")
-    .map((t) => t.trim())
-    .filter((text) => text !== "");
+    .filter((text) => text.trim() !== "");
+
+  if (words.length === 1) {
+    return words;
+  }
 
   const sentences: string[] = [];
 
@@ -32,7 +47,7 @@ const splitText = (text: string): string[] => {
   }
 
   if (sentence !== "") {
-    sentences.push(sentence);
+    sentences.push(sentence.trim());
   }
 
   return sentences;
@@ -47,27 +62,29 @@ export const measureComments = async (comments: Comment[]) => {
   try {
     const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
 
-    return comments.map((comment) => {
-      const commentWidth =
-        imageDetails.width -
-        commentDetails.widthMargin -
-        comment.indentation * commentDetails.indentation;
+    return comments
+      .map((comment) => {
+        const commentWidth =
+          imageDetails.width -
+          commentDetails.widthMargin -
+          comment.indentation * commentDetails.indentation;
 
-      const splittedComment = splitText(comment.text as string);
+        const splittedComment = splitText(comment.text as string);
 
-      const commentHeight = Jimp.measureTextHeight(
-        font,
-        splittedComment.join(" "),
-        commentWidth
-      );
+        const commentHeight = Jimp.measureTextHeight(
+          font,
+          splittedComment.join(" "),
+          commentWidth
+        );
 
-      return {
-        ...comment,
-        text: splittedComment,
-        width: commentWidth,
-        height: commentHeight,
-      };
-    });
+        return {
+          ...comment,
+          text: splittedComment,
+          width: commentWidth,
+          height: commentHeight,
+        };
+      })
+      .filter((c) => c.text.length !== 0);
   } catch (error) {
     throw error;
   }

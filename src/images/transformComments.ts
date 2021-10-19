@@ -22,7 +22,7 @@ export const transformComments = async (comments: Comment[]) => {
 
   const splitComments = (comment: Comment) => {
     for (let i = 0; i < (comment.text as string[]).length; i++) {
-      const sentence = (comment.text as string[]).slice(0, i !== 0 ? i : 1);
+      const sentence = (comment.text as string[]).slice(0, i + 1);
 
       const sentenceHeight =
         Jimp.measureTextHeight(
@@ -35,10 +35,7 @@ export const transformComments = async (comments: Comment[]) => {
         continue;
       }
 
-      const addedText = (comment.text as string[]).slice(
-        0,
-        i - 1 === 0 ? 1 : i - 1
-      );
+      const addedText = (comment.text as string[]).slice(0, i);
 
       const addedSentenceHeight = Jimp.measureTextHeight(
         font,
@@ -51,6 +48,9 @@ export const transformComments = async (comments: Comment[]) => {
         text: addedText,
         height: addedSentenceHeight,
       };
+
+      // if (addedComment.text.length !== 0) {
+      // }
 
       finalComments.push([...commentsTree, addedComment]);
       commentsTree = [];
@@ -101,21 +101,21 @@ export const transformComments = async (comments: Comment[]) => {
       continue;
     }
 
-    if (currentHeight < 0) {
-      splitComments(comment);
-
-      if (commentsTree.length > 0) {
-        finalComments.push(commentsTree);
-      }
-
-      continue;
-    }
-
     if (currentHeight === 0) {
       commentsTree.push(comment);
       finalComments.push(commentsTree);
       maxHeight = imageDetails.height - commentDetails.heightMargin;
       commentsTree = [];
+
+      continue;
+    }
+
+    if (currentHeight < 0) {
+      splitComments(comment);
+
+      // if (commentsTree.length > 0) {
+      //   finalComments.push(commentsTree);
+      // }
     }
   }
 

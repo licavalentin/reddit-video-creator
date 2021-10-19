@@ -1,6 +1,6 @@
 import { execFile } from "child_process";
 import { join } from "path";
-import { writeFileSync } from "fs";
+import { existsSync, writeFileSync } from "fs";
 
 import { getArgument, getFolders } from "../utils/helper";
 
@@ -81,9 +81,9 @@ export const mergeVideos = async (
 
   const listPath = join(inputPath, "list.txt");
 
-  const videos = folders.map(
-    (folder) => `file '${join(inputPath, folder, "video.mp4")}`
-  );
+  const videos = folders
+    .filter((folder) => existsSync(join(inputPath, folder, "video.mp4")))
+    .map((folder) => `file '${join(inputPath, folder, "video.mp4")}`);
 
   writeFileSync(listPath, videos.join(" \n"));
 

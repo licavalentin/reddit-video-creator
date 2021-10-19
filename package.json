@@ -9,11 +9,12 @@
     "build:app": "rm -rf build dist && tsc -p . && npm run copy:assets",
     "build:exe": "rm -rf ./reddit-video-creator.exe && pkg .",
     "build": "npm run build:app && npm run build:exe",
-    "start": "npm run build:app && node ./build/index.js BALCON=./cli/balcon/balcon.exe FFMPEG=./cli/ffmpeg/ffmpeg.exe FFPROBE=./cli/ffmpeg/ffprobe.exe POST=./data/post.json"
+    "start": "npm run build:app && node ./build/index.js BALCON=./cli/balcon/balcon.exe FFMPEG=./cli/ffmpeg/ffmpeg.exe FFPROBE=./cli/ffmpeg/ffprobe.exe POST=./post.json"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "html-entities": "^2.3.2",
     "jimp": "^0.16.1",
     "pkg": "^5.3.3",
     "slugify": "^1.6.1"
