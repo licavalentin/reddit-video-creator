@@ -99,14 +99,14 @@ export const generateThumbnail = async (
       image.composite(
         awardImage,
         textWith + thumbnailDetail.widthMargin + 50 + i * textHeight + i * 20,
-        thumbnailDetail.heightMargin - 20
+        thumbnailDetail.heightMargin
       );
     }
 
     // Print post title
     const maxHeight =
-      imageDetails.height - textHeight - thumbnailDetail.heightMargin;
-    const maxWidth = imageDetails.width - imageDetails.width / 3.5;
+      imageDetails.height - textHeight - thumbnailDetail.heightMargin - 50;
+    const maxWidth = imageDetails.width - imageDetails.width / 3;
 
     let selectedFont = null;
     let greenText = null;

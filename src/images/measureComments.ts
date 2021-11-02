@@ -34,23 +34,28 @@ const splitText = (text: string): string[] => {
 
   const sentences: string[] = [];
 
-  let sentence: string = "";
+  let sentence: string[] = [];
   for (const word of words) {
-    sentence += `${word} `;
+    sentence.push(word);
 
     const chars = [",", ".", "!", "?"];
 
-    if (chars.some((char) => word.includes(char)) || sentence.length > 90) {
-      sentences.push(sentence.trim());
-      sentence = "";
+    const mergedText = sentence.join(" ");
+
+    if (
+      (chars.some((char) => word.includes(char)) && mergedText.length > 30) ||
+      mergedText.length > 90
+    ) {
+      sentences.push(mergedText);
+      sentence = [];
     }
   }
 
-  if (sentence !== "") {
-    sentences.push(sentence.trim());
+  if (sentence.length !== 0) {
+    sentences.push(sentence.join(" "));
   }
 
-  return sentences;
+  return sentences.map((c) => c.trim());
 };
 
 /**
@@ -61,6 +66,14 @@ const splitText = (text: string): string[] => {
 export const measureComments = async (comments: Comment[]) => {
   try {
     const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
+    const fontLight = await Jimp.loadFont(join(fontPath, FontFace.Light));
+
+    const userNameText = `/y/Name`;
+    const userNameHeight = Jimp.measureTextHeight(
+      fontLight,
+      userNameText,
+      Jimp.measureText(fontLight, userNameText)
+    );
 
     return comments
       .map((comment) => {
@@ -71,11 +84,14 @@ export const measureComments = async (comments: Comment[]) => {
 
         const splittedComment = splitText(comment.text as string);
 
-        const commentHeight = Jimp.measureTextHeight(
-          font,
-          splittedComment.join(" "),
-          commentWidth
-        );
+        const commentHeight =
+          Jimp.measureTextHeight(
+            font,
+            splittedComment.join(" "),
+            commentWidth
+          ) +
+          userNameHeight +
+          commentDetails.margin;
 
         return {
           ...comment,

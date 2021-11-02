@@ -4,6 +4,8 @@ export interface Comment {
   height?: number;
   indentation: number;
   userName: string;
+  score: number;
+  created_utc: number;
 }
 
 export interface VideoDetails {

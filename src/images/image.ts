@@ -3,12 +3,13 @@ import { writeFileSync, mkdirSync } from "fs";
 
 import Jimp from "jimp";
 
-import { fontPath, imagePath } from "../config/paths";
+import { assetsPath, fontPath, imagePath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { Comment } from "../interface/video";
 
-import { getFolders, createRandomString } from "../utils/helper";
+import { getFolders, createRandomString, roundUp } from "../utils/helper";
+import { generateAvatar } from "./avatar";
 
 /**
  * Generate images from comments
@@ -26,10 +27,21 @@ export const createCommentImage = async (
       join(imagePath, "comment-line.png")
     );
 
+    const avatarWidth = 70;
+    const avatars: {
+      added: boolean;
+      avatar: Jimp;
+    }[] = [];
+
     // All comments height combined
     let totalHeight = commentDetails.margin;
     for (const comment of comments) {
-      totalHeight += (comment.height as number) + commentDetails.margin;
+      totalHeight += comment.height as number;
+
+      avatars.push({
+        added: false,
+        avatar: await generateAvatar(avatarWidth),
+      });
     }
 
     // Create new instance of an image
@@ -45,28 +57,89 @@ export const createCommentImage = async (
     let addedText: string;
 
     // Write comments and create image
-    const writeText = async (comment: Comment) => {
+    const writeText = async (comment: Comment, index) => {
       // Text X start coordinate
       const textX =
         (comment.indentation as number) * commentDetails.indentation +
         commentDetails.widthMargin / 2;
 
-      // Write username
-      const userNameText = `/u/${comment.userName}`;
-      const userNameWidth = Jimp.measureText(fontLight, userNameText);
-      const userNameHeight = Jimp.measureTextHeight(
-        fontLight,
-        userNameText,
-        userNameWidth
-      );
+      // Composite Avatar and Write User Name
+      if (avatars[index] && !avatars[index].added) {
+        // Write username
+        const userNameText = `/u/${comment.userName}`;
+        const userNameWidth = Jimp.measureText(fontLight, userNameText);
+        const userNameHeight = Jimp.measureTextHeight(
+          fontLight,
+          userNameText,
+          userNameWidth
+        );
 
-      // Print username
-      image.print(
-        fontLight,
-        textX,
-        currentHeight - userNameHeight,
-        userNameText
-      );
+        // Print username
+        image.print(
+          fontLight,
+          textX,
+          currentHeight - userNameHeight,
+          userNameText
+        );
+
+        image.composite(
+          avatars[index].avatar,
+          textX - avatarWidth - 10,
+          currentHeight - userNameHeight - avatarWidth / 2 + 5
+        );
+
+        const upsArrow = await Jimp.read(
+          join(assetsPath, "images", "ups-arrow.png")
+        );
+        upsArrow.resize(Jimp.AUTO, userNameHeight - 10);
+        const upsArrowWidth = upsArrow.getWidth();
+
+        image.composite(
+          upsArrow,
+          textX + userNameWidth + 20,
+          currentHeight - userNameHeight + 5
+        );
+
+        const commentScore = roundUp(comment.score);
+        const scoreWidth = Jimp.measureText(fontLight, commentScore);
+
+        image.print(
+          fontLight,
+          textX + userNameWidth + 20 + upsArrowWidth + 10,
+          currentHeight - userNameHeight,
+          commentScore
+        );
+
+        const clock = await Jimp.read(join(assetsPath, "images", "clock.png"));
+        clock.resize(Jimp.AUTO, userNameHeight - 10);
+        const clockWidth = clock.getWidth();
+
+        image.composite(
+          clock,
+          textX + userNameWidth + 20 + upsArrowWidth + 10 + scoreWidth + 20,
+          currentHeight - userNameHeight + 5
+        );
+
+        const newClock = new Date(
+          comment.created_utc * 1000
+        ).toLocaleDateString("en-US");
+        image.print(
+          fontLight,
+          textX +
+            userNameWidth +
+            20 +
+            upsArrowWidth +
+            10 +
+            scoreWidth +
+            20 +
+            clockWidth +
+            10,
+          currentHeight - userNameHeight,
+          newClock
+        );
+
+        avatars[index].added = true;
+      }
 
       // Write completed comment paragraph
       if (typeof comment.text === "string") {
@@ -74,11 +147,11 @@ export const createCommentImage = async (
         image.print(font, textX, currentHeight, comment.text, comment.width);
 
         // Composite indentation line
-        indentationLine.resize(5, comment.height as number);
-        image.composite(indentationLine, textX - 20, currentHeight);
+        // indentationLine.resize(5, comment.height as number);
+        // image.composite(indentationLine, textX - 20, currentHeight);
 
         // Lower X by removing height of the paragraph combined with authors height
-        currentHeight += (comment.height as number) + commentDetails.margin;
+        currentHeight += comment.height as number;
 
         // Comments writing is completed continue with the next comment in list
         return;
@@ -135,7 +208,9 @@ export const createCommentImage = async (
       // Write text into file
       writeFileSync(
         textPath,
-        writtenText.replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, "").replace(/\*/g, "")
+        writtenText
+          // .replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, "")
+          .replace(/\*/g, "")
       );
 
       // Write Image
@@ -144,13 +219,16 @@ export const createCommentImage = async (
       const base64 = await image.getBase64Async(Jimp.MIME_JPEG);
       const base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
       writeFileSync(imagePath, base64Data, "base64");
-      await writeText(comment);
+
+      await writeText(comment, index);
 
       console.log("process-image-done");
     };
 
-    for (const comment of comments) {
-      await writeText(comment);
+    for (let index = 0; index < comments.length; index++) {
+      const comment = comments[index];
+
+      await writeText(comment, index);
     }
   } catch (err) {
     console.log(err);

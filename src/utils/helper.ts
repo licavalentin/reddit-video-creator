@@ -106,3 +106,12 @@ export const getArgument = (key: Arguments) => {
 export const getAspectRatio = async (width: number, height: number) => {
   return height == 0 ? width : getAspectRatio(height, width % height);
 };
+
+/**
+ * Convert sentence to time
+ * @param sentence Sentence to convert number
+ */
+export const countWords = (sentence: string): number => {
+  const words = sentence.split(" ");
+  return parseFloat((words.length / 170).toFixed(1).replace(".0", ""));
+};

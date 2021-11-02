@@ -3,7 +3,7 @@ import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import { renderPath, dataPath, fontPath, assetsPath } from "../config/paths";
+import { dataPath, fontPath, assetsPath } from "../config/paths";
 import { commentDetails, imageDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 
@@ -26,11 +26,13 @@ export const createPostTitle = async ({
   userName,
   points,
   awards,
+  exportPath,
 }: {
   title: string;
   userName: string;
   points: string;
   awards: string[];
+  exportPath: string;
 }) => {
   try {
     const image = new Jimp(
@@ -118,7 +120,7 @@ export const createPostTitle = async ({
     );
 
     // Read text
-    const folderPath = join(renderPath, "0-post-title");
+    const folderPath = join(exportPath, "0-post-title");
 
     mkdirSync(folderPath);
 

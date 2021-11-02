@@ -16,10 +16,10 @@ export const generateVoting = async (
   voteCount: string | undefined
 ) => {
   const arrowImage = await Jimp.read(join(imagePath, "arrow.png"));
-  const arrowWidth = width - 30;
-  const arrow = arrowImage.resize(arrowWidth, arrowWidth);
+  const arrowSize = width - 30;
+  const arrow = arrowImage.resize(arrowSize, arrowSize);
 
-  const imageHeight = width * 2 + (voteCount ? 50 : 10);
+  const imageHeight = arrowSize * 2 + (voteCount ? 70 : 30);
 
   const image = new Jimp(width, imageHeight);
 
@@ -32,15 +32,15 @@ export const generateVoting = async (
     image.print(
       font,
       (width - textWidth) / 2,
-      imageHeight / 2 - textHeight,
+      imageHeight / 2 - textHeight / 2,
       voteCount
     );
   }
 
-  image.composite(arrow, (width - arrowWidth) / 2, 0);
+  image.composite(arrow, (width - arrowSize) / 2, 0);
 
   const downArrow = arrow.rotate(180);
-  image.composite(downArrow, (width - arrowWidth) / 2, imageHeight - width);
+  image.composite(downArrow, (width - arrowSize) / 2, imageHeight - arrowSize);
 
   return image;
 };

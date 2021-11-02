@@ -64,7 +64,11 @@ const getAudioDuration = async (path: string): Promise<number> => {
 
         const matched = stdout.match(/duration="?(\d*\.\d*)"?/);
 
-        if (matched && matched[1]) resolve(parseFloat(matched[1]));
+        if (matched && matched[1]) {
+          resolve(parseFloat(matched[1]));
+        } else {
+          resolve(0.1);
+        }
       }
     );
   });
@@ -94,7 +98,7 @@ const generateAudio = (textPath: string, path: string): Promise<number> => {
       async (error: any, stdout: any) => {
         // if (error) {
         //   console.log(error);
-        //   throw error;
+        //   // throw error;
         // }
 
         const duration = await getAudioDuration(path);

@@ -15,6 +15,14 @@ import { Comment } from "../interface/video";
 export const transformComments = async (comments: Comment[]) => {
   // Load font
   const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
+  const fontLight = await Jimp.loadFont(join(fontPath, FontFace.Light));
+
+  const userNameText = `/y/Name`;
+  const userNameHeight = Jimp.measureTextHeight(
+    fontLight,
+    userNameText,
+    Jimp.measureText(fontLight, userNameText)
+  );
 
   let maxHeight = imageDetails.height - commentDetails.heightMargin;
   const finalComments: Comment[][] = [];
@@ -29,7 +37,9 @@ export const transformComments = async (comments: Comment[]) => {
           font,
           sentence.join(" "),
           comment.width as number
-        ) + commentDetails.margin;
+        ) +
+        commentDetails.margin +
+        userNameHeight;
 
       if (maxHeight - sentenceHeight > 0) {
         continue;
@@ -37,11 +47,14 @@ export const transformComments = async (comments: Comment[]) => {
 
       const addedText = (comment.text as string[]).slice(0, i);
 
-      const addedSentenceHeight = Jimp.measureTextHeight(
-        font,
-        addedText.join(" "),
-        comment.width as number
-      );
+      const addedSentenceHeight =
+        Jimp.measureTextHeight(
+          font,
+          addedText.join(" "),
+          comment.width as number
+        ) +
+        userNameHeight +
+        commentDetails.margin;
 
       const addedComment = {
         ...comment,
@@ -49,20 +62,19 @@ export const transformComments = async (comments: Comment[]) => {
         height: addedSentenceHeight,
       };
 
-      // if (addedComment.text.length !== 0) {
-      // }
-
       finalComments.push([...commentsTree, addedComment]);
       commentsTree = [];
       maxHeight = imageDetails.height - commentDetails.heightMargin;
 
       const leftText = (comment.text as string[]).slice(i);
-
-      const leftSentenceHeight = Jimp.measureTextHeight(
-        font,
-        leftText.join(" "),
-        comment.width as number
-      );
+      const leftSentenceHeight =
+        Jimp.measureTextHeight(
+          font,
+          leftText.join(" "),
+          comment.width as number
+        ) +
+        commentDetails.margin +
+        userNameHeight;
 
       const leftComment = {
         ...comment,
@@ -70,15 +82,14 @@ export const transformComments = async (comments: Comment[]) => {
         height: leftSentenceHeight,
       };
 
-      const leftCommentHeight = leftSentenceHeight + commentDetails.margin;
-
-      if (maxHeight - leftCommentHeight < 0) {
+      if (maxHeight - leftSentenceHeight < 0) {
         splitComments(leftComment);
       } else {
         commentsTree.push(leftComment);
-        maxHeight -= leftCommentHeight;
-        break;
+        maxHeight -= leftSentenceHeight;
       }
+
+      break;
     }
   };
 
@@ -92,8 +103,7 @@ export const transformComments = async (comments: Comment[]) => {
       maxHeight = imageDetails.height - commentDetails.heightMargin;
     }
 
-    const currentHeight =
-      maxHeight - (comment.height as number) - commentDetails.margin;
+    const currentHeight = maxHeight - (comment.height as number);
 
     if (currentHeight > 0) {
       commentsTree.push(comment);
@@ -102,20 +112,14 @@ export const transformComments = async (comments: Comment[]) => {
     }
 
     if (currentHeight === 0) {
-      commentsTree.push(comment);
-      finalComments.push(commentsTree);
       maxHeight = imageDetails.height - commentDetails.heightMargin;
+      finalComments.push([...commentsTree, comment]);
       commentsTree = [];
-
       continue;
     }
 
     if (currentHeight < 0) {
       splitComments(comment);
-
-      // if (commentsTree.length > 0) {
-      //   finalComments.push(commentsTree);
-      // }
     }
   }
 
