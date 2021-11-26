@@ -43,7 +43,9 @@ export const createPostTitle = async ({
 
     const voting = await generateVoting(80, points);
 
-    const font = await Jimp.loadFont(join(fontPath, FontFace.MediumTitle));
+    const font = await Jimp.loadFont(
+      join(fontPath, "title", FontFace.PostTitle)
+    );
 
     const maxWidth = imageDetails.width - commentDetails.widthMargin;
     const titleHeight = Jimp.measureTextHeight(font, title, maxWidth);
@@ -58,9 +60,16 @@ export const createPostTitle = async ({
     );
 
     // Print post username
-    const userNameText = `Posted by /u/${userName}`;
-    const smallFont = await Jimp.loadFont(join(fontPath, FontFace.Medium));
+    const userNameText = `Posted by ${userName}`;
+    const smallFont = await Jimp.loadFont(
+      join(fontPath, "comments", FontFace.Username)
+    );
     const usernameWidth = Jimp.measureText(smallFont, userNameText);
+    const usernameHeight = Jimp.measureTextHeight(
+      smallFont,
+      userNameText,
+      usernameWidth + 10
+    );
 
     image.print(
       smallFont,
@@ -103,11 +112,11 @@ export const createPostTitle = async ({
         join(awardsPath, awardImagePath)
       );
 
-      awardImage.resize(32, 32);
+      awardImage.resize(Jimp.AUTO, usernameHeight);
 
       image.composite(
         awardImage,
-        (imageDetails.width - maxWidth) / 2 + 70 + usernameWidth + i * 40,
+        (imageDetails.width - maxWidth) / 2 + 70 + usernameWidth + i * 45,
         (imageDetails.height - titleHeight) / 2 - 50 + 5
       );
     }
@@ -136,7 +145,7 @@ export const createPostTitle = async ({
 
     // console.log("Image created successfully", "success");
 
-    writeFileSync(textPath, title.replace(/\W+/g, " "));
+    writeFileSync(textPath, title);
 
     const audioPath = join(folderPath, "audio.wav");
 

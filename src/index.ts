@@ -3,8 +3,6 @@ import cluster from "cluster";
 import { mkdirSync, existsSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import slugify from "slugify";
-
 import { renderPath, tempPath } from "./config/paths";
 
 import {
@@ -12,6 +10,7 @@ import {
   createRandomString,
   getFolders,
   roundUp,
+  slugify,
 } from "./utils/helper";
 import { getComments } from "./utils/getComments";
 import { createPostTitle } from "./images/postTitle";
@@ -22,22 +21,9 @@ import { generateThumbnail } from "./images/thumbnail";
 import { generateShorts } from "./images/shorts";
 
 const test = async () => {
-  const { post, exportPath, backgroundPath, cropDetails } = await getComments();
+  const { post, exportPath } = await getComments();
 
-  // const postFolder = join(exportPath, `${postTitle}-${randomString}`);
-
-  // mkdirSync(postFolder);
-
-  await generateThumbnail(
-    {
-      title: post.title,
-      awards: post.all_awardings.map((award) => award.name),
-      subreddit: post.subreddit,
-    },
-    backgroundPath,
-    cropDetails,
-    exportPath
-  );
+  await mergeVideos("video", renderPath, exportPath);
 };
 
 /**
@@ -68,8 +54,7 @@ const createPost = async () => {
         count--;
 
         if (count === 0) {
-          const { post, exportPath, backgroundPath, cropDetails } =
-            await getComments();
+          const { post, exportPath } = await getComments();
 
           await createPostTitle({
             awards: post.all_awardings.map((award) => award.name),
@@ -80,34 +65,38 @@ const createPost = async () => {
           });
 
           const randomString = createRandomString(3);
-          const postTitle = slugify(post.title, {
-            remove: /[*+~.()'"?!:@]/g,
-            lower: true,
-            strict: true,
-          });
+          const postTitle = post.title
+            .toLocaleLowerCase()
+            .split(" ")
+            .join("-")
+            .split("")
+            .filter((_, index) => index < 10)
+            .join("");
 
           const postFolder = join(exportPath, `${postTitle}-${randomString}`);
 
           mkdirSync(postFolder);
 
-          await mergeVideos(`video`, renderPath, postFolder);
+          const filePath = slugify(post.title);
 
-          await generateThumbnail(
-            {
-              title: post.title,
-              awards: post.all_awardings.map((award) => award.name),
-              subreddit: post.subreddit,
-            },
-            backgroundPath,
-            cropDetails,
-            postFolder
-          );
+          await mergeVideos(filePath, renderPath, postFolder);
+
+          // await generateThumbnail(
+          //   {
+          //     title: post.title,
+          //     awards: post.all_awardings.map((award) => award.name),
+          //     subreddit: post.subreddit,
+          //   },
+          //   backgroundPath,
+          //   cropDetails,
+          //   postFolder
+          // );
+
+          await generateShorts(0.8, postFolder);
 
           writeFileSync(join(postFolder, "data.txt"), post.title);
 
-          await generateShorts(1, postFolder);
-
-          console.log(`process-done=${join(postFolder, `video.mp4`)}`);
+          console.log(`process-done=${join(postFolder, `${filePath}.mp4`)}`);
         }
       });
     } else {

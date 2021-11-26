@@ -65,14 +65,18 @@ const splitText = (text: string): string[] => {
  */
 export const measureComments = async (comments: Comment[]) => {
   try {
-    const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
-    const fontLight = await Jimp.loadFont(join(fontPath, FontFace.Light));
+    const font = await Jimp.loadFont(
+      join(fontPath, "comments", FontFace.Comment)
+    );
+    const fontBold = await Jimp.loadFont(
+      join(fontPath, "comments", FontFace.Username)
+    );
 
     const userNameText = `/y/Name`;
     const userNameHeight = Jimp.measureTextHeight(
-      fontLight,
+      fontBold,
       userNameText,
-      Jimp.measureText(fontLight, userNameText)
+      Jimp.measureText(fontBold, userNameText)
     );
 
     return comments

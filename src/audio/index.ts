@@ -94,7 +94,19 @@ const generateAudio = (textPath: string, path: string): Promise<number> => {
 
     execFile(
       balconPath,
-      ["-f", textPath, "-w", path, "-n", selectedVoice],
+      [
+        "-f",
+        textPath,
+        "-w",
+        path,
+        "-n",
+        selectedVoice,
+        "--encoding",
+        "utf8",
+        "-fr",
+        "48",
+        "--ignore-url",
+      ],
       async (error: any, stdout: any) => {
         // if (error) {
         //   console.log(error);

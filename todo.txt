@@ -1,0 +1,9 @@
+[]. Add background music
+[]. Add time delay between comment
+[]. Filter bad words
+[]. Fix \n 
+[]. Thumbnail
+    []. Implement new thumbnail or improve current
+[]. Generate complete audio for comment
+[]. Video 
+    []. Improve design

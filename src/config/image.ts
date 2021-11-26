@@ -1,13 +1,13 @@
 const imageDetails = {
   width: 1920,
   height: 1080,
-  background: "#121112",
+  background: "#15161c",
 };
 
 const commentDetails = {
   margin: 50,
   indentation: 100,
-  heightMargin: 400,
+  heightMargin: 100,
   widthMargin: 400,
 };
 

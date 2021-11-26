@@ -14,14 +14,18 @@ import { Comment } from "../interface/video";
  */
 export const transformComments = async (comments: Comment[]) => {
   // Load font
-  const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
-  const fontLight = await Jimp.loadFont(join(fontPath, FontFace.Light));
+  const font = await Jimp.loadFont(
+    join(fontPath, "comments", FontFace.Comment)
+  );
+  const fontBold = await Jimp.loadFont(
+    join(fontPath, "comments", FontFace.Username)
+  );
 
   const userNameText = `/y/Name`;
   const userNameHeight = Jimp.measureTextHeight(
-    fontLight,
+    fontBold,
     userNameText,
-    Jimp.measureText(fontLight, userNameText)
+    Jimp.measureText(fontBold, userNameText)
   );
 
   let maxHeight = imageDetails.height - commentDetails.heightMargin;

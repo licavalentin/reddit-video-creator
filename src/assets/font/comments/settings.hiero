@@ -1,0 +1,27 @@
+font.name=Arial
+font.size=60
+font.bold=false
+font.italic=false
+font.gamma=1.8
+font.mono=false
+
+font2.file=C:\Users\licav\Desktop\rubik\Rubik-Regular.ttf
+font2.use=true
+
+pad.top=0
+pad.right=1
+pad.bottom=0
+pad.left=1
+pad.advance.x=-2
+pad.advance.y=-2
+
+glyph.native.rendering=false
+glyph.page.width=512
+glyph.page.height=512
+glyph.text=Did you put that rotten \nfucker in jail?
+
+render_type=0
+
+effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ColorEffect
+effect.Color=ffffff
+

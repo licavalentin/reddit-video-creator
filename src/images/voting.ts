@@ -23,7 +23,9 @@ export const generateVoting = async (
 
   const image = new Jimp(width, imageHeight);
 
-  const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
+  const font = await Jimp.loadFont(
+    join(fontPath, "comments", FontFace.Username)
+  );
 
   if (voteCount) {
     const textWidth = Jimp.measureText(font, voteCount);

@@ -21,8 +21,12 @@ export const createCommentImage = async (
 ) => {
   try {
     // Load Font
-    const font = await Jimp.loadFont(join(fontPath, FontFace.Medium));
-    const fontLight = await Jimp.loadFont(join(fontPath, FontFace.Light));
+    const font = await Jimp.loadFont(
+      join(fontPath, "comments", FontFace.Comment)
+    );
+    const fontBold = await Jimp.loadFont(
+      join(fontPath, "comments", FontFace.Username)
+    );
     const indentationLine = await Jimp.read(
       join(imagePath, "comment-line.png")
     );
@@ -34,7 +38,7 @@ export const createCommentImage = async (
     }[] = [];
 
     // All comments height combined
-    let totalHeight = commentDetails.margin;
+    let totalHeight = 0;
     for (const comment of comments) {
       totalHeight += comment.height as number;
 
@@ -52,7 +56,7 @@ export const createCommentImage = async (
     );
 
     // X coordinate to start writing text
-    let currentHeight = (imageDetails.height - totalHeight) / 2;
+    let currentHeight = (imageDetails.height - totalHeight) / 2 + 80;
 
     let addedText: string;
 
@@ -66,65 +70,64 @@ export const createCommentImage = async (
       // Composite Avatar and Write User Name
       if (avatars[index] && !avatars[index].added) {
         // Write username
-        const userNameText = `/u/${comment.userName}`;
-        const userNameWidth = Jimp.measureText(fontLight, userNameText);
+        const userNameWidth = Jimp.measureText(fontBold, comment.userName);
         const userNameHeight = Jimp.measureTextHeight(
-          fontLight,
-          userNameText,
+          fontBold,
+          comment.userName,
           userNameWidth
         );
 
         // Print username
         image.print(
-          fontLight,
+          fontBold,
           textX,
           currentHeight - userNameHeight,
-          userNameText
+          comment.userName
         );
 
         image.composite(
           avatars[index].avatar,
           textX - avatarWidth - 10,
-          currentHeight - userNameHeight - avatarWidth / 2 + 5
+          currentHeight - userNameHeight - avatarWidth + 25
         );
 
         const upsArrow = await Jimp.read(
           join(assetsPath, "images", "ups-arrow.png")
         );
-        upsArrow.resize(Jimp.AUTO, userNameHeight - 10);
+        upsArrow.resize(Jimp.AUTO, userNameHeight - 5);
         const upsArrowWidth = upsArrow.getWidth();
 
         image.composite(
           upsArrow,
           textX + userNameWidth + 20,
-          currentHeight - userNameHeight + 5
+          currentHeight - userNameHeight + 3
         );
 
         const commentScore = roundUp(comment.score);
-        const scoreWidth = Jimp.measureText(fontLight, commentScore);
+        const scoreWidth = Jimp.measureText(font, commentScore);
 
         image.print(
-          fontLight,
+          font,
           textX + userNameWidth + 20 + upsArrowWidth + 10,
           currentHeight - userNameHeight,
           commentScore
         );
 
         const clock = await Jimp.read(join(assetsPath, "images", "clock.png"));
-        clock.resize(Jimp.AUTO, userNameHeight - 10);
+        clock.resize(Jimp.AUTO, userNameHeight - 5);
         const clockWidth = clock.getWidth();
 
         image.composite(
           clock,
           textX + userNameWidth + 20 + upsArrowWidth + 10 + scoreWidth + 20,
-          currentHeight - userNameHeight + 5
+          currentHeight - userNameHeight + 3
         );
 
         const newClock = new Date(
           comment.created_utc * 1000
         ).toLocaleDateString("en-US");
         image.print(
-          fontLight,
+          font,
           textX +
             userNameWidth +
             20 +
@@ -175,8 +178,8 @@ export const createCommentImage = async (
       );
 
       // Composite indentation line
-      indentationLine.resize(5, textHeight);
-      image.composite(indentationLine, textX - 20, currentHeight);
+      indentationLine.resize(8, textHeight - 25);
+      image.composite(indentationLine, textX - 50, currentHeight + 20);
 
       // const mergedText = comment.text.slice(0, 2).join(" ");
 

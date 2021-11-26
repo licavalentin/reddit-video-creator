@@ -115,3 +115,18 @@ export const countWords = (sentence: string): number => {
   const words = sentence.split(" ");
   return parseFloat((words.length / 170).toFixed(1).replace(".0", ""));
 };
+
+/**
+ * Slugify post title to file
+ * @param title File title
+ * @returns Slugifyed title
+ */
+export const slugify = (title: string) => {
+  const illegalLetter = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"];
+
+  for (const letter of illegalLetter) {
+    title = title.split(letter).join("");
+  }
+
+  return `${title} reddit askreddit storytimes`;
+};

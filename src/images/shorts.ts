@@ -6,7 +6,7 @@ import { commentDetails, imageDetails } from "../config/image";
 import { Comment } from "../interface/video";
 
 import { getComments } from "../utils/getComments";
-import { countWords, getFolders, roundUp } from "../utils/helper";
+import { countWords, getFolders, roundUp, slugify } from "../utils/helper";
 import { createCommentImage } from "../images/image";
 import generateAudio from "../audio";
 import { generateVideo, mergeVideos } from "../video";
@@ -14,11 +14,14 @@ import { createPostTitle } from "./postTitle";
 
 type GenerateShorts = (time: number, exportPath: string) => Promise<void>;
 
-export const generateShorts: GenerateShorts = async (time = 1, exportPath) => {
+export const generateShorts: GenerateShorts = async (
+  time = 0.8,
+  exportPath
+) => {
   imageDetails.width = 1080;
   imageDetails.height = 1920;
-  commentDetails.margin = 30;
-  commentDetails.indentation = 70;
+  commentDetails.margin = 50;
+  commentDetails.indentation = 50;
   commentDetails.widthMargin = 300;
 
   const { comments, post } = await getComments();
@@ -80,5 +83,5 @@ export const generateShorts: GenerateShorts = async (time = 1, exportPath) => {
     }
   }
 
-  await mergeVideos("short", shortsPath, exportPath);
+  await mergeVideos(`${slugify(post.title)} short`, shortsPath, exportPath);
 };
