@@ -5,11 +5,15 @@ import {
   rmdirSync,
   unlinkSync,
   lstatSync,
+  readFileSync,
 } from "fs";
 import { join } from "path";
 
-import { renderPath } from "../config/paths";
+import { renderPath, imagePath } from "../config/paths";
+
+import { Comment, PostFile } from "interface/post";
 import { Arguments } from "../interface/utils";
+import { Subtitle } from "interface/audio";
 
 /**
  * Create Random String
@@ -119,14 +123,188 @@ export const countWords = (sentence: string): number => {
 /**
  * Slugify post title to file
  * @param title File title
- * @returns Slugifyed title
+ * @param short If its
+ * @returns File title
  */
-export const slugify = (title: string) => {
+export const slugify = (title: string, short?: boolean) => {
   const illegalLetter = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"];
 
   for (const letter of illegalLetter) {
     title = title.split(letter).join("");
   }
 
-  return `${title} reddit askreddit storytimes`;
+  return `${title} reddit askreddit storytime ${short ? "#short" : ""}`;
+};
+
+/**
+ * Parse Subtitle Time Format 00:00:00,1
+ * @param time Time
+ * @returns {number} Duration in seconds
+ */
+const parseTime = (time: string): number => {
+  const timer = time.split(":");
+  let timeCount = 0;
+
+  for (let i = 0; i < timer.length; i++) {
+    const time = timer[i];
+
+    switch (i) {
+      case 0:
+        timeCount += Number(time) * 3600; // Hours
+        break;
+
+      case 1:
+        timeCount += Number(time) * 60; // Minutes
+        break;
+
+      case 2:
+        timeCount += parseFloat(time.replace(",", ".")); // Seconds
+        break;
+    }
+  }
+
+  return timeCount;
+};
+
+/**
+ * Convert Subtitle into Array
+ * @param subtitlePath Subtitle Path
+ * @returns
+ */
+export const getSubtitles = (subtitlePath: string) => {
+  const subtitle = readFileSync(subtitlePath).toString();
+  const arr = subtitle
+    .trim()
+    .split("\r\n")
+    .filter((e) => e !== "");
+
+  let index = 0;
+  const finalArr: Subtitle[] = [];
+
+  let item: Subtitle = {
+    time: {
+      start: "0",
+      end: "0",
+      duration: 2,
+    },
+    content: "",
+  };
+
+  for (let i = 0; i < arr.length; i++) {
+    const text = arr[i];
+
+    switch (index) {
+      case 0:
+        index++;
+        break;
+      case 1:
+        const time = text.split("-->").map((e) => e.trim());
+
+        item.time = {
+          start: time[0].replace(",", "."),
+          end: time[1].replace(",", "."),
+          duration: Number(
+            (parseTime(time[1]) - parseTime(time[0])).toFixed(2)
+          ),
+        };
+
+        index++;
+        break;
+      case 2:
+        item.content = text;
+        finalArr.push(item);
+        index = 0;
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  return finalArr;
+};
+
+/**
+ * Get Post data
+ */
+export const getPost = () => {
+  const { post, comments, exportPath }: PostFile = JSON.parse(
+    readFileSync(getArgument("POST")).toString()
+  );
+
+  return {
+    post,
+    comments,
+    exportPath,
+  };
+};
+
+/**
+ * Split Comment by Depth
+ */
+export const splitByDepth = (commentsList: Comment[]) => {
+  const comments: Comment[][] = [];
+  const commentGroup: Comment[] = [];
+
+  for (const comment of commentsList) {
+    if (comment.depth === 0 && commentGroup.length !== 0) {
+      comments.push(commentGroup);
+    }
+
+    commentGroup.push(comment);
+  }
+
+  if (commentGroup.length > 0) {
+    comments.push(commentGroup);
+  }
+
+  return comments;
+};
+
+/**
+ * Generate random avatar
+ */
+export const generateRandomAvatar = (): {
+  head: string;
+  face: string;
+  body: string;
+} => {
+  const randomPicker = (length: number) => {
+    return Math.floor(Math.random() * length);
+  };
+
+  const avatarAssets = join(imagePath, "reddit-avatar");
+
+  const heads = getFolders(join(avatarAssets, "head"));
+  const faces = getFolders(join(avatarAssets, "face"));
+  const bodies = getFolders(join(avatarAssets, "body"));
+
+  return {
+    head: join(avatarAssets, "head", heads[randomPicker(heads.length)]),
+    face: join(avatarAssets, "face", faces[randomPicker(faces.length)]),
+    body: join(avatarAssets, "body", bodies[randomPicker(bodies.length)]),
+  };
+};
+
+/**
+ * Spread work count for each cluster
+ * @param work Array of any items
+ * @param jobCount Job spread count
+ */
+export const spreadWork = <T extends unknown>(
+  work: T[],
+  jobCount: number
+): T[][] => {
+  const workPerCpu = Math.floor(work.length / jobCount);
+  let leftWork = work.length % jobCount;
+  const workSpreed: T[][] = [];
+  let counter = 0;
+
+  for (let i = 0; i < jobCount; i++) {
+    const increment = i < leftWork ? workPerCpu + 1 : workPerCpu;
+    workSpreed[i] = work.slice(counter, counter + increment);
+    counter += increment;
+  }
+
+  return workSpreed;
 };

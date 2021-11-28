@@ -64,6 +64,51 @@ export const generateVideo = async (
   });
 };
 
+export const AddBackgroundMusic = async (
+  videoPath: string,
+  audioPath: string,
+  outputPath: string
+) => {
+  const ffmpegPath = getArgument("FFMPEG");
+
+  return new Promise((resolve) => {
+    execFile(
+      ffmpegPath,
+      [
+        "-i",
+        videoPath,
+        "-filter_complex",
+        `"amovie=${audioPath}:loop=0,asetpts=N/SR/TB[aud];[0:a][aud]amix[a]"`,
+        "-map",
+        "0:v",
+        "-map",
+        "'[a]'",
+        "-c:v",
+        "copy",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "256k",
+        "-shortest",
+        outputPath,
+      ],
+      (error: any) => {
+        if (error) {
+          console.log(error);
+
+          // console.log("Video couldn't create successfully", "error");
+          throw error;
+        }
+
+        // console.log("Video created successfully", "success");
+        console.log("process-video-done");
+
+        resolve(null);
+      }
+    );
+  });
+};
+
 /**
  * Merge All Videos together
  * @param title Post title

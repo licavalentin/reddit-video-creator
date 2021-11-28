@@ -1,3 +1,5 @@
+import { Subtitle } from "./audio";
+
 export interface Award {
   count: number;
   name: string;
@@ -20,16 +22,21 @@ export interface Post {
 }
 
 export interface Comment {
-  ups: number;
-  id: string;
-  author: string;
-  body: string;
-  parent_id: string;
-  score: number;
-  all_awardings: Award[];
-  created_utc: number;
+  content: string | Subtitle[];
+  user: string;
   depth: number;
-  selected?: boolean;
-  collapse?: boolean;
-  visible?: boolean;
+  date: number;
+  score: number;
+  avatar?: {
+    head: string;
+    face: string;
+    body: string;
+  };
+  audio?: string;
+}
+
+export interface PostFile {
+  post: Post;
+  comments: Comment[];
+  exportPath: string;
 }

@@ -1,157 +1,116 @@
-import { cpus } from "os";
-import cluster from "cluster";
-import { mkdirSync, existsSync, writeFileSync } from "fs";
+// import {
+//   generateRandomAvatar,
+//   getPost,
+//   resetTemp,
+//   // splitByDepth,
+// } from "./utils/helper";
+
+// import generateAudio from "./audio/index";
+// import { writeFileSync } from "fs";
+
+// const renderVideo = async () => {
+//   // Reset temp
+//   await resetTemp();
+
+//   // Get created post
+//   const post = getPost();
+
+//   // Generate random avatar for each comment
+//   for (const comment of post.comments) {
+//     comment.avatar = generateRandomAvatar();
+//   }
+
+//   // Generate audio file for each comment
+//   const newComments = await generateAudio(post.comments);
+
+//   writeFileSync("./test.json", JSON.stringify(newComments));
+
+//   // Split comments by depth
+//   // const comments = splitByDepth(post.comments);
+// };
+
+// renderVideo();
+
+import { getVoices } from "./audio/index";
+import { execFile } from "child_process";
+import { writeFileSync } from "fs";
 import { join } from "path";
 
-import { renderPath, tempPath } from "./config/paths";
+import { AudioFileGeneration } from "./interface/audio";
 
-import {
-  resetTemp,
-  createRandomString,
-  getFolders,
-  roundUp,
-  slugify,
-} from "./utils/helper";
-import { getComments } from "./utils/getComments";
-import { createPostTitle } from "./images/postTitle";
-import { createCommentImage } from "./images/image";
-import { generateVideo, mergeVideos } from "./video/index";
-import generateAudio from "./audio/index";
-import { generateThumbnail } from "./images/thumbnail";
-import { generateShorts } from "./images/shorts";
+import { getArgument } from "./utils/helper";
 
-const test = async () => {
-  const { post, exportPath } = await getComments();
-
-  await mergeVideos("video", renderPath, exportPath);
-};
+type AudioGenerator = (args: AudioFileGeneration) => Promise<null>;
 
 /**
- * Generate single comment tree images
- * @param title Post Title
- * @param comments Comments List
- * @param exportPath Path to export final output
+ * Generate Audio from text
+ *
+ * @param {string} textPath Text Path
+ * @param {string} exportPath Export path for the wav file
  */
-const createPost = async () => {
-  try {
-    if (cluster.isPrimary) {
-      // Check if temp path exists
-      if (!existsSync(tempPath)) {
-        return;
-      }
+const generateAudioFile: AudioGenerator = ({
+  textFilePath,
+  exportPath,
+  balconPath,
+  selectedVoice,
+}) => {
+  return new Promise(async (resolve) => {
+    execFile(
+      balconPath,
+      [
+        "-f",
+        textFilePath,
+        "-w",
+        `${join(exportPath, "audio.wav")}`,
+        "-n",
+        selectedVoice,
+        "--encoding utf8",
+        "-fr",
+        "48",
+        "--ignore-url",
+        "--lrc-length",
+        "80",
+        "-srt",
+        "--srt-length",
+        "80",
+        // "--srt-enc",
+        // "utf8",
+        "--srt-fname",
+        `${join(exportPath, "subtitle.srt")}`,
+      ],
+      async (error: Error) => {
+        if (error) {
+          console.log("audio-generating-failed");
 
-      await resetTemp();
-
-      await getComments(true);
-
-      for (let index = 0; index < cpus().length; index++) {
-        cluster.fork();
-      }
-
-      let count = cpus().length;
-
-      cluster.on("exit", async () => {
-        count--;
-
-        if (count === 0) {
-          const { post, exportPath } = await getComments();
-
-          await createPostTitle({
-            awards: post.all_awardings.map((award) => award.name),
-            points: roundUp(post.ups),
-            title: post.title,
-            userName: post.author,
-            exportPath: renderPath,
-          });
-
-          const randomString = createRandomString(3);
-          const postTitle = post.title
-            .toLocaleLowerCase()
-            .split(" ")
-            .join("-")
-            .split("")
-            .filter((_, index) => index < 10)
-            .join("");
-
-          const postFolder = join(exportPath, `${postTitle}-${randomString}`);
-
-          mkdirSync(postFolder);
-
-          const filePath = slugify(post.title);
-
-          await mergeVideos(filePath, renderPath, postFolder);
-
-          // await generateThumbnail(
-          //   {
-          //     title: post.title,
-          //     awards: post.all_awardings.map((award) => award.name),
-          //     subreddit: post.subreddit,
-          //   },
-          //   backgroundPath,
-          //   cropDetails,
-          //   postFolder
-          // );
-
-          await generateShorts(0.8, postFolder);
-
-          writeFileSync(join(postFolder, "data.txt"), post.title);
-
-          console.log(`process-done=${join(postFolder, `${filePath}.mp4`)}`);
-        }
-      });
-    } else {
-      const { comments } = await getComments(false);
-
-      const leftComments = comments.length % cpus().length;
-      const commentsPerCpu = Math.floor(comments.length / cpus().length);
-
-      const index = cluster.worker.id - 1;
-      const numOfComments =
-        commentsPerCpu + (index === cpus().length - 1 ? leftComments : 0);
-      const startIndex = index !== 0 ? index * commentsPerCpu : 0;
-      const endIndex = startIndex + numOfComments;
-      const listOfComments = comments.slice(startIndex, endIndex);
-
-      if (listOfComments.length !== 0) {
-        const folder = join(
-          renderPath,
-          `${index + 1}-${createRandomString(4)}`
-        );
-
-        mkdirSync(folder);
-
-        for (const comments of listOfComments) {
-          await createCommentImage(comments, folder);
+          throw error;
         }
 
-        const folders = getFolders(folder);
-
-        for (const currentFolder of folders) {
-          const folderPath = join(folder, currentFolder);
-          const imagePath = join(folderPath, "image.jpg");
-          const textPath = join(folderPath, "text.txt");
-          const audioPath = join(folderPath, "audio.wav");
-          try {
-            const duration = await generateAudio(textPath, audioPath);
-
-            await generateVideo(imagePath, audioPath, folderPath, duration);
-          } catch (error) {
-            console.log(error);
-          }
-        }
-
-        await mergeVideos("video", folder, folder);
-
-        console.log("process-merge-done");
+        console.log("audio-generated-successfully");
+        resolve(null);
       }
-
-      cluster.worker.kill();
-    }
-  } catch (err) {
-    console.log(err);
-  }
+    );
+  });
 };
 
-createPost();
+const test = async () => {
+  const folderPath = join(__dirname, "..", "testing");
 
-// test();
+  const textPath = join(folderPath, "test.txt");
+  writeFileSync(textPath, "hello world");
+
+  let selectedVoice = getArgument("VOICE");
+
+  if (!selectedVoice) {
+    const voices = await getVoices();
+    selectedVoice = voices[0];
+  }
+
+  await generateAudioFile({
+    balconPath: getArgument("BALCON"),
+    textFilePath: textPath,
+    selectedVoice: selectedVoice,
+    exportPath: folderPath,
+  });
+};
+
+test();

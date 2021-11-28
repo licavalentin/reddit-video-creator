@@ -1,3 +1,14 @@
+Project Reddit Video Creator
+The idea of the future of the project is full automation, only job that is required with be selection/editing images using an phone. 
+
+User can swipe (like tinder app) in choosing posts (this just to make sure for quality and to feel safer) and comments selection will be fully automated. Next step user can edit quick the template (change text and image position).
+
+
+
+
+
+
+
 []. Add background music
 []. Add time delay between comment
 []. Filter bad words
@@ -7,3 +18,22 @@
 []. Generate complete audio for comment
 []. Video 
     []. Improve design
+[]. Automate upload on youtube
+[]. Auto select comments
+
+
+
+UI
+[]. Store Bookmark and Created in Map
+[]. Implement new search
+[]. Improve design
+[]. Implement search for subreddit
+[]. Draft
+
+
+[]. Yo this shit can make you some serious money so focus and complete it.
+
+
+
+
+

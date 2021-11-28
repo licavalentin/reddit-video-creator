@@ -1,13 +1,20 @@
 import { execFile } from "child_process";
+import { join } from "path/posix";
+import { cpus } from "os";
+import cluster from "cluster";
+import { mkdirSync } from "fs";
 
-import { getArgument } from "../utils/helper";
+import { audioRenderPath } from "../config/paths";
+import { Comment } from "../interface/post";
+
+import { getArgument, getFolders, spreadWork } from "../utils/helper";
 
 /**
  * Get Voices List
  * @returns List of voices
  */
 export const getVoices = async (): Promise<string[]> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const balconPath = getArgument("BALCON");
 
     execFile(balconPath, ["-l"], (error, stdout) => {
@@ -28,60 +35,11 @@ export const getVoices = async (): Promise<string[]> => {
   });
 };
 
-/**
- * Get Audio file duration
- * @param path Audio file path
- * @returns Duration in milliseconds
- */
-const getAudioDuration = async (path: string): Promise<number> => {
-  return new Promise((resolve, reject) => {
-    const ffprobePath = getArgument("FFPROBE");
-
-    // const ffmpegPath = getArgument("FFMPEG");
-
-    // ffmpeg -i file.mp4 2>&1 | grep Duration | sed 's/Duration: \(.*\), start/\1/g'
-    // return stdout.trim().split("Duration: ").join("").split(",")[0];
-
-    // const test = ["-i", path, "2>&1", "|", "grep", "Duration"];
-
-    const params = [
-      "-v",
-      "error",
-      "-select_streams",
-      "a:0",
-      "-show_format",
-      "-show_streams",
-    ];
-
-    execFile(
-      ffprobePath,
-      [...params, path],
-      async (error: any, stdout: any) => {
-        if (error) {
-          console.log(error);
-          throw error;
-        }
-
-        const matched = stdout.match(/duration="?(\d*\.\d*)"?/);
-
-        if (matched && matched[1]) {
-          resolve(parseFloat(matched[1]));
-        } else {
-          resolve(0.1);
-        }
-      }
-    );
-  });
+export const startWorker = async () => {
+  return new Promise((resolve) => {});
 };
 
-/**
- * Generate Audio from text
- *
- * @param {string} textPath Text Path
- * @param {string} path Export path for the wav file
- */
-
-const generateAudio = (textPath: string, path: string): Promise<number> => {
+export default async (comments: Comment[]): Promise<Comment[]> => {
   return new Promise(async (resolve) => {
     const balconPath = getArgument("BALCON");
 
@@ -92,35 +50,46 @@ const generateAudio = (textPath: string, path: string): Promise<number> => {
       selectedVoice = voices[0];
     }
 
-    execFile(
-      balconPath,
-      [
-        "-f",
-        textPath,
-        "-w",
-        path,
-        "-n",
+    mkdirSync(audioRenderPath);
+
+    const work = spreadWork(comments, cpus().length);
+
+    const availableWork = work.filter((e) => e.length > 0);
+    let count = availableWork.length;
+
+    for (let index = 0; index < availableWork.length; index++) {
+      const jobs = work[index];
+
+      const config = {
+        balconPath,
         selectedVoice,
-        "--encoding",
-        "utf8",
-        "-fr",
-        "48",
-        "--ignore-url",
-      ],
-      async (error: any, stdout: any) => {
-        // if (error) {
-        //   console.log(error);
-        //   // throw error;
-        // }
+      };
 
-        const duration = await getAudioDuration(path);
+      cluster.setupPrimary({
+        exec: join(__dirname, "worker.js"),
+        args: [JSON.stringify(jobs), JSON.stringify(config)],
+        // args: [index + ""],
+      });
 
-        console.log("process-audio-done");
+      const worker = cluster.fork();
 
-        resolve(duration);
-      }
-    );
+      worker.on("exit", () => {
+        count--;
+
+        if (count === 0) {
+          // const newComments = getFolders(audioRenderPath).map(
+          //   (folder) =>
+          //     JSON.parse(
+          //       readFileSync(
+          //         join(audioRenderPath, folder, "comment.json")
+          //       ).toString()
+          //     ) as Comment
+          // );
+
+          console.log("process-audio-done");
+          resolve(null);
+        }
+      });
+    }
   });
 };
-
-export default generateAudio;
