@@ -6,7 +6,8 @@ import { decode } from "html-entities";
 import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
-import { Comment } from "../interface/video";
+import { Comment } from "../interface/post";
+import { Subtitle } from "interface/audio";
 
 /**
  * Generate array of sentences from comment
@@ -63,14 +64,11 @@ const splitText = (text: string): string[] => {
  * @param comments Comments List
  * @returns Comments with width, height and indentation for each comment
  */
-export const measureComments = async (comments: Comment[]) => {
+export const measureContent = async (comments: Comment[]) => {
   try {
-    const font = await Jimp.loadFont(
-      join(fontPath, "comments", FontFace.Comment)
-    );
-    const fontBold = await Jimp.loadFont(
-      join(fontPath, "comments", FontFace.Username)
-    );
+    const parentPath = join(fontPath, "comments");
+    const font = await Jimp.loadFont(join(parentPath, FontFace.Comment));
+    const fontBold = await Jimp.loadFont(join(parentPath, FontFace.Username));
 
     const userNameText = `/y/Name`;
     const userNameHeight = Jimp.measureTextHeight(
@@ -79,32 +77,28 @@ export const measureComments = async (comments: Comment[]) => {
       Jimp.measureText(fontBold, userNameText)
     );
 
-    return comments
-      .map((comment) => {
-        const commentWidth =
-          imageDetails.width -
-          commentDetails.widthMargin -
-          comment.indentation * commentDetails.indentation;
+    return comments.map((comment) => {
+      const commentWidth =
+        imageDetails.width -
+        commentDetails.widthMargin -
+        comment.depth * commentDetails.depth;
 
-        const splittedComment = splitText(comment.text as string);
+      const commentHeight =
+        Jimp.measureTextHeight(
+          font,
+          (comment.content as Subtitle[]).map((e) => e.content).join(" "),
+          commentWidth
+        ) +
+        userNameHeight +
+        commentDetails.margin;
 
-        const commentHeight =
-          Jimp.measureTextHeight(
-            font,
-            splittedComment.join(" "),
-            commentWidth
-          ) +
-          userNameHeight +
-          commentDetails.margin;
-
-        return {
-          ...comment,
-          text: splittedComment,
-          width: commentWidth,
-          height: commentHeight,
-        };
-      })
-      .filter((c) => c.text.length !== 0);
+      return {
+        ...comment,
+        width: commentWidth,
+        height: commentHeight,
+      };
+    });
+    // .filter((c) => c.text.length !== 0);
   } catch (error) {
     throw error;
   }

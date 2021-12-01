@@ -5,8 +5,9 @@ User can swipe (like tinder app) in choosing posts (this just to make sure for q
 
 
 
-
-
+ndaj me ate funksionin e vjeter ([]. refactor) dhe krijo texting per secilen nje pas nje. dhe pastaj nxhiti 
+edhe avatarin ruje ne png
+ndaje texting 
 
 
 []. Add background music

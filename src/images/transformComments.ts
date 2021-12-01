@@ -5,7 +5,8 @@ import Jimp from "jimp";
 import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
-import { Comment } from "../interface/video";
+import { Comment } from "../interface/post";
+import { Subtitle } from "interface/audio";
 
 /**
  * Fit comments to screen size
@@ -14,12 +15,9 @@ import { Comment } from "../interface/video";
  */
 export const transformComments = async (comments: Comment[]) => {
   // Load font
-  const font = await Jimp.loadFont(
-    join(fontPath, "comments", FontFace.Comment)
-  );
-  const fontBold = await Jimp.loadFont(
-    join(fontPath, "comments", FontFace.Username)
-  );
+  const parentPath = join(fontPath, "comments");
+  const font = await Jimp.loadFont(join(parentPath, FontFace.Comment));
+  const fontBold = await Jimp.loadFont(join(parentPath, FontFace.Username));
 
   const userNameText = `/y/Name`;
   const userNameHeight = Jimp.measureTextHeight(
@@ -33,8 +31,10 @@ export const transformComments = async (comments: Comment[]) => {
   let commentsTree: Comment[] = [];
 
   const splitComments = (comment: Comment) => {
-    for (let i = 0; i < (comment.text as string[]).length; i++) {
-      const sentence = (comment.text as string[]).slice(0, i + 1);
+    const commentText = (comment.content as Subtitle[]).map((e) => e.content);
+
+    for (let i = 0; i < commentText.length; i++) {
+      const sentence = commentText.slice(0, i + 1);
 
       const sentenceHeight =
         Jimp.measureTextHeight(
@@ -49,7 +49,7 @@ export const transformComments = async (comments: Comment[]) => {
         continue;
       }
 
-      const addedText = (comment.text as string[]).slice(0, i);
+      const addedText = commentText.slice(0, i);
 
       const addedSentenceHeight =
         Jimp.measureTextHeight(
@@ -62,7 +62,7 @@ export const transformComments = async (comments: Comment[]) => {
 
       const addedComment = {
         ...comment,
-        text: addedText,
+        content: comment.content.slice(0, i),
         height: addedSentenceHeight,
       };
 
@@ -70,7 +70,7 @@ export const transformComments = async (comments: Comment[]) => {
       commentsTree = [];
       maxHeight = imageDetails.height - commentDetails.heightMargin;
 
-      const leftText = (comment.text as string[]).slice(i);
+      const leftText = commentText.slice(i);
       const leftSentenceHeight =
         Jimp.measureTextHeight(
           font,
@@ -82,7 +82,7 @@ export const transformComments = async (comments: Comment[]) => {
 
       const leftComment = {
         ...comment,
-        text: leftText,
+        content: comment.content.slice(i),
         height: leftSentenceHeight,
       };
 
@@ -98,8 +98,8 @@ export const transformComments = async (comments: Comment[]) => {
   };
 
   for (const comment of comments) {
-    if (comment.indentation === 0) {
-      if (commentsTree.length !== 0) {
+    if (comment.depth === 0) {
+      if (commentsTree.length > 0) {
         finalComments.push(commentsTree);
       }
 
@@ -112,17 +112,7 @@ export const transformComments = async (comments: Comment[]) => {
     if (currentHeight > 0) {
       commentsTree.push(comment);
       maxHeight = currentHeight;
-      continue;
-    }
-
-    if (currentHeight === 0) {
-      maxHeight = imageDetails.height - commentDetails.heightMargin;
-      finalComments.push([...commentsTree, comment]);
-      commentsTree = [];
-      continue;
-    }
-
-    if (currentHeight < 0) {
+    } else {
       splitComments(comment);
     }
   }

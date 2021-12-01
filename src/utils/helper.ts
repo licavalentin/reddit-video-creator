@@ -173,52 +173,23 @@ const parseTime = (time: string): number => {
  */
 export const getSubtitles = (subtitlePath: string) => {
   const subtitle = readFileSync(subtitlePath).toString();
+
   const arr = subtitle
     .trim()
     .split("\r\n")
     .filter((e) => e !== "");
 
-  let index = 0;
   const finalArr: Subtitle[] = [];
 
-  let item: Subtitle = {
-    time: {
-      start: "0",
-      end: "0",
-      duration: 2,
-    },
-    content: "",
-  };
+  for (let i = 0; i < arr.length; ) {
+    const time = arr[i + 1].split("-->").map((e) => e.trim());
 
-  for (let i = 0; i < arr.length; i++) {
-    const text = arr[i];
+    finalArr.push({
+      duration: Number((parseTime(time[1]) - parseTime(time[0])).toFixed(2)),
+      content: arr[i + 2],
+    });
 
-    switch (index) {
-      case 0:
-        index++;
-        break;
-      case 1:
-        const time = text.split("-->").map((e) => e.trim());
-
-        item.time = {
-          start: time[0].replace(",", "."),
-          end: time[1].replace(",", "."),
-          duration: Number(
-            (parseTime(time[1]) - parseTime(time[0])).toFixed(2)
-          ),
-        };
-
-        index++;
-        break;
-      case 2:
-        item.content = text;
-        finalArr.push(item);
-        index = 0;
-        break;
-
-      default:
-        break;
-    }
+    i = i + 3;
   }
 
   return finalArr;
@@ -234,7 +205,7 @@ export const getPost = () => {
 
   return {
     post,
-    comments,
+    comments: comments.map((e, index) => ({ ...e, id: index })),
     exportPath,
   };
 };
@@ -280,9 +251,9 @@ export const generateRandomAvatar = (): {
   const bodies = getFolders(join(avatarAssets, "body"));
 
   return {
-    head: join(avatarAssets, "head", heads[randomPicker(heads.length)]),
-    face: join(avatarAssets, "face", faces[randomPicker(faces.length)]),
-    body: join(avatarAssets, "body", bodies[randomPicker(bodies.length)]),
+    head: heads[randomPicker(heads.length)],
+    face: faces[randomPicker(faces.length)],
+    body: bodies[randomPicker(bodies.length)],
   };
 };
 

@@ -1,9 +1,5 @@
 export interface Subtitle {
-  time: {
-    start: string;
-    end: string;
-    duration: number;
-  };
+  duration: number;
   content: string;
 }
 

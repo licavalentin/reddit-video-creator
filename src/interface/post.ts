@@ -33,6 +33,9 @@ export interface Comment {
     body: string;
   };
   audio?: string;
+  width?: number;
+  height: number;
+  id?: number;
 }
 
 export interface PostFile {

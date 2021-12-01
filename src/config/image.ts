@@ -6,7 +6,7 @@ const imageDetails = {
 
 const commentDetails = {
   margin: 50,
-  indentation: 100,
+  depth: 100,
   heightMargin: 100,
   widthMargin: 400,
 };

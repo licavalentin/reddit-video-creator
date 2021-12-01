@@ -64,7 +64,7 @@ export const createCommentImage = async (
     const writeText = async (comment: Comment, index) => {
       // Text X start coordinate
       const textX =
-        (comment.indentation as number) * commentDetails.indentation +
+        (comment.indentation as number) * commentDetails.depth +
         commentDetails.widthMargin / 2;
 
       // Composite Avatar and Write User Name

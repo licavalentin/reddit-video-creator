@@ -35,10 +35,6 @@ export const getVoices = async (): Promise<string[]> => {
   });
 };
 
-export const startWorker = async () => {
-  return new Promise((resolve) => {});
-};
-
 export default async (comments: Comment[]): Promise<Comment[]> => {
   return new Promise(async (resolve) => {
     const balconPath = getArgument("BALCON");
@@ -55,7 +51,7 @@ export default async (comments: Comment[]): Promise<Comment[]> => {
     const work = spreadWork(comments, cpus().length);
 
     const availableWork = work.filter((e) => e.length > 0);
-    let count = availableWork.length;
+    const newComments = [];
 
     for (let index = 0; index < availableWork.length; index++) {
       const jobs = work[index];
@@ -68,26 +64,17 @@ export default async (comments: Comment[]): Promise<Comment[]> => {
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
         args: [JSON.stringify(jobs), JSON.stringify(config)],
-        // args: [index + ""],
       });
 
       const worker = cluster.fork();
 
+      worker.on("message", (message) => {
+        newComments.push(message);
+      });
+
       worker.on("exit", () => {
-        count--;
-
-        if (count === 0) {
-          // const newComments = getFolders(audioRenderPath).map(
-          //   (folder) =>
-          //     JSON.parse(
-          //       readFileSync(
-          //         join(audioRenderPath, folder, "comment.json")
-          //       ).toString()
-          //     ) as Comment
-          // );
-
-          console.log("process-audio-done");
-          resolve(null);
+        if (newComments.length === comments.length) {
+          resolve(newComments);
         }
       });
     }

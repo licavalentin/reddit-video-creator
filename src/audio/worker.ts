@@ -1,5 +1,4 @@
 import { execFile } from "child_process";
-import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
@@ -11,7 +10,7 @@ import {
 } from "../interface/audio";
 import { Comment } from "../interface/post";
 
-import { createRandomString, getSubtitles } from "../utils/helper";
+import { createRandomString, getFolders, getSubtitles } from "../utils/helper";
 
 type AudioGenerator = (args: AudioFileGeneration) => Promise<null>;
 
@@ -27,7 +26,7 @@ const generateAudioFile: AudioGenerator = ({
   balconPath,
   selectedVoice,
 }) => {
-  return new Promise(async (resolve) => {
+  return new Promise((resolve) => {
     execFile(
       balconPath,
       [
@@ -50,13 +49,13 @@ const generateAudioFile: AudioGenerator = ({
         // "utf8",
         "--srt-fname",
         `${join(exportPath, "subtitle.srt")}`,
+        "--ignore-url",
       ],
-      async (error: Error) => {
-        if (error) {
-          console.log("audio-generating-failed");
-
-          throw error;
-        }
+      (error: Error) => {
+        // if (error) {
+        //   console.log("audio-generating-failed");
+        //   resolve(null);
+        // }
 
         console.log("audio-generated-successfully");
         resolve(null);
@@ -72,7 +71,7 @@ const init = async () => {
 
   for (const comment of comments) {
     // Generate random folder
-    const folderPath = join(audioRenderPath, createRandomString(2));
+    const folderPath = join(audioRenderPath, comment.id + "");
     mkdirSync(folderPath);
 
     // Write text file
@@ -85,14 +84,15 @@ const init = async () => {
       textFilePath: textFilePath,
     });
 
-    comment.audio = join(folderPath, "audio.wav");
+    comment.audio = comment.id + "";
     comment.content = getSubtitles(join(folderPath, "subtitle.srt"));
 
-    writeFileSync(join(folderPath, "comment.json"), JSON.stringify(comment));
+    // writeFileSync(join(folderPath, "comment.json"), JSON.stringify(comment));
+    process.send(comment);
   }
 
   // Kill Worker
-  cluster.worker.kill();
+  process.exit();
 };
 
 init();
