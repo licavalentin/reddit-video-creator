@@ -21,17 +21,19 @@ export interface Post {
   created?: boolean;
 }
 
+export interface Avatar {
+  head: string;
+  face: string;
+  body: string;
+}
+
 export interface Comment {
   content: string | Subtitle[];
   user: string;
   depth: number;
   date: number;
   score: number;
-  avatar?: {
-    head: string;
-    face: string;
-    body: string;
-  };
+  avatar?: Avatar;
   audio?: string;
   width?: number;
   height: number;

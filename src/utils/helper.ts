@@ -233,31 +233,6 @@ export const splitByDepth = (commentsList: Comment[]) => {
 };
 
 /**
- * Generate random avatar
- */
-export const generateRandomAvatar = (): {
-  head: string;
-  face: string;
-  body: string;
-} => {
-  const randomPicker = (length: number) => {
-    return Math.floor(Math.random() * length);
-  };
-
-  const avatarAssets = join(imagePath, "reddit-avatar");
-
-  const heads = getFolders(join(avatarAssets, "head"));
-  const faces = getFolders(join(avatarAssets, "face"));
-  const bodies = getFolders(join(avatarAssets, "body"));
-
-  return {
-    head: heads[randomPicker(heads.length)],
-    face: faces[randomPicker(faces.length)],
-    body: bodies[randomPicker(bodies.length)],
-  };
-};
-
-/**
  * Spread work count for each cluster
  * @param work Array of any items
  * @param jobCount Job spread count

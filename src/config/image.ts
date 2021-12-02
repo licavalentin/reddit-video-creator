@@ -9,6 +9,7 @@ const commentDetails = {
   depth: 100,
   heightMargin: 100,
   widthMargin: 400,
+  avatarSize: 70,
 };
 
 const thumbnailDetail = {

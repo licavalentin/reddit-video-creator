@@ -9,10 +9,7 @@ import { spreadWork } from "../../utils/helper";
 
 export default async (comments: Comment[][]) => {
   return new Promise((resolve) => {
-    const textJobs: {
-      text: string;
-      id: string;
-    }[] = [];
+    const textJobs: Comment[] = [];
 
     for (let i = 0; i < comments.length; i++) {
       const commentGroup = comments[i];
@@ -22,11 +19,11 @@ export default async (comments: Comment[][]) => {
 
         for (let c = 0; c < (comment.content as Subtitle[]).length; c++) {
           textJobs.push({
-            text: (comment.content as Subtitle[])
+            ...comment,
+            content: (comment.content as Subtitle[])
               .slice(0, c + 1)
               .map((e) => e.content)
               .join(" "),
-            id: `${i}-${j}-${c}`,
           });
         }
       }

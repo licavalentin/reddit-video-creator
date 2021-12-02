@@ -2,12 +2,10 @@ import { execFile } from "child_process";
 import { join } from "path/posix";
 import { cpus } from "os";
 import cluster from "cluster";
-import { mkdirSync } from "fs";
 
-import { audioRenderPath } from "../config/paths";
 import { Comment } from "../interface/post";
 
-import { getArgument, getFolders, spreadWork } from "../utils/helper";
+import { getArgument, spreadWork } from "../utils/helper";
 
 /**
  * Get Voices List
@@ -45,8 +43,6 @@ export default async (comments: Comment[]): Promise<Comment[]> => {
       const voices = await getVoices();
       selectedVoice = voices[0];
     }
-
-    mkdirSync(audioRenderPath);
 
     const work = spreadWork(comments, cpus().length);
 

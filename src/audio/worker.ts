@@ -2,7 +2,7 @@ import { execFile } from "child_process";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import { audioRenderPath } from "../config/paths";
+import { renderPath } from "../config/paths";
 
 import {
   AudioFileGeneration,
@@ -71,7 +71,7 @@ const init = async () => {
 
   for (const comment of comments) {
     // Generate random folder
-    const folderPath = join(audioRenderPath, comment.id + "");
+    const folderPath = join(renderPath, comment.id + "");
     mkdirSync(folderPath);
 
     // Write text file

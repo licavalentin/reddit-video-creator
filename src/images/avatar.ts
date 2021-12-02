@@ -2,13 +2,14 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
-import { imagePath } from "../config/paths";
+import { renderPath, imagePath } from "../config/paths";
+import { commentDetails } from "../config/image";
 
 import { getFolders } from "../utils/helper";
 
-type GenerateAvatar = (width: number) => Promise<Jimp>;
+type GenerateAvatar = (id: number) => Promise<void>;
 
-export const generateAvatar: GenerateAvatar = async (width) => {
+export const generateAvatar: GenerateAvatar = async (id) => {
   const avatarAssets = join(imagePath, "reddit-avatar");
   const backgroundImagePath = join(avatarAssets, "circle-background.png");
 
@@ -37,10 +38,10 @@ export const generateAvatar: GenerateAvatar = async (width) => {
     .composite(defaultBody, 0, 0)
     .composite(selectedBody, 0, 0)
     .composite(defaultHead, 0, 0)
-    .composite(selectedHead, 0, 0)
-    .composite(selectedFace, 0, 0);
+    .composite(selectedFace, 0, 0)
+    .composite(selectedHead, 0, 0);
 
-  backgroundImage.resize(width - 5, Jimp.AUTO);
+  backgroundImage.resize(commentDetails.avatarSize - 5, Jimp.AUTO);
 
-  return backgroundImage;
+  await backgroundImage.writeAsync(join(renderPath, id + "", "avatar.png"));
 };
