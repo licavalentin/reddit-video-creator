@@ -10,7 +10,7 @@ import {
 } from "../interface/audio";
 import { Comment } from "../interface/post";
 
-import { createRandomString, getFolders, getSubtitles } from "../utils/helper";
+import { getSubtitles } from "../utils/helper";
 
 type AudioGenerator = (args: AudioFileGeneration) => Promise<null>;
 
@@ -50,12 +50,13 @@ const generateAudioFile: AudioGenerator = ({
         "--srt-fname",
         `${join(exportPath, "subtitle.srt")}`,
         "--ignore-url",
+        "--silence-end",
+        "200",
       ],
       (error: Error) => {
-        // if (error) {
-        //   console.log("audio-generating-failed");
-        //   resolve(null);
-        // }
+        if (error) {
+          console.log(error);
+        }
 
         console.log("audio-generated-successfully");
         resolve(null);
@@ -76,7 +77,13 @@ const init = async () => {
 
     // Write text file
     const textFilePath = join(folderPath, "text.txt");
-    writeFileSync(textFilePath, comment.content as string);
+
+    const filteredText = (comment.content as string)
+      .replace(/\*/g, "")
+      .replace(/’/g, "'")
+      .replace(/”|“/g, '"');
+
+    writeFileSync(textFilePath, filteredText);
 
     await generateAudioFile({
       ...generationConfig,

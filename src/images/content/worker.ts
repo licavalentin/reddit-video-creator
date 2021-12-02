@@ -13,9 +13,13 @@ import { FontFace } from "../../interface/image";
 import { Comment } from "../../interface/post";
 import { roundUp } from "../../utils/helper";
 
+interface CommentJob extends Comment {
+  commentId: number;
+}
+
 const init = async () => {
   const args = process.argv.slice(2);
-  const work = JSON.parse(args[0]) as Comment[];
+  const work = JSON.parse(args[0]) as CommentJob[];
 
   // Load font
   const parentPath = join(fontPath, "comments");
@@ -113,7 +117,7 @@ const init = async () => {
 
     // Write comment to temp
     await image.writeAsync(
-      join(renderPath, job.id + "", `${job.id}-${index}.png`)
+      join(renderPath, job.id + "", `${job.id}-${job.commentId}.png`)
     );
 
     console.log("image-content-generated-successfully");

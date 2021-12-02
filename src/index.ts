@@ -1,10 +1,11 @@
-import { getPost, resetTemp } from "./utils/helper";
-
 import generateAudio from "./audio/index";
 import { measureContent } from "./images/measureComments";
 import { transformComments } from "./images/transformComments";
 import generateContent from "./images/content/index";
 import { generateAvatar } from "./images/avatar";
+import { getPost, resetTemp } from "./utils/helper";
+import generateFrames from "./images/frames/index";
+import generateVideo from "./video/index";
 
 const renderVideo = async () => {
   console.time("Render");
@@ -31,6 +32,15 @@ const renderVideo = async () => {
   await generateContent(transformedComments);
 
   // Render Frames
+  await generateFrames(transformedComments);
+
+  // Generate video
+  await generateVideo(newPost.sort((a, b) => a.id - b.id));
+
+  // Reset temp
+  // await resetTemp();
+
+  console.timeEnd("Render");
 };
 
 renderVideo();

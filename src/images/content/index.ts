@@ -7,9 +7,13 @@ import { Comment } from "../../interface/post";
 
 import { spreadWork } from "../../utils/helper";
 
+interface CommentJob extends Comment {
+  commentId: number;
+}
+
 export default async (comments: Comment[][]) => {
   return new Promise((resolve) => {
-    const textJobs: Comment[] = [];
+    const textJobs: CommentJob[] = [];
 
     for (let i = 0; i < comments.length; i++) {
       const commentGroup = comments[i];
@@ -24,6 +28,7 @@ export default async (comments: Comment[][]) => {
               .slice(0, c + 1)
               .map((e) => e.content)
               .join(" "),
+            commentId: (comment.content as Subtitle[])[c].id,
           });
         }
       }

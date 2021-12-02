@@ -192,7 +192,7 @@ export const getSubtitles = (subtitlePath: string) => {
     i = i + 3;
   }
 
-  return finalArr;
+  return finalArr.map((e, index) => ({ ...e, id: index }));
 };
 
 /**

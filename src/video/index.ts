@@ -1,68 +1,12 @@
+import cluster from "cluster";
+import { cpus } from "os";
 import { execFile } from "child_process";
 import { join } from "path";
 import { existsSync, writeFileSync } from "fs";
 
-import { getArgument, getFolders } from "../utils/helper";
-
-/**
- * Generate Video from image and audio
- *
- * @param {string} image Path for image file
- * @param {string} audio Path for audio file
- * @param {string} path Export assets path
- * @param {number} duration Video duration
- */
-export const generateVideo = async (
-  image: string,
-  audio: string,
-  path: string,
-  duration: number
-) => {
-  const ffmpegPath = getArgument("FFMPEG");
-
-  return new Promise((resolve) => {
-    // console.log("Creating Video", "action");
-
-    execFile(
-      ffmpegPath,
-      [
-        "-loop",
-        "1",
-        "-i",
-        image,
-        "-i",
-        audio,
-        "-c:v",
-        "libx264",
-        "-tune",
-        "stillimage",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "192k",
-        "-pix_fmt",
-        "yuv420p",
-        "-shortest",
-        "-t",
-        duration.toString(),
-        join(path, `video.mp4`),
-      ],
-      (error: any) => {
-        if (error) {
-          console.log(error);
-
-          // console.log("Video couldn't create successfully", "error");
-          throw error;
-        }
-
-        // console.log("Video created successfully", "success");
-        console.log("process-video-done");
-
-        resolve(null);
-      }
-    );
-  });
-};
+import { getArgument, getFolders, spreadWork } from "../utils/helper";
+import { renderPath } from "../config/paths";
+import { Comment } from "interface/post";
 
 export const AddBackgroundMusic = async (
   videoPath: string,
@@ -167,4 +111,33 @@ export const mergeVideos = async (
     console.log(error);
     throw error;
   }
+};
+
+export const generateCommentVideo = async (comments: Comment[]) => {
+  return new Promise((resolve) => {
+    const work = spreadWork(comments, cpus().length);
+    let counter = work.length;
+
+    for (const jobs of work) {
+      cluster.setupPrimary({
+        exec: join(__dirname, "worker.js"),
+        args: [JSON.stringify(jobs)],
+      });
+
+      const worker = cluster.fork();
+
+      worker.on("exit", () => {
+        counter--;
+
+        if (counter === 0) {
+          resolve(null);
+        }
+      });
+    }
+  });
+};
+
+export default async (comments: Comment[]) => {
+  // Generate video for each comment
+  await generateCommentVideo(comments);
 };

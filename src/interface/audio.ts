@@ -1,6 +1,7 @@
 export interface Subtitle {
   duration: number;
   content: string;
+  id?: number;
 }
 
 export interface AudioFileGenerationConfig {

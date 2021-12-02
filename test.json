@@ -4,73 +4,65 @@
       "content": [
         {
           "duration": 3.41,
-          "content": "My great grandmother sister has a wikipedia page."
+          "content": "My great grandmother sister has a wikipedia page.",
+          "id": 0
         },
         {
           "duration": 4.29,
-          "content": "She was the last woman guillotined in France for killing her husband with an "
+          "content": "She was the last woman guillotined in France for killing her husband with an ",
+          "id": 1
         },
-        { "duration": 0.22, "content": "axe." }
+        { "duration": 0.22, "content": "axe.", "id": 2 }
       ],
       "user": "-Numaios-",
       "depth": 0,
       "date": 1638339971,
       "score": 3891,
       "id": 0,
-      "avatar": {
-        "head": "28-head.png",
-        "face": "5-face.png",
-        "body": "29-body.png"
-      },
       "audio": "0",
       "width": 1520,
       "height": 158
     },
     {
-      "content": [{ "duration": 1.35, "content": "Was it justified?" }],
+      "content": [
+        { "duration": 1.35, "content": "Was it justified?", "id": 0 }
+      ],
       "user": "nonchellent",
       "depth": 1,
       "date": 1638344886,
       "score": 693,
       "id": 1,
-      "avatar": {
-        "head": "11-head.png",
-        "face": "3-face.png",
-        "body": "164-body.png"
-      },
       "audio": "1",
       "width": 1420,
       "height": 122
     },
     {
       "content": [
-        { "duration": 1.25, "content": "The death penalty?" },
-        { "duration": 0.76, "content": "Never." },
+        { "duration": 1.25, "content": "The death penalty?", "id": 0 },
+        { "duration": 0.76, "content": "Never.", "id": 1 },
         {
           "duration": 2.99,
-          "content": "But she should have been in jail for the rest of her life."
+          "content": "But she should have been in jail for the rest of her life.",
+          "id": 2
         },
-        { "duration": 1.69, "content": "She was not mistreated." },
+        { "duration": 1.69, "content": "She was not mistreated.", "id": 3 },
         {
           "duration": 4.57,
-          "content": "She stole the couple savings, gave them to her lover and killed the husband in "
+          "content": "She stole the couple savings, gave them to her lover and killed the husband in ",
+          "id": 4
         },
         {
           "duration": 3.47,
-          "content": "his sleep before calling the police to say they were robbed."
+          "content": "his sleep before calling the police to say they were robbed.",
+          "id": 5
         },
-        { "duration": 1.39, "content": "She wasn't smart." }
+        { "duration": 1.39, "content": "She wasn't smart.", "id": 6 }
       ],
       "user": "-Numaios-",
       "depth": 2,
       "date": 1638345284,
       "score": 1228,
       "id": 2,
-      "avatar": {
-        "head": "164-head.png",
-        "face": "67-face.png",
-        "body": "19-body.png"
-      },
       "audio": "2",
       "width": 1320,
       "height": 230
@@ -81,25 +73,22 @@
       "content": [
         {
           "duration": 2.6,
-          "content": "We have the voice of Homer Simpson in our family!"
+          "content": "We have the voice of Homer Simpson in our family!",
+          "id": 0
         },
-        { "duration": 1.61, "content": "Dan Castellaneta." },
+        { "duration": 1.61, "content": "Dan Castellaneta.", "id": 1 },
         {
           "duration": 4.33,
-          "content": "And my grandpa was the first person to import Nike in Africa."
+          "content": "And my grandpa was the first person to import Nike in Africa.",
+          "id": 2
         },
-        { "duration": 2.24, "content": "Not famous, but pretty cool." }
+        { "duration": 2.24, "content": "Not famous, but pretty cool.", "id": 3 }
       ],
       "user": "shaunibauni",
       "depth": 0,
       "date": 1638343622,
       "score": 3654,
       "id": 3,
-      "avatar": {
-        "head": "93-head.png",
-        "face": "66-face.png",
-        "body": "16-body.png"
-      },
       "audio": "3",
       "width": 1520,
       "height": 158
@@ -108,30 +97,27 @@
       "content": [
         {
           "duration": 3.15,
-          "content": "Genuine question, is dan a down to earth guy?"
+          "content": "Genuine question, is dan a down to earth guy?",
+          "id": 0
         },
-        { "duration": 1.35, "content": "I imagine he would." }
+        { "duration": 1.35, "content": "I imagine he would.", "id": 1 }
       ],
       "user": "sumtinfunny",
       "depth": 1,
       "date": 1638355715,
       "score": 665,
       "id": 4,
-      "avatar": {
-        "head": "104-head.png",
-        "face": "23-face.png",
-        "body": "88-body.png"
-      },
       "audio": "4",
       "width": 1420,
       "height": 122
     },
     {
       "content": [
-        { "duration": 1.77, "content": "He’s loaded at this point." },
+        { "duration": 1.77, "content": "He’s loaded at this point.", "id": 0 },
         {
           "duration": 2.46,
-          "content": "I bet christmas presents are incredible."
+          "content": "I bet christmas presents are incredible.",
+          "id": 1
         }
       ],
       "user": "corndogs1001",
@@ -139,11 +125,6 @@
       "date": 1638372540,
       "score": 233,
       "id": 5,
-      "avatar": {
-        "head": "170-head.png",
-        "face": "25-face.png",
-        "body": "44-body.png"
-      },
       "audio": "5",
       "width": 1320,
       "height": 122
@@ -154,31 +135,38 @@
       "content": [
         {
           "duration": 2.6,
-          "content": "My grandmother was the voice of Betty Rubble..."
+          "content": "My grandmother was the voice of Betty Rubble...",
+          "id": 0
         },
         {
           "duration": 2.99,
-          "content": "And the blue bonnet chicken in fog horn leg horn, "
+          "content": "And the blue bonnet chicken in fog horn leg horn, ",
+          "id": 1
         },
         {
           "duration": 3.53,
-          "content": "and little red riding hood on bugs bunny (and witcheepoo), "
+          "content": "and little red riding hood on bugs bunny (and witcheepoo), ",
+          "id": 2
         },
         {
           "duration": 4.6,
-          "content": "and tweetys grandma (along with other women who voiced her) and she was on i "
+          "content": "and tweetys grandma (along with other women who voiced her) and she was on i ",
+          "id": 3
         },
         {
           "duration": 3.77,
-          "content": "love lucy, and she had her own show called Petticoat junction, "
+          "content": "love lucy, and she had her own show called Petticoat junction, ",
+          "id": 4
         },
         {
           "duration": 3.89,
-          "content": "and she was on Burns &amp; Allen.. and.. so... so.. so many more."
+          "content": "and she was on Burns &amp; Allen.. and.. so... so.. so many more.",
+          "id": 5
         },
         {
           "duration": 3.42,
-          "content": "Oh, and my grandfather was Red Ryder on TV."
+          "content": "Oh, and my grandfather was Red Ryder on TV.",
+          "id": 6
         }
       ],
       "user": "Chalky_Cupcake",
@@ -186,11 +174,6 @@
       "date": 1638347595,
       "score": 2138,
       "id": 6,
-      "avatar": {
-        "head": "46-head.png",
-        "face": "0-face.png",
-        "body": "156-body.png"
-      },
       "audio": "6",
       "width": 1520,
       "height": 266
@@ -199,7 +182,8 @@
       "content": [
         {
           "duration": 3.78,
-          "content": "Exactly the kind of content I was hoping to see in this thread"
+          "content": "Exactly the kind of content I was hoping to see in this thread",
+          "id": 0
         }
       ],
       "user": "anchors__away",
@@ -207,11 +191,6 @@
       "date": 1638359373,
       "score": 279,
       "id": 7,
-      "avatar": {
-        "head": "145-head.png",
-        "face": "33-face.png",
-        "body": "14-body.png"
-      },
       "audio": "7",
       "width": 1420,
       "height": 122
@@ -222,39 +201,30 @@
       "content": [
         {
           "duration": 3.89,
-          "content": "My stepbrother was the guy who dove into the wedding cake in the \"November "
+          "content": "My stepbrother was the guy who dove into the wedding cake in the \"November ",
+          "id": 0
         },
-        { "duration": 0.62, "content": "Rain\" video." }
+        { "duration": 0.62, "content": "Rain\" video.", "id": 1 }
       ],
       "user": "Jillredhanded",
       "depth": 0,
       "date": 1638361412,
       "score": 2079,
       "id": 8,
-      "avatar": {
-        "head": "49-head.png",
-        "face": "51-face.png",
-        "body": "107-body.png"
-      },
       "audio": "8",
       "width": 1520,
       "height": 122
     },
     {
       "content": [
-        { "duration": 1.27, "content": "That's brilliant." },
-        { "duration": 1.45, "content": "Such a random thing" }
+        { "duration": 1.27, "content": "That's brilliant.", "id": 0 },
+        { "duration": 1.45, "content": "Such a random thing", "id": 1 }
       ],
       "user": "meandhimandthose2",
       "depth": 1,
       "date": 1638365445,
       "score": 369,
       "id": 9,
-      "avatar": {
-        "head": "74-head.png",
-        "face": "24-face.png",
-        "body": "128-body.png"
-      },
       "audio": "9",
       "width": 1420,
       "height": 122
@@ -265,11 +235,13 @@
       "content": [
         {
           "duration": 4.36,
-          "content": "my aunt and uncle are super famous porn stars. i have to live my life knowing "
+          "content": "my aunt and uncle are super famous porn stars. i have to live my life knowing ",
+          "id": 0
         },
         {
           "duration": 2.69,
-          "content": "there is an insurance policy on my uncle's dick."
+          "content": "there is an insurance policy on my uncle's dick.",
+          "id": 1
         }
       ],
       "user": "L1TCH420",
@@ -277,11 +249,6 @@
       "date": 1638355649,
       "score": 1837,
       "id": 10,
-      "avatar": {
-        "head": "36-head.png",
-        "face": "30-face.png",
-        "body": "132-body.png"
-      },
       "audio": "10",
       "width": 1520,
       "height": 158
@@ -290,53 +257,65 @@
       "content": [
         {
           "duration": 3.35,
-          "content": "Genuine curiosity - when checking out porn sites, "
+          "content": "Genuine curiosity - when checking out porn sites, ",
+          "id": 0
         },
         {
           "duration": 4.63,
-          "content": "do you avoid certain ones to not even risk seeing them in thumbnails?"
+          "content": "do you avoid certain ones to not even risk seeing them in thumbnails?",
+          "id": 1
         },
         {
           "duration": 4.22,
-          "content": "Do you just go in and pray to every deity out there that you’re not gonna "
+          "content": "Do you just go in and pray to every deity out there that you’re not gonna ",
+          "id": 2
         },
         {
           "duration": 3,
-          "content": "stumble across something to pay a therapist for years?"
+          "content": "stumble across something to pay a therapist for years?",
+          "id": 3
         },
         {
           "duration": 2.5,
-          "content": "Are you not concerned about it at all?"
+          "content": "Are you not concerned about it at all?",
+          "id": 4
         },
         {
           "duration": 2.83,
-          "content": "Is it casually discussed at family gatherings?"
+          "content": "Is it casually discussed at family gatherings?",
+          "id": 5
         },
         {
           "duration": 3.76,
-          "content": "“What’s Uncle Bob and Aunt Debbie up to lately?”"
+          "content": "“What’s Uncle Bob and Aunt Debbie up to lately?”",
+          "id": 6
         },
         {
           "duration": 3.54,
-          "content": "“Hardcore BDSM, from what I’ve heard."
+          "content": "“Hardcore BDSM, from what I’ve heard.",
+          "id": 7
         },
         {
           "duration": 2.86,
-          "content": "They’re trying to branch out into watersports, "
+          "content": "They’re trying to branch out into watersports, ",
+          "id": 8
         },
-        { "duration": 2.16, "content": "but you know what Debbie’s like.”" },
-        { "duration": 2.83, "content": "“Haha ahhh that Debbie, bless her.”" }
+        {
+          "duration": 2.16,
+          "content": "but you know what Debbie’s like.”",
+          "id": 9
+        },
+        {
+          "duration": 2.83,
+          "content": "“Haha ahhh that Debbie, bless her.”",
+          "id": 10
+        }
       ],
       "user": "spopococ",
       "depth": 1,
       "date": 1638367574,
       "score": 628,
       "id": 11,
-      "avatar": {
-        "head": "47-head.png",
-        "face": "60-face.png",
-        "body": "15-body.png"
-      },
       "audio": "11",
       "width": 1420,
       "height": 302
@@ -347,33 +326,40 @@
       "content": [
         {
           "duration": 5.07,
-          "content": "Not famous in the traditional sense, but I have 4 uncles in my family who are "
+          "content": "Not famous in the traditional sense, but I have 4 uncles in my family who are ",
+          "id": 0
         },
-        { "duration": 1.69, "content": "world renowned physicians." },
+        { "duration": 1.69, "content": "world renowned physicians.", "id": 1 },
         {
           "duration": 3.84,
-          "content": "One has a patent that is used world wide in cardiac surgery."
+          "content": "One has a patent that is used world wide in cardiac surgery.",
+          "id": 2
         },
         {
           "duration": 3.83,
-          "content": "Another just won India's second most prestigious award for citizens' "
+          "content": "Another just won India's second most prestigious award for citizens' ",
+          "id": 3
         },
         {
           "duration": 3.22,
-          "content": "distinguished service from the President of India himself."
+          "content": "distinguished service from the President of India himself.",
+          "id": 4
         },
         {
           "duration": 4.65,
-          "content": "Another is retired but used to be the personal physician to the Royal House of "
+          "content": "Another is retired but used to be the personal physician to the Royal House of ",
+          "id": 5
         },
-        { "duration": 0.41, "content": "Bhutan." },
+        { "duration": 0.41, "content": "Bhutan.", "id": 6 },
         {
           "duration": 3.64,
-          "content": "The last is one of the top orthopedic surgeons in the world."
+          "content": "The last is one of the top orthopedic surgeons in the world.",
+          "id": 7
         },
         {
           "duration": 2.68,
-          "content": "Pretty astounding achievements in their fields."
+          "content": "Pretty astounding achievements in their fields.",
+          "id": 8
         }
       ],
       "user": "dhalsim282",
@@ -381,11 +367,6 @@
       "date": 1638342760,
       "score": 1581,
       "id": 12,
-      "avatar": {
-        "head": "149-head.png",
-        "face": "27-face.png",
-        "body": "51-body.png"
-      },
       "audio": "12",
       "width": 1520,
       "height": 266
@@ -394,7 +375,8 @@
       "content": [
         {
           "duration": 2.18,
-          "content": "But which one is the weird, drunk uncle?"
+          "content": "But which one is the weird, drunk uncle?",
+          "id": 0
         }
       ],
       "user": "SubZero807",
@@ -402,11 +384,6 @@
       "date": 1638346250,
       "score": 472,
       "id": 13,
-      "avatar": {
-        "head": "135-head.png",
-        "face": "59-face.png",
-        "body": "102-body.png"
-      },
       "audio": "13",
       "width": 1420,
       "height": 122
@@ -417,20 +394,20 @@
       "content": [
         {
           "duration": 5.1,
-          "content": "My dog is quite well-known in my town, because he runs off every chance he gets."
+          "content": "My dog is quite well-known in my town, because he runs off every chance he gets.",
+          "id": 0
         },
-        { "duration": 1.78, "content": "(or did before he was neutered)" }
+        {
+          "duration": 1.78,
+          "content": "(or did before he was neutered)",
+          "id": 1
+        }
       ],
       "user": "YourGayAuntBob",
       "depth": 0,
       "date": 1638341683,
       "score": 1478,
       "id": 14,
-      "avatar": {
-        "head": "85-head.png",
-        "face": "5-face.png",
-        "body": "112-body.png"
-      },
       "audio": "14",
       "width": 1520,
       "height": 158
@@ -439,25 +416,22 @@
       "content": [
         {
           "duration": 2.69,
-          "content": "I know that people treat their pets like family."
+          "content": "I know that people treat their pets like family.",
+          "id": 0
         },
-        { "duration": 1.8, "content": "I even do it myself." },
+        { "duration": 1.8, "content": "I even do it myself.", "id": 1 },
         {
           "duration": 3.95,
-          "content": "But I've never heard of anyone who answered a question about a person in their "
+          "content": "But I've never heard of anyone who answered a question about a person in their ",
+          "id": 2
         },
-        { "duration": 1.05, "content": "family with \"My dog.\"" }
+        { "duration": 1.05, "content": "family with \"My dog.\"", "id": 3 }
       ],
       "user": "KhaoticMess",
       "depth": 1,
       "date": 1638357396,
       "score": 354,
       "id": 15,
-      "avatar": {
-        "head": "59-head.png",
-        "face": "84-face.png",
-        "body": "74-body.png"
-      },
       "audio": "15",
       "width": 1420,
       "height": 158
@@ -468,7 +442,8 @@
       "content": [
         {
           "duration": 3.85,
-          "content": "3rd or 4th cousin is Richie Valenz aka the La Bamba guy"
+          "content": "3rd or 4th cousin is Richie Valenz aka the La Bamba guy",
+          "id": 0
         }
       ],
       "user": "ForeverOctober",
@@ -476,11 +451,6 @@
       "date": 1638337862,
       "score": 1201,
       "id": 16,
-      "avatar": {
-        "head": "166-head.png",
-        "face": "78-face.png",
-        "body": "35-body.png"
-      },
       "audio": "16",
       "width": 1520,
       "height": 122
@@ -489,11 +459,13 @@
       "content": [
         {
           "duration": 4.39,
-          "content": "His plane crashed on my cousin's Albert's farm, between Fertile "
+          "content": "His plane crashed on my cousin's Albert's farm, between Fertile ",
+          "id": 0
         },
         {
           "duration": 3.43,
-          "content": "(yes, that's the town's real name) and Clear Lake."
+          "content": "(yes, that's the town's real name) and Clear Lake.",
+          "id": 1
         }
       ],
       "user": "Maxsdad53",
@@ -501,11 +473,6 @@
       "date": 1638367861,
       "score": 322,
       "id": 17,
-      "avatar": {
-        "head": "71-head.png",
-        "face": "11-face.png",
-        "body": "148-body.png"
-      },
       "audio": "17",
       "width": 1420,
       "height": 158
@@ -514,35 +481,29 @@
   [
     {
       "content": [
-        { "duration": 0.93, "content": "My dad." },
-        { "duration": 2.55, "content": "He got fat shamed on national TV" }
+        { "duration": 0.93, "content": "My dad.", "id": 0 },
+        {
+          "duration": 2.55,
+          "content": "He got fat shamed on national TV",
+          "id": 1
+        }
       ],
       "user": "randomisedjew",
       "depth": 0,
       "date": 1638353934,
       "score": 1072,
       "id": 18,
-      "avatar": {
-        "head": "93-head.png",
-        "face": "63-face.png",
-        "body": "146-body.png"
-      },
       "audio": "18",
       "width": 1520,
       "height": 122
     },
     {
-      "content": [{ "duration": 1.36, "content": "Sad to hear that" }],
+      "content": [{ "duration": 1.36, "content": "Sad to hear that", "id": 0 }],
       "user": "shydestinyfart",
       "depth": 1,
       "date": 1638358317,
       "score": 146,
       "id": 19,
-      "avatar": {
-        "head": "64-head.png",
-        "face": "33-face.png",
-        "body": "76-body.png"
-      },
       "audio": "19",
       "width": 1420,
       "height": 122
@@ -550,17 +511,12 @@
   ],
   [
     {
-      "content": [{ "duration": 1.34, "content": "Stevie Wonder" }],
+      "content": [{ "duration": 1.34, "content": "Stevie Wonder", "id": 0 }],
       "user": "Infintely_Impossible",
       "depth": 0,
       "date": 1638338184,
       "score": 1064,
       "id": 20,
-      "avatar": {
-        "head": "51-head.png",
-        "face": "89-face.png",
-        "body": "28-body.png"
-      },
       "audio": "20",
       "width": 1520,
       "height": 122
@@ -569,7 +525,8 @@
       "content": [
         {
           "duration": 3.18,
-          "content": "This has GOT to be the \"most famous\" person on this thread."
+          "content": "This has GOT to be the \"most famous\" person on this thread.",
+          "id": 0
         }
       ],
       "user": "iamclarkman",
@@ -577,11 +534,6 @@
       "date": 1638365016,
       "score": 402,
       "id": 21,
-      "avatar": {
-        "head": "12-head.png",
-        "face": "41-face.png",
-        "body": "129-body.png"
-      },
       "audio": "21",
       "width": 1420,
       "height": 122
@@ -592,7 +544,8 @@
       "content": [
         {
           "duration": 3.96,
-          "content": "My dad had his own TV show for a brief time back in the 80s."
+          "content": "My dad had his own TV show for a brief time back in the 80s.",
+          "id": 0
         }
       ],
       "user": "timmyisserpico",
@@ -600,27 +553,17 @@
       "date": 1638345264,
       "score": 882,
       "id": 22,
-      "avatar": {
-        "head": "94-head.png",
-        "face": "56-face.png",
-        "body": "81-body.png"
-      },
       "audio": "22",
       "width": 1520,
       "height": 122
     },
     {
-      "content": [{ "duration": 0.83, "content": "He-man?!" }],
+      "content": [{ "duration": 0.83, "content": "He-man?!", "id": 0 }],
       "user": "EmceeK_baby",
       "depth": 1,
       "date": 1638364893,
       "score": 214,
       "id": 23,
-      "avatar": {
-        "head": "131-head.png",
-        "face": "52-face.png",
-        "body": "106-body.png"
-      },
       "audio": "23",
       "width": 1420,
       "height": 122
@@ -631,15 +574,18 @@
       "content": [
         {
           "duration": 4.46,
-          "content": "My father helped create a program to train police officers to deescalate "
+          "content": "My father helped create a program to train police officers to deescalate ",
+          "id": 0
         },
         {
           "duration": 2.69,
-          "content": "situations with persons with mental illness."
+          "content": "situations with persons with mental illness.",
+          "id": 1
         },
         {
           "duration": 3.33,
-          "content": "I once read about him in one of my college textbooks!"
+          "content": "I once read about him in one of my college textbooks!",
+          "id": 2
         }
       ],
       "user": "ReneGOI",
@@ -647,11 +593,6 @@
       "date": 1638343949,
       "score": 818,
       "id": 24,
-      "avatar": {
-        "head": "21-head.png",
-        "face": "59-face.png",
-        "body": "92-body.png"
-      },
       "audio": "24",
       "width": 1520,
       "height": 158
@@ -660,7 +601,8 @@
       "content": [
         {
           "duration": 3.94,
-          "content": "It would be nice if more of them read his work and internalized it."
+          "content": "It would be nice if more of them read his work and internalized it.",
+          "id": 0
         }
       ],
       "user": "ManyConclusion",
@@ -668,11 +610,6 @@
       "date": 1638352133,
       "score": 411,
       "id": 25,
-      "avatar": {
-        "head": "23-head.png",
-        "face": "82-face.png",
-        "body": "71-body.png"
-      },
       "audio": "25",
       "width": 1420,
       "height": 122
@@ -683,7 +620,8 @@
       "content": [
         {
           "duration": 4.5,
-          "content": "My Dad, he has been on the news a couple of times still really cool to me"
+          "content": "My Dad, he has been on the news a couple of times still really cool to me",
+          "id": 0
         }
       ],
       "user": "ControChipYT",
@@ -691,27 +629,19 @@
       "date": 1638339634,
       "score": 780,
       "id": 26,
-      "avatar": {
-        "head": "18-head.png",
-        "face": "71-face.png",
-        "body": "69-body.png"
-      },
       "audio": "26",
       "width": 1520,
       "height": 122
     },
     {
-      "content": [{ "duration": 1.68, "content": "Good news story i hope." }],
+      "content": [
+        { "duration": 1.68, "content": "Good news story i hope.", "id": 0 }
+      ],
       "user": "chimpdoctor",
       "depth": 1,
       "date": 1638349483,
       "score": 218,
       "id": 27,
-      "avatar": {
-        "head": "43-head.png",
-        "face": "8-face.png",
-        "body": "97-body.png"
-      },
       "audio": "27",
       "width": 1420,
       "height": 122
@@ -720,7 +650,8 @@
       "content": [
         {
           "duration": 2.85,
-          "content": "\"Florida man attempts to murder his own son\""
+          "content": "\"Florida man attempts to murder his own son\"",
+          "id": 0
         }
       ],
       "user": "gastelumg2",
@@ -728,11 +659,6 @@
       "date": 1638369408,
       "score": 721,
       "id": 28,
-      "avatar": {
-        "head": "160-head.png",
-        "face": "62-face.png",
-        "body": "8-body.png"
-      },
       "audio": "28",
       "width": 1320,
       "height": 122
@@ -743,36 +669,27 @@
       "content": [
         {
           "duration": 4.83,
-          "content": "I share a great great grandparents with Hayley Atwell of Peggy Carter fame if "
+          "content": "I share a great great grandparents with Hayley Atwell of Peggy Carter fame if ",
+          "id": 0
         },
-        { "duration": 1.3, "content": "that counts for shit." }
+        { "duration": 1.3, "content": "that counts for shit.", "id": 1 }
       ],
       "user": "Mr_Reckless_",
       "depth": 0,
       "date": 1638343937,
       "score": 640,
       "id": 29,
-      "avatar": {
-        "head": "163-head.png",
-        "face": "80-face.png",
-        "body": "43-body.png"
-      },
       "audio": "29",
       "width": 1520,
       "height": 122
     },
     {
-      "content": [{ "duration": 1.08, "content": "She's a hottie." }],
+      "content": [{ "duration": 1.08, "content": "She's a hottie.", "id": 0 }],
       "user": "cjheaney",
       "depth": 1,
       "date": 1638363056,
       "score": 175,
       "id": 30,
-      "avatar": {
-        "head": "13-head.png",
-        "face": "81-face.png",
-        "body": "28-body.png"
-      },
       "audio": "30",
       "width": 1420,
       "height": 122
@@ -783,37 +700,37 @@
       "content": [
         {
           "duration": 3.37,
-          "content": "My grandad is a double Olympic bronze medalist for rowing, "
+          "content": "My grandad is a double Olympic bronze medalist for rowing, ",
+          "id": 0
         },
         {
           "duration": 2.74,
-          "content": "he has them displayed in a cabinet in his house."
+          "content": "he has them displayed in a cabinet in his house.",
+          "id": 1
         },
         {
           "duration": 4.75,
-          "content": "He’s also one of the most humble and down to earth people I’ve ever met."
+          "content": "He’s also one of the most humble and down to earth people I’ve ever met.",
+          "id": 2
         },
         {
           "duration": 4.56,
-          "content": "Never brags or boasts about it, and never brings it up in conversations as a "
+          "content": "Never brags or boasts about it, and never brings it up in conversations as a ",
+          "id": 3
         },
-        { "duration": 1.6, "content": "form of one-upping someone." },
+        { "duration": 1.6, "content": "form of one-upping someone.", "id": 4 },
         {
           "duration": 4.9,
-          "content": "If he does talk about it it’s because someone found out by some other means "
+          "content": "If he does talk about it it’s because someone found out by some other means ",
+          "id": 5
         },
-        { "duration": 1.7, "content": "and has asked him about it." }
+        { "duration": 1.7, "content": "and has asked him about it.", "id": 6 }
       ],
       "user": "The_Extreme_Potato",
       "depth": 0,
       "date": 1638353591,
       "score": 562,
       "id": 31,
-      "avatar": {
-        "head": "34-head.png",
-        "face": "66-face.png",
-        "body": "63-body.png"
-      },
       "audio": "31",
       "width": 1520,
       "height": 230
@@ -824,20 +741,20 @@
       "content": [
         {
           "duration": 4.97,
-          "content": "Not family… BUT my neighbour growing up was the Sun-Maid lady."
+          "content": "Not family… BUT my neighbour growing up was the Sun-Maid lady.",
+          "id": 0
         },
-        { "duration": 2.65, "content": "Like, the lady on the raisin box." }
+        {
+          "duration": 2.65,
+          "content": "Like, the lady on the raisin box.",
+          "id": 1
+        }
       ],
       "user": "nonchellent",
       "depth": 0,
       "date": 1638344988,
       "score": 558,
       "id": 32,
-      "avatar": {
-        "head": "47-head.png",
-        "face": "60-face.png",
-        "body": "145-body.png"
-      },
       "audio": "32",
       "width": 1520,
       "height": 122
@@ -846,11 +763,13 @@
       "content": [
         {
           "duration": 2.82,
-          "content": "My dad told me he had a crush on her growing up, "
+          "content": "My dad told me he had a crush on her growing up, ",
+          "id": 0
         },
         {
           "duration": 3.34,
-          "content": "I guess rectangular women filled with raisins is his thing"
+          "content": "I guess rectangular women filled with raisins is his thing",
+          "id": 1
         }
       ],
       "user": "Nice_Entertainment91",
@@ -858,11 +777,6 @@
       "date": 1638365962,
       "score": 127,
       "id": 33,
-      "avatar": {
-        "head": "95-head.png",
-        "face": "75-face.png",
-        "body": "32-body.png"
-      },
       "audio": "33",
       "width": 1420,
       "height": 158
@@ -871,19 +785,18 @@
   [
     {
       "content": [
-        { "duration": 3.33, "content": "My dad has 130 Facebook friends." },
-        { "duration": 1.24, "content": "So I guess him." }
+        {
+          "duration": 3.33,
+          "content": "My dad has 130 Facebook friends.",
+          "id": 0
+        },
+        { "duration": 1.24, "content": "So I guess him.", "id": 1 }
       ],
       "user": "themomentaftero",
       "depth": 0,
       "date": 1638340354,
       "score": 553,
       "id": 34,
-      "avatar": {
-        "head": "130-head.png",
-        "face": "88-face.png",
-        "body": "160-body.png"
-      },
       "audio": "34",
       "width": 1520,
       "height": 122
@@ -894,21 +807,21 @@
       "content": [
         {
           "duration": 4.51,
-          "content": "My dads great uncle, Charlie Becker, was the Mayor of Munchkinland in the "
+          "content": "My dads great uncle, Charlie Becker, was the Mayor of Munchkinland in the ",
+          "id": 0
         },
-        { "duration": 1.34, "content": "original Wizard of Oz." },
-        { "duration": 2.43, "content": "(He also doubled as a flying monkey!)" }
+        { "duration": 1.34, "content": "original Wizard of Oz.", "id": 1 },
+        {
+          "duration": 2.43,
+          "content": "(He also doubled as a flying monkey!)",
+          "id": 2
+        }
       ],
       "user": "JayzWishHeWereMe",
       "depth": 0,
       "date": 1638346457,
       "score": 546,
       "id": 35,
-      "avatar": {
-        "head": "158-head.png",
-        "face": "26-face.png",
-        "body": "157-body.png"
-      },
       "audio": "35",
       "width": 1520,
       "height": 158
@@ -919,7 +832,8 @@
       "content": [
         {
           "duration": 4.46,
-          "content": "Drummer for Ozzy and Motley Crue (post Tommy Lee), Randy Castillo"
+          "content": "Drummer for Ozzy and Motley Crue (post Tommy Lee), Randy Castillo",
+          "id": 0
         }
       ],
       "user": "Foco_cholo",
@@ -927,11 +841,6 @@
       "date": 1638355312,
       "score": 544,
       "id": 36,
-      "avatar": {
-        "head": "126-head.png",
-        "face": "57-face.png",
-        "body": "68-body.png"
-      },
       "audio": "36",
       "width": 1520,
       "height": 122
@@ -942,7 +851,8 @@
       "content": [
         {
           "duration": 4.05,
-          "content": "Grandpa's cousin performed 1st successful heart transplant"
+          "content": "Grandpa's cousin performed 1st successful heart transplant",
+          "id": 0
         }
       ],
       "user": "Adonis6969",
@@ -950,27 +860,19 @@
       "date": 1638347757,
       "score": 535,
       "id": 37,
-      "avatar": {
-        "head": "84-head.png",
-        "face": "67-face.png",
-        "body": "133-body.png"
-      },
       "audio": "37",
       "width": 1520,
       "height": 122
     },
     {
-      "content": [{ "duration": 2.06, "content": "Christiaan Barnard! 🤩" }],
+      "content": [
+        { "duration": 2.06, "content": "Christiaan Barnard! 🤩", "id": 0 }
+      ],
       "user": "tremynci",
       "depth": 1,
       "date": 1638362628,
       "score": 106,
       "id": 38,
-      "avatar": {
-        "head": "154-head.png",
-        "face": "48-face.png",
-        "body": "149-body.png"
-      },
       "audio": "38",
       "width": 1420,
       "height": 122
@@ -979,10 +881,15 @@
   [
     {
       "content": [
-        { "duration": 2.94, "content": "Former NY mayor, David Dinkins" },
+        {
+          "duration": 2.94,
+          "content": "Former NY mayor, David Dinkins",
+          "id": 0
+        },
         {
           "duration": 3.22,
-          "content": "extended family, don’t know him personally"
+          "content": "extended family, don’t know him personally",
+          "id": 1
         }
       ],
       "user": "Saabirahredolence",
@@ -990,11 +897,6 @@
       "date": 1638337801,
       "score": 479,
       "id": 39,
-      "avatar": {
-        "head": "17-head.png",
-        "face": "6-face.png",
-        "body": "4-body.png"
-      },
       "audio": "39",
       "width": 1520,
       "height": 122
@@ -1005,25 +907,22 @@
       "content": [
         {
           "duration": 4.8,
-          "content": "My dad and his band were pretty well known in the glam rock world before I was "
+          "content": "My dad and his band were pretty well known in the glam rock world before I was ",
+          "id": 0
         },
-        { "duration": 0.3, "content": "born." },
+        { "duration": 0.3, "content": "born.", "id": 1 },
         {
           "duration": 2.98,
-          "content": "They sold out the London Apollo a few times."
+          "content": "They sold out the London Apollo a few times.",
+          "id": 2
         },
-        { "duration": 1.99, "content": "Now he does local bar gigs." }
+        { "duration": 1.99, "content": "Now he does local bar gigs.", "id": 3 }
       ],
       "user": "MerylSquirrel",
       "depth": 0,
       "date": 1638343947,
       "score": 460,
       "id": 40,
-      "avatar": {
-        "head": "73-head.png",
-        "face": "94-face.png",
-        "body": "114-body.png"
-      },
       "audio": "40",
       "width": 1520,
       "height": 158
@@ -1034,20 +933,16 @@
       "content": [
         {
           "duration": 5.01,
-          "content": "My great-great-great-great whatever grandfather was part of Queen Victoria's "
+          "content": "My great-great-great-great whatever grandfather was part of Queen Victoria's ",
+          "id": 0
         },
-        { "duration": 1.43, "content": "staff, so prolly that." }
+        { "duration": 1.43, "content": "staff, so prolly that.", "id": 1 }
       ],
       "user": "Aggressive_Cherry_81",
       "depth": 0,
       "date": 1638339002,
       "score": 442,
       "id": 41,
-      "avatar": {
-        "head": "98-head.png",
-        "face": "48-face.png",
-        "body": "23-body.png"
-      },
       "audio": "41",
       "width": 1520,
       "height": 122
@@ -1058,7 +953,8 @@
       "content": [
         {
           "duration": 4.34,
-          "content": "My autistic sister who is the 3rd best paralympic skiier in Sweden"
+          "content": "My autistic sister who is the 3rd best paralympic skiier in Sweden",
+          "id": 0
         }
       ],
       "user": "Flame_Boi",
@@ -1066,11 +962,6 @@
       "date": 1638358271,
       "score": 404,
       "id": 42,
-      "avatar": {
-        "head": "89-head.png",
-        "face": "62-face.png",
-        "body": "164-body.png"
-      },
       "audio": "42",
       "width": 1520,
       "height": 122
@@ -1078,17 +969,12 @@
   ],
   [
     {
-      "content": [{ "duration": 1.31, "content": "Ghengis Khan" }],
+      "content": [{ "duration": 1.31, "content": "Ghengis Khan", "id": 0 }],
       "user": "Beautiful_Window_661",
       "depth": 0,
       "date": 1638342947,
       "score": 400,
       "id": 43,
-      "avatar": {
-        "head": "86-head.png",
-        "face": "94-face.png",
-        "body": "22-body.png"
-      },
       "audio": "43",
       "width": 1520,
       "height": 122
@@ -1097,7 +983,8 @@
       "content": [
         {
           "duration": 3.08,
-          "content": "As half of the world.we're basically cousins"
+          "content": "As half of the world.we're basically cousins",
+          "id": 0
         }
       ],
       "user": "R3d_Ox",
@@ -1105,11 +992,6 @@
       "date": 1638353899,
       "score": 285,
       "id": 44,
-      "avatar": {
-        "head": "140-head.png",
-        "face": "13-face.png",
-        "body": "41-body.png"
-      },
       "audio": "44",
       "width": 1420,
       "height": 122
@@ -1118,20 +1000,23 @@
   [
     {
       "content": [
-        { "duration": 1.24, "content": "My great uncle." },
+        { "duration": 1.24, "content": "My great uncle.", "id": 0 },
         {
           "duration": 3.56,
-          "content": "Lead the b52 bombers to Japan after Pearl Harbor."
+          "content": "Lead the b52 bombers to Japan after Pearl Harbor.",
+          "id": 1
         },
-        { "duration": 1.29, "content": "Jimmy Doolittle" },
+        { "duration": 1.29, "content": "Jimmy Doolittle", "id": 2 },
         {
           "duration": 4.86,
-          "content": "Edit: it’s come to my attention that I was incorrect about the planes."
+          "content": "Edit: it’s come to my attention that I was incorrect about the planes.",
+          "id": 3
         },
-        { "duration": 2.09, "content": "It was a B-25 Mitchell." },
+        { "duration": 2.09, "content": "It was a B-25 Mitchell.", "id": 4 },
         {
           "duration": 2.28,
-          "content": "My apologies for the lack of knowledge!"
+          "content": "My apologies for the lack of knowledge!",
+          "id": 5
         }
       ],
       "user": "Cycle_Zealousideal",
@@ -1139,11 +1024,6 @@
       "date": 1638342842,
       "score": 366,
       "id": 45,
-      "avatar": {
-        "head": "89-head.png",
-        "face": "28-face.png",
-        "body": "49-body.png"
-      },
       "audio": "45",
       "width": 1520,
       "height": 194
@@ -1152,7 +1032,8 @@
       "content": [
         {
           "duration": 4.43,
-          "content": "B25, otherwise Japan would have been in for a rude awakening."
+          "content": "B25, otherwise Japan would have been in for a rude awakening.",
+          "id": 0
         }
       ],
       "user": "LaoBa",
@@ -1160,11 +1041,6 @@
       "date": 1638352309,
       "score": 158,
       "id": 46,
-      "avatar": {
-        "head": "44-head.png",
-        "face": "38-face.png",
-        "body": "100-body.png"
-      },
       "audio": "46",
       "width": 1420,
       "height": 122
@@ -1175,11 +1051,13 @@
       "content": [
         {
           "duration": 5.58,
-          "content": "My Great Great Great Uncle I believe was Tom Mix who was an American film actor "
+          "content": "My Great Great Great Uncle I believe was Tom Mix who was an American film actor ",
+          "id": 0
         },
         {
           "duration": 4.47,
-          "content": "and the star of many early Western movies between 1909 and 1935."
+          "content": "and the star of many early Western movies between 1909 and 1935.",
+          "id": 1
         }
       ],
       "user": "Enshu",
@@ -1187,11 +1065,6 @@
       "date": 1638340835,
       "score": 373,
       "id": 47,
-      "avatar": {
-        "head": "41-head.png",
-        "face": "37-face.png",
-        "body": "149-body.png"
-      },
       "audio": "47",
       "width": 1520,
       "height": 158
@@ -1200,26 +1073,30 @@
       "content": [
         {
           "duration": 4.33,
-          "content": "And was the inspiration for the most famous rendition of “shave and a hair "
+          "content": "And was the inspiration for the most famous rendition of “shave and a hair ",
+          "id": 0
         },
-        { "duration": 2.2, "content": "cut” I learned it back in the 70’s." },
-        { "duration": 2.36, "content": "Shave and a haircut, two bits" },
-        { "duration": 2.26, "content": "Who got married, Tom Mix" },
-        { "duration": 1.16, "content": "Who did he marry?" },
-        { "duration": 0.99, "content": "Bob White" },
-        { "duration": 1.24, "content": "How is the baby?" },
-        { "duration": 0.85, "content": "Alright" }
+        {
+          "duration": 2.2,
+          "content": "cut” I learned it back in the 70’s.",
+          "id": 1
+        },
+        {
+          "duration": 2.36,
+          "content": "Shave and a haircut, two bits",
+          "id": 2
+        },
+        { "duration": 2.26, "content": "Who got married, Tom Mix", "id": 3 },
+        { "duration": 1.16, "content": "Who did he marry?", "id": 4 },
+        { "duration": 0.99, "content": "Bob White", "id": 5 },
+        { "duration": 1.24, "content": "How is the baby?", "id": 6 },
+        { "duration": 0.85, "content": "Alright", "id": 7 }
       ],
       "user": "Dumbkitty2",
       "depth": 1,
       "date": 1638359171,
       "score": 110,
       "id": 48,
-      "avatar": {
-        "head": "45-head.png",
-        "face": "23-face.png",
-        "body": "19-body.png"
-      },
       "audio": "48",
       "width": 1420,
       "height": 194
@@ -1228,10 +1105,11 @@
   [
     {
       "content": [
-        { "duration": 1.87, "content": "My pet Chicken, Mary." },
+        { "duration": 1.87, "content": "My pet Chicken, Mary.", "id": 0 },
         {
           "duration": 2.97,
-          "content": "She has a small but devoted internet following."
+          "content": "She has a small but devoted internet following.",
+          "id": 1
         }
       ],
       "user": "LizardPossum",
@@ -1239,27 +1117,17 @@
       "date": 1638339680,
       "score": 302,
       "id": 49,
-      "avatar": {
-        "head": "42-head.png",
-        "face": "3-face.png",
-        "body": "173-body.png"
-      },
       "audio": "49",
       "width": 1520,
       "height": 122
     },
     {
-      "content": [{ "duration": 1.27, "content": "can i follow her" }],
+      "content": [{ "duration": 1.27, "content": "can i follow her", "id": 0 }],
       "user": "a2625",
       "depth": 1,
       "date": 1638357302,
       "score": 50,
       "id": 50,
-      "avatar": {
-        "head": "75-head.png",
-        "face": "5-face.png",
-        "body": "125-body.png"
-      },
       "audio": "50",
       "width": 1420,
       "height": 122
@@ -1270,15 +1138,18 @@
       "content": [
         {
           "duration": 5.11,
-          "content": "Well, if very distant cousins count, I've recently found out that I'm related "
+          "content": "Well, if very distant cousins count, I've recently found out that I'm related ",
+          "id": 0
         },
         {
           "duration": 3.27,
-          "content": "to Emmanuel Macron, the current French President, "
+          "content": "to Emmanuel Macron, the current French President, ",
+          "id": 1
         },
         {
           "duration": 4,
-          "content": "but you have to go back to the 17th century to find the link."
+          "content": "but you have to go back to the 17th century to find the link.",
+          "id": 2
         }
       ],
       "user": "KeterLordFR",
@@ -1286,11 +1157,6 @@
       "date": 1638343228,
       "score": 292,
       "id": 51,
-      "avatar": {
-        "head": "169-head.png",
-        "face": "66-face.png",
-        "body": "103-body.png"
-      },
       "audio": "51",
       "width": 1520,
       "height": 158
@@ -1299,7 +1165,8 @@
       "content": [
         {
           "duration": 3.32,
-          "content": "How were you able to trace you family tree that far back?"
+          "content": "How were you able to trace you family tree that far back?",
+          "id": 0
         }
       ],
       "user": "waterdrinker14",
@@ -1307,11 +1174,6 @@
       "date": 1638365605,
       "score": 63,
       "id": 52,
-      "avatar": {
-        "head": "148-head.png",
-        "face": "52-face.png",
-        "body": "137-body.png"
-      },
       "audio": "52",
       "width": 1420,
       "height": 122
@@ -1320,36 +1182,36 @@
       "content": [
         {
           "duration": 4.25,
-          "content": "If you had some individuals in your family a few hundred years back who were "
+          "content": "If you had some individuals in your family a few hundred years back who were ",
+          "id": 0
         },
         {
           "duration": 4.2,
-          "content": "either wealthy or part of a culture that cared a lot about tracing lineage, "
+          "content": "either wealthy or part of a culture that cared a lot about tracing lineage, ",
+          "id": 1
         },
         {
           "duration": 3.21,
-          "content": "you can sometimes find records going back a very long way."
+          "content": "you can sometimes find records going back a very long way.",
+          "id": 2
         },
         {
           "duration": 4.99,
-          "content": "I can trace my line about 800 years back to some dude in Scotland myself… "
+          "content": "I can trace my line about 800 years back to some dude in Scotland myself… ",
+          "id": 3
         },
         {
           "duration": 4.99,
-          "content": "though over so many generations, I’m about as Scottish as whiskey with an "
+          "content": "though over so many generations, I’m about as Scottish as whiskey with an ",
+          "id": 4
         },
-        { "duration": 0.53, "content": "“e.”" }
+        { "duration": 0.53, "content": "“e.”", "id": 5 }
       ],
       "user": "drottkvaett",
       "depth": 2,
       "date": 1638366384,
       "score": 101,
       "id": 53,
-      "avatar": {
-        "head": "104-head.png",
-        "face": "62-face.png",
-        "body": "69-body.png"
-      },
       "audio": "53",
       "width": 1320,
       "height": 266
@@ -1360,38 +1222,42 @@
       "content": [
         {
           "duration": 4.26,
-          "content": "Well I will have you all know my mom has not only been a guest on the Ricki "
+          "content": "Well I will have you all know my mom has not only been a guest on the Ricki ",
+          "id": 0
         },
         {
           "duration": 4.38,
-          "content": "Lake show and the Queen Latifa Show, but the Sally Jessy Raphael show as well!"
+          "content": "Lake show and the Queen Latifa Show, but the Sally Jessy Raphael show as well!",
+          "id": 1
         },
         {
           "duration": 4.38,
-          "content": "The last one is the only one we have been able to find video evidence of."
+          "content": "The last one is the only one we have been able to find video evidence of.",
+          "id": 2
         },
         {
           "duration": 4.97,
-          "content": "My mom is a full on attention-seeker and early 2000’s daytime tv was her "
+          "content": "My mom is a full on attention-seeker and early 2000’s daytime tv was her ",
+          "id": 3
         },
-        { "duration": 0.4, "content": "stage." },
+        { "duration": 0.4, "content": "stage.", "id": 4 },
         {
           "duration": 5.51,
-          "content": "(She was also on a couple of “court” shows but … those storylines were "
+          "content": "(She was also on a couple of “court” shows but … those storylines were ",
+          "id": 5
         },
-        { "duration": 1, "content": "for sure fake." },
-        { "duration": 1.88, "content": "She just wanted a free trip)." }
+        { "duration": 1, "content": "for sure fake.", "id": 6 },
+        {
+          "duration": 1.88,
+          "content": "She just wanted a free trip).",
+          "id": 7
+        }
       ],
       "user": "sadmotelvibes",
       "depth": 0,
       "date": 1638346982,
       "score": 282,
       "id": 54,
-      "avatar": {
-        "head": "17-head.png",
-        "face": "27-face.png",
-        "body": "11-body.png"
-      },
       "audio": "54",
       "width": 1520,
       "height": 266
@@ -1400,7 +1266,8 @@
       "content": [
         {
           "duration": 3.03,
-          "content": "How did the attention seeking affect your childhood?"
+          "content": "How did the attention seeking affect your childhood?",
+          "id": 0
         }
       ],
       "user": "opposablethumbsup",
@@ -1408,11 +1275,6 @@
       "date": 1638354780,
       "score": 76,
       "id": 55,
-      "avatar": {
-        "head": "79-head.png",
-        "face": "16-face.png",
-        "body": "179-body.png"
-      },
       "audio": "55",
       "width": 1420,
       "height": 122
@@ -1421,58 +1283,74 @@
       "content": [
         {
           "duration": 5,
-          "content": "I’m still sort of working out my feelings towards her in therapy, tbh."
+          "content": "I’m still sort of working out my feelings towards her in therapy, tbh.",
+          "id": 0
         },
         {
           "duration": 3.05,
-          "content": "She also struggled with drug addiction down the line."
+          "content": "She also struggled with drug addiction down the line.",
+          "id": 1
         },
         {
           "duration": 3.63,
-          "content": "She was over the “mom thing” when I was around 16, "
+          "content": "She was over the “mom thing” when I was around 16, ",
+          "id": 2
         },
         {
           "duration": 5.27,
-          "content": "when I was kicked out because I disagreed with her drug addict boyfriend moving "
+          "content": "when I was kicked out because I disagreed with her drug addict boyfriend moving ",
+          "id": 3
         },
-        { "duration": 0.2, "content": "in." },
-        { "duration": 2.28, "content": "The emotional scars run pretty deep." },
+        { "duration": 0.2, "content": "in.", "id": 4 },
+        {
+          "duration": 2.28,
+          "content": "The emotional scars run pretty deep.",
+          "id": 5
+        },
         {
           "duration": 4.85,
-          "content": "I’m scared to share my opinion, I’m overly sensitive towards certain "
+          "content": "I’m scared to share my opinion, I’m overly sensitive towards certain ",
+          "id": 6
         },
-        { "duration": 2.59, "content": "actions “triggers” if I could say, " },
+        {
+          "duration": 2.59,
+          "content": "actions “triggers” if I could say, ",
+          "id": 7
+        },
         {
           "duration": 4.52,
-          "content": "and even now I’m STILL finding ones I didn’t realize were there."
+          "content": "and even now I’m STILL finding ones I didn’t realize were there.",
+          "id": 8
         },
         {
           "duration": 4.44,
-          "content": "She’s sober and stable now, so I’m trying my best to build a separate "
+          "content": "She’s sober and stable now, so I’m trying my best to build a separate ",
+          "id": 9
         },
         {
           "duration": 4.38,
-          "content": "relationship, as opposed to building off of the original relationship of "
+          "content": "relationship, as opposed to building off of the original relationship of ",
+          "id": 10
         },
-        { "duration": 0.96, "content": "mother/daughter." },
+        { "duration": 0.96, "content": "mother/daughter.", "id": 11 },
         {
           "duration": 4.57,
-          "content": "It’s hard though, still seeing her not take accountability for her really "
+          "content": "It’s hard though, still seeing her not take accountability for her really ",
+          "id": 12
         },
-        { "duration": 0.96, "content": "selfish actions." },
-        { "duration": 1.16, "content": "That was long!" },
-        { "duration": 2.6, "content": "No one has ever asked me that, haha." }
+        { "duration": 0.96, "content": "selfish actions.", "id": 13 },
+        { "duration": 1.16, "content": "That was long!", "id": 14 },
+        {
+          "duration": 2.6,
+          "content": "No one has ever asked me that, haha.",
+          "id": 15
+        }
       ],
       "user": "sadmotelvibes",
       "depth": 2,
       "date": 1638366585,
       "score": 149,
       "id": 56,
-      "avatar": {
-        "head": "120-head.png",
-        "face": "41-face.png",
-        "body": "161-body.png"
-      },
       "audio": "56",
       "width": 1320,
       "height": 410
@@ -1481,10 +1359,11 @@
   [
     {
       "content": [
-        { "duration": 0.94, "content": "My uncle." },
+        { "duration": 0.94, "content": "My uncle.", "id": 0 },
         {
           "duration": 3.47,
-          "content": "He played for the White Sox back in early 2000's"
+          "content": "He played for the White Sox back in early 2000's",
+          "id": 1
         }
       ],
       "user": "goooeycookies",
@@ -1492,11 +1371,6 @@
       "date": 1638337787,
       "score": 268,
       "id": 57,
-      "avatar": {
-        "head": "28-head.png",
-        "face": "21-face.png",
-        "body": "151-body.png"
-      },
       "audio": "57",
       "width": 1520,
       "height": 122
@@ -1507,7 +1381,8 @@
       "content": [
         {
           "duration": 3.16,
-          "content": "Something something cousin removed, Betty White."
+          "content": "Something something cousin removed, Betty White.",
+          "id": 0
         }
       ],
       "user": "TheOnlyPepromene",
@@ -1515,11 +1390,6 @@
       "date": 1638359534,
       "score": 244,
       "id": 58,
-      "avatar": {
-        "head": "163-head.png",
-        "face": "49-face.png",
-        "body": "136-body.png"
-      },
       "audio": "58",
       "width": 1520,
       "height": 122
@@ -1528,14 +1398,16 @@
   [
     {
       "content": [
-        { "duration": 1.53, "content": "My dad or my mum." },
+        { "duration": 1.53, "content": "My dad or my mum.", "id": 0 },
         {
           "duration": 2.49,
-          "content": "Both well know in their specific fields."
+          "content": "Both well know in their specific fields.",
+          "id": 1
         },
         {
           "duration": 4.23,
-          "content": "They’re famous in their niches but probably not by the general public"
+          "content": "They’re famous in their niches but probably not by the general public",
+          "id": 2
         }
       ],
       "user": "veggienuggets123",
@@ -1543,30 +1415,24 @@
       "date": 1638338184,
       "score": 221,
       "id": 59,
-      "avatar": {
-        "head": "12-head.png",
-        "face": "72-face.png",
-        "body": "171-body.png"
-      },
       "audio": "59",
       "width": 1520,
       "height": 158
     },
     {
       "content": [
-        { "duration": 1.07, "content": "What fields?" },
-        { "duration": 2.14, "content": "Do you ever feel pressure to perform?" }
+        { "duration": 1.07, "content": "What fields?", "id": 0 },
+        {
+          "duration": 2.14,
+          "content": "Do you ever feel pressure to perform?",
+          "id": 1
+        }
       ],
       "user": "D2LDL",
       "depth": 1,
       "date": 1638344120,
       "score": 72,
       "id": 60,
-      "avatar": {
-        "head": "52-head.png",
-        "face": "76-face.png",
-        "body": "119-body.png"
-      },
       "audio": "60",
       "width": 1420,
       "height": 122
@@ -1575,18 +1441,17 @@
   [
     {
       "content": [
-        { "duration": 2.58, "content": "I’m third cousins to John Stamos." }
+        {
+          "duration": 2.58,
+          "content": "I’m third cousins to John Stamos.",
+          "id": 0
+        }
       ],
       "user": "luvgun21",
       "depth": 0,
       "date": 1638352583,
       "score": 185,
       "id": 61,
-      "avatar": {
-        "head": "126-head.png",
-        "face": "49-face.png",
-        "body": "26-body.png"
-      },
       "audio": "61",
       "width": 1520,
       "height": 122
@@ -1597,7 +1462,8 @@
       "content": [
         {
           "duration": 2.51,
-          "content": "The cook on the old Western show Rawhide."
+          "content": "The cook on the old Western show Rawhide.",
+          "id": 0
         }
       ],
       "user": "Classic_Head3437",
@@ -1605,11 +1471,6 @@
       "date": 1638338166,
       "score": 166,
       "id": 62,
-      "avatar": {
-        "head": "157-head.png",
-        "face": "8-face.png",
-        "body": "144-body.png"
-      },
       "audio": "62",
       "width": 1520,
       "height": 122
@@ -1620,34 +1481,41 @@
       "content": [
         {
           "duration": 4.79,
-          "content": "My grandma was a very popular governmental figure and since finishing her term, "
+          "content": "My grandma was a very popular governmental figure and since finishing her term, ",
+          "id": 0
         },
         {
           "duration": 3.35,
-          "content": "nobody has really been noteworthy in the same position, "
+          "content": "nobody has really been noteworthy in the same position, ",
+          "id": 1
         },
         {
           "duration": 2.45,
-          "content": "the job pretty much never gets mentioned."
+          "content": "the job pretty much never gets mentioned.",
+          "id": 2
         },
         {
           "duration": 4.99,
-          "content": "I know I'm biased of course, but I keep up with it and there's nearly no news."
+          "content": "I know I'm biased of course, but I keep up with it and there's nearly no news.",
+          "id": 3
         },
-        { "duration": 1.31, "content": "No outreach." },
-        { "duration": 0.83, "content": "Nothing." },
-        { "duration": 1.79, "content": "Mostly disappointments." },
+        { "duration": 1.31, "content": "No outreach.", "id": 4 },
+        { "duration": 0.83, "content": "Nothing.", "id": 5 },
+        { "duration": 1.79, "content": "Mostly disappointments.", "id": 6 },
         {
           "duration": 2.4,
-          "content": "People not doing anything with the job."
+          "content": "People not doing anything with the job.",
+          "id": 7
         },
         {
           "duration": 2.63,
-          "content": "Most of her \"fanbase\" are pretty old now."
+          "content": "Most of her \"fanbase\" are pretty old now.",
+          "id": 8
         },
         {
           "duration": 4.84,
-          "content": "But she used to get stopped everytime we went out, it was a huge pain as a kid."
+          "content": "But she used to get stopped everytime we went out, it was a huge pain as a kid.",
+          "id": 9
         }
       ],
       "user": "ladyalot",
@@ -1655,11 +1523,6 @@
       "date": 1638339298,
       "score": 165,
       "id": 63,
-      "avatar": {
-        "head": "163-head.png",
-        "face": "23-face.png",
-        "body": "96-body.png"
-      },
       "audio": "63",
       "width": 1520,
       "height": 266
@@ -1670,20 +1533,20 @@
       "content": [
         {
           "duration": 3.76,
-          "content": "I have two Nobel prize winners in my extended family, "
+          "content": "I have two Nobel prize winners in my extended family, ",
+          "id": 0
         },
-        { "duration": 2.44, "content": "JJ Thomson and George Paget Thomson" }
+        {
+          "duration": 2.44,
+          "content": "JJ Thomson and George Paget Thomson",
+          "id": 1
+        }
       ],
       "user": "dashboardbythelight",
       "depth": 0,
       "date": 1638354087,
       "score": 153,
       "id": 64,
-      "avatar": {
-        "head": "37-head.png",
-        "face": "83-face.png",
-        "body": "156-body.png"
-      },
       "audio": "64",
       "width": 1520,
       "height": 122
@@ -1694,28 +1557,38 @@
       "content": [
         {
           "duration": 3.36,
-          "content": "My grandmother was a nurse during the 1918 flu."
+          "content": "My grandmother was a nurse during the 1918 flu.",
+          "id": 0
         },
         {
           "duration": 4.6,
-          "content": "A large farm family was stricken with the virus so she stayed on the farm and "
+          "content": "A large farm family was stricken with the virus so she stayed on the farm and ",
+          "id": 1
         },
-        { "duration": 1.83, "content": "nursed them all back to health." },
+        {
+          "duration": 1.83,
+          "content": "nursed them all back to health.",
+          "id": 2
+        },
         {
           "duration": 3.07,
-          "content": "The mother was pregnant and when the baby was born, "
+          "content": "The mother was pregnant and when the baby was born, ",
+          "id": 3
         },
         {
           "duration": 2.89,
-          "content": "my grandmother returned to care for mom and baby."
+          "content": "my grandmother returned to care for mom and baby.",
+          "id": 4
         },
         {
           "duration": 4.65,
-          "content": "My grandfather was a close relative of the farmer and worked as a hired hand."
+          "content": "My grandfather was a close relative of the farmer and worked as a hired hand.",
+          "id": 5
         },
         {
           "duration": 3.02,
-          "content": "The baby was the father of singer Christopher Cross."
+          "content": "The baby was the father of singer Christopher Cross.",
+          "id": 6
         }
       ],
       "user": "DamnDame",
@@ -1723,11 +1596,6 @@
       "date": 1638347077,
       "score": 143,
       "id": 65,
-      "avatar": {
-        "head": "143-head.png",
-        "face": "26-face.png",
-        "body": "89-body.png"
-      },
       "audio": "65",
       "width": 1520,
       "height": 230
@@ -1736,24 +1604,32 @@
   [
     {
       "content": [
-        { "duration": 1.87, "content": "So it's my husband's aunt." },
-        { "duration": 1.98, "content": "She had a role in space jam." },
+        { "duration": 1.87, "content": "So it's my husband's aunt.", "id": 0 },
+        {
+          "duration": 1.98,
+          "content": "She had a role in space jam.",
+          "id": 1
+        },
         {
           "duration": 2.11,
-          "content": "She was the voice of the lil green dude."
+          "content": "She was the voice of the lil green dude.",
+          "id": 2
         },
         {
           "duration": 4.54,
-          "content": "She said like 3 words it feels like AND MY HUSBAND NEVER SHUTS THE FUCK UP "
+          "content": "She said like 3 words it feels like AND MY HUSBAND NEVER SHUTS THE FUCK UP ",
+          "id": 3
         },
-        { "duration": 0.54, "content": "ABOUT IT." },
+        { "duration": 0.54, "content": "ABOUT IT.", "id": 4 },
         {
           "duration": 3.71,
-          "content": "She has headshots and on them are a picture of the character."
+          "content": "She has headshots and on them are a picture of the character.",
+          "id": 5
         },
         {
           "duration": 3.86,
-          "content": "She made him a mask at the beginning of the pandemic with the character on it."
+          "content": "She made him a mask at the beginning of the pandemic with the character on it.",
+          "id": 6
         }
       ],
       "user": "Whspers12",
@@ -1761,11 +1637,6 @@
       "date": 1638354937,
       "score": 145,
       "id": 66,
-      "avatar": {
-        "head": "50-head.png",
-        "face": "85-face.png",
-        "body": "127-body.png"
-      },
       "audio": "66",
       "width": 1520,
       "height": 230
@@ -1776,12 +1647,14 @@
       "content": [
         {
           "duration": 4.61,
-          "content": "My grandfather played for the original Dallas cowboys team and scored their "
+          "content": "My grandfather played for the original Dallas cowboys team and scored their ",
+          "id": 0
         },
-        { "duration": 0.91, "content": "second ever td." },
+        { "duration": 0.91, "content": "second ever td.", "id": 1 },
         {
           "duration": 2.47,
-          "content": "He was also an all American in college"
+          "content": "He was also an all American in college",
+          "id": 2
         }
       ],
       "user": "Coolbluegatoradeyumm",
@@ -1789,11 +1662,6 @@
       "date": 1638345343,
       "score": 135,
       "id": 67,
-      "avatar": {
-        "head": "94-head.png",
-        "face": "16-face.png",
-        "body": "176-body.png"
-      },
       "audio": "67",
       "width": 1520,
       "height": 158
@@ -1804,28 +1672,26 @@
       "content": [
         {
           "duration": 4.54,
-          "content": "On my dad's side, related to the guy who held onto John Wilkes Booth's getaway "
+          "content": "On my dad's side, related to the guy who held onto John Wilkes Booth's getaway ",
+          "id": 0
         },
         {
           "duration": 2.13,
-          "content": "horse for him outside Ford's theatre."
+          "content": "horse for him outside Ford's theatre.",
+          "id": 1
         },
         {
           "duration": 4.43,
-          "content": "He was \"innocent\" but still executed for his involvement in the assissination "
+          "content": "He was \"innocent\" but still executed for his involvement in the assissination ",
+          "id": 2
         },
-        { "duration": 0.63, "content": "of Lincoln." }
+        { "duration": 0.63, "content": "of Lincoln.", "id": 3 }
       ],
       "user": "spelling_hippo",
       "depth": 0,
       "date": 1638350398,
       "score": 128,
       "id": 68,
-      "avatar": {
-        "head": "85-head.png",
-        "face": "26-face.png",
-        "body": "20-body.png"
-      },
       "audio": "68",
       "width": 1520,
       "height": 194
@@ -1836,28 +1702,26 @@
       "content": [
         {
           "duration": 4.73,
-          "content": "That's me, I high fived with Danny DeVito after punching the \"Terminator\"."
+          "content": "That's me, I high fived with Danny DeVito after punching the \"Terminator\".",
+          "id": 0
         },
         {
           "duration": 4.44,
-          "content": "BUT, I asked permission for it, wasn't like some random violence."
+          "content": "BUT, I asked permission for it, wasn't like some random violence.",
+          "id": 1
         },
         {
           "duration": 3.26,
-          "content": "And it was like this fake punch anyways... but yeah."
+          "content": "And it was like this fake punch anyways... but yeah.",
+          "id": 2
         },
-        { "duration": 1.94, "content": "ME! Look at me!" }
+        { "duration": 1.94, "content": "ME! Look at me!", "id": 3 }
       ],
       "user": "letterdonkey",
       "depth": 0,
       "date": 1638337997,
       "score": 122,
       "id": 69,
-      "avatar": {
-        "head": "119-head.png",
-        "face": "25-face.png",
-        "body": "50-body.png"
-      },
       "audio": "69",
       "width": 1520,
       "height": 194
@@ -1868,16 +1732,19 @@
       "content": [
         {
           "duration": 3.57,
-          "content": "My great uncle instated the schengen countries law in europe."
+          "content": "My great uncle instated the schengen countries law in europe.",
+          "id": 0
         },
         {
           "duration": 4.3,
-          "content": "He is one of the big reasons why you dont need to show your paspoort at the "
+          "content": "He is one of the big reasons why you dont need to show your paspoort at the ",
+          "id": 1
         },
-        { "duration": 1.3, "content": "borders between europe." },
+        { "duration": 1.3, "content": "borders between europe.", "id": 2 },
         {
           "duration": 3.43,
-          "content": "So not that famous but famous between politicians"
+          "content": "So not that famous but famous between politicians",
+          "id": 3
         }
       ],
       "user": "Apprehensive_Leg8771",
@@ -1885,11 +1752,6 @@
       "date": 1638358750,
       "score": 101,
       "id": 70,
-      "avatar": {
-        "head": "67-head.png",
-        "face": "58-face.png",
-        "body": "76-body.png"
-      },
       "audio": "70",
       "width": 1520,
       "height": 194
@@ -1900,11 +1762,13 @@
       "content": [
         {
           "duration": 2.97,
-          "content": "Not me, but I think it's unique enough to mention."
+          "content": "Not me, but I think it's unique enough to mention.",
+          "id": 0
         },
         {
           "duration": 4.67,
-          "content": "My neighbor's great great (whatever) grandad was killed by Billy the kid."
+          "content": "My neighbor's great great (whatever) grandad was killed by Billy the kid.",
+          "id": 1
         }
       ],
       "user": "iPeedOnAPorpoise",
@@ -1912,11 +1776,6 @@
       "date": 1638340018,
       "score": 80,
       "id": 71,
-      "avatar": {
-        "head": "41-head.png",
-        "face": "24-face.png",
-        "body": "129-body.png"
-      },
       "audio": "71",
       "width": 1520,
       "height": 158
@@ -1927,38 +1786,46 @@
       "content": [
         {
           "duration": 4.74,
-          "content": "My mum was an 80’s pop star that had a single song do really well in America."
+          "content": "My mum was an 80’s pop star that had a single song do really well in America.",
+          "id": 0
         },
         {
           "duration": 2.83,
-          "content": "Edit: Thanks for all the amusing guesses!"
+          "content": "Edit: Thanks for all the amusing guesses!",
+          "id": 1
         },
         {
           "duration": 4.78,
-          "content": "She wasn’t “overly” famous but I’m sure she’ll have a laugh about "
+          "content": "She wasn’t “overly” famous but I’m sure she’ll have a laugh about ",
+          "id": 2
         },
-        { "duration": 2.07, "content": "being guessed as Tiffany or Nena." },
-        { "duration": 3.46, "content": "Her “hit” was Skips a Beat in 1983." },
+        {
+          "duration": 2.07,
+          "content": "being guessed as Tiffany or Nena.",
+          "id": 3
+        },
+        {
+          "duration": 3.46,
+          "content": "Her “hit” was Skips a Beat in 1983.",
+          "id": 4
+        },
         {
           "duration": 3.24,
-          "content": "Doubt many of you will know it but yeah, still cool."
+          "content": "Doubt many of you will know it but yeah, still cool.",
+          "id": 5
         },
         {
           "duration": 5.12,
-          "content": "Edit 2:Electric Boogaloo: It was probably a bit misleading writing: "
+          "content": "Edit 2:Electric Boogaloo: It was probably a bit misleading writing: ",
+          "id": 6
         },
-        { "duration": 0.98, "content": "“really”." }
+        { "duration": 0.98, "content": "“really”.", "id": 7 }
       ],
       "user": "HelmutTheSpeedyGobbo",
       "depth": 0,
       "date": 1638358570,
       "score": 86,
       "id": 72,
-      "avatar": {
-        "head": "101-head.png",
-        "face": "20-face.png",
-        "body": "5-body.png"
-      },
       "audio": "72",
       "width": 1520,
       "height": 230
