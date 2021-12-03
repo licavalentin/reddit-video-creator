@@ -3,7 +3,7 @@ import { measureContent } from "./images/measureComments";
 import { transformComments } from "./images/transformComments";
 import generateContent from "./images/content/index";
 import { generateAvatar } from "./images/avatar";
-import { getPost, resetTemp } from "./utils/helper";
+import { getPost, resetTemp, splitByDepth } from "./utils/helper";
 import generateFrames from "./images/frames/index";
 import generateVideo from "./video/index";
 

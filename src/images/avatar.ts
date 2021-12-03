@@ -44,4 +44,6 @@ export const generateAvatar: GenerateAvatar = async (id) => {
   backgroundImage.resize(commentDetails.avatarSize - 5, Jimp.AUTO);
 
   await backgroundImage.writeAsync(join(renderPath, id + "", "avatar.png"));
+
+  console.log("avatar-generated");
 };

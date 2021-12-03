@@ -105,11 +105,9 @@ const init = async () => {
       join(folder, "audio.wav"),
       join(folder, "render.mp4")
     );
-  }
 
-  //   const fileList = subtitle
-  //     .map((item, index) => `file '${images[index]}'\nduration ${item.time.time}`)
-  //     .join("\n");
+    console.log("comment-video-created");
+  }
 
   // Kill Worker
   process.exit();

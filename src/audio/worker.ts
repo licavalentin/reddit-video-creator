@@ -58,7 +58,7 @@ const generateAudioFile: AudioGenerator = ({
           console.log(error);
         }
 
-        console.log("audio-generated-successfully");
+        console.log("audio-generated");
         resolve(null);
       }
     );

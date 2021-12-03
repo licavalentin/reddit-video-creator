@@ -120,7 +120,7 @@ const init = async () => {
       join(renderPath, job.id + "", `${job.id}-${job.commentId}.png`)
     );
 
-    console.log("image-content-generated-successfully");
+    console.log("image-content-generated");
   }
 
   // Kill Worker

@@ -2,11 +2,16 @@ import cluster from "cluster";
 import { cpus } from "os";
 import { execFile } from "child_process";
 import { join } from "path";
-import { existsSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 
-import { getArgument, getFolders, spreadWork } from "../utils/helper";
+import {
+  getArgument,
+  getFolders,
+  splitByDepth,
+  spreadWork,
+} from "../utils/helper";
+import { Comment } from "../interface/post";
 import { renderPath } from "../config/paths";
-import { Comment } from "interface/post";
 
 export const AddBackgroundMusic = async (
   videoPath: string,
@@ -137,7 +142,40 @@ export const generateCommentVideo = async (comments: Comment[]) => {
   });
 };
 
+export const mergeCommentGroup = async (comments: Comment[]) => {
+  return new Promise((resolve) => {
+    const work = spreadWork(
+      splitByDepth(comments).map((e) => e.map((c) => c.id)),
+      cpus().length
+    );
+
+    let counter = work.length;
+
+    mkdirSync(join(renderPath, "render-groups"));
+
+    for (const jobs of work) {
+      cluster.setupPrimary({
+        exec: join(__dirname, "mergeWorker.js"),
+        args: [JSON.stringify(jobs)],
+      });
+
+      const worker = cluster.fork();
+
+      worker.on("exit", () => {
+        counter--;
+
+        if (counter === 0) {
+          resolve(null);
+        }
+      });
+    }
+  });
+};
+
 export default async (comments: Comment[]) => {
   // Generate video for each comment
   await generateCommentVideo(comments);
+
+  // Merge Comments by depth in groups
+  await mergeCommentGroup(comments);
 };

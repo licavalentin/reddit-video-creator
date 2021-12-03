@@ -186,7 +186,7 @@ export const getSubtitles = (subtitlePath: string) => {
 
     finalArr.push({
       duration: Number((parseTime(time[1]) - parseTime(time[0])).toFixed(2)),
-      content: arr[i + 2],
+      content: arr[i + 2].trim(),
     });
 
     i = i + 3;
@@ -215,11 +215,12 @@ export const getPost = () => {
  */
 export const splitByDepth = (commentsList: Comment[]) => {
   const comments: Comment[][] = [];
-  const commentGroup: Comment[] = [];
+  let commentGroup: Comment[] = [];
 
   for (const comment of commentsList) {
     if (comment.depth === 0 && commentGroup.length !== 0) {
       comments.push(commentGroup);
+      commentGroup = [];
     }
 
     commentGroup.push(comment);

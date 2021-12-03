@@ -39,7 +39,7 @@ const init = async () => {
 
         await image.writeAsync(commentImagePath);
 
-        console.log("frame-generated-successfully");
+        console.log("frame-generated");
       }
 
       positionY += job.height;
