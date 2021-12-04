@@ -4,10 +4,13 @@ import { execFile } from "child_process";
 import { join } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 
+import Jimp from "jimp";
+
 import { getFolders, splitByDepth, spreadWork } from "../utils/helper";
 import { Comment } from "../interface/post";
-import { assetsPath, renderPath } from "../config/paths";
+import { assetsPath, imagePath, renderPath } from "../config/paths";
 import { Subtitle } from "../interface/audio";
+import { imageDetails } from "../config/image";
 
 export const AddBackgroundMusic = async (
   videoPath: string,
@@ -172,18 +175,82 @@ export const mergeCommentGroup = async (comments: Comment[]) => {
   });
 };
 
-export const mergeFinalVideo = async () => {
+const createChannelPoster = async () => {
+  const image = new Jimp(
+    imageDetails.width,
+    imageDetails.height,
+    imageDetails.background
+  );
+
+  const channelPoster = await Jimp.read(
+    join(imagePath, "mid-video-poster.png")
+  );
+
+  channelPoster.scaleToFit(imageDetails.width, imageDetails.height);
+
+  image.composite(channelPoster, 0, 0);
+
+  const posterPath = join(renderPath, "mid-video-poster.png");
+
+  image.writeAsync(posterPath);
+
+  const generateVideo = ({ image, exportPath }) => {
+    return new Promise((resolve) => {
+      execFile(
+        "ffmpeg",
+        [
+          "-loop",
+          "1",
+          "-framerate",
+          "5",
+          "-i",
+          image,
+          "-f",
+          "lavfi",
+          "-i",
+          "anullsrc=channel_layout=stereo:sample_rate=44100",
+          "-c:v",
+          "libx264",
+          "-t",
+          "1",
+          "-pix_fmt",
+          "yuv420p",
+          "-vf",
+          `scale=${imageDetails.width}:${imageDetails.height}`,
+          join(exportPath, `mid-video.mp4`),
+        ],
+        (err) => {
+          if (err) {
+            console.log(err);
+          }
+
+          resolve(null);
+        }
+      );
+    });
+  };
+
+  await generateVideo({ image: posterPath, exportPath: renderPath });
+};
+
+export const mergeFinalVideo = async (exportPath: string) => {
   const parentPath = join(renderPath, "render-groups");
 
   const videos = getFolders(parentPath)
     .filter((f) => existsSync(join(parentPath, f, "video.mp4")))
-    .map((t) => `file '${join(parentPath, t, "video.mp4")}`);
+    .map(
+      (t) =>
+        `file '${join(parentPath, t, "video.mp4")}'\nfile '${join(
+          renderPath,
+          "mid-video.mp4"
+        )}'`
+    );
 
   const listPath = join(parentPath, "list.txt");
 
-  writeFileSync(listPath, videos.join(" \n"));
+  writeFileSync(listPath, videos.join("\n"));
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     execFile(
       "ffmpeg",
       [
@@ -195,7 +262,7 @@ export const mergeFinalVideo = async () => {
         listPath,
         "-c",
         "copy",
-        join(parentPath, "video.mp4"),
+        join(exportPath, "video.mp4"),
       ],
       async (error) => {
         if (error) {
@@ -236,7 +303,7 @@ const mergeCommentVideo = async (comments: Comment[]) => {
   });
 };
 
-export default async (comments: Comment[]) => {
+export default async (comments: Comment[], exportPath: string) => {
   // Generate video for each comment
   await generateCommentVideo(comments);
 
@@ -246,14 +313,17 @@ export default async (comments: Comment[]) => {
   // Merge Comments by depth in groups
   await mergeCommentGroup(comments);
 
+  // Generate Channel Mid video Poster
+  await createChannelPoster();
+
   // Merge Final Video
-  await mergeFinalVideo();
+  await mergeFinalVideo(exportPath);
 
   // const parentPath = join(renderPath, "render-groups");
 
   // await AddBackgroundMusic(
   //   join(parentPath, "video.mp4"),
   //   join(assetsPath, "music", "piano.mp3"),
-  //   join(parentPath, "final.mp4")
+  //   join(exportPath, "final.mp4")
   // );
 };

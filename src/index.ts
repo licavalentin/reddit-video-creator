@@ -11,43 +11,32 @@ import { generateThumbnail } from "./images/thumbnail";
 const renderVideo = async () => {
   console.time("Render");
 
+  // Reset temp
+  await resetTemp();
+
+  // Get created post
   const post = getPost();
 
-  await generateThumbnail(
-    {
-      title: post.post.title,
-      subreddit: post.post.subreddit,
-      awards: post.post.all_awardings.map((e) => e.name),
-    },
-    post.exportPath
-  );
+  // Generate random avatar for each comment
+  for (const comment of post.comments) {
+    await generateAvatar(comment.id);
+  }
 
-  // Reset temp
-  // await resetTemp();
+  // Measure content and split into groups
+  const measureText = await measureContent(post.comments);
+  const transformedComments = await transformComments(measureText);
 
-  // // Get created post
-  // const post = getPost();
+  // Generate Content images
+  await generateContent(transformedComments);
 
-  // // Generate random avatar for each comment
-  // for (const comment of post.comments) {
-  //   await generateAvatar(comment.id);
-  // }
+  // Render Frames
+  await generateFrames(transformedComments);
 
-  // // Measure content and split into groups
-  // const measureText = await measureContent(post.comments);
-  // const transformedComments = await transformComments(measureText);
+  // Generate audio file for each comment
+  await generateAudio(measureText);
 
-  // // Generate Content images
-  // await generateContent(transformedComments);
-
-  // // Render Frames
-  // await generateFrames(transformedComments);
-
-  // // Generate audio file for each comment
-  // await generateAudio(measureText);
-
-  // // Generate video
-  // await generateVideo(measureText);
+  // Generate video
+  await generateVideo(measureText, post.exportPath);
 
   // Reset temp
   // await resetTemp();

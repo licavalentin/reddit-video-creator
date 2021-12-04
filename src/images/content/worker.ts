@@ -26,7 +26,9 @@ const init = async () => {
   const font = await Jimp.loadFont(join(parentPath, FontFace.Comment));
   const fontBold = await Jimp.loadFont(join(parentPath, FontFace.Username));
   const statsFont = await Jimp.loadFont(join(parentPath, FontFace.Stats));
-  const indentationLine = await Jimp.read(join(imagePath, "comment-line.png"));
+  const depthLine = await Jimp.read(join(imagePath, "comment-line.png"));
+
+  const topMargin = 50;
 
   for (let index = 0; index < work.length; index++) {
     const job = work[index];
@@ -48,73 +50,49 @@ const init = async () => {
       Jimp.measureText(fontBold, job.user)
     );
     const userNameWidth = Jimp.measureText(fontBold, job.user);
-    image.print(fontBold, startX, commentDetails.margin - 10, job.user);
+    image.print(fontBold, startX, topMargin, job.user);
 
     // Write UpArrow
     const upsArrow = await Jimp.read(
       join(assetsPath, "images", "ups-arrow.png")
     );
-    upsArrow.resize(Jimp.AUTO, userNameHeight - 15);
+    upsArrow.resize(Jimp.AUTO, userNameHeight + 4);
     const upsArrowWidth = upsArrow.getWidth();
     image.composite(
       upsArrow,
       startX + userNameWidth + 25,
-      commentDetails.margin - 3
+      topMargin + userNameHeight / 2 - 3
     );
 
     // Print Comment Score
     const commentScore = roundUp(job.score);
-    // const scoreWidth = Jimp.measureText(fontBold, commentScore);
     image.print(
       statsFont,
       startX + userNameWidth + 20 + upsArrowWidth + 10,
-      commentDetails.margin - 10,
+      topMargin,
       commentScore
     );
-
-    // Write Clock
-    // const clock = await Jimp.read(join(assetsPath, "images", "clock.png"));
-    // clock.resize(Jimp.AUTO, userNameHeight - 10);
-    // const clockWidth = clock.getWidth();
-    // image.composite(
-    //   clock,
-    //   startX + userNameWidth + 20 + upsArrowWidth + 10 + scoreWidth + 20,
-    //   commentDetails.margin - 5
-    // );
-    // image.print(
-    //   font,
-    //   startX +
-    //     userNameWidth +
-    //     20 +
-    //     upsArrowWidth +
-    //     10 +
-    //     scoreWidth +
-    //     20 +
-    //     clockWidth +
-    //     10,
-    //   commentDetails.margin - 10,
-    //   new Date(job.date * 1000).toLocaleDateString("en-US")
-    // );
 
     // Composite avatar image
     const avatarImage = await Jimp.read(
       join(renderPath, job.id + "", "avatar.png")
     );
-    image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
 
     // Print comment content
     const contentHeight = Jimp.measureTextHeight(font, job.content, job.width);
     image.print(
       font,
       startX,
-      commentDetails.margin + userNameHeight - 5,
+      commentDetails.margin + userNameHeight,
       job.content,
       job.width
     );
 
     // Composite indentation line
-    indentationLine.resize(3, contentHeight - 18);
-    image.composite(indentationLine, startX - 40, avatarImage.getHeight());
+    depthLine.resize(3, contentHeight - 8);
+    image.composite(depthLine, startX - 40, avatarImage.getHeight() - 10);
+
+    image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
 
     const parentFolderPath = join(
       renderPath,

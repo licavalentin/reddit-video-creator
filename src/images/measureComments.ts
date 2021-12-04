@@ -7,7 +7,6 @@ import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { Comment } from "../interface/post";
-import { Subtitle } from "interface/audio";
 
 /**
  * Generate array of sentences from comment
@@ -45,7 +44,7 @@ const splitText = (text: string): string[] => {
 
     if (
       (chars.some((char) => word.includes(char)) && mergedText.length > 30) ||
-      mergedText.length > 100
+      mergedText.length > 80
     ) {
       sentences.push(mergedText);
       sentence = [];

@@ -31,8 +31,6 @@ export const createRandomString = (size: number) =>
 export const getFolders = (path: string | null): string[] => {
   const files: string[] = readdirSync(path) ?? [];
 
-  console.log(files);
-
   const filesList: string[] = [];
 
   for (const file of files) {

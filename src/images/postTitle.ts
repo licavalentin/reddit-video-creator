@@ -1,163 +1,210 @@
-// import { join } from "path";
-// import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
+import { join } from "path";
+import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
+import { execFile } from "child_process";
 
-// import Jimp from "jimp";
+import Jimp from "jimp";
 
-// import { dataPath, fontPath, assetsPath } from "../config/paths";
-// import { commentDetails, imageDetails } from "../config/image";
-// import { FontFace } from "../interface/image";
+import { dataPath, fontPath, assetsPath, renderPath } from "../config/paths";
+import { commentDetails, imageDetails } from "../config/image";
+import { FontFace } from "../interface/image";
 
-// import { generateVoting } from "./voting";
-// import generateAudio from "../audio/index";
-// import { generateVideo } from "../video/index";
+import { generateVoting } from "./voting";
+import { getArgument, getPost, roundUp } from "../utils/helper";
+import { getVoices } from "../audio/index";
 
-// /**
-//  * Create Video for Reddit post title
-//  *
-//  * @param post Post details
-//  * @param {string} post.title Post title
-//  * @param {string} post.userName Post Author username
-//  * @param {number} post.points Post points
-//  * @param {Array} post.awards Array with paths to award image
-//  * @returns
-//  */
-// export const createPostTitle = async ({
-//   title,
-//   userName,
-//   points,
-//   awards,
-//   exportPath,
-// }: {
-//   title: string;
-//   userName: string;
-//   points: string;
-//   awards: string[];
-//   exportPath: string;
-// }) => {
-//   try {
-//     const image = new Jimp(
-//       imageDetails.width,
-//       imageDetails.height,
-//       imageDetails.background
-//     );
+/**
+ * Generate Audio from text
+ *
+ * @param {string} textPath Text Path
+ * @param {string} exportPath Export path for the wav file
+ */
+const generateAudioFile = ({
+  textFilePath,
+  exportPath,
+}: {
+  textFilePath: string;
+  exportPath: string;
+}) => {
+  return new Promise(async (resolve) => {
+    const balconPath = getArgument("BALCON");
 
-//     const voting = await generateVoting(80, points);
+    let selectedVoice = getArgument("VOICE");
 
-//     const font = await Jimp.loadFont(
-//       join(fontPath, "title", FontFace.PostTitle)
-//     );
+    if (!selectedVoice) {
+      const voices = await getVoices();
+      selectedVoice = voices[0];
+    }
 
-//     const maxWidth = imageDetails.width - commentDetails.widthMargin;
-//     const titleHeight = Jimp.measureTextHeight(font, title, maxWidth);
+    execFile(
+      balconPath,
+      [
+        "-f",
+        textFilePath,
+        "-w",
+        `${join(exportPath, "audio.wav")}`,
+        "-n",
+        selectedVoice,
+        "--encoding",
+        "utf8",
+        "-fr",
+        "48",
+        "--silence-end",
+        "200",
+        "--lrc-length",
+        "100",
+        "--srt-length",
+        "100",
+        "-srt",
+        "--srt-enc",
+        "utf8",
+        "--srt-fname",
+        `${join(exportPath, "subtitle.srt")}`,
+        "--ignore-url",
+      ],
+      (error: Error) => {
+        if (error) {
+          console.log(error);
+        }
 
-//     // Print post title
-//     image.print(
-//       font,
-//       (imageDetails.width - maxWidth) / 2 + 50,
-//       (imageDetails.height - titleHeight) / 2,
-//       title,
-//       maxWidth
-//     );
+        console.log("audio-generated");
+        resolve(null);
+      }
+    );
+  });
+};
 
-//     // Print post username
-//     const userNameText = `Posted by ${userName}`;
-//     const smallFont = await Jimp.loadFont(
-//       join(fontPath, "comments", FontFace.Username)
-//     );
-//     const usernameWidth = Jimp.measureText(smallFont, userNameText);
-//     const usernameHeight = Jimp.measureTextHeight(
-//       smallFont,
-//       userNameText,
-//       usernameWidth + 10
-//     );
+/**
+ * Create Video for Reddit post title
+ *
+ * @param post Post details
+ * @param {string} post.title Post title
+ * @param {string} post.userName Post Author username
+ * @param {number} post.points Post points
+ * @param {Array} post.awards Array with paths to award image
+ * @returns
+ */
+export const createPostTitle = async ({
+  exportPath,
+}: {
+  exportPath: string;
+}) => {
+  const {
+    post: { title, author: userName, score: points, all_awardings },
+  } = getPost();
 
-//     image.print(
-//       smallFont,
-//       (imageDetails.width - maxWidth) / 2 + 50,
-//       (imageDetails.height - titleHeight) / 2 - 50,
-//       userNameText,
-//       maxWidth
-//     );
+  const awards = all_awardings.map((e) => e.name);
 
-//     // Add post award images
-//     const awardsPath = join(assetsPath, "images", "reddit-awards");
-//     const awardsList = JSON.parse(
-//       readFileSync(join(dataPath, "reddit-awards.json")).toString()
-//     ) as {
-//       title: string;
-//       path: string;
-//     }[];
-//     const filteredAwards = awards.filter((_, index) => index < 7);
+  try {
+    const image = new Jimp(
+      imageDetails.width,
+      imageDetails.height,
+      imageDetails.background
+    );
 
-//     for (let i = 0; i < filteredAwards.length; i++) {
-//       const award = filteredAwards[i];
-//       let awardImagePath: string | null = null;
+    const voting = await generateVoting(80, roundUp(points));
 
-//       for (const item of awardsList) {
-//         if (item.title === award) {
-//           awardImagePath = item.path;
-//           break;
-//         }
-//       }
+    const font = await Jimp.loadFont(
+      join(fontPath, "title", FontFace.PostTitle)
+    );
 
-//       if (!awardImagePath) {
-//         break;
-//       }
+    const maxWidth = imageDetails.width - commentDetails.widthMargin;
+    const titleHeight = Jimp.measureTextHeight(font, title, maxWidth);
 
-//       if (!existsSync(join(awardsPath, awardImagePath))) {
-//         continue;
-//       }
+    // Print post title
+    image.print(
+      font,
+      (imageDetails.width - maxWidth) / 2 + 50,
+      (imageDetails.height - titleHeight) / 2,
+      title,
+      maxWidth
+    );
 
-//       const awardImage: Jimp | null = await Jimp.read(
-//         join(awardsPath, awardImagePath)
-//       );
+    // Print post username
+    const userNameText = `Posted by ${userName}`;
+    const smallFont = await Jimp.loadFont(
+      join(fontPath, "comments", FontFace.Username)
+    );
+    const usernameWidth = Jimp.measureText(smallFont, userNameText);
+    const usernameHeight = Jimp.measureTextHeight(
+      smallFont,
+      userNameText,
+      usernameWidth + 10
+    );
 
-//       awardImage.resize(Jimp.AUTO, usernameHeight);
+    image.print(
+      smallFont,
+      (imageDetails.width - maxWidth) / 2 + 50,
+      (imageDetails.height - titleHeight) / 2 - 50,
+      userNameText,
+      maxWidth
+    );
 
-//       image.composite(
-//         awardImage,
-//         (imageDetails.width - maxWidth) / 2 + 70 + usernameWidth + i * 45,
-//         (imageDetails.height - titleHeight) / 2 - 50 + 5
-//       );
-//     }
+    // Add post award images
+    const awardsPath = join(assetsPath, "images", "reddit-awards");
+    const awardsList = JSON.parse(
+      readFileSync(join(dataPath, "reddit-awards.json")).toString()
+    ) as {
+      title: string;
+      path: string;
+    }[];
+    const filteredAwards = awards.filter((_, index) => index < 7);
 
-//     // Add voting image
-//     image.composite(
-//       voting,
-//       (imageDetails.width - maxWidth) / 2 - 50,
-//       (imageDetails.height - titleHeight) / 2 + titleHeight / 2 - 80 * 2 + 50
-//     );
+    for (let i = 0; i < filteredAwards.length; i++) {
+      const award = filteredAwards[i];
+      let awardImagePath: string | null = null;
 
-//     // Read text
-//     const folderPath = join(exportPath, "0-post-title");
+      for (const item of awardsList) {
+        if (item.title === award) {
+          awardImagePath = item.path;
+          break;
+        }
+      }
 
-//     mkdirSync(folderPath);
+      if (!awardImagePath) {
+        break;
+      }
 
-//     const imagePath = join(folderPath, "image.jpg");
-//     const textPath = join(folderPath, "text.txt");
+      if (!existsSync(join(awardsPath, awardImagePath))) {
+        continue;
+      }
 
-//     // Write image
-//     // console.log("Creating post title image", "action");
+      const awardImage: Jimp | null = await Jimp.read(
+        join(awardsPath, awardImagePath)
+      );
 
-//     const base64 = await image.getBase64Async(Jimp.MIME_JPEG);
-//     const base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
-//     writeFileSync(imagePath, base64Data, "base64");
+      awardImage.resize(Jimp.AUTO, usernameHeight);
 
-//     // console.log("Image created successfully", "success");
+      image.composite(
+        awardImage,
+        (imageDetails.width - maxWidth) / 2 + 70 + usernameWidth + i * 45,
+        (imageDetails.height - titleHeight) / 2 - 50 + 5
+      );
+    }
 
-//     writeFileSync(textPath, title);
+    // Add voting image
+    image.composite(
+      voting,
+      (imageDetails.width - maxWidth) / 2 - 50,
+      (imageDetails.height - titleHeight) / 2 + titleHeight / 2 - 80 * 2 + 50
+    );
 
-//     const audioPath = join(folderPath, "audio.wav");
+    // Read text
+    const folderPath = join(exportPath, "post-title");
 
-//     try {
-//       const duration = await generateAudio(textPath, audioPath);
-//       await generateVideo(imagePath, audioPath, folderPath, duration);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+    mkdirSync(folderPath);
 
-export {};
+    const textPath = join(folderPath, "text.txt");
+
+    // Write image
+    await image.writeAsync(join(renderPath, "image.png"));
+
+    writeFileSync(textPath, title);
+
+    await generateAudioFile({
+      textFilePath: textPath,
+      exportPath: folderPath,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

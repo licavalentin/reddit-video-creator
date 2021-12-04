@@ -37,7 +37,7 @@ const generateAudioFile: AudioGenerator = ({
         "-fr",
         "48",
         "--silence-end",
-        "100",
+        "200",
         "--lrc-length",
         "100",
         "--srt-length",

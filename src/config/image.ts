@@ -5,7 +5,7 @@ const imageDetails = {
 };
 
 const commentDetails = {
-  margin: 50,
+  margin: 70,
   depth: 100,
   heightMargin: 100,
   widthMargin: 400,
