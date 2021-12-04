@@ -1,7 +1,9 @@
 import cluster from "cluster";
+import { mkdirSync, writeFileSync } from "fs";
 import { cpus } from "os";
 import { join } from "path";
 
+import { renderPath } from "../../config/paths";
 import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
 
@@ -22,6 +24,22 @@ export default async (comments: Comment[][]) => {
         const comment = commentGroup[j];
 
         for (let c = 0; c < (comment.content as Subtitle[]).length; c++) {
+          const parentFolderPath = join(
+            renderPath,
+            comment.id + "",
+            `${comment.id}-${(comment.content as Subtitle[])[c].id}`
+          );
+
+          mkdirSync(parentFolderPath);
+
+          // Write text
+          const filteredText = (comment.content as Subtitle[])[c].content
+            .replace(/\*/g, "")
+            .replace(/’/g, "'")
+            .replace(/”|“/g, '"');
+
+          writeFileSync(join(parentFolderPath, "text.txt"), filteredText);
+
           textJobs.push({
             ...comment,
             content: (comment.content as Subtitle[])

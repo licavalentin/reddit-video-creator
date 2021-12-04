@@ -1,65 +1,53 @@
 import { execFile } from "child_process";
-import { writeFileSync } from "fs";
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
-import { Subtitle } from "../interface/audio";
-import { Comment } from "../interface/post";
+import { getDuration } from "../utils/helper";
+
+type GenerateVideo = (args: {
+  image: string;
+  audio: string;
+  duration: number;
+  exportPath: string;
+}) => Promise<null>;
 
 /**
  * Generate Video from frame data
  * @param renderDataPath Text file with frames data
  * @param outputPath Video Output path
  */
-const generateVideo = (renderDataPath: string, outputPath: string) => {
+const generateVideo: GenerateVideo = ({
+  image,
+  audio,
+  duration,
+  exportPath,
+}) => {
   return new Promise((resolve) => {
     execFile(
       "ffmpeg",
       [
-        "-y",
-        "-f",
-        "concat",
-        "-safe",
-        "0",
+        "-loop",
+        "1",
+        "-framerate",
+        "5",
         "-i",
-        renderDataPath,
+        image,
+        "-i",
+        audio,
         "-c:v",
         "libx264",
-        "-r",
-        "24",
+        "-tune",
+        "stillimage",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k",
         "-pix_fmt",
         "yuv420p",
-        join(outputPath, "video.mp4"),
-      ],
-      (err) => {
-        if (err) {
-          console.log(err);
-        }
-
-        resolve(null);
-      }
-    );
-  });
-};
-
-const addAudio = (videoPath: string, audioPath: string, outputPath: string) => {
-  return new Promise((resolve) => {
-    execFile(
-      "ffmpeg",
-      [
-        "-y",
-        "-i",
-        videoPath,
-        "-i",
-        audioPath,
-        "-map",
-        "0",
-        "-map",
-        "1:a",
-        "-c:v",
-        "copy",
         "-shortest",
-        outputPath,
+        "-t",
+        duration.toString(),
+        join(exportPath, `video.mp4`),
       ],
       (err) => {
         if (err) {
@@ -74,37 +62,18 @@ const addAudio = (videoPath: string, audioPath: string, outputPath: string) => {
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const comments = JSON.parse(args[0]) as Comment[];
+  const folders = JSON.parse(args[0]) as string[];
 
-  for (const comment of comments) {
-    const folder = join(renderPath, comment.id + "");
+  for (const folder of folders) {
+    const ids = folder.split("-");
+    const exportPath = join(renderPath, ids[0], folder);
 
-    const fileList = (comment.content as Subtitle[])
-      .map(
-        (content, index) =>
-          `file '${join(folder, `${comment.id}-${index}.png`)}'\nduration ${
-            content.duration
-          }`
-      )
-      .join("\n")
-      .concat(
-        `\nfile '${join(
-          folder,
-          `${comment.id}-${comment.content.length - 1}.png`
-        )}'\nduration 200`
-      );
-
-    const renderListPath = join(folder, "data.txt");
-
-    writeFileSync(renderListPath, fileList);
-
-    await generateVideo(renderListPath, join(folder));
-
-    await addAudio(
-      join(folder, "video.mp4"),
-      join(folder, "audio.wav"),
-      join(folder, "render.mp4")
-    );
+    await generateVideo({
+      image: join(exportPath, "image.png"),
+      audio: join(exportPath, "audio.wav"),
+      duration: getDuration(join(exportPath, "subtitle.srt")),
+      exportPath,
+    });
 
     console.log("comment-video-created");
   }

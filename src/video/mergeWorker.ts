@@ -23,8 +23,8 @@ export const mergeVideos = async (comments: number[]) => {
 
   const videos = comments
     .map((e) => join(renderPath, e + ""))
-    .filter((f) => existsSync(join(f, "render.mp4")))
-    .map((t) => `file '${join(t, "render.mp4")}`);
+    .filter((f) => existsSync(join(f, "video.mp4")))
+    .map((t) => `file '${join(t, "video.mp4")}`);
 
   writeFileSync(listPath, videos.join(" \n"));
 

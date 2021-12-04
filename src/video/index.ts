@@ -4,25 +4,19 @@ import { execFile } from "child_process";
 import { join } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 
-import {
-  getArgument,
-  getFolders,
-  splitByDepth,
-  spreadWork,
-} from "../utils/helper";
+import { getFolders, splitByDepth, spreadWork } from "../utils/helper";
 import { Comment } from "../interface/post";
-import { renderPath } from "../config/paths";
+import { assetsPath, renderPath } from "../config/paths";
+import { Subtitle } from "../interface/audio";
 
 export const AddBackgroundMusic = async (
   videoPath: string,
   audioPath: string,
   outputPath: string
 ) => {
-  const ffmpegPath = getArgument("FFMPEG");
-
   return new Promise((resolve) => {
     execFile(
-      ffmpegPath,
+      "ffmpeg",
       [
         "-i",
         videoPath,
@@ -83,10 +77,8 @@ export const mergeVideos = async (
 
   const merge = () =>
     new Promise((resolve, reject) => {
-      const ffmpegPath = getArgument("FFMPEG");
-
       execFile(
-        ffmpegPath,
+        "ffmpeg",
         [
           "-safe",
           "0",
@@ -120,7 +112,15 @@ export const mergeVideos = async (
 
 export const generateCommentVideo = async (comments: Comment[]) => {
   return new Promise((resolve) => {
-    const work = spreadWork(comments, cpus().length);
+    const folders = [];
+    for (let i = 0; i < comments.length; i++) {
+      const comment = comments[i];
+      for (let j = 0; j < comment.content.length; j++) {
+        folders.push(`${i}-${j}`);
+      }
+    }
+
+    const work = spreadWork(folders, cpus().length);
     let counter = work.length;
 
     for (const jobs of work) {
@@ -172,10 +172,88 @@ export const mergeCommentGroup = async (comments: Comment[]) => {
   });
 };
 
+export const mergeFinalVideo = async () => {
+  const parentPath = join(renderPath, "render-groups");
+
+  const videos = getFolders(parentPath)
+    .filter((f) => existsSync(join(parentPath, f, "video.mp4")))
+    .map((t) => `file '${join(parentPath, t, "video.mp4")}`);
+
+  const listPath = join(parentPath, "list.txt");
+
+  writeFileSync(listPath, videos.join(" \n"));
+
+  return new Promise((resolve, reject) => {
+    execFile(
+      "ffmpeg",
+      [
+        "-safe",
+        "0",
+        "-f",
+        "concat",
+        "-i",
+        listPath,
+        "-c",
+        "copy",
+        join(parentPath, "video.mp4"),
+      ],
+      async (error) => {
+        if (error) {
+          console.log(error);
+        }
+
+        resolve(null);
+      }
+    );
+  });
+};
+
+const mergeCommentVideo = async (comments: Comment[]) => {
+  return new Promise((resolve) => {
+    const folders = comments.map((e, i) =>
+      (e.content as Subtitle[]).map((s, j) => `${i}-${j}`)
+    );
+
+    const work = spreadWork(folders, cpus().length);
+    let counter = work.length;
+
+    for (const jobs of work) {
+      cluster.setupPrimary({
+        exec: join(__dirname, "mergeCommentWorker.js"),
+        args: [JSON.stringify(jobs)],
+      });
+
+      const worker = cluster.fork();
+
+      worker.on("exit", () => {
+        counter--;
+
+        if (counter === 0) {
+          resolve(null);
+        }
+      });
+    }
+  });
+};
+
 export default async (comments: Comment[]) => {
   // Generate video for each comment
   await generateCommentVideo(comments);
 
+  // Merge comment videos
+  await mergeCommentVideo(comments);
+
   // Merge Comments by depth in groups
   await mergeCommentGroup(comments);
+
+  // Merge Final Video
+  await mergeFinalVideo();
+
+  // const parentPath = join(renderPath, "render-groups");
+
+  // await AddBackgroundMusic(
+  //   join(parentPath, "video.mp4"),
+  //   join(assetsPath, "music", "piano.mp3"),
+  //   join(parentPath, "final.mp4")
+  // );
 };

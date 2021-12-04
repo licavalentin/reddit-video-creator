@@ -30,7 +30,8 @@ const init = async () => {
         const commentImagePath = join(
           renderPath,
           job.id + "",
-          `${job.id}-${(comment as Subtitle).id}.png`
+          `${job.id}-${(comment as Subtitle).id}`,
+          "image.png"
         );
 
         const commentImage = await Jimp.read(commentImagePath);

@@ -45,7 +45,7 @@ const splitText = (text: string): string[] => {
 
     if (
       (chars.some((char) => word.includes(char)) && mergedText.length > 30) ||
-      mergedText.length > 90
+      mergedText.length > 100
     ) {
       sentences.push(mergedText);
       sentence = [];
@@ -83,17 +83,19 @@ export const measureContent = async (comments: Comment[]) => {
         commentDetails.widthMargin -
         comment.depth * commentDetails.depth;
 
+      const splittedText = splitText(comment.content as string);
+
       const commentHeight =
-        Jimp.measureTextHeight(
-          font,
-          (comment.content as Subtitle[]).map((e) => e.content).join(" "),
-          commentWidth
-        ) +
+        Jimp.measureTextHeight(font, splittedText.join(" "), commentWidth) +
         userNameHeight +
         commentDetails.margin;
 
       return {
         ...comment,
+        content: splittedText.map((text, index) => ({
+          content: text.trim(),
+          id: index,
+        })),
         width: commentWidth,
         height: commentHeight,
       };

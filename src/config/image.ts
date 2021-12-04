@@ -1,7 +1,7 @@
 const imageDetails = {
   width: 1920,
   height: 1080,
-  background: "#15161c",
+  background: "#1a1a1b",
 };
 
 const commentDetails = {

@@ -1,5 +1,4 @@
 import { execFile } from "child_process";
-import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
@@ -8,9 +7,6 @@ import {
   AudioFileGeneration,
   AudioFileGenerationConfig,
 } from "../interface/audio";
-import { Comment } from "../interface/post";
-
-import { getSubtitles } from "../utils/helper";
 
 type AudioGenerator = (args: AudioFileGeneration) => Promise<null>;
 
@@ -36,22 +32,22 @@ const generateAudioFile: AudioGenerator = ({
         `${join(exportPath, "audio.wav")}`,
         "-n",
         selectedVoice,
-        "--encoding utf8",
+        "--encoding",
+        "utf8",
         "-fr",
         "48",
-        "--ignore-url",
+        "--silence-end",
+        "100",
         "--lrc-length",
-        "80",
-        "-srt",
+        "100",
         "--srt-length",
-        "80",
-        // "--srt-enc",
-        // "utf8",
+        "100",
+        "-srt",
+        "--srt-enc",
+        "utf8",
         "--srt-fname",
         `${join(exportPath, "subtitle.srt")}`,
         "--ignore-url",
-        "--silence-end",
-        "200",
       ],
       (error: Error) => {
         if (error) {
@@ -67,35 +63,18 @@ const generateAudioFile: AudioGenerator = ({
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const comments = JSON.parse(args[0]) as Comment[];
+  const folders = JSON.parse(args[0]) as string[];
   const generationConfig = JSON.parse(args[1]) as AudioFileGenerationConfig;
 
-  for (const comment of comments) {
-    // Generate random folder
-    const folderPath = join(renderPath, comment.id + "");
-    mkdirSync(folderPath);
-
-    // Write text file
-    const textFilePath = join(folderPath, "text.txt");
-
-    const filteredText = (comment.content as string)
-      .replace(/\*/g, "")
-      .replace(/’/g, "'")
-      .replace(/”|“/g, '"');
-
-    writeFileSync(textFilePath, filteredText);
+  for (const folder of folders) {
+    const ids = folder.split("-");
+    const exportPath = join(renderPath, ids[0], folder);
 
     await generateAudioFile({
       ...generationConfig,
-      exportPath: folderPath,
-      textFilePath: textFilePath,
+      exportPath: exportPath,
+      textFilePath: join(exportPath, "text.txt"),
     });
-
-    comment.audio = comment.id + "";
-    comment.content = getSubtitles(join(folderPath, "subtitle.srt"));
-
-    // writeFileSync(join(folderPath, "comment.json"), JSON.stringify(comment));
-    process.send(comment);
   }
 
   // Kill Worker

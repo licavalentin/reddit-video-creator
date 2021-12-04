@@ -3,7 +3,7 @@ import { measureContent } from "./images/measureComments";
 import { transformComments } from "./images/transformComments";
 import generateContent from "./images/content/index";
 import { generateAvatar } from "./images/avatar";
-import { getPost, resetTemp, splitByDepth } from "./utils/helper";
+import { getPost, resetTemp } from "./utils/helper";
 import generateFrames from "./images/frames/index";
 import generateVideo from "./video/index";
 
@@ -16,16 +16,13 @@ const renderVideo = async () => {
   // Get created post
   const post = getPost();
 
-  // Generate audio file for each comment
-  const newPost = await generateAudio(post.comments);
-
   // Generate random avatar for each comment
   for (const comment of post.comments) {
     await generateAvatar(comment.id);
   }
 
   // Measure content and split into groups
-  const measureText = await measureContent(newPost.sort((a, b) => a.id - b.id));
+  const measureText = await measureContent(post.comments);
   const transformedComments = await transformComments(measureText);
 
   // Generate Content images
@@ -34,8 +31,11 @@ const renderVideo = async () => {
   // Render Frames
   await generateFrames(transformedComments);
 
+  // Generate audio file for each comment
+  await generateAudio(measureText);
+
   // Generate video
-  await generateVideo(newPost.sort((a, b) => a.id - b.id));
+  await generateVideo(measureText);
 
   // Reset temp
   // await resetTemp();

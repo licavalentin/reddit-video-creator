@@ -9,7 +9,7 @@ import {
 } from "fs";
 import { join } from "path";
 
-import { renderPath, imagePath } from "../config/paths";
+import { renderPath } from "../config/paths";
 
 import { Comment, PostFile } from "interface/post";
 import { Arguments } from "../interface/utils";
@@ -166,6 +166,19 @@ const parseTime = (time: string): number => {
   return timeCount;
 };
 
+export const getDuration = (subtitlePath: string) => {
+  const subtitle = readFileSync(subtitlePath).toString();
+
+  const arr = subtitle
+    .trim()
+    .split("\r\n")
+    .filter((e) => e !== "");
+
+  const time = arr[arr.length - 2].split("-->").map((e) => e.trim());
+
+  return parseTime(time[1]);
+};
+
 /**
  * Convert Subtitle into Array
  * @param subtitlePath Subtitle Path
@@ -185,7 +198,7 @@ export const getSubtitles = (subtitlePath: string) => {
     const time = arr[i + 1].split("-->").map((e) => e.trim());
 
     finalArr.push({
-      duration: Number((parseTime(time[1]) - parseTime(time[0])).toFixed(2)),
+      // duration: Number((parseTime(time[1]) - parseTime(time[0])).toFixed(2)),
       content: arr[i + 2].trim(),
     });
 

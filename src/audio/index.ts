@@ -33,7 +33,7 @@ export const getVoices = async (): Promise<string[]> => {
   });
 };
 
-export default async (comments: Comment[]): Promise<Comment[]> => {
+export default async (comments: Comment[]): Promise<null> => {
   return new Promise(async (resolve) => {
     const balconPath = getArgument("BALCON");
 
@@ -44,12 +44,18 @@ export default async (comments: Comment[]): Promise<Comment[]> => {
       selectedVoice = voices[0];
     }
 
-    const work = spreadWork(comments, cpus().length);
+    const folders = [];
+    for (let i = 0; i < comments.length; i++) {
+      const comment = comments[i];
+      for (let j = 0; j < comment.content.length; j++) {
+        folders.push(`${i}-${j}`);
+      }
+    }
 
-    const availableWork = work.filter((e) => e.length > 0);
-    const newComments = [];
+    const work = spreadWork(folders, cpus().length);
+    let counter = work.length;
 
-    for (let index = 0; index < availableWork.length; index++) {
+    for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
       const config = {
@@ -64,13 +70,11 @@ export default async (comments: Comment[]): Promise<Comment[]> => {
 
       const worker = cluster.fork();
 
-      worker.on("message", (message) => {
-        newComments.push(message);
-      });
-
       worker.on("exit", () => {
-        if (newComments.length === comments.length) {
-          resolve(newComments);
+        counter--;
+
+        if (counter === 0) {
+          resolve(null);
         }
       });
     }

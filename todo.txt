@@ -13,7 +13,7 @@ ndaje texting
 []. Add background music
 []. Add time delay between comment
 []. Filter bad words
-[]. Fix \n 
+[]. Fix //n 
 []. Thumbnail
     []. Implement new thumbnail or improve current
 []. Generate complete audio for comment
@@ -35,6 +35,7 @@ UI
 []. Yo this shit can make you some serious money so focus and complete it.
 
 
-
-
+C:\\Users\\licav\\AppData\\Local\\Temp\\reddit-video-creator\\render\\render-groups\\video.mp4
+C:\\Users\\licav\\Desktop\\Dev\\reddit-video-creator\\build\\assets\\music\\piano.mp3
+C:\\Users\\licav\\AppData\\Local\\Temp\\reddit-video-creator\\render\\render-groups\\final.mp4
 
