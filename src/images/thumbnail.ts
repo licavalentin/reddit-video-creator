@@ -1,11 +1,12 @@
 import { join } from "path";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 
 import Jimp from "jimp";
 
 import { fontPath, assetsPath, dataPath } from "../config/paths";
 import { imageDetails, thumbnailDetail } from "../config/image";
 import { Crop, FontFace } from "../interface/image";
+import { getFolders } from "../utils/helper";
 
 export const generateThumbnail = async (
   post: {
@@ -13,164 +14,115 @@ export const generateThumbnail = async (
     subreddit: string;
     awards: string[];
   },
-  bgImage: string,
-  cropDetails: Crop,
+  // bgImage: string,
+  // cropDetails: Crop,
   exportPath: string
 ) => {
   try {
+    const postTitle = post.title.toUpperCase();
+
     // Create new instance of an image
-    const image = new Jimp(
-      imageDetails.width,
-      imageDetails.height,
-      imageDetails.background
-    );
+    const image = new Jimp(thumbnailDetail.width, thumbnailDetail.height);
 
     // Composite background image
-    const backgroundImage = await Jimp.read(bgImage);
-    backgroundImage
-      .crop(cropDetails.x, cropDetails.y, cropDetails.width, cropDetails.height)
-      .scaleToFit(imageDetails.width, imageDetails.height);
-    image.composite(
-      backgroundImage,
-      imageDetails.width - backgroundImage.getWidth(),
-      0
-    );
+    // const backgroundImage = await Jimp.read(bgImage);
+    // backgroundImage
+    //   .crop(cropDetails.x, cropDetails.y, cropDetails.width, cropDetails.height)
+    //   .scaleToFit(imageDetails.width, imageDetails.height);
+    // image.composite(
+    //   backgroundImage,
+    //   imageDetails.width - backgroundImage.getWidth(),
+    //   0
+    // );
 
     // Composite background Shadow
     const backgroundShadow = await Jimp.read(
       join(assetsPath, "images", "thumbnail-shadow.png")
     );
-    backgroundShadow.scaleToFit(imageDetails.width, imageDetails.height);
     image.composite(backgroundShadow, 0, 0);
 
-    // Print post subreddit name
-    const subredditText = `/r/${post.subreddit}`;
-    const subredditFont = await Jimp.loadFont(
-      join(fontPath, FontFace.ThumbnailSubreddit)
-    );
-    const textWith = Jimp.measureText(subredditFont, subredditText);
-    const textHeight = Jimp.measureTextHeight(
-      subredditFont,
-      subredditText,
-      textWith
-    );
-    image.print(
-      subredditFont,
-      thumbnailDetail.widthMargin,
-      thumbnailDetail.heightMargin,
-      subredditText
+    // Select Font
+    const fonts = readdirSync(join(fontPath, "thumbnail")).filter((e) =>
+      e.endsWith(".fnt")
     );
 
-    // Add post award images
-    const awardsPath = join(assetsPath, "images", "reddit-awards");
-    const awardsList = JSON.parse(
-      readFileSync(join(dataPath, "reddit-awards.json")).toString()
-    ) as {
-      title: string;
-      path: string;
-    }[];
-    const filteredAwards = post.awards.filter((_, index) => index < 3);
-
-    for (let i = 0; i < filteredAwards.length; i++) {
-      const award = filteredAwards[i];
-      let awardImagePath: string | null = null;
-
-      for (const item of awardsList) {
-        if (item.title === award) {
-          awardImagePath = item.path;
-          break;
-        }
-      }
-
-      if (!awardImagePath) {
-        break;
-      }
-
-      if (!existsSync(join(awardsPath, awardImagePath))) {
-        continue;
-      }
-
-      const awardImage: Jimp | null = await Jimp.read(
-        join(awardsPath, awardImagePath)
-      );
-
-      awardImage.resize(textHeight, textHeight);
-
-      image.composite(
-        awardImage,
-        textWith + thumbnailDetail.widthMargin + 50 + i * textHeight + i * 20,
-        thumbnailDetail.heightMargin
-      );
-    }
-
-    // Print post title
-    const maxHeight =
-      imageDetails.height - textHeight - thumbnailDetail.heightMargin - 50;
-    const maxWidth = imageDetails.width - imageDetails.width / 3;
-
+    const maxTextHeight = thumbnailDetail.height - 20;
+    const maxTextWidth = thumbnailDetail.width / 2;
     let selectedFont = null;
-    let greenText = null;
-    const fonts = ["120", "130", "140", "150", "160", "170", "180", "190"];
+    let titleHeight = 0;
 
     for (const font of fonts) {
-      const titleFont = await Jimp.loadFont(
-        join(fontPath, FontFace.ThumbnailTitle.replace(".", `-${font}.`))
-      );
+      const titleFont = await Jimp.loadFont(join(fontPath, "thumbnail", font));
 
-      const titleHeight = Jimp.measureTextHeight(
+      const textHeight = Jimp.measureTextHeight(
         titleFont,
-        post.title,
-        maxWidth
+        postTitle,
+        maxTextWidth
       );
 
-      if (maxHeight > titleHeight) {
+      if (textHeight < maxTextHeight && textHeight > titleHeight) {
         selectedFont = titleFont;
-        greenText = await Jimp.loadFont(
-          join(
-            fontPath,
-            FontFace.ThumbnailTitle.replace(".", `-${font}-green.`)
-          )
-        );
+        titleHeight = textHeight;
+      }
+    }
+
+    const textWidth = Jimp.measureText(selectedFont, postTitle);
+    const textHeight = Jimp.measureTextHeight(
+      selectedFont,
+      postTitle,
+      textWidth + 100
+    );
+
+    const seperatedText: number[][] = [];
+    let currentText: number[] = [];
+    let availableSpace = maxTextWidth;
+
+    for (let i = 0; i < postTitle.split(" ").length; i++) {
+      const text = postTitle.split(" ")[i];
+
+      const textWidth = Jimp.measureText(selectedFont, `${text} `);
+
+      if (availableSpace - textWidth > 0) {
+        currentText.push(textWidth);
+        availableSpace -= textWidth;
       } else {
-        break;
+        seperatedText.push(currentText);
+        currentText = [textWidth];
+        availableSpace = maxTextWidth - textWidth;
       }
     }
 
-    const splitText = post.title.split(" ");
-    let currentX = thumbnailDetail.widthMargin;
-    let currentY =
-      thumbnailDetail.heightMargin + textHeight + thumbnailDetail.titleMargin;
-    let isGreen: boolean = false;
+    seperatedText.push(currentText);
 
-    for (const text of splitText) {
-      const currentTextWidth = Jimp.measureText(selectedFont, text);
-      const currentTextHeight = Jimp.measureTextHeight(
-        selectedFont,
-        text,
-        currentTextWidth + 10
+    const lines = seperatedText.map((e) =>
+      e.reduce((prev, curr) => (prev += curr))
+    );
+
+    const lineBarImage = new Jimp(
+      thumbnailDetail.width,
+      textHeight - 10,
+      "#e93222"
+    );
+
+    for (let i = 0; i < lines.length; i++) {
+      const width = lines[i];
+
+      image.composite(
+        lineBarImage,
+        -(thumbnailDetail.width - width - 20),
+        thumbnailDetail.height / 2 - titleHeight / 2 + textHeight * i + 10
       );
-
-      if (currentX + currentTextWidth > maxWidth) {
-        isGreen = !isGreen;
-        currentX = thumbnailDetail.widthMargin;
-        currentY += currentTextHeight;
-      }
-
-      image.print(
-        !isGreen ? selectedFont : greenText,
-        currentX,
-        currentY,
-        text
-      );
-
-      currentX += currentTextWidth + 40;
     }
 
-    // Write Image
-    const imagePath = join(exportPath, `thumbnail.jpg`);
-    const base64 = await image.getBase64Async(Jimp.MIME_JPEG);
-    const base64Data = base64.replace(/^data:image\/jpeg;base64,/, "");
-    writeFileSync(imagePath, base64Data, "base64");
+    image.print(
+      selectedFont,
+      20,
+      thumbnailDetail.height / 2 - titleHeight / 2,
+      postTitle,
+      maxTextWidth
+    );
+
+    await image.writeAsync(join(exportPath, "test.png"));
   } catch (error) {
     console.log(error);
   }

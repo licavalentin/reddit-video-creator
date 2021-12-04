@@ -6,36 +6,48 @@ import { generateAvatar } from "./images/avatar";
 import { getPost, resetTemp } from "./utils/helper";
 import generateFrames from "./images/frames/index";
 import generateVideo from "./video/index";
+import { generateThumbnail } from "./images/thumbnail";
 
 const renderVideo = async () => {
   console.time("Render");
 
-  // Reset temp
-  await resetTemp();
-
-  // Get created post
   const post = getPost();
 
-  // Generate random avatar for each comment
-  for (const comment of post.comments) {
-    await generateAvatar(comment.id);
-  }
+  await generateThumbnail(
+    {
+      title: post.post.title,
+      subreddit: post.post.subreddit,
+      awards: post.post.all_awardings.map((e) => e.name),
+    },
+    post.exportPath
+  );
 
-  // Measure content and split into groups
-  const measureText = await measureContent(post.comments);
-  const transformedComments = await transformComments(measureText);
+  // Reset temp
+  // await resetTemp();
 
-  // Generate Content images
-  await generateContent(transformedComments);
+  // // Get created post
+  // const post = getPost();
 
-  // Render Frames
-  await generateFrames(transformedComments);
+  // // Generate random avatar for each comment
+  // for (const comment of post.comments) {
+  //   await generateAvatar(comment.id);
+  // }
 
-  // Generate audio file for each comment
-  await generateAudio(measureText);
+  // // Measure content and split into groups
+  // const measureText = await measureContent(post.comments);
+  // const transformedComments = await transformComments(measureText);
 
-  // Generate video
-  await generateVideo(measureText);
+  // // Generate Content images
+  // await generateContent(transformedComments);
+
+  // // Render Frames
+  // await generateFrames(transformedComments);
+
+  // // Generate audio file for each comment
+  // await generateAudio(measureText);
+
+  // // Generate video
+  // await generateVideo(measureText);
 
   // Reset temp
   // await resetTemp();

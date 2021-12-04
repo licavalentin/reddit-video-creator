@@ -3,8 +3,6 @@ export enum FontFace {
   Comment = "comment-regular.fnt",
   Stats = "stats-regular.fnt",
   PostTitle = "post-title-medium.fnt",
-  ThumbnailTitle = "cocogoose-thumbnail-title.fnt",
-  ThumbnailSubreddit = "cocogoose-thumbnail-subreddit.fnt",
 }
 
 export type Crop = {
