@@ -13,6 +13,7 @@ import { Comment } from "../interface/post";
  * @param {string} text Comment text
  */
 const splitText = (text: string): string[] => {
+  // Decode html code to text
   const words = decode(
     text
       // Remove emoji
@@ -33,8 +34,8 @@ const splitText = (text: string): string[] => {
   }
 
   const sentences: string[] = [];
-
   let sentence: string[] = [];
+
   for (const word of words) {
     sentence.push(word);
 
@@ -99,7 +100,6 @@ export const measureContent = async (comments: Comment[]) => {
         height: commentHeight,
       };
     });
-    // .filter((c) => c.text.length !== 0);
   } catch (error) {
     throw error;
   }

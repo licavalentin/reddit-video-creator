@@ -1,11 +1,11 @@
+import { getPost, resetTemp } from "./utils/helper";
 import generateAudio from "./audio/index";
+import generateVideo from "./video/index";
 import { measureContent } from "./images/measureComments";
 import { transformComments } from "./images/transformComments";
 import generateContent from "./images/content/index";
 import { generateAvatar } from "./images/avatar";
-import { getPost, resetTemp } from "./utils/helper";
 import generateFrames from "./images/frames/index";
-import generateVideo from "./video/index";
 import { generateThumbnail } from "./images/thumbnail";
 
 const renderVideo = async () => {
@@ -18,9 +18,7 @@ const renderVideo = async () => {
   const post = getPost();
 
   // Generate random avatar for each comment
-  for (const comment of post.comments) {
-    await generateAvatar(comment.id);
-  }
+  await generateAvatar(post.comments);
 
   // Measure content and split into groups
   const measureText = await measureContent(post.comments);

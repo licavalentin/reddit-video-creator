@@ -11,6 +11,7 @@ import {
 import { commentDetails, imageDetails } from "../../config/image";
 import { FontFace } from "../../interface/image";
 import { Comment } from "../../interface/post";
+
 import { roundUp } from "../../utils/helper";
 
 interface CommentJob extends Comment {
@@ -27,6 +28,7 @@ const init = async () => {
   const fontBold = await Jimp.loadFont(join(parentPath, FontFace.Username));
   const statsFont = await Jimp.loadFont(join(parentPath, FontFace.Stats));
   const depthLine = await Jimp.read(join(imagePath, "comment-line.png"));
+  const upsArrow = await Jimp.read(join(assetsPath, "images", "ups-arrow.png"));
 
   const topMargin = 50;
 
@@ -53,9 +55,6 @@ const init = async () => {
     image.print(fontBold, startX, topMargin, job.user);
 
     // Write UpArrow
-    const upsArrow = await Jimp.read(
-      join(assetsPath, "images", "ups-arrow.png")
-    );
     upsArrow.resize(Jimp.AUTO, userNameHeight + 4);
     const upsArrowWidth = upsArrow.getWidth();
     image.composite(
@@ -89,10 +88,19 @@ const init = async () => {
     );
 
     // Composite indentation line
-    depthLine.resize(3, contentHeight - 8);
-    image.composite(depthLine, startX - 40, avatarImage.getHeight() - 10);
+    depthLine.resize(4, contentHeight);
+    image.composite(depthLine, startX - 38, avatarImage.getHeight() - 10);
 
     image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
+
+    for (let i = 1; i < job.depth + 1; i++) {
+      depthLine.resize(
+        4,
+        contentHeight + commentDetails.margin + userNameHeight + 3
+      );
+
+      image.composite(depthLine, i * commentDetails.depth + 62, 0);
+    }
 
     const parentFolderPath = join(
       renderPath,
