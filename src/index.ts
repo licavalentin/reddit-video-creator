@@ -4,7 +4,7 @@ import generateVideo from "./video/index";
 import { measureContent } from "./images/measureComments";
 import { transformComments } from "./images/transformComments";
 import generateContent from "./images/content/index";
-import { generateAvatar } from "./images/avatar";
+import { generateAvatar } from "./images/avatars";
 import generateFrames from "./images/frames/index";
 import { generateThumbnail } from "./images/thumbnail";
 

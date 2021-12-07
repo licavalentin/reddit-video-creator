@@ -28,4 +28,9 @@ UI
 []. Draft
 
 
+Read aloud English and Russian sentences by different voices:
+
+balcon -f "d:\Text\book.txt" -n Kimberly --voice1-name Tatyana --voice1-langid ru
+
+balcon -f test.txt -n ScanSoft --voice1-name RHVoice --voice1-langid ru
 

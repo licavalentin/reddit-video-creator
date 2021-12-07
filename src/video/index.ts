@@ -72,6 +72,10 @@ export const mergeVideos = async (
 
   const listPath = join(inputPath, "list.txt");
 
+  // if (folders.length > 1) {
+
+  // }
+
   const videos = folders
     .filter((folder) => existsSync(join(inputPath, folder, "video.mp4")))
     .map((folder) => `file '${join(inputPath, folder, "video.mp4")}`);
@@ -113,7 +117,7 @@ export const mergeVideos = async (
   }
 };
 
-export const generateCommentVideo = async (comments: Comment[]) => {
+export const generateCommentTextVideo = async (comments: Comment[]) => {
   return new Promise((resolve) => {
     const folders = [];
     for (let i = 0; i < comments.length; i++) {
@@ -305,7 +309,7 @@ const mergeCommentVideo = async (comments: Comment[]) => {
 
 export default async (comments: Comment[], exportPath: string) => {
   // Generate video for each comment
-  await generateCommentVideo(comments);
+  await generateCommentTextVideo(comments);
 
   // Merge comment videos
   await mergeCommentVideo(comments);

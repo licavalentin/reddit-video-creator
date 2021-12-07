@@ -68,12 +68,16 @@ const init = async () => {
     const ids = folder.split("-");
     const exportPath = join(renderPath, ids[0], folder);
 
-    await generateVideo({
-      image: join(exportPath, "image.png"),
-      audio: join(exportPath, "audio.wav"),
-      duration: getDuration(join(exportPath, "subtitle.srt")),
-      exportPath,
-    });
+    const audioDuration = getDuration(join(exportPath, "subtitle.srt"));
+
+    if (audioDuration) {
+      await generateVideo({
+        image: join(exportPath, "image.png"),
+        audio: join(exportPath, "audio.wav"),
+        duration: audioDuration,
+        exportPath,
+      });
+    }
 
     console.log("comment-video-created");
   }

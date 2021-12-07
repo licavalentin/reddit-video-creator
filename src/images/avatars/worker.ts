@@ -2,26 +2,28 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
-import { renderPath, imagePath } from "../config/paths";
-import { commentDetails } from "../config/image";
-import { Comment } from "../interface/post";
+import { Comment } from "../../interface/post";
+import { imagePath, renderPath } from "../../config/paths";
+import { commentDetails } from "../../config/image";
 
-import { getFolders } from "../utils/helper";
+type CommentJob = {
+  heads: string[];
+  faces: string[];
+  bodies: string[];
+  comments: Comment[];
+};
 
-type GenerateAvatar = (comments: Comment[]) => Promise<void>;
+const init = async () => {
+  const args = process.argv.slice(2);
+  const { bodies, faces, heads, comments } = JSON.parse(args[0]) as CommentJob;
 
-export const generateAvatar: GenerateAvatar = async (comments) => {
   const avatarAssets = join(imagePath, "reddit-avatar");
-  const backgroundImagePath = join(avatarAssets, "circle-background.png");
-
-  const heads = getFolders(join(avatarAssets, "head"));
-  const faces = getFolders(join(avatarAssets, "face"));
-  const bodies = getFolders(join(avatarAssets, "body"));
-
-  const defaultHead = await Jimp.read(join(avatarAssets, "default-head.png"));
-  const defaultBody = await Jimp.read(join(avatarAssets, "default-body.png"));
 
   for (const comment of comments) {
+    const backgroundImagePath = join(avatarAssets, "circle-background.png");
+    const defaultHead = await Jimp.read(join(avatarAssets, "default-head.png"));
+    const defaultBody = await Jimp.read(join(avatarAssets, "default-body.png"));
+
     const randomHead = heads[Math.floor(Math.random() * heads.length)];
     const randomFace = faces[Math.floor(Math.random() * faces.length)];
     const randomBody = bodies[Math.floor(Math.random() * bodies.length)];
@@ -54,4 +56,9 @@ export const generateAvatar: GenerateAvatar = async (comments) => {
 
     console.log("avatar-generated");
   }
+
+  // Kill Worker
+  process.exit();
 };
+
+init();
