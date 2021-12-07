@@ -8,9 +8,10 @@ import Jimp from "jimp";
 
 import { getFolders, splitByDepth, spreadWork } from "../utils/helper";
 import { Comment } from "../interface/post";
-import { assetsPath, imagePath, renderPath } from "../config/paths";
+import { imagePath, renderPath } from "../config/paths";
 import { Subtitle } from "../interface/audio";
 import { imageDetails } from "../config/image";
+import { createPostTitle } from "../images/postTitle";
 
 export const AddBackgroundMusic = async (
   videoPath: string,
@@ -240,6 +241,8 @@ const createChannelPoster = async () => {
 export const mergeFinalVideo = async (exportPath: string) => {
   const parentPath = join(renderPath, "render-groups");
 
+  await createPostTitle();
+
   const videos = getFolders(parentPath)
     .filter((f) => existsSync(join(parentPath, f, "video.mp4")))
     .map(
@@ -252,7 +255,16 @@ export const mergeFinalVideo = async (exportPath: string) => {
 
   const listPath = join(parentPath, "list.txt");
 
-  writeFileSync(listPath, videos.join("\n"));
+  writeFileSync(
+    listPath,
+    [
+      `file '${join(renderPath, "post-title", "video.mp4")}'\nfile '${join(
+        renderPath,
+        "mid-video.mp4"
+      )}'`,
+      ...videos,
+    ].join("\n")
+  );
 
   return new Promise((resolve) => {
     execFile(

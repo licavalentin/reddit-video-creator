@@ -9,8 +9,51 @@ import { commentDetails, imageDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 
 import { generateVoting } from "./voting";
-import { getArgument, getPost, roundUp } from "../utils/helper";
+import { getArgument, getDuration, getPost, roundUp } from "../utils/helper";
 import { getVoices } from "../audio/index";
+
+const generateVideo = () => {
+  const exportPath = join(renderPath, "post-title");
+
+  const duration = getDuration(join(exportPath, "subtitle.srt"));
+
+  return new Promise((resolve) => {
+    execFile(
+      "ffmpeg",
+      [
+        "-loop",
+        "1",
+        "-framerate",
+        "5",
+        "-i",
+        join(exportPath, "image.png"),
+        "-i",
+        join(exportPath, "audio.wav"),
+        "-c:v",
+        "libx264",
+        "-tune",
+        "stillimage",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k",
+        "-pix_fmt",
+        "yuv420p",
+        "-shortest",
+        "-t",
+        duration.toString(),
+        join(exportPath, `video.mp4`),
+      ],
+      (err) => {
+        if (err) {
+          console.log(err);
+        }
+
+        resolve(null);
+      }
+    );
+  });
+};
 
 /**
  * Generate Audio from text
@@ -83,11 +126,7 @@ const generateAudioFile = ({
  * @param {Array} post.awards Array with paths to award image
  * @returns
  */
-export const createPostTitle = async ({
-  exportPath,
-}: {
-  exportPath: string;
-}) => {
+export const createPostTitle = async () => {
   const {
     post: { title, author: userName, score: points, all_awardings },
   } = getPost();
@@ -172,12 +211,12 @@ export const createPostTitle = async ({
         join(awardsPath, awardImagePath)
       );
 
-      awardImage.resize(Jimp.AUTO, usernameHeight);
+      awardImage.resize(Jimp.AUTO, usernameHeight + 20);
 
       image.composite(
         awardImage,
         (imageDetails.width - maxWidth) / 2 + 70 + usernameWidth + i * 45,
-        (imageDetails.height - titleHeight) / 2 - 50 + 5
+        (imageDetails.height - titleHeight) / 2 - 55 + 5
       );
     }
 
@@ -189,14 +228,14 @@ export const createPostTitle = async ({
     );
 
     // Read text
-    const folderPath = join(exportPath, "post-title");
+    const folderPath = join(renderPath, "post-title");
 
     mkdirSync(folderPath);
 
     const textPath = join(folderPath, "text.txt");
 
     // Write image
-    await image.writeAsync(join(renderPath, "image.png"));
+    await image.writeAsync(join(folderPath, "image.png"));
 
     writeFileSync(textPath, title);
 
@@ -204,6 +243,8 @@ export const createPostTitle = async ({
       textFilePath: textPath,
       exportPath: folderPath,
     });
+
+    await generateVideo();
   } catch (err) {
     console.log(err);
   }

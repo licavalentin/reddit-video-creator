@@ -34,7 +34,7 @@ export const generateVoting = async (
     image.print(
       font,
       (width - textWidth) / 2,
-      imageHeight / 2 - textHeight / 2,
+      imageHeight / 2 - textHeight,
       voteCount
     );
   }
