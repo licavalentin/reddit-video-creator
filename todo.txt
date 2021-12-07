@@ -9,7 +9,7 @@ ndaj me ate funksionin e vjeter ([]. refactor) dhe krijo texting per secilen nje
 edhe avatarin ruje ne png
 ndaje texting 
 
-
+[]. Refactor
 []. Add background music
 []. Filter bad words
 []. Fix //n 

@@ -1,23 +1,15 @@
 import { join } from "path";
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
+import { readdirSync } from "fs";
 
 import Jimp from "jimp";
 
-import { fontPath, assetsPath, dataPath } from "../config/paths";
-import { imageDetails, thumbnailDetail } from "../config/image";
-import { Crop, FontFace } from "../interface/image";
-import { getFolders } from "../utils/helper";
+import { fontPath, assetsPath } from "../config/paths";
+import { thumbnailDetail } from "../config/image";
+import { getPost, slugify } from "../utils/helper";
 
-export const generateThumbnail = async (
-  post: {
-    title: string;
-    subreddit: string;
-    awards: string[];
-  },
-  // bgImage: string,
-  // cropDetails: Crop,
-  exportPath: string
-) => {
+export const generateThumbnail = async (exportPath: string) => {
+  const { post } = getPost();
+
   try {
     const postTitle = post.title.toUpperCase();
 
@@ -25,9 +17,9 @@ export const generateThumbnail = async (
     const image = new Jimp(thumbnailDetail.width, thumbnailDetail.height);
 
     // Composite background image
-    // const backgroundImage = await Jimp.read(bgImage);
+    // const backgroundImage = await Jimp.read(background);
     // backgroundImage
-    //   .crop(cropDetails.x, cropDetails.y, cropDetails.width, cropDetails.height)
+    //   .crop(crop.x, crop.y, crop.width, crop.height)
     //   .scaleToFit(imageDetails.width, imageDetails.height);
     // image.composite(
     //   backgroundImage,
@@ -122,7 +114,12 @@ export const generateThumbnail = async (
       maxTextWidth
     );
 
-    await image.writeAsync(join(exportPath, "test.png"));
+    const thumbnailPath = join(
+      exportPath,
+      `${slugify(post.title)} reddit askreddit storytime.png`
+    );
+
+    await image.writeAsync(thumbnailPath);
   } catch (error) {
     console.log(error);
   }

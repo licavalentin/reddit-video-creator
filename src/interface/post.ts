@@ -1,4 +1,5 @@
 import { Subtitle } from "./audio";
+import { Crop } from "./image";
 
 export interface Award {
   count: number;

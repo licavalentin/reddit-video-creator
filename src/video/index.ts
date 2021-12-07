@@ -6,12 +6,20 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import { getFolders, splitByDepth, spreadWork } from "../utils/helper";
+import {
+  createRandomString,
+  getFolders,
+  getPost,
+  slugify,
+  splitByDepth,
+  spreadWork,
+} from "../utils/helper";
 import { Comment } from "../interface/post";
 import { imagePath, renderPath } from "../config/paths";
 import { Subtitle } from "../interface/audio";
 import { imageDetails } from "../config/image";
 import { createPostTitle } from "../images/postTitle";
+import { generateThumbnail } from "../images/thumbnail";
 
 export const AddBackgroundMusic = async (
   videoPath: string,
@@ -266,6 +274,27 @@ export const mergeFinalVideo = async (exportPath: string) => {
     ].join("\n")
   );
 
+  const { post } = getPost();
+
+  const postTitle = post.title
+    .toLocaleLowerCase()
+    .split(" ")
+    .join("-")
+    .split("")
+    .filter((_, index) => index < 10)
+    .join("");
+
+  const videoExportPath = join(
+    exportPath,
+    `${postTitle}-${createRandomString(3)}`
+  );
+
+  mkdirSync(videoExportPath);
+
+  writeFileSync(join(videoExportPath, "data.txt"), post.title);
+
+  await generateThumbnail(videoExportPath);
+
   return new Promise((resolve) => {
     execFile(
       "ffmpeg",
@@ -278,7 +307,10 @@ export const mergeFinalVideo = async (exportPath: string) => {
         listPath,
         "-c",
         "copy",
-        join(exportPath, "video.mp4"),
+        join(
+          videoExportPath,
+          `${slugify(post.title)} reddit askreddit story.mp4`
+        ),
       ],
       async (error) => {
         if (error) {
