@@ -77,13 +77,17 @@ export const measureContent = async (comments: Comment[]) => {
       Jimp.measureText(fontBold, userNameText)
     );
 
-    return comments.map((comment) => {
+    let totalProcesses = 0;
+
+    const newComments = comments.map((comment) => {
       const commentWidth =
         imageDetails.width -
         commentDetails.widthMargin -
         comment.depth * commentDetails.depth;
 
       const splittedText = splitText(comment.content as string);
+
+      totalProcesses += splittedText.length;
 
       const commentHeight =
         Jimp.measureTextHeight(font, splittedText.join(" "), commentWidth) +
@@ -100,6 +104,12 @@ export const measureContent = async (comments: Comment[]) => {
         height: commentHeight,
       };
     });
+
+    console.log(
+      `process-count=${totalProcesses * 4 + comments.length * 2 + 1}`
+    );
+
+    return newComments;
   } catch (error) {
     throw error;
   }

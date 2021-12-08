@@ -1,39 +1,9 @@
-import { execFile } from "child_process";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
 
-/**
- * Merge All Videos together
- * @param inputPath Input Path
- * @param exportPath Path to export final output
- */
-export const mergeVideos = async (listPath: string, exportPath: string) => {
-  return new Promise((resolve, reject) => {
-    execFile(
-      "ffmpeg",
-      [
-        "-safe",
-        "0",
-        "-f",
-        "concat",
-        "-i",
-        listPath,
-        "-c",
-        "copy",
-        join(exportPath, "video.mp4"),
-      ],
-      (error) => {
-        if (error) {
-          console.log(error);
-        }
-
-        resolve(null);
-      }
-    );
-  });
-};
+import { mergeVideos } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
@@ -69,9 +39,12 @@ const init = async () => {
 
     writeFileSync(listPath, videos.join(" \n"));
 
-    await mergeVideos(listPath, exportFolderPath);
+    mergeVideos({
+      listPath,
+      exportPath: exportFolderPath,
+    });
 
-    console.log("video-group-merged");
+    // console.log("video-group-merged");
   }
 
   // Kill Worker

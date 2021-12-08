@@ -38,7 +38,7 @@ export const generateThumbnail = async (exportPath: string) => {
       e.endsWith(".fnt")
     );
 
-    const maxTextHeight = thumbnailDetail.height - 20;
+    const maxTextHeight = thumbnailDetail.height - 10;
     const maxTextWidth = thumbnailDetail.width / 2;
     let selectedFont = null;
     let titleHeight = 0;
@@ -65,30 +65,36 @@ export const generateThumbnail = async (exportPath: string) => {
       textWidth + 100
     );
 
-    const seperatedText: number[][] = [];
-    let currentText: number[] = [];
+    const separatedText: { text: string; width: number }[][] = [];
+    let currentText: { text: string; width: number }[] = [];
     let availableSpace = maxTextWidth;
 
     for (let i = 0; i < postTitle.split(" ").length; i++) {
-      const text = postTitle.split(" ")[i];
+      const text = postTitle.split(" ")[i].trim();
 
       const textWidth = Jimp.measureText(selectedFont, `${text} `);
 
       if (availableSpace - textWidth > 0) {
-        currentText.push(textWidth);
+        currentText.push({ text, width: textWidth });
         availableSpace -= textWidth;
       } else {
-        seperatedText.push(currentText);
-        currentText = [textWidth];
+        separatedText.push(currentText);
+        currentText = [{ text, width: textWidth }];
         availableSpace = maxTextWidth - textWidth;
       }
     }
 
-    seperatedText.push(currentText);
+    separatedText.push(currentText);
 
-    const lines = seperatedText.map((e) =>
-      e.reduce((prev, curr) => (prev += curr))
-    );
+    const lines = separatedText.map((items) => {
+      let totalWidth = 0;
+
+      for (const item of items) {
+        totalWidth += item.width;
+      }
+
+      return totalWidth;
+    });
 
     const lineBarImage = new Jimp(
       thumbnailDetail.width,
@@ -104,15 +110,25 @@ export const generateThumbnail = async (exportPath: string) => {
         -(thumbnailDetail.width - width - 20),
         thumbnailDetail.height / 2 - titleHeight / 2 + textHeight * i + 10
       );
+
+      const text = separatedText[i].map((e) => e.text).join(" ");
+
+      image.print(
+        selectedFont,
+        20,
+        thumbnailDetail.height / 2 - titleHeight / 2 + textHeight * i,
+        text,
+        maxTextWidth
+      );
     }
 
-    image.print(
-      selectedFont,
-      20,
-      thumbnailDetail.height / 2 - titleHeight / 2,
-      postTitle,
-      maxTextWidth
-    );
+    // image.print(
+    //   selectedFont,
+    //   20,
+    //   thumbnailDetail.height / 2 - titleHeight / 2,
+    //   postTitle,
+    //   maxTextWidth
+    // );
 
     const thumbnailPath = join(
       exportPath,
@@ -121,6 +137,6 @@ export const generateThumbnail = async (exportPath: string) => {
 
     await image.writeAsync(thumbnailPath);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };

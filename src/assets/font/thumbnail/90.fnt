@@ -1,5 +1,5 @@
-info face="Anton Regular" size=90 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,1,0,1 spacing=-2,-15
-common lineHeight=121 base=106 scaleW=512 scaleH=512 pages=5 packed=0
+info face="Anton Regular" size=90 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,1,0,1 spacing=-2,-2
+common lineHeight=134 base=106 scaleW=512 scaleH=512 pages=5 packed=0
 page id=0 file="901.png"
 page id=1 file="902.png"
 page id=2 file="903.png"

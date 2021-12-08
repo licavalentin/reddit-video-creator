@@ -1,49 +1,13 @@
-import { execFile } from "child_process";
-import { join } from "path/posix";
-import { cpus } from "os";
 import cluster from "cluster";
+import { join } from "path";
 
 import { Comment } from "../interface/post";
 
-import { getArgument, spreadWork } from "../utils/helper";
-
-/**
- * Get Voices List
- * @returns List of voices
- */
-export const getVoices = async (): Promise<string[]> => {
-  return new Promise((resolve) => {
-    const balconPath = getArgument("BALCON");
-
-    execFile(balconPath, ["-l"], (error, stdout) => {
-      if (error) {
-        console.log(error);
-
-        throw error;
-      }
-
-      const listOfVoice = stdout
-        .trim()
-        .split("\n")
-        .map((v) => v.trim())
-        .filter((v) => v !== "SAPI 5:");
-
-      resolve(listOfVoice);
-    });
-  });
-};
+import { spreadWork } from "../utils/helper";
+import { getVoice } from "./lib";
 
 export default async (comments: Comment[]): Promise<null> => {
   return new Promise(async (resolve) => {
-    const balconPath = getArgument("BALCON");
-
-    let selectedVoice = getArgument("VOICE");
-
-    if (!selectedVoice) {
-      const voices = await getVoices();
-      selectedVoice = voices[0];
-    }
-
     const folders = [];
     for (let i = 0; i < comments.length; i++) {
       const comment = comments[i];
@@ -52,20 +16,17 @@ export default async (comments: Comment[]): Promise<null> => {
       }
     }
 
-    const work = spreadWork(folders, cpus().length);
+    const work = spreadWork(folders);
     let counter = work.length;
+
+    const voice = getVoice();
 
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const config = {
-        balconPath,
-        selectedVoice,
-      };
-
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
-        args: [JSON.stringify(jobs), JSON.stringify(config)],
+        args: [JSON.stringify(jobs), voice],
       });
 
       const worker = cluster.fork();

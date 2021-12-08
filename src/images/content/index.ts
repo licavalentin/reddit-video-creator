@@ -52,7 +52,7 @@ export default async (comments: Comment[][]) => {
       }
     }
 
-    const work = spreadWork(textJobs, cpus().length);
+    const work = spreadWork(textJobs);
     let counter = work.length;
 
     for (let index = 0; index < work.length; index++) {

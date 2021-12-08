@@ -2,9 +2,9 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
-import { Comment } from "../../interface/post";
 import { imagePath, renderPath } from "../../config/paths";
 import { commentDetails } from "../../config/image";
+import { Comment } from "../../interface/post";
 
 type CommentJob = {
   heads: string[];

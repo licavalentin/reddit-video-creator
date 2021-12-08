@@ -1,6 +1,5 @@
 import { join } from "path";
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
-import { execFile } from "child_process";
 
 import Jimp from "jimp";
 
@@ -9,112 +8,9 @@ import { commentDetails, imageDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 
 import { generateVoting } from "./voting";
-import { getArgument, getDuration, getPost, roundUp } from "../utils/helper";
-import { getVoices } from "../audio/index";
-
-const generateVideo = () => {
-  const exportPath = join(renderPath, "post-title");
-
-  const duration = getDuration(join(exportPath, "subtitle.srt"));
-
-  return new Promise((resolve) => {
-    execFile(
-      "ffmpeg",
-      [
-        "-loop",
-        "1",
-        "-framerate",
-        "5",
-        "-i",
-        join(exportPath, "image.png"),
-        "-i",
-        join(exportPath, "audio.wav"),
-        "-c:v",
-        "libx264",
-        "-tune",
-        "stillimage",
-        "-c:a",
-        "aac",
-        "-b:a",
-        "192k",
-        "-pix_fmt",
-        "yuv420p",
-        "-shortest",
-        "-t",
-        duration.toString(),
-        join(exportPath, `video.mp4`),
-      ],
-      (err) => {
-        if (err) {
-          console.log(err);
-        }
-
-        resolve(null);
-      }
-    );
-  });
-};
-
-/**
- * Generate Audio from text
- *
- * @param {string} textPath Text Path
- * @param {string} exportPath Export path for the wav file
- */
-const generateAudioFile = ({
-  textFilePath,
-  exportPath,
-}: {
-  textFilePath: string;
-  exportPath: string;
-}) => {
-  return new Promise(async (resolve) => {
-    const balconPath = getArgument("BALCON");
-
-    let selectedVoice = getArgument("VOICE");
-
-    if (!selectedVoice) {
-      const voices = await getVoices();
-      selectedVoice = voices[0];
-    }
-
-    execFile(
-      balconPath,
-      [
-        "-f",
-        textFilePath,
-        "-w",
-        `${join(exportPath, "audio.wav")}`,
-        "-n",
-        selectedVoice,
-        "--encoding",
-        "utf8",
-        "-fr",
-        "48",
-        "--silence-end",
-        "200",
-        "--lrc-length",
-        "100",
-        "--srt-length",
-        "100",
-        "-srt",
-        "--srt-enc",
-        "utf8",
-        "--srt-fname",
-        `${join(exportPath, "subtitle.srt")}`,
-        "--ignore-url",
-      ],
-      (error: Error) => {
-        if (error) {
-          console.log(error);
-        }
-
-        console.log("audio-generated");
-        resolve(null);
-      }
-    );
-  });
-};
+import { generateAudioFile, getVoice } from "../audio/lib";
+import { generateVideo } from "../video/lib";
+import { getDuration, getPost, roundUp } from "../utils/helper";
 
 /**
  * Create Video for Reddit post title
@@ -153,7 +49,7 @@ export const createPostTitle = async () => {
     image.print(
       font,
       (imageDetails.width - maxWidth) / 2 + 50,
-      (imageDetails.height - titleHeight) / 2,
+      (imageDetails.height - titleHeight) / 2 - 10,
       title,
       maxWidth
     );
@@ -234,18 +130,30 @@ export const createPostTitle = async () => {
 
     const textPath = join(folderPath, "text.txt");
 
+    const imagePath = join(folderPath, "image.png");
+
     // Write image
-    await image.writeAsync(join(folderPath, "image.png"));
+    await image.writeAsync(imagePath);
 
     writeFileSync(textPath, title);
 
-    await generateAudioFile({
+    generateAudioFile({
       textFilePath: textPath,
       exportPath: folderPath,
+      voice: getVoice(),
     });
 
-    await generateVideo();
+    const exportPath = join(renderPath, "post-title");
+
+    const duration = getDuration(join(exportPath, "subtitle.srt"));
+
+    generateVideo({
+      duration,
+      image: imagePath,
+      exportPath,
+      audio: join(folderPath, "audio.wav"),
+    });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };

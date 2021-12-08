@@ -8,7 +8,7 @@ import { generateAvatar } from "./images/avatars";
 import generateFrames from "./images/frames/index";
 
 const renderVideo = async () => {
-  console.time("Render");
+  // console.time("Render");
 
   // Reset temp
   await resetTemp();
@@ -16,12 +16,12 @@ const renderVideo = async () => {
   // Get created post
   const post = getPost();
 
-  // Generate random avatar for each comment
-  await generateAvatar(post.comments);
-
   // Measure content and split into groups
   const measureText = await measureContent(post.comments);
   const transformedComments = await transformComments(measureText);
+
+  // Generate random avatar for each comment
+  await generateAvatar(post.comments);
 
   // Generate Content images
   await generateContent(transformedComments);
@@ -36,9 +36,9 @@ const renderVideo = async () => {
   await generateVideo(measureText, post.exportPath);
 
   // Reset temp
-  // await resetTemp();
+  await resetTemp();
 
-  console.timeEnd("Render");
+  // console.timeEnd("Render");
 };
 
 renderVideo();

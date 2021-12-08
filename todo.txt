@@ -3,22 +3,11 @@ The idea of the future of the project is full automation, only job that is requi
 
 User can swipe (like tinder app) in choosing posts (this just to make sure for quality and to feel safer) and comments selection will be fully automated. Next step user can edit quick the template (change text and image position).
 
-
-
-ndaj me ate funksionin e vjeter ([]. refactor) dhe krijo texting per secilen nje pas nje. dhe pastaj nxhiti 
-edhe avatarin ruje ne png
-ndaje texting 
-
 []. Refactor
 []. Add background music
 []. Filter bad words
 []. Fix //n 
-[]. Thumbnail
-    []. Implement new thumbnail or improve current
 []. Automate upload on youtube
-[]. Auto select comments
-
-
 
 UI
 []. Store Bookmark and Created in Map
@@ -26,11 +15,24 @@ UI
 []. Improve design
 []. Implement search for subreddit
 []. Draft
+[]. Auto select comments
 
 
-Read aloud English and Russian sentences by different voices:
-
-balcon -f "d:\Text\book.txt" -n Kimberly --voice1-name Tatyana --voice1-langid ru
-
-balcon -f test.txt -n ScanSoft --voice1-name RHVoice --voice1-langid ru
-
+avatar-generated
+avatar-generated
+image-content-generated
+image-content-generated
+image-content-generated
+frame-generated
+frame-generated
+frame-generated
+audio-generated
+audio-generated
+audio-generated
+comment-video-created
+comment-video-created
+comment-video-created
+video-comment-merged
+video-comment-merged
+video-group-merged
+audio-generated

@@ -3,12 +3,8 @@ export interface Subtitle {
   id?: number;
 }
 
-export interface AudioFileGenerationConfig {
-  balconPath: string;
-  selectedVoice: string;
-}
-
-export interface AudioFileGeneration extends AudioFileGenerationConfig {
+export interface AudioFileGeneration {
   textFilePath: string;
   exportPath: string;
+  voice: string;
 }

@@ -6,7 +6,7 @@ import { fontPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { Comment } from "../interface/post";
-import { Subtitle } from "interface/audio";
+import { Subtitle } from "../interface/audio";
 
 /**
  * Fit comments to screen size

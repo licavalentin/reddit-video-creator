@@ -1,5 +1,4 @@
 import cluster from "cluster";
-import { cpus } from "os";
 import { join } from "path";
 
 import { Comment } from "../../interface/post";
@@ -8,7 +7,7 @@ import { spreadWork } from "../../utils/helper";
 
 export default async (comments: Comment[][]) => {
   return new Promise((resolve) => {
-    const work = spreadWork(comments, cpus().length);
+    const work = spreadWork(comments);
     let counter = work.length;
 
     for (let index = 0; index < work.length; index++) {

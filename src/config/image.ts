@@ -1,10 +1,10 @@
-const imageDetails = {
+export const imageDetails = {
   width: 1920,
   height: 1080,
   background: "#1a1a1b",
 };
 
-const commentDetails = {
+export const commentDetails = {
   margin: 70,
   depth: 100,
   heightMargin: 100,
@@ -12,12 +12,10 @@ const commentDetails = {
   avatarSize: 70,
 };
 
-const thumbnailDetail = {
+export const thumbnailDetail = {
   heightMargin: 60,
   widthMargin: 50,
   titleMargin: 0,
   width: 1280,
   height: 720,
 };
-
-export { imageDetails, commentDetails, thumbnailDetail };

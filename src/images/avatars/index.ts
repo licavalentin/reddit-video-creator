@@ -1,11 +1,11 @@
 import { join } from "path";
+import { cpus } from "os";
+import cluster from "cluster";
 
 import { imagePath } from "../../config/paths";
 import { Comment } from "../../interface/post";
 
 import { getFolders, spreadWork } from "../../utils/helper";
-import { cpus } from "os";
-import cluster from "cluster";
 
 type GenerateAvatar = (comments: Comment[]) => Promise<void>;
 
@@ -17,7 +17,7 @@ export const generateAvatar: GenerateAvatar = async (comments) => {
     const faces = getFolders(join(avatarAssets, "face"));
     const bodies = getFolders(join(avatarAssets, "body"));
 
-    const work = spreadWork(comments, cpus().length);
+    const work = spreadWork(comments);
     let counter = work.length;
 
     for (const job of work) {

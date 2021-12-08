@@ -111,7 +111,7 @@ const init = async () => {
     // Write comment to temp
     await image.writeAsync(join(parentFolderPath, "image.png"));
 
-    console.log("image-content-generated");
+    console.log("content-generated");
   }
 
   // Kill Worker

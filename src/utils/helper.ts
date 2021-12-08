@@ -1,3 +1,4 @@
+import { cpus } from "os";
 import {
   mkdirSync,
   existsSync,
@@ -10,15 +11,12 @@ import {
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
-
 import { Comment, PostFile } from "interface/post";
 import { Arguments } from "../interface/utils";
-import { Subtitle } from "interface/audio";
+import { Subtitle } from "../interface/audio";
 
 /**
  * Create Random String
- * @param {number} size
- * @returns
  */
 export const createRandomString = (size: number) =>
   (Math.random() + 1).toString(36).substring(size || 7);
@@ -43,8 +41,6 @@ export const getFolders = (path: string | null): string[] => {
 
 /**
  * Roundup number to 1k, 1M ...
- * @param number Number to Roundup
- * @returns Rounded number
  */
 export const roundUp = (number: number): string => {
   const newStr = ("" + number)
@@ -60,7 +56,6 @@ export const roundUp = (number: number): string => {
 
 /**
  * Delete Folder with its contents
- * @param path Folder path
  */
 export const deleteFolder = (path: string) => {
   if (existsSync(path)) {
@@ -113,7 +108,6 @@ export const getAspectRatio = async (width: number, height: number) => {
 
 /**
  * Convert sentence to time
- * @param sentence Sentence to convert number
  */
 export const countWords = (sentence: string): number => {
   const words = sentence.split(" ");
@@ -122,24 +116,19 @@ export const countWords = (sentence: string): number => {
 
 /**
  * Slugify post title to file
- * @param title File title
- * @param short If its
- * @returns File title
  */
-export const slugify = (title: string, short?: boolean) => {
+export const slugify = (title: string) => {
   const illegalLetter = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"];
 
   for (const letter of illegalLetter) {
     title = title.split(letter).join("");
   }
 
-  return `${title} reddit askreddit storytime ${short ? "#short" : ""}`;
+  return title;
 };
 
 /**
- * Parse Subtitle Time Format 00:00:00,1
- * @param time Time
- * @returns {number} Duration in seconds
+ * Parse Subtitle Time Format 00:01:00,1 into seconds
  */
 const parseTime = (time: string): number => {
   const timer = time.split(":");
@@ -166,6 +155,9 @@ const parseTime = (time: string): number => {
   return timeCount;
 };
 
+/**
+ * Get Subtitle duration
+ */
 export const getDuration = (subtitlePath: string) => {
   const subtitle = readFileSync(subtitlePath).toString();
 
@@ -181,8 +173,6 @@ export const getDuration = (subtitlePath: string) => {
 
 /**
  * Convert Subtitle into Array
- * @param subtitlePath Subtitle Path
- * @returns
  */
 export const getSubtitles = (subtitlePath: string) => {
   const subtitle = readFileSync(subtitlePath).toString();
@@ -195,10 +185,7 @@ export const getSubtitles = (subtitlePath: string) => {
   const finalArr: Subtitle[] = [];
 
   for (let i = 0; i < arr.length; ) {
-    const time = arr[i + 1].split("-->").map((e) => e.trim());
-
     finalArr.push({
-      // duration: Number((parseTime(time[1]) - parseTime(time[0])).toFixed(2)),
       content: arr[i + 2].trim(),
     });
 
@@ -249,18 +236,15 @@ export const splitByDepth = (commentsList: Comment[]) => {
 /**
  * Spread work count for each cluster
  * @param work Array of any items
- * @param jobCount Job spread count
  */
-export const spreadWork = <T extends unknown>(
-  work: T[],
-  jobCount: number
-): T[][] => {
-  const workPerCpu = Math.floor(work.length / jobCount);
-  let leftWork = work.length % jobCount;
+export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
+  const cpuCount = cpus().length;
+  const workPerCpu = Math.floor(work.length / cpuCount);
+  let leftWork = work.length % cpuCount;
   const workSpreed: T[][] = [];
   let counter = 0;
 
-  for (let i = 0; i < jobCount; i++) {
+  for (let i = 0; i < cpuCount; i++) {
     const increment = i < leftWork ? workPerCpu + 1 : workPerCpu;
     workSpreed[i] = work.slice(counter, counter + increment);
     counter += increment;
