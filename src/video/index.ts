@@ -158,11 +158,15 @@ const mergeFinalVideo = async (exportPath: string) => {
 
   await generateThumbnail(videoExportPath);
 
+  const cleanTitle = slugify(post.title);
+
   mergeVideos({
     listPath,
     exportPath: videoExportPath,
-    title: slugify(post.title),
+    title: cleanTitle,
   });
+
+  console.log(`process-done=${join(videoExportPath, cleanTitle)}.mp4`);
 };
 
 const mergeCommentVideo = async (comments: Comment[]) => {

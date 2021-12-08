@@ -118,7 +118,19 @@ export const countWords = (sentence: string): number => {
  * Slugify post title to file
  */
 export const slugify = (title: string) => {
-  const illegalLetter = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"];
+  const illegalLetter = [
+    "\\",
+    "/",
+    ":",
+    "*",
+    "?",
+    '"',
+    "<",
+    ">",
+    "|",
+    ".",
+    ",",
+  ];
 
   for (const letter of illegalLetter) {
     title = title.split(letter).join("");
