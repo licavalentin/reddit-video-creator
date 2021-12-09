@@ -34,10 +34,20 @@ const generateCommentTextVideo = async (comments: Comment[]) => {
     const work = spreadWork(folders);
     let counter = work.length;
 
-    for (const jobs of work) {
+    for (let index = 0; index < work.length; index++) {
+      const jobs = work[index];
+
+      const jobsFilePath = join(
+        renderPath,
+        index + "",
+        "generateCommentTextVideo.json"
+      );
+
+      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
-        args: [JSON.stringify(jobs)],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();
@@ -63,10 +73,20 @@ const mergeCommentGroup = async (comments: Comment[]) => {
 
     mkdirSync(join(renderPath, "render-groups"));
 
-    for (const jobs of work) {
+    for (let index = 0; index < work.length; index++) {
+      const jobs = work[index];
+
+      const jobsFilePath = join(
+        renderPath,
+        index + "",
+        "mergeCommentGroup.json"
+      );
+
+      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+
       cluster.setupPrimary({
         exec: join(__dirname, "mergeWorker.js"),
-        args: [JSON.stringify(jobs)],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();
@@ -109,7 +129,9 @@ const createChannelPoster = async () => {
   });
 };
 
-const mergeFinalVideo = async (exportPath: string) => {
+const mergeFinalVideo = async () => {
+  const { exportPath } = getPost();
+
   const parentPath = join(renderPath, "render-groups");
 
   await createPostTitle();
@@ -178,10 +200,20 @@ const mergeCommentVideo = async (comments: Comment[]) => {
     const work = spreadWork(folders);
     let counter = work.length;
 
-    for (const jobs of work) {
+    for (let index = 0; index < work.length; index++) {
+      const jobs = work[index];
+
+      const jobsFilePath = join(
+        renderPath,
+        index + "",
+        "mergeCommentVideo.json"
+      );
+
+      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+
       cluster.setupPrimary({
         exec: join(__dirname, "mergeCommentWorker.js"),
-        args: [JSON.stringify(jobs)],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();
@@ -197,7 +229,7 @@ const mergeCommentVideo = async (comments: Comment[]) => {
   });
 };
 
-export default async (comments: Comment[], exportPath: string) => {
+export default async (comments: Comment[]) => {
   // Generate video for each comment
   await generateCommentTextVideo(comments);
 
@@ -211,5 +243,5 @@ export default async (comments: Comment[], exportPath: string) => {
   await createChannelPoster();
 
   // Merge Final Video
-  await mergeFinalVideo(exportPath);
+  await mergeFinalVideo();
 };

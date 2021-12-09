@@ -1,6 +1,8 @@
 import cluster from "cluster";
+import { writeFileSync } from "fs";
 import { join } from "path";
 
+import { renderPath } from "../../config/paths";
 import { Comment } from "../../interface/post";
 
 import { spreadWork } from "../../utils/helper";
@@ -13,9 +15,13 @@ export default async (comments: Comment[][]) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
+      const jobsFilePath = join(renderPath, index + "", "frames.json");
+
+      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
-        args: [JSON.stringify(jobs)],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();

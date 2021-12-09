@@ -1,15 +1,15 @@
+import { writeFileSync } from "fs";
 import { join } from "path";
-import { cpus } from "os";
 import cluster from "cluster";
 
-import { imagePath } from "../../config/paths";
-import { Comment } from "../../interface/post";
+import { imagePath, renderPath } from "../../config/paths";
 
-import { getFolders, spreadWork } from "../../utils/helper";
+import { getFolders, getPost, spreadWork } from "../../utils/helper";
 
-type GenerateAvatar = (comments: Comment[]) => Promise<void>;
+export const generateAvatar = async () => {
+  // Get created post
+  const { comments } = getPost();
 
-export const generateAvatar: GenerateAvatar = async (comments) => {
   return new Promise(async (resolve) => {
     const avatarAssets = join(imagePath, "reddit-avatar");
 
@@ -17,20 +17,27 @@ export const generateAvatar: GenerateAvatar = async (comments) => {
     const faces = getFolders(join(avatarAssets, "face"));
     const bodies = getFolders(join(avatarAssets, "body"));
 
-    const work = spreadWork(comments);
+    const work = spreadWork(comments.map((e) => e.id));
     let counter = work.length;
 
-    for (const job of work) {
+    for (let index = 0; index < work.length; index++) {
+      const jobs = work[index];
+
+      const jobsFilePath = join(renderPath, index + "", "avatars.json");
+
+      writeFileSync(
+        jobsFilePath,
+        JSON.stringify({
+          heads,
+          faces,
+          bodies,
+          comments: jobs,
+        })
+      );
+
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
-        args: [
-          JSON.stringify({
-            heads,
-            faces,
-            bodies,
-            comments: job,
-          }),
-        ],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();

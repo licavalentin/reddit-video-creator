@@ -1,20 +1,20 @@
 import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
-import { cpus } from "os";
 import { join } from "path";
 
 import { renderPath } from "../../config/paths";
 import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
 
-import { spreadWork } from "../../utils/helper";
+import { getPost, spreadWork } from "../../utils/helper";
+import { generateAvatar } from "../../images/avatars";
 
 interface CommentJob extends Comment {
   commentId: number;
 }
 
 export default async (comments: Comment[][]) => {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     const textJobs: CommentJob[] = [];
 
     for (let i = 0; i < comments.length; i++) {
@@ -58,9 +58,13 @@ export default async (comments: Comment[][]) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
+      const jobsFilePath = join(renderPath, index + "", "content.json");
+
+      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
-        args: [JSON.stringify(jobs)],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();

@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
@@ -7,7 +7,7 @@ import { mergeVideos } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const comments = JSON.parse(args[0]) as number[][]; // folders [1,2,3] create one group
+  const comments = JSON.parse(readFileSync(args[0]).toString()) as number[][]; // folders [1,2,3] create one group
 
   for (const commentGroup of comments) {
     const folderPath = join(renderPath, "render-groups");

@@ -1,4 +1,4 @@
-import { existsSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
@@ -7,7 +7,9 @@ import { mergeVideos } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const foldersGroup = JSON.parse(args[0]) as string[][]; // [["0-1", "0-2"], ["0-1"]]
+  const foldersGroup = JSON.parse(
+    readFileSync(args[0]).toString()
+  ) as string[][]; // [["0-1", "0-2"], ["0-1"]]
 
   for (let i = 0; i < foldersGroup.length; i++) {
     const folders = foldersGroup[i]; // ["0-1", "0-2"]

@@ -3,10 +3,11 @@ import { join } from "path";
 import Jimp from "jimp";
 import { decode } from "html-entities";
 
-import { fontPath } from "../config/paths";
+import { fontPath, renderPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
-import { Comment } from "../interface/post";
+import { getPost } from "../utils/helper";
+import { mkdirSync } from "fs";
 
 /**
  * Generate array of sentences from comment
@@ -61,10 +62,11 @@ const splitText = (text: string): string[] => {
 
 /**
  * Get Width, Height and Indentation for each comment
- * @param comments Comments List
  * @returns Comments with width, height and indentation for each comment
  */
-export const measureContent = async (comments: Comment[]) => {
+export const measureContent = async () => {
+  const { comments } = getPost();
+
   try {
     const parentPath = join(fontPath, "comments");
     const font = await Jimp.loadFont(join(parentPath, FontFace.Comment));
@@ -79,7 +81,9 @@ export const measureContent = async (comments: Comment[]) => {
 
     let totalProcesses = 0;
 
-    const newComments = comments.map((comment) => {
+    const newComments = comments.map((comment, commentIndex) => {
+      mkdirSync(join(renderPath, commentIndex + ""));
+
       const commentWidth =
         imageDetails.width -
         commentDetails.widthMargin -

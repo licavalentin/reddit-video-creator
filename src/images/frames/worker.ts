@@ -1,15 +1,15 @@
-import { Subtitle } from "interface/audio";
+import { readFileSync } from "fs";
 import Jimp from "jimp";
 import { join } from "path";
 
 import { imageDetails } from "../../config/image";
 import { renderPath } from "../../config/paths";
-
+import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const work = JSON.parse(args[0]) as Comment[][];
+  const work = JSON.parse(readFileSync(args[0]).toString()) as Comment[][];
 
   for (const jobs of work) {
     const image = new Jimp(

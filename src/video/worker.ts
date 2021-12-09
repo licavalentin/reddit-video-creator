@@ -1,3 +1,4 @@
+import { readFileSync } from "fs";
 import { join } from "path";
 
 import { renderPath } from "../config/paths";
@@ -7,7 +8,7 @@ import { generateVideo } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const folders = JSON.parse(args[0]) as string[];
+  const folders = JSON.parse(readFileSync(args[0]).toString()) as string[];
 
   for (const folder of folders) {
     const ids = folder.split("-");

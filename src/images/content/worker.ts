@@ -1,4 +1,5 @@
 import { join } from "path";
+import { readFileSync } from "fs";
 
 import Jimp from "jimp";
 
@@ -20,7 +21,7 @@ interface CommentJob extends Comment {
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const work = JSON.parse(args[0]) as CommentJob[];
+  const work = JSON.parse(readFileSync(args[0]).toString()) as CommentJob[];
 
   // Load font
   const parentPath = join(fontPath, "comments");

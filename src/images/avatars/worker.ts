@@ -1,21 +1,24 @@
+import { readFileSync } from "fs";
 import { join } from "path";
 
 import Jimp from "jimp";
 
 import { imagePath, renderPath } from "../../config/paths";
 import { commentDetails } from "../../config/image";
-import { Comment } from "../../interface/post";
 
 type CommentJob = {
   heads: string[];
   faces: string[];
   bodies: string[];
-  comments: Comment[];
+  comments: number[];
 };
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const { bodies, faces, heads, comments } = JSON.parse(args[0]) as CommentJob;
+
+  const { bodies, faces, heads, comments } = JSON.parse(
+    readFileSync(args[0]).toString()
+  ) as CommentJob;
 
   const avatarAssets = join(imagePath, "reddit-avatar");
 
@@ -51,7 +54,7 @@ const init = async () => {
     backgroundImage.resize(commentDetails.avatarSize - 5, Jimp.AUTO);
 
     await backgroundImage.writeAsync(
-      join(renderPath, comment.id + "", "avatar.png")
+      join(renderPath, comment + "", "avatar.png")
     );
 
     console.log("avatar-generated");

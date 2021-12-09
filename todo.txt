@@ -8,11 +8,3 @@ User can swipe (like tinder app) in choosing posts (this just to make sure for q
 []. Fix //n 
 []. Automate upload on youtube
 
-UI
-[]. Store Bookmark and Created in Map
-[]. Implement new search
-[]. Improve design
-[]. Implement search for subreddit
-[]. Draft
-[]. Auto select comments
-

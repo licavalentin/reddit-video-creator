@@ -13,15 +13,12 @@ const renderVideo = async () => {
   // Reset temp
   await resetTemp();
 
-  // Get created post
-  const post = getPost();
-
   // Measure content and split into groups
-  const measureText = await measureContent(post.comments);
+  const measureText = await measureContent();
   const transformedComments = await transformComments(measureText);
 
   // Generate random avatar for each comment
-  await generateAvatar(post.comments);
+  await generateAvatar();
 
   // Generate Content images
   await generateContent(transformedComments);
@@ -33,10 +30,10 @@ const renderVideo = async () => {
   await generateAudio(measureText);
 
   // Generate video
-  await generateVideo(measureText, post.exportPath);
+  await generateVideo(measureText);
 
   // Reset temp
-  await resetTemp();
+  // await resetTemp();
 
   // console.timeEnd("Render");
 };
