@@ -4,7 +4,6 @@ The idea of the future of the project is full automation, only job that is requi
 User can swipe (like tinder app) in choosing posts (this just to make sure for quality and to feel safer) and comments selection will be fully automated. Next step user can edit quick the template (change text and image position).
 
 []. Add background music
-[]. Filter bad words
 []. Fix //n 
 []. Automate upload on youtube
 

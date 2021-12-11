@@ -16,7 +16,8 @@
   "dependencies": {
     "html-entities": "^2.3.2",
     "jimp": "^0.16.1",
-    "pkg": "^5.3.3"
+    "pkg": "^5.3.3",
+    "profanity-util": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.2",

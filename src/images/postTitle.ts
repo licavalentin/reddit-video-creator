@@ -2,6 +2,7 @@ import { join } from "path";
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 
 import Jimp from "jimp";
+import profanity from "profanity-util";
 
 import { dataPath, fontPath, assetsPath, renderPath } from "../config/paths";
 import { commentDetails, imageDetails } from "../config/image";
@@ -50,7 +51,7 @@ export const createPostTitle = async () => {
       font,
       (imageDetails.width - maxWidth) / 2 + 50,
       (imageDetails.height - titleHeight) / 2 - 10,
-      title,
+      profanity.purify(title)[0],
       maxWidth
     );
 
@@ -135,7 +136,7 @@ export const createPostTitle = async () => {
     // Write image
     await image.writeAsync(imagePath);
 
-    writeFileSync(textPath, title);
+    writeFileSync(textPath, profanity.purify(title)[0]);
 
     generateAudioFile({
       textFilePath: textPath,

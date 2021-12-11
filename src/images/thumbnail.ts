@@ -2,6 +2,7 @@ import { join } from "path";
 import { readdirSync } from "fs";
 
 import Jimp from "jimp";
+import profanity from "profanity-util";
 
 import { fontPath, assetsPath } from "../config/paths";
 import { thumbnailDetail } from "../config/image";
@@ -11,7 +12,7 @@ export const generateThumbnail = async (exportPath: string) => {
   const { post } = getPost();
 
   try {
-    const postTitle = post.title.toUpperCase();
+    const postTitle = profanity.purify(post.title.toUpperCase())[0];
 
     // Create new instance of an image
     const image = new Jimp(thumbnailDetail.width, thumbnailDetail.height);

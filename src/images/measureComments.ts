@@ -2,6 +2,7 @@ import { join } from "path";
 
 import Jimp from "jimp";
 import { decode } from "html-entities";
+import profanity from "profanity-util";
 
 import { fontPath, renderPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
@@ -45,8 +46,8 @@ const splitText = (text: string): string[] => {
     const mergedText = sentence.join(" ");
 
     if (
-      (chars.some((char) => word.includes(char)) && mergedText.length > 30) ||
-      mergedText.length > 80
+      (chars.some((char) => word.includes(char)) && mergedText.length > 50) ||
+      mergedText.length > 90
     ) {
       sentences.push(mergedText);
       sentence = [];
@@ -89,7 +90,9 @@ export const measureContent = async () => {
         commentDetails.widthMargin -
         comment.depth * commentDetails.depth;
 
-      const splittedText = splitText(comment.content as string);
+      const splittedText = splitText(
+        profanity.purify(comment.content as string)[0]
+      );
 
       totalProcesses += splittedText.length;
 
