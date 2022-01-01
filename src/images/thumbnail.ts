@@ -9,7 +9,7 @@ import { thumbnailDetail } from "../config/image";
 import { getPost, slugify } from "../utils/helper";
 
 export const generateThumbnail = async (exportPath: string) => {
-  const { post } = getPost();
+  const { post, colors } = getPost();
 
   try {
     const postTitle = profanity.purify(post.title.toUpperCase())[0];
@@ -100,8 +100,10 @@ export const generateThumbnail = async (exportPath: string) => {
     const lineBarImage = new Jimp(
       thumbnailDetail.width,
       textHeight - 10,
-      "#e93222"
+      colors.background
     );
+
+    const textImage = new Jimp(thumbnailDetail.width, thumbnailDetail.height);
 
     for (let i = 0; i < lines.length; i++) {
       const width = lines[i];
@@ -114,7 +116,7 @@ export const generateThumbnail = async (exportPath: string) => {
 
       const text = separatedText[i].map((e) => e.text).join(" ");
 
-      image.print(
+      textImage.print(
         selectedFont,
         20,
         thumbnailDetail.height / 2 - titleHeight / 2 + textHeight * i,
@@ -122,6 +124,10 @@ export const generateThumbnail = async (exportPath: string) => {
         maxTextWidth
       );
     }
+
+    textImage.color([{ apply: "xor", params: [colors.color] }]);
+
+    image.composite(textImage, 0, 0);
 
     // image.print(
     //   selectedFont,

@@ -1,5 +1,4 @@
 import { Subtitle } from "./audio";
-import { Crop } from "./image";
 
 export interface Award {
   count: number;
@@ -41,8 +40,15 @@ export interface Comment {
   id?: number;
 }
 
+export interface Colors {
+  subreddit: string;
+  background: string;
+  color: string;
+}
+
 export interface PostFile {
   post: Post;
   comments: Comment[];
   exportPath: string;
+  colors: Colors;
 }

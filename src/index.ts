@@ -1,4 +1,4 @@
-import { getPost, resetTemp } from "./utils/helper";
+import { resetTemp } from "./utils/helper";
 import generateAudio from "./audio/index";
 import generateVideo from "./video/index";
 import { measureContent } from "./images/measureComments";

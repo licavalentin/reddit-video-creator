@@ -211,7 +211,7 @@ export const getSubtitles = (subtitlePath: string) => {
  * Get Post data
  */
 export const getPost = () => {
-  const { post, comments, exportPath }: PostFile = JSON.parse(
+  const { post, comments, exportPath, colors }: PostFile = JSON.parse(
     readFileSync(getArgument("POST")).toString()
   );
 
@@ -219,6 +219,7 @@ export const getPost = () => {
     post,
     comments: comments.map((e, index) => ({ ...e, id: index })),
     exportPath,
+    colors,
   };
 };
 
