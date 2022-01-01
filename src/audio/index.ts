@@ -2,7 +2,7 @@ import cluster from "cluster";
 import { writeFileSync } from "fs";
 import { join } from "path";
 
-import { renderPath } from "../config/paths";
+import { tempPath } from "../config/paths";
 import { Comment } from "../interface/post";
 
 import { spreadWork } from "../utils/helper";
@@ -26,7 +26,7 @@ export default async (comments: Comment[]): Promise<null> => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(renderPath, index + "", "audio.json");
+      const jobsFilePath = join(tempPath, "data", `${index}-audio.json`);
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
 

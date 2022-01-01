@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import { imagePath, renderPath } from "../config/paths";
+import { imagePath, renderPath, tempPath } from "../config/paths";
 import { imageDetails } from "../config/image";
 import { Comment } from "../interface/post";
 import { Subtitle } from "../interface/audio";
@@ -38,9 +38,9 @@ const generateCommentTextVideo = async (comments: Comment[]) => {
       const jobs = work[index];
 
       const jobsFilePath = join(
-        renderPath,
-        index + "",
-        "generateCommentTextVideo.json"
+        tempPath,
+        "data",
+        `${index}-generateCommentTextVideo.json`
       );
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
@@ -77,9 +77,9 @@ const mergeCommentGroup = async (comments: Comment[]) => {
       const jobs = work[index];
 
       const jobsFilePath = join(
-        renderPath,
-        index + "",
-        "mergeCommentGroup.json"
+        tempPath,
+        "data",
+        `${index}-mergeCommentGroup.json`
       );
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
@@ -204,9 +204,9 @@ const mergeCommentVideo = async (comments: Comment[]) => {
       const jobs = work[index];
 
       const jobsFilePath = join(
-        renderPath,
-        index + "",
-        "mergeCommentVideo.json"
+        tempPath,
+        "data",
+        `${index}-mergeCommentVideo.json`
       );
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));

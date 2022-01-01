@@ -2,7 +2,7 @@ import { writeFileSync } from "fs";
 import { join } from "path";
 import cluster from "cluster";
 
-import { imagePath, renderPath } from "../../config/paths";
+import { imagePath, tempPath } from "../../config/paths";
 
 import { getFolders, getPost, spreadWork } from "../../utils/helper";
 
@@ -23,7 +23,7 @@ export const generateAvatar = async () => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(renderPath, index + "", "avatars.json");
+      const jobsFilePath = join(tempPath, "data", `${index}-avatars.json`);
 
       writeFileSync(
         jobsFilePath,

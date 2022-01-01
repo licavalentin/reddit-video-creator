@@ -2,7 +2,7 @@ import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import { renderPath } from "../../config/paths";
+import { renderPath, tempPath } from "../../config/paths";
 import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
 
@@ -58,7 +58,7 @@ export default async (comments: Comment[][]) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(renderPath, index + "", "content.json");
+      const jobsFilePath = join(tempPath, "data", `${index}-content.json`);
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
 

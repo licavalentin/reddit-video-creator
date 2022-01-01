@@ -10,7 +10,7 @@ import {
 } from "fs";
 import { join } from "path";
 
-import { renderPath } from "../config/paths";
+import { renderPath, tempPath } from "../config/paths";
 import { Comment, PostFile } from "interface/post";
 import { Arguments } from "../interface/utils";
 import { Subtitle } from "../interface/audio";
@@ -75,8 +75,11 @@ export const deleteFolder = (path: string) => {
  * Reset Temp folder for new process
  */
 export const resetTemp = async () => {
+  const tempData = join(tempPath, "data");
   deleteFolder(renderPath);
+  deleteFolder(tempData);
   mkdirSync(renderPath);
+  mkdirSync(tempData);
 };
 
 /**
