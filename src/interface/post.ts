@@ -51,4 +51,5 @@ export interface PostFile {
   comments: Comment[];
   exportPath: string;
   colors: Colors;
+  poster: string;
 }

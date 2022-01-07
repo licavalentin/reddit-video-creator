@@ -103,15 +103,15 @@ const mergeCommentGroup = async (comments: Comment[]) => {
 };
 
 const createChannelPoster = async () => {
+  const { poster } = getPost();
+
   const image = new Jimp(
     imageDetails.width,
     imageDetails.height,
     imageDetails.background
   );
 
-  const channelPoster = await Jimp.read(
-    join(imagePath, "mid-video-poster.png")
-  );
+  const channelPoster = await Jimp.read(poster);
 
   channelPoster.scaleToFit(imageDetails.width, imageDetails.height);
 
