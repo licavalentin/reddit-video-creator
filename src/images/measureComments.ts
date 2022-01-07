@@ -24,7 +24,7 @@ const splitText = (text: string): string[] => {
         ""
       )
       // Remove \n etc
-      .replace(/\r?\n|\r/g, " ")
+      // .replace(/\r?\n|\r/g, " ")
       // Remove url
       .replace(/(?:https?|ftp):\/\/[\n\S]+/g, "")
   )
@@ -90,16 +90,35 @@ export const measureContent = async () => {
         commentDetails.widthMargin -
         comment.depth * commentDetails.depth;
 
-      const splittedText = splitText(
-        profanity.purify(comment.content as string)[0]
-      );
+      const filteredText = profanity.purify(comment.content as string)[0];
+      const splittedText = splitText(filteredText);
 
       totalProcesses += splittedText.length;
 
-      const commentHeight =
-        Jimp.measureTextHeight(font, splittedText.join(" "), commentWidth) +
-        userNameHeight +
-        commentDetails.margin;
+      const sentences = filteredText.split("\n");
+      let commentHeight: number = userNameHeight + commentDetails.margin;
+
+      if (sentences.length > 1) {
+        const textWidth = Jimp.measureText(font, splittedText.join(" ")) + 300;
+        const textHeight = Jimp.measureTextHeight(
+          font,
+          splittedText.join(" "),
+          textWidth
+        );
+
+        for (const sentence of sentences) {
+          commentHeight +=
+            sentence === ""
+              ? textHeight
+              : Jimp.measureTextHeight(font, sentence, commentWidth);
+        }
+      } else {
+        commentHeight += Jimp.measureTextHeight(
+          font,
+          splittedText.join(" "),
+          commentWidth
+        );
+      }
 
       return {
         ...comment,

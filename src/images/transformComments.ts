@@ -36,14 +36,31 @@ export const transformComments = async (comments: Comment[]) => {
     for (let i = 0; i < commentText.length; i++) {
       const sentence = commentText.slice(0, i + 1);
 
-      const sentenceHeight =
-        Jimp.measureTextHeight(
+      let sentenceHeight = commentDetails.margin + userNameHeight;
+
+      const sentences = sentence.join(" ").split("\n");
+
+      if (sentences.length > 1) {
+        const textWidth = Jimp.measureText(font, sentence.join(" "));
+        const textHeight = Jimp.measureTextHeight(
+          font,
+          sentence.join(" "),
+          textWidth + 100
+        );
+
+        for (const sentence of sentences) {
+          sentenceHeight +=
+            sentence === ""
+              ? textHeight
+              : Jimp.measureTextHeight(font, sentence, comment.width as number);
+        }
+      } else {
+        sentenceHeight += Jimp.measureTextHeight(
           font,
           sentence.join(" "),
           comment.width as number
-        ) +
-        commentDetails.margin +
-        userNameHeight;
+        );
+      }
 
       if (maxHeight - sentenceHeight > 0) {
         continue;

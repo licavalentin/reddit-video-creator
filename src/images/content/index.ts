@@ -6,8 +6,7 @@ import { renderPath, tempPath } from "../../config/paths";
 import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
 
-import { getPost, spreadWork } from "../../utils/helper";
-import { generateAvatar } from "../../images/avatars";
+import { spreadWork } from "../../utils/helper";
 
 interface CommentJob extends Comment {
   commentId: number;

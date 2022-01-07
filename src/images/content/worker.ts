@@ -78,15 +78,47 @@ const init = async () => {
       join(renderPath, job.id + "", "avatar.png")
     );
 
-    // Print comment content
-    const contentHeight = Jimp.measureTextHeight(font, job.content, job.width);
-    image.print(
+    const textWidth = Jimp.measureText(font, job.content);
+    const textHeight = Jimp.measureTextHeight(
       font,
-      startX,
-      commentDetails.margin + userNameHeight,
       job.content,
-      job.width
+      textWidth + 100
     );
+    const sentences = (job.content as string).split("\n");
+
+    // Print comment content
+    let contentHeight: number = 0;
+
+    if (sentences.length > 1) {
+      let positionY = commentDetails.margin + userNameHeight;
+
+      for (const sentence of sentences) {
+        const sentenceHeight = Jimp.measureTextHeight(
+          font,
+          sentence,
+          job.width
+        );
+
+        if (sentence !== "") {
+          image.print(font, startX, positionY, sentence, job.width);
+          positionY += sentenceHeight;
+        } else {
+          positionY += textHeight;
+        }
+      }
+
+      contentHeight = positionY - (commentDetails.margin + userNameHeight);
+    } else {
+      image.print(
+        font,
+        startX,
+        commentDetails.margin + userNameHeight,
+        job.content,
+        job.width
+      );
+
+      contentHeight = Jimp.measureTextHeight(font, job.content, job.width);
+    }
 
     // Composite indentation line
     depthLine.resize(4, contentHeight);

@@ -136,7 +136,13 @@ export const createPostTitle = async () => {
     // Write image
     await image.writeAsync(imagePath);
 
-    writeFileSync(textPath, profanity.purify(title)[0]);
+    const filteredText = profanity
+      .purify(title)[0]
+      .replace(/\*/g, "")
+      .replace(/’/g, "'")
+      .replace(/”|“/g, '"');
+
+    writeFileSync(textPath, filteredText);
 
     generateAudioFile({
       textFilePath: textPath,
