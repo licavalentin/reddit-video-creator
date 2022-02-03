@@ -26,6 +26,9 @@ import { getDuration, getPost, roundUp } from "../utils/helper";
 export const createPostTitle = async () => {
   const {
     post: { title, author: userName, score: points, all_awardings },
+    cli: { ffmpeg, ffprobe, balcon, bal4web },
+    customAudio,
+    audioTrimDuration,
   } = getPost();
 
   const awards = all_awardings.map((e) => e.name);
@@ -130,29 +133,40 @@ export const createPostTitle = async () => {
     mkdirSync(folderPath);
 
     const textPath = join(folderPath, "text.txt");
-
     const imagePath = join(folderPath, "image.png");
 
     // Write image
     await image.writeAsync(imagePath);
 
-    writeFileSync(textPath, profanity.purify(title)[0]);
+    writeFileSync(
+      textPath,
+      (profanity.purify(title)[0] as string).replaceAll(".", " ")
+    );
 
     generateAudioFile({
       textFilePath: textPath,
       exportPath: folderPath,
       voice: getVoice(),
+      balcon,
+      bal4web,
+      customAudio,
     });
 
     const exportPath = join(renderPath, "post-title");
+    const audioPath = join(folderPath, "audio.wav");
 
-    const duration = getDuration(join(exportPath, "subtitle.srt"));
+    const duration = getDuration({
+      ffprobe,
+      audioTrimDuration,
+      audioPath,
+    });
 
     generateVideo({
       duration,
       image: imagePath,
       exportPath,
-      audio: join(folderPath, "audio.wav"),
+      audio: audioPath,
+      ffmpeg,
     });
   } catch (err) {
     // console.log(err);

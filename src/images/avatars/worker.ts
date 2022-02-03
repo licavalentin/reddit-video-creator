@@ -3,7 +3,7 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
-import { imagePath, renderPath } from "../../config/paths";
+import { avatarAssets, renderPath } from "../../config/paths";
 import { commentDetails } from "../../config/image";
 
 type CommentJob = {
@@ -19,8 +19,6 @@ const init = async () => {
   const { bodies, faces, heads, comments } = JSON.parse(
     readFileSync(args[0]).toString()
   ) as CommentJob;
-
-  const avatarAssets = join(imagePath, "reddit-avatar");
 
   for (const comment of comments) {
     const backgroundImagePath = join(avatarAssets, "circle-background.png");

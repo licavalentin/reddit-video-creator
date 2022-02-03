@@ -8,7 +8,7 @@ import { generateAvatar } from "./images/avatars";
 import generateFrames from "./images/frames/index";
 
 const renderVideo = async () => {
-  // console.time("Render");
+  console.time("Render");
 
   // Reset temp
   await resetTemp();
@@ -32,10 +32,7 @@ const renderVideo = async () => {
   // Generate video
   await generateVideo(measureText);
 
-  // Reset temp
-  // await resetTemp();
-
-  // console.timeEnd("Render");
+  console.timeEnd("Render");
 };
 
 renderVideo();

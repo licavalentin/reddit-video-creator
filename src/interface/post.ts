@@ -51,5 +51,16 @@ export interface PostFile {
   comments: Comment[];
   exportPath: string;
   colors: Colors;
-  poster: string;
+  poster: string | null;
+  voice: string | null;
+  cli: {
+    ffprobe: string | null;
+    ffmpeg: string | null;
+    balcon: string | null;
+    bal4web: string | null;
+  };
+  customAudio: boolean;
+  audioTrimDuration: number;
+  outro: string | null;
+  outroImage: string | null;
 }

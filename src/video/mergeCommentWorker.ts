@@ -7,16 +7,17 @@ import { mergeVideos } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const foldersGroup = JSON.parse(
-    readFileSync(args[0]).toString()
-  ) as string[][]; // [["0-1", "0-2"], ["0-1"]]
+  const { jobs, ffmpeg } = JSON.parse(readFileSync(args[0]).toString()) as {
+    jobs: string[][]; // [["0-1", "0-2"], ["0-1"]]
+    ffmpeg: string | null;
+  };
 
-  for (let i = 0; i < foldersGroup.length; i++) {
-    const folders = foldersGroup[i]; // ["0-1", "0-2"]
+  for (let i = 0; i < jobs.length; i++) {
+    const folders = jobs[i]; // ["0-1", "0-2"]
 
-    const parentFolderPath = join(renderPath, folders[0].split("-")[0]);
+    const exportPath = join(renderPath, folders[0].split("-")[0]);
 
-    const listPath = join(parentFolderPath, "list.txt");
+    const listPath = join(exportPath, "list.txt");
 
     let stopComment: boolean = false;
 
@@ -43,7 +44,7 @@ const init = async () => {
 
     writeFileSync(listPath, videos.join(" \n"));
 
-    mergeVideos({ listPath, exportPath: parentFolderPath });
+    mergeVideos({ listPath, exportPath, ffmpeg });
 
     // console.log("video-comment-merged");
   }

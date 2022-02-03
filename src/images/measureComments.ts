@@ -112,9 +112,7 @@ export const measureContent = async () => {
       };
     });
 
-    console.log(
-      `process-count=${totalProcesses * 4 + comments.length * 2 + 1}`
-    );
+    console.log(`process-count=${totalProcesses * 5 + 4}`);
 
     return newComments;
   } catch (error) {

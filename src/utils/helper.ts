@@ -10,10 +10,11 @@ import {
 } from "fs";
 import { join } from "path";
 
-import { renderPath, tempPath } from "../config/paths";
-import { Comment, PostFile } from "interface/post";
+import { renderPath, tempData } from "../config/paths";
+import { Comment, PostFile } from "../interface/post";
 import { Arguments } from "../interface/utils";
 import { Subtitle } from "../interface/audio";
+import { execSync } from "child_process";
 
 /**
  * Create Random String
@@ -75,9 +76,9 @@ export const deleteFolder = (path: string) => {
  * Reset Temp folder for new process
  */
 export const resetTemp = async () => {
-  const tempData = join(tempPath, "data");
   deleteFolder(renderPath);
   deleteFolder(tempData);
+
   mkdirSync(renderPath);
   mkdirSync(tempData);
 };
@@ -170,20 +171,32 @@ const parseTime = (time: string): number => {
   return timeCount;
 };
 
+type GetDuration = (args: {
+  audioPath: string;
+  ffprobe: string | null;
+  audioTrimDuration: number;
+}) => number;
+
 /**
- * Get Subtitle duration
+ * Get Audio Duration
  */
-export const getDuration = (subtitlePath: string) => {
-  const subtitle = readFileSync(subtitlePath).toString();
+export const getDuration: GetDuration = ({
+  audioPath,
+  ffprobe,
+  audioTrimDuration = 0,
+}) => {
+  const args = `${
+    ffprobe ? `"${ffprobe}"` : "ffprobe"
+  } -i "${audioPath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 
-  const arr = subtitle
-    .trim()
-    .split("\r\n")
-    .filter((e) => e !== "");
-
-  const time = arr[arr.length - 2].split("-->").map((e) => e.trim());
-
-  return parseTime(time[1]);
+  try {
+    return (
+      Number(execSync(args, { stdio: "pipe" }).toString().trim()) -
+      audioTrimDuration
+    );
+  } catch (error) {
+    // console.log(error);
+  }
 };
 
 /**
@@ -214,16 +227,13 @@ export const getSubtitles = (subtitlePath: string) => {
  * Get Post data
  */
 export const getPost = () => {
-  const { post, comments, exportPath, colors, poster }: PostFile = JSON.parse(
+  const data = JSON.parse(
     readFileSync(getArgument("POST")).toString()
-  );
+  ) as PostFile;
 
   return {
-    post,
-    comments: comments.map((e, index) => ({ ...e, id: index })),
-    exportPath,
-    colors,
-    poster,
+    ...data,
+    comments: data.comments.map((e, index) => ({ ...e, id: index })),
   };
 };
 
@@ -267,5 +277,5 @@ export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
     counter += increment;
   }
 
-  return workSpreed;
+  return workSpreed.filter((e) => e.length > 0);
 };

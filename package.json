@@ -1,7 +1,7 @@
 {
   "name": "reddit-video-creator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create video from reddit posts",
   "main": "build/index.js",
   "bin": "build/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build:app": "rm -rf build dist && tsc -p . && npm run copy:assets",
     "build:exe": "rm -rf ./reddit-video-creator.exe && pkg .",
     "build": "npm run build:app && npm run build:exe",
-    "start": "npm run build:app && node ./build/index.js BALCON=./cli/balcon/balcon.exe FFMPEG=./cli/ffmpeg/ffmpeg.exe POST=./post.json VOICE=Daniel"
+    "start": "npm run build:app && node ./build/index.js POST=./post.json"
   },
   "author": "",
   "license": "ISC",

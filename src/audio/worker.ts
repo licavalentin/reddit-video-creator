@@ -7,11 +7,17 @@ import { generateAudioFile } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const folders = JSON.parse(readFileSync(args[0]).toString()) as string[];
+  const { jobs, voice, bal4web, balcon, customAudio } = JSON.parse(
+    readFileSync(args[0]).toString()
+  ) as {
+    jobs: string[];
+    voice: string;
+    bal4web: string | null;
+    balcon: string | null;
+    customAudio: boolean;
+  };
 
-  const voice = args[1];
-
-  for (const folder of folders) {
+  for (const folder of jobs) {
     const ids = folder.split("-");
     const exportPath = join(renderPath, ids[0], folder);
 
@@ -19,6 +25,9 @@ const init = async () => {
       exportPath,
       textFilePath: join(exportPath, "text.txt"),
       voice,
+      bal4web,
+      balcon,
+      customAudio,
     });
   }
 

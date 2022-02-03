@@ -2,28 +2,27 @@ import { writeFileSync } from "fs";
 import { join } from "path";
 import cluster from "cluster";
 
-import { imagePath, tempPath } from "../../config/paths";
+import { avatarAssets, tempData } from "../../config/paths";
 
 import { getFolders, getPost, spreadWork } from "../../utils/helper";
 
 export const generateAvatar = async () => {
-  // Get created post
-  const { comments } = getPost();
-
   return new Promise(async (resolve) => {
-    const avatarAssets = join(imagePath, "reddit-avatar");
+    // Get created post
+    const { comments } = getPost();
 
     const heads = getFolders(join(avatarAssets, "head"));
     const faces = getFolders(join(avatarAssets, "face"));
     const bodies = getFolders(join(avatarAssets, "body"));
 
     const work = spreadWork(comments.map((e) => e.id));
+
     let counter = work.length;
 
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(tempPath, "data", `${index}-avatars.json`);
+      const jobsFilePath = join(tempData, `${index}-avatars.json`);
 
       writeFileSync(
         jobsFilePath,

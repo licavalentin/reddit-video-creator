@@ -7,9 +7,12 @@ import { mergeVideos } from "./lib";
 
 const init = async () => {
   const args = process.argv.slice(2);
-  const comments = JSON.parse(readFileSync(args[0]).toString()) as number[][]; // folders [1,2,3] create one group
+  const { jobs, ffmpeg } = JSON.parse(readFileSync(args[0]).toString()) as {
+    jobs: number[][]; // folders [1,2,3] create one group
+    ffmpeg: string | null;
+  };
 
-  for (const commentGroup of comments) {
+  for (const commentGroup of jobs) {
     const folderPath = join(renderPath, "render-groups");
 
     const exportFolderPath = join(
@@ -42,6 +45,7 @@ const init = async () => {
     mergeVideos({
       listPath,
       exportPath: exportFolderPath,
+      ffmpeg,
     });
 
     // console.log("video-group-merged");

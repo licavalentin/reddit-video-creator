@@ -2,12 +2,11 @@ import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import { renderPath, tempPath } from "../../config/paths";
+import { tempData, renderPath } from "../../config/paths";
 import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
 
-import { getPost, spreadWork } from "../../utils/helper";
-import { generateAvatar } from "../../images/avatars";
+import { spreadWork } from "../../utils/helper";
 
 interface CommentJob extends Comment {
   commentId: number;
@@ -36,7 +35,9 @@ export default async (comments: Comment[][]) => {
           const filteredText = (comment.content as Subtitle[])[c].content
             .replace(/\*/g, "")
             .replace(/’/g, "'")
-            .replace(/”|“/g, '"');
+            .replace(/”|“/g, '"')
+            .replaceAll(".", " ")
+            .replaceAll("_", " ");
 
           writeFileSync(join(parentFolderPath, "text.txt"), filteredText);
 
@@ -58,7 +59,7 @@ export default async (comments: Comment[][]) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(tempPath, "data", `${index}-content.json`);
+      const jobsFilePath = join(tempData, `${index}-content.json`);
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
 

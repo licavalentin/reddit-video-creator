@@ -1,7 +1,7 @@
 export const imageDetails = {
   width: 1920,
   height: 1080,
-  background: "#1a1a1b",
+  background: "#101011",
 };
 
 export const commentDetails = {

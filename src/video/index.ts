@@ -18,11 +18,17 @@ import {
   spreadWork,
 } from "../utils/helper";
 import { createPostTitle } from "../images/postTitle";
+import { createOutro } from "../images/outro";
 import { generateThumbnail } from "../images/thumbnail";
 import { generateVideo, mergeVideos } from "./lib";
 
 const generateCommentTextVideo = async (comments: Comment[]) => {
   return new Promise((resolve) => {
+    const {
+      cli: { ffmpeg, ffprobe },
+      audioTrimDuration,
+    } = getPost();
+
     const folders = [];
     for (let i = 0; i < comments.length; i++) {
       const comment = comments[i];
@@ -43,7 +49,15 @@ const generateCommentTextVideo = async (comments: Comment[]) => {
         `${index}-generateCommentTextVideo.json`
       );
 
-      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+      writeFileSync(
+        jobsFilePath,
+        JSON.stringify({
+          jobs,
+          ffmpeg,
+          ffprobe,
+          audioTrimDuration,
+        })
+      );
 
       cluster.setupPrimary({
         exec: join(__dirname, "worker.js"),
@@ -65,6 +79,10 @@ const generateCommentTextVideo = async (comments: Comment[]) => {
 
 const mergeCommentGroup = async (comments: Comment[]) => {
   return new Promise((resolve) => {
+    const {
+      cli: { ffmpeg },
+    } = getPost();
+
     const work = spreadWork(
       splitByDepth(comments).map((e) => e.map((c) => c.id))
     );
@@ -82,7 +100,13 @@ const mergeCommentGroup = async (comments: Comment[]) => {
         `${index}-mergeCommentGroup.json`
       );
 
-      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+      writeFileSync(
+        jobsFilePath,
+        JSON.stringify({
+          jobs,
+          ffmpeg,
+        })
+      );
 
       cluster.setupPrimary({
         exec: join(__dirname, "mergeWorker.js"),
@@ -103,7 +127,10 @@ const mergeCommentGroup = async (comments: Comment[]) => {
 };
 
 const createChannelPoster = async () => {
-  const { poster } = getPost();
+  const {
+    poster,
+    cli: { ffmpeg },
+  } = getPost();
 
   const image = new Jimp(
     imageDetails.width,
@@ -111,7 +138,9 @@ const createChannelPoster = async () => {
     imageDetails.background
   );
 
-  const channelPoster = await Jimp.read(poster);
+  const channelPoster = await Jimp.read(
+    poster ?? join(imagePath, "mid-video.png")
+  );
 
   channelPoster.scaleToFit(imageDetails.width, imageDetails.height);
 
@@ -126,40 +155,36 @@ const createChannelPoster = async () => {
     image: posterPath,
     exportPath: renderPath,
     title: "mid-video",
+    ffmpeg,
   });
 };
 
 const mergeFinalVideo = async () => {
-  const { exportPath } = getPost();
+  const {
+    exportPath,
+    post,
+    cli: { ffmpeg },
+  } = getPost();
 
   const parentPath = join(renderPath, "render-groups");
 
   await createPostTitle();
 
-  const videos = getFolders(parentPath)
-    .filter((f) => existsSync(join(parentPath, f, "video.mp4")))
-    .map(
-      (t) =>
-        `file '${join(parentPath, t, "video.mp4")}'\nfile '${join(
-          renderPath,
-          "mid-video.mp4"
-        )}'`
-    );
+  await createOutro();
+
+  const videos = [
+    `file '${join(renderPath, "post-title", "video.mp4")}'`,
+    ...getFolders(parentPath)
+      .filter((f) => existsSync(join(parentPath, f, "video.mp4")))
+      .map((t) => `file '${join(parentPath, t, "video.mp4")}'`),
+  ].join(`\nfile '${join(renderPath, "mid-video.mp4")}'\n`);
 
   const listPath = join(parentPath, "list.txt");
 
   writeFileSync(
     listPath,
-    [
-      `file '${join(renderPath, "post-title", "video.mp4")}'\nfile '${join(
-        renderPath,
-        "mid-video.mp4"
-      )}'`,
-      ...videos,
-    ].join("\n")
+    [videos, `\nfile '${join(renderPath, "outro", "video.mp4")}'`].join("\n")
   );
-
-  const { post } = getPost();
 
   const postTitle = post.title
     .toLocaleLowerCase()
@@ -186,6 +211,7 @@ const mergeFinalVideo = async () => {
     listPath,
     exportPath: videoExportPath,
     title: cleanTitle,
+    ffmpeg,
   });
 
   console.log(`process-done=${join(videoExportPath, cleanTitle)}.mp4`);
@@ -193,6 +219,10 @@ const mergeFinalVideo = async () => {
 
 const mergeCommentVideo = async (comments: Comment[]) => {
   return new Promise((resolve) => {
+    const {
+      cli: { ffmpeg },
+    } = getPost();
+
     const folders = comments.map((e, i) =>
       (e.content as Subtitle[]).map((s, j) => `${i}-${j}`)
     );
@@ -209,7 +239,13 @@ const mergeCommentVideo = async (comments: Comment[]) => {
         `${index}-mergeCommentVideo.json`
       );
 
-      writeFileSync(jobsFilePath, JSON.stringify(jobs));
+      writeFileSync(
+        jobsFilePath,
+        JSON.stringify({
+          jobs,
+          ffmpeg,
+        })
+      );
 
       cluster.setupPrimary({
         exec: join(__dirname, "mergeCommentWorker.js"),
