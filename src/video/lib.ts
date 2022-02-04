@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import { existsSync } from "fs";
 import { join } from "path";
 
 import { imageDetails } from "../config/image";
@@ -28,7 +29,7 @@ export const generateVideo: GenerateVideo = ({
   ffmpeg,
 }) => {
   const command = `${
-    ffmpeg ? `"${ffmpeg}"` : "ffmpeg"
+    ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
   } -loop 1 -framerate ${fps} -i ${image} ${
     !audio
       ? `-i "${join(assetsPath, "music", "null.mp3")}" -vf "scale=${
@@ -68,7 +69,7 @@ export const mergeVideos: MergeVideos = ({
   video = true,
 }) => {
   const command = `${
-    ffmpeg ? `"${ffmpeg}"` : "ffmpeg"
+    ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
   } -safe 0 -f concat -i ${listPath} -c copy "${join(
     exportPath,
     `${title ?? "video"}.${video ? "mp4" : "mp3"}`

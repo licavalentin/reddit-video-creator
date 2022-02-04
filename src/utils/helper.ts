@@ -187,7 +187,7 @@ export const getDuration: GetDuration = ({
   audioTrimDuration = 0,
 }) => {
   const args = `${
-    ffprobe ? `"${ffprobe}"` : "ffprobe"
+    ffprobe && existsSync(ffprobe) ? `"${ffprobe}"` : "ffprobe"
   } -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 
   try {

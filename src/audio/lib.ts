@@ -22,7 +22,7 @@ export const getVoice = () => {
 
   if (!customAudio) {
     const voices = execSync(
-      `${existsSync(balcon) ? `"${balcon}"` : "balcon"} -l`
+      `${balcon && existsSync(balcon) ? `"${balcon}"` : "balcon"} -l`
     ).toString();
 
     const listOfVoice = voices
@@ -34,7 +34,7 @@ export const getVoice = () => {
     return listOfVoice[0];
   } else {
     const voices = execSync(
-      `${existsSync(bal4web) ? `"${bal4web}"` : "bal4web"} -s m -m`
+      `${bal4web && existsSync(bal4web) ? `"${bal4web}"` : "bal4web"} -s m -m`
     ).toString();
 
     const listOfVoice = voices
@@ -163,7 +163,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
 
   const command = `${
     ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
-  } -y -i ${videoPath} -i ${backgroundAudioPath} -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -shortest ${exportPath}`;
+  } -y -i ${videoPath} -i ${backgroundAudioPath} -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -shortest -t ${videoDuration} ${exportPath}`;
 
   try {
     execSync(command, { stdio: "pipe" });
