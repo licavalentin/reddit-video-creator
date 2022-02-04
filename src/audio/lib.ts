@@ -142,7 +142,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
       exportPath: tempData,
       listPath: audioListPath,
       video: false,
-      title: "music",
+      title: "background-music.mp3",
       ffmpeg,
     });
   } else {
