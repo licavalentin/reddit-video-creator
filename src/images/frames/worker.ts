@@ -1,6 +1,7 @@
 import { readFileSync } from "fs";
-import Jimp from "jimp";
 import { join } from "path";
+
+import Jimp from "jimp";
 
 import { imageDetails } from "../../config/image";
 import { renderPath } from "../../config/paths";

@@ -6,7 +6,6 @@ import { transformComments } from "./images/transformComments";
 import generateContent from "./images/content/index";
 import { generateAvatar } from "./images/avatars";
 import generateFrames from "./images/frames/index";
-import { writeFileSync } from "fs";
 
 const renderVideo = async () => {
   console.time("Render");

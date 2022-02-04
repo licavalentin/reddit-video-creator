@@ -3,7 +3,7 @@ import { existsSync } from "fs";
 import { join } from "path";
 
 import { imageDetails } from "../config/image";
-import { assetsPath } from "../config/paths";
+import { assetsPath, tempPath } from "../config/paths";
 import { fps } from "../config/video";
 
 type GenerateVideo = (args: {
@@ -30,16 +30,16 @@ export const generateVideo: GenerateVideo = ({
 }) => {
   const command = `${
     ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
-  } -loop 1 -framerate ${fps} -i ${image} ${
+  } -loop 1 -framerate ${fps} -i "${image}" ${
     !audio
-      ? `-i "${join(assetsPath, "music", "null.mp3")}" -vf "scale=${
+      ? `-i "${join(tempPath, "music", "null.mp3")}" -vf "scale=${
           imageDetails.width
         }:${imageDetails.height}"`
-      : `-i ${audio} -tune stillimage -c:a aac -b:a 192k -shortest`
-  } -pix_fmt yuv420p -c:v libx264 -t ${duration} ${join(
+      : `-i "${audio}" -tune stillimage -c:a aac -b:a 192k -shortest`
+  } -pix_fmt yuv420p -c:v libx264 -t ${duration} "${join(
     exportPath,
     `${title ?? "video"}.mp4`
-  )}`;
+  )}"`;
 
   try {
     execSync(command, { stdio: "pipe" });

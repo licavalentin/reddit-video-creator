@@ -137,9 +137,7 @@ export const generateThumbnail = async (exportPath: string) => {
     //   maxTextWidth
     // );
 
-    const thumbnailPath = join(exportPath, "thumbnail");
-
-    await image.writeAsync(thumbnailPath);
+    await image.writeAsync(join(exportPath, "thumbnail.png"));
   } catch (error) {
     // console.log(error);
   }

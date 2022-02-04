@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import { copyFileSync, existsSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import { assetsPath, tempData } from "../config/paths";
+import { assetsPath, tempData, tempPath } from "../config/paths";
 
 import { mergeVideos } from "../video/lib";
 import { getDuration, getPost } from "../utils/helper";
@@ -124,7 +124,6 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
     filePath: audioPath,
   });
 
-  const audioOutputPath = join(tempData, "music.mp3");
   const backgroundAudioPath = join(tempData, "background-music.mp3");
 
   if (videoDuration > musicDuration) {
@@ -142,16 +141,18 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
       exportPath: tempData,
       listPath: audioListPath,
       video: false,
-      title: "background-music.mp3",
+      title: "music",
       ffmpeg,
     });
-  } else {
-    copyFileSync(audioPath, audioOutputPath);
   }
 
   const audioCommand = `${
     ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
-  } -y -i ${audioOutputPath} -filter:a volume=0.03 ${backgroundAudioPath}`;
+  } -y -i "${
+    videoDuration > musicDuration
+      ? join(tempPath, "music", "music.mp3")
+      : audioPath
+  }" -filter:a volume=0.03 "${backgroundAudioPath}"`;
 
   try {
     execSync(audioCommand, { stdio: "pipe" });
@@ -163,7 +164,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
 
   const command = `${
     ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
-  } -y -i ${videoPath} -i ${backgroundAudioPath} -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -shortest -t ${videoDuration} ${exportPath}`;
+  } -y -i "${videoPath}" -i "${backgroundAudioPath}" -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -shortest -t ${videoDuration} "${exportPath}"`;
 
   try {
     execSync(command, { stdio: "pipe" });

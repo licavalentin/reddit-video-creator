@@ -36,7 +36,7 @@ export default async (comments: Comment[][]) => {
             .replace(/\*/g, "")
             .replace(/’/g, "'")
             .replace(/”|“/g, '"')
-            .replaceAll(".", " ")
+            .replaceAll(".", ",")
             .replaceAll("_", " ");
 
           writeFileSync(join(parentFolderPath, "text.txt"), filteredText);

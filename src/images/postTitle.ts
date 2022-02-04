@@ -140,7 +140,12 @@ export const createPostTitle = async () => {
 
     writeFileSync(
       textPath,
-      (profanity.purify(title)[0] as string).replaceAll(".", " ")
+      (profanity.purify(title)[0] as string)
+        .replace(/\*/g, "")
+        .replace(/’/g, "'")
+        .replace(/”|“/g, '"')
+        .replaceAll(".", ",")
+        .replaceAll("_", " ")
     );
 
     generateAudioFile({
