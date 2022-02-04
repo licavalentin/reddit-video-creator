@@ -20,13 +20,13 @@ const init = async () => {
   for (const folder of jobs) {
     const ids = folder.split("-");
     const exportPath = join(renderPath, ids[0], folder);
-    const audioPath = join(exportPath, "audio.wav");
+    const audioPath = join(exportPath, "audio.mp3");
 
     generateVideo({
       image: join(exportPath, "image.png"),
       audio: audioPath,
       duration: getDuration({
-        audioPath,
+        filePath: audioPath,
         audioTrimDuration,
         ffprobe,
       }),

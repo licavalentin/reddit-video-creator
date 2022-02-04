@@ -73,7 +73,7 @@
 //     const folderPath = join(shortsPath, currentFolder);
 //     const imagePath = join(folderPath, "image.jpg");
 //     const textPath = join(folderPath, "text.txt");
-//     const audioPath = join(folderPath, "audio.wav");
+//     const audioPath = join(folderPath, "audio.mp3");
 //     try {
 //       const duration = await generateAudio(textPath, audioPath);
 

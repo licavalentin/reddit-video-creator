@@ -54,6 +54,7 @@ type MergeVideos = (args: {
   exportPath: string;
   title?: string;
   ffmpeg: string | null;
+  video?: boolean;
 }) => void;
 
 /**
@@ -64,12 +65,13 @@ export const mergeVideos: MergeVideos = ({
   exportPath,
   title,
   ffmpeg,
+  video = true,
 }) => {
   const command = `${
     ffmpeg ? `"${ffmpeg}"` : "ffmpeg"
   } -safe 0 -f concat -i ${listPath} -c copy "${join(
     exportPath,
-    `${title ?? "video"}.mp4`
+    `${title ?? "video"}.${video ? "mp4" : "mp3"}`
   )}"`;
 
   try {

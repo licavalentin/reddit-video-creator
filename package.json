@@ -7,8 +7,7 @@
   "scripts": {
     "copy:assets": "cp -R src/assets src/data build",
     "build:app": "rm -rf build dist && tsc -p . && npm run copy:assets",
-    "build:exe": "rm -rf ./reddit-video-creator.exe && pkg .",
-    "build": "npm run build:app && npm run build:exe",
+    "build": "npm run build:app && pkg .",
     "start": "npm run build:app && node ./build/index.js POST=./post.json"
   },
   "author": "",

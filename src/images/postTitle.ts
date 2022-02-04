@@ -153,12 +153,12 @@ export const createPostTitle = async () => {
     });
 
     const exportPath = join(renderPath, "post-title");
-    const audioPath = join(folderPath, "audio.wav");
+    const audioPath = join(folderPath, "audio.mp3");
 
     const duration = getDuration({
       ffprobe,
       audioTrimDuration,
-      audioPath,
+      filePath: audioPath,
     });
 
     generateVideo({

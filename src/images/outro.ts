@@ -48,12 +48,12 @@ export const createOutro = async () => {
       customAudio,
     });
 
-    const audioPath = join(outroFolder, "audio.wav");
+    const audioPath = join(outroFolder, "audio.mp3");
 
     const duration = getDuration({
       ffprobe,
       audioTrimDuration: 0,
-      audioPath,
+      filePath: audioPath,
     });
 
     generateVideo({

@@ -137,10 +137,7 @@ export const generateThumbnail = async (exportPath: string) => {
     //   maxTextWidth
     // );
 
-    const thumbnailPath = join(
-      exportPath,
-      `${slugify(post.title)} reddit askreddit storytime.png`
-    );
+    const thumbnailPath = join(exportPath, "thumbnail");
 
     await image.writeAsync(thumbnailPath);
   } catch (error) {

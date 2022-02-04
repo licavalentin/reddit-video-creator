@@ -96,10 +96,23 @@ export const measureContent = async () => {
 
       totalProcesses += splittedText.length;
 
-      const commentHeight =
+      const commentHeight: number =
         Jimp.measureTextHeight(font, splittedText.join(" "), commentWidth) +
         userNameHeight +
         commentDetails.margin;
+
+      // const textCommentWidth = Jimp.measureText(font, splittedText.join(" "));
+      // const textCommentHeight = Jimp.measureTextHeight(
+      //   font,
+      //   splittedText.join(" "),
+      //   textCommentWidth + 100
+      // );
+
+      // for (const text of splittedText) {
+      //   if (text.includes("\n")) {
+      //     commentHeight += textCommentHeight;
+      //   }
+      // }
 
       return {
         ...comment,

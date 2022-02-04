@@ -4,7 +4,13 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import { imagePath, renderPath, tempPath } from "../config/paths";
+import {
+  assetsPath,
+  imagePath,
+  renderPath,
+  tempData,
+  tempPath,
+} from "../config/paths";
 import { imageDetails } from "../config/image";
 import { Comment } from "../interface/post";
 import { Subtitle } from "../interface/audio";
@@ -21,6 +27,7 @@ import { createPostTitle } from "../images/postTitle";
 import { createOutro } from "../images/outro";
 import { generateThumbnail } from "../images/thumbnail";
 import { generateVideo, mergeVideos } from "./lib";
+import { addBackgroundMusic } from "../audio/lib";
 
 const generateCommentTextVideo = async (comments: Comment[]) => {
   return new Promise((resolve) => {
@@ -163,7 +170,7 @@ const mergeFinalVideo = async () => {
   const {
     exportPath,
     post,
-    cli: { ffmpeg },
+    cli: { ffmpeg, ffprobe },
   } = getPost();
 
   const parentPath = join(renderPath, "render-groups");
@@ -186,35 +193,37 @@ const mergeFinalVideo = async () => {
     [videos, `\nfile '${join(renderPath, "outro", "video.mp4")}'`].join("\n")
   );
 
-  const postTitle = post.title
-    .toLocaleLowerCase()
-    .split(" ")
-    .join("-")
-    .split("")
-    .filter((_, index) => index < 10)
-    .join("");
+  // const postTitle = post.title
+  //   .toLocaleLowerCase()
+  //   .split(" ")
+  //   .join("-")
+  //   .split("")
+  //   .filter((_, index) => index < 10)
+  //   .join("");
 
-  const videoExportPath = join(
-    exportPath,
-    `${postTitle}-${createRandomString(3)}`
-  );
+  const videoExportPath = join(exportPath, createRandomString(3));
 
   mkdirSync(videoExportPath);
+
+  mergeVideos({
+    listPath,
+    exportPath: tempData,
+    ffmpeg,
+  });
+
+  addBackgroundMusic({
+    videoPath: join(tempData, "video.mp4"),
+    audioPath: join(assetsPath, "music", "music.mp3"),
+    outputPath: videoExportPath,
+    ffmpeg,
+    ffprobe,
+  });
 
   writeFileSync(join(videoExportPath, "data.txt"), post.title);
 
   await generateThumbnail(videoExportPath);
 
-  const cleanTitle = slugify(post.title);
-
-  mergeVideos({
-    listPath,
-    exportPath: videoExportPath,
-    title: cleanTitle,
-    ffmpeg,
-  });
-
-  console.log(`process-done=${join(videoExportPath, cleanTitle)}.mp4`);
+  console.log(`process-done=${join(videoExportPath, "video.mp4")}`);
 };
 
 const mergeCommentVideo = async (comments: Comment[]) => {

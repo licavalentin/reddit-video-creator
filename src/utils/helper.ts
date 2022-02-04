@@ -15,6 +15,7 @@ import { Comment, PostFile } from "../interface/post";
 import { Arguments } from "../interface/utils";
 import { Subtitle } from "../interface/audio";
 import { execSync } from "child_process";
+import video from "video";
 
 /**
  * Create Random String
@@ -172,22 +173,22 @@ const parseTime = (time: string): number => {
 };
 
 type GetDuration = (args: {
-  audioPath: string;
+  filePath: string;
   ffprobe: string | null;
   audioTrimDuration: number;
 }) => number;
 
 /**
- * Get Audio Duration
+ * Get File Duration
  */
 export const getDuration: GetDuration = ({
-  audioPath,
+  filePath,
   ffprobe,
   audioTrimDuration = 0,
 }) => {
   const args = `${
     ffprobe ? `"${ffprobe}"` : "ffprobe"
-  } -i "${audioPath}" -show_entries format=duration -v quiet -of csv="p=0"`;
+  } -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 
   try {
     return (

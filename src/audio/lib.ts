@@ -1,8 +1,11 @@
 import { execSync } from "child_process";
-import { existsSync } from "fs";
+import { copyFileSync, existsSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import { getPost } from "../utils/helper";
+import { assetsPath, tempData } from "../config/paths";
+
+import { mergeVideos } from "../video/lib";
+import { getDuration, getPost } from "../utils/helper";
 
 /**
  * Get Voices List
@@ -67,10 +70,12 @@ export const generateAudioFile: AudioGenerator = ({
   bal4web,
   customAudio,
 }) => {
+  const outputPath = join(exportPath, "audio.mp3");
+
   if (!customAudio) {
     const command = `${
       balcon && existsSync(balcon) ? `"${balcon}"` : "balcon"
-    } -n ${voice} -f "${textFilePath}" -w "${exportPath}"`;
+    } -n ${voice} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
       execSync(command);
@@ -80,10 +85,7 @@ export const generateAudioFile: AudioGenerator = ({
   } else {
     const command = `${
       bal4web && existsSync(bal4web) ? `"${bal4web}"` : "bal4web"
-    } -s Microsoft -l en-Us -n ${voice} -f "${textFilePath}" -w "${join(
-      exportPath,
-      "audio.wav"
-    )}"`;
+    } -s Microsoft -l en-Us -n ${voice} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
       execSync(command);
@@ -93,4 +95,81 @@ export const generateAudioFile: AudioGenerator = ({
   }
 
   console.log("audio-generated");
+};
+
+type AddBackgroundMusic = (args: {
+  videoPath: string;
+  audioPath: string;
+  outputPath: string;
+  ffmpeg: string | null;
+  ffprobe: string | null;
+}) => void;
+
+export const addBackgroundMusic: AddBackgroundMusic = async ({
+  videoPath,
+  audioPath,
+  outputPath,
+  ffmpeg,
+  ffprobe,
+}) => {
+  const videoDuration = getDuration({
+    ffprobe,
+    audioTrimDuration: 0,
+    filePath: videoPath,
+  });
+
+  const musicDuration = getDuration({
+    ffprobe,
+    audioTrimDuration: 0,
+    filePath: audioPath,
+  });
+
+  const audioOutputPath = join(tempData, "music.mp3");
+  const backgroundAudioPath = join(tempData, "background-music.mp3");
+
+  if (videoDuration > musicDuration) {
+    const audioFiles = [];
+
+    for (let i = 0; i < Math.ceil(videoDuration / musicDuration); i++) {
+      audioFiles.push(`file '${audioPath}'`);
+    }
+
+    const audioListPath = join(tempData, "audio-list.txt");
+
+    writeFileSync(audioListPath, audioFiles.join("\n"));
+
+    mergeVideos({
+      exportPath: tempData,
+      listPath: audioListPath,
+      video: false,
+      title: "music",
+      ffmpeg,
+    });
+  } else {
+    copyFileSync(audioPath, audioOutputPath);
+  }
+
+  const audioCommand = `${
+    ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
+  } -y -i ${audioOutputPath} -filter:a volume=0.03 ${backgroundAudioPath}`;
+
+  try {
+    execSync(audioCommand, { stdio: "pipe" });
+  } catch (error) {
+    console.log(error);
+  }
+
+  const exportPath = join(outputPath, "video.mp4");
+
+  const command = `${
+    ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
+  } -y -i ${videoPath} -i ${backgroundAudioPath} -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -shortest ${exportPath}`;
+
+  try {
+    execSync(command, { stdio: "pipe" });
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log("background-audio-generated");
 };
