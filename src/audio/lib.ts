@@ -150,7 +150,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
     ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
   } -y -i "${
     videoDuration > musicDuration
-      ? join(tempPath, "music", "music.mp3")
+      ? join(tempPath, "data", "music.mp3")
       : audioPath
   }" -filter:a volume=0.03 "${backgroundAudioPath}"`;
 
@@ -164,7 +164,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
 
   const command = `${
     ffmpeg && existsSync(ffmpeg) ? `"${ffmpeg}"` : "ffmpeg"
-  } -y -i "${videoPath}" -i "${backgroundAudioPath}" -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -shortest -t ${videoDuration} "${exportPath}"`;
+  } -y -i "${videoPath}" -i "${backgroundAudioPath}" -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -t ${videoDuration} "${exportPath}"`;
 
   try {
     execSync(command, { stdio: "pipe" });
