@@ -171,6 +171,7 @@ const mergeFinalVideo = async () => {
     exportPath,
     post,
     cli: { ffmpeg, ffprobe },
+    music,
   } = getPost();
 
   const parentPath = join(renderPath, "render-groups");
@@ -213,7 +214,7 @@ const mergeFinalVideo = async () => {
 
   addBackgroundMusic({
     videoPath: join(tempData, "video.mp4"),
-    audioPath: join(tempPath, "music", "music.mp3"),
+    audioPath: music ?? join(tempPath, "music", "music.mp3"),
     outputPath: videoExportPath,
     ffmpeg,
     ffprobe,

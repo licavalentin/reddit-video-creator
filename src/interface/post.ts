@@ -63,4 +63,5 @@ export interface PostFile {
   audioTrimDuration: number;
   outro: string | null;
   outroImage: string | null;
+  music: string | null;
 }
