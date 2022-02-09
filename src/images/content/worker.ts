@@ -3,12 +3,7 @@ import { readFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import {
-  assetsPath,
-  renderPath,
-  fontPath,
-  imagePath,
-} from "../../config/paths";
+import { assetsPath, renderPath, fontPath } from "../../config/paths";
 import { commentDetails, imageDetails } from "../../config/image";
 import { FontFace } from "../../interface/image";
 import { Comment } from "../../interface/post";
@@ -28,8 +23,9 @@ const init = async () => {
   const font = await Jimp.loadFont(join(parentPath, FontFace.Comment));
   const fontBold = await Jimp.loadFont(join(parentPath, FontFace.Username));
   const statsFont = await Jimp.loadFont(join(parentPath, FontFace.Stats));
-  const depthLine = await Jimp.read(join(imagePath, "comment-line.png"));
   const upsArrow = await Jimp.read(join(assetsPath, "images", "ups-arrow.png"));
+
+  upsArrow.color([{ apply: "xor", params: [commentDetails.colors.main] }]);
 
   const topMargin = 50;
 
@@ -69,7 +65,7 @@ const init = async () => {
       const commentScore = roundUp(job.score);
       image.print(
         statsFont,
-        startX + userNameWidth + 20 + upsArrowWidth + 10,
+        startX + userNameWidth + upsArrowWidth + 35,
         topMargin,
         commentScore
       );
@@ -79,10 +75,12 @@ const init = async () => {
         join(renderPath, job.id + "", "avatar.png")
       );
 
+      image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
+
       // Print comment content
       const contentHeight: number = Jimp.measureTextHeight(
         font,
-        job.content,
+        (job.content as string).trim(),
         job.width
       );
 
@@ -94,19 +92,46 @@ const init = async () => {
         job.width
       );
 
-      // Composite indentation line
-      depthLine.resize(4, contentHeight);
-      image.composite(depthLine, startX - 38, avatarImage.getHeight() - 10);
+      // Composite indentation main line
+      const depthLine = new Jimp(
+        5,
+        job.height,
+        commentDetails.colors.secondary
+      );
 
-      image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
+      image.composite(depthLine, startX - 38, avatarImage.getHeight());
+
+      const mainDepthLine = new Jimp(
+        5,
+        contentHeight - 15,
+        commentDetails.colors.main
+      );
+
+      image.composite(mainDepthLine, startX - 38, avatarImage.getHeight());
+
+      // const playCircleWidth = 4 * 3 + 2;
+      // const playCircle = new Jimp(
+      //   playCircleWidth,
+      //   playCircleWidth,
+      //   commentDetails.colors.main
+      // );
+
+      // playCircle.circle();
+
+      // image.composite(
+      //   playCircle,
+      //   startX - 38 - 5,
+      //   avatarImage.getHeight() + contentHeight - 15 - playCircle.getHeight()
+      // );
 
       for (let i = 1; i < job.depth + 1; i++) {
-        depthLine.resize(
-          4,
-          contentHeight + commentDetails.margin + userNameHeight + 3
+        const depthLineDepth = new Jimp(
+          5,
+          job.height,
+          commentDetails.colors.main
         );
 
-        image.composite(depthLine, i * commentDetails.depth + 62, 0);
+        image.composite(depthLineDepth, i * commentDetails.depth + 62, 0);
       }
 
       const parentFolderPath = join(

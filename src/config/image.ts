@@ -10,6 +10,10 @@ export const commentDetails = {
   heightMargin: 100,
   widthMargin: 400,
   avatarSize: 70,
+  colors: {
+    main: "#e81224",
+    secondary: "#343536",
+  },
 };
 
 export const thumbnailDetail = {

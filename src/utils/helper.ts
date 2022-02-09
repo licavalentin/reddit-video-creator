@@ -234,7 +234,11 @@ export const getPost = () => {
 
   return {
     ...data,
-    comments: data.comments.map((e, index) => ({ ...e, id: index })),
+    comments: data.comments.map((e, index) => ({
+      ...e,
+      id: index,
+      content: (e.content as string).trim(),
+    })),
   };
 };
 

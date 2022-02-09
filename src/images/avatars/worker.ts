@@ -42,6 +42,11 @@ const init = async () => {
     );
 
     const backgroundImage = await Jimp.read(backgroundImagePath);
+
+    backgroundImage.color([
+      { apply: "xor", params: [commentDetails.colors.main] },
+    ]);
+
     backgroundImage
       .composite(defaultBody, 0, 0)
       .composite(selectedBody, 0, 0)
