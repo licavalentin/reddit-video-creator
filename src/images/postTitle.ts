@@ -28,7 +28,6 @@ export const createPostTitle = async () => {
     post: { title, author: userName, score: points, all_awardings },
     cli: { ffmpeg, ffprobe, balcon, bal4web },
     customAudio,
-    audioTrimDuration,
   } = getPost();
 
   const awards = all_awardings.map((e) => e.name);
@@ -162,7 +161,7 @@ export const createPostTitle = async () => {
 
     const duration = getDuration({
       ffprobe,
-      audioTrimDuration,
+      audioTrimDuration: customAudio ? 0.8 : 0,
       filePath: audioPath,
     });
 

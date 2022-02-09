@@ -4,13 +4,7 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 import Jimp from "jimp";
 
-import {
-  assetsPath,
-  imagePath,
-  renderPath,
-  tempData,
-  tempPath,
-} from "../config/paths";
+import { imagePath, renderPath, tempData, tempPath } from "../config/paths";
 import { imageDetails } from "../config/image";
 import { Comment } from "../interface/post";
 import { Subtitle } from "../interface/audio";
@@ -33,7 +27,7 @@ const generateCommentTextVideo = async (comments: Comment[]) => {
   return new Promise((resolve) => {
     const {
       cli: { ffmpeg, ffprobe },
-      audioTrimDuration,
+      customAudio,
     } = getPost();
 
     const folders = [];
@@ -62,7 +56,7 @@ const generateCommentTextVideo = async (comments: Comment[]) => {
           jobs,
           ffmpeg,
           ffprobe,
-          audioTrimDuration,
+          audioTrimDuration: customAudio ? 0.8 : 0,
         })
       );
 

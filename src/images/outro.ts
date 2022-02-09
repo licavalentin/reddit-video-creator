@@ -13,7 +13,6 @@ export const createOutro = async () => {
   const {
     cli: { ffmpeg, ffprobe, balcon, bal4web },
     customAudio,
-    audioTrimDuration,
     outroImage,
     outro,
   } = getPost();

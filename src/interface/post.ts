@@ -60,7 +60,6 @@ export interface PostFile {
     bal4web: string | null;
   };
   customAudio: boolean;
-  audioTrimDuration: number;
   outro: string | null;
   outroImage: string | null;
   music: string | null;
