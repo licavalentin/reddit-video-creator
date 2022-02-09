@@ -27,8 +27,6 @@ const renderVideo = async () => {
   // Render Frames
   await generateFrames(transformedComments);
 
-  return;
-
   // Generate audio file for each comment
   await generateAudio(measureText);
 

@@ -45,10 +45,7 @@ const splitText = (text: string): string[] => {
 
     const mergedText = sentence.join(" ");
 
-    if (
-      (chars.some((char) => word.includes(char)) && mergedText.length > 50) ||
-      mergedText.length > 100
-    ) {
+    if (chars.some((char) => word.includes(char)) && mergedText.length > 50) {
       sentences.push(mergedText);
       sentence = [];
     }

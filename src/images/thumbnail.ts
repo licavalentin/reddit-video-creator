@@ -5,11 +5,11 @@ import Jimp from "jimp";
 import profanity from "profanity-util";
 
 import { fontPath, assetsPath } from "../config/paths";
-import { thumbnailDetail } from "../config/image";
+import { commentDetails, thumbnailDetail } from "../config/image";
 import { getPost, slugify } from "../utils/helper";
 
 export const generateThumbnail = async (exportPath: string) => {
-  const { post, colors } = getPost();
+  const { post } = getPost();
 
   try {
     const postTitle = profanity.purify(post.title.toUpperCase())[0];
@@ -100,7 +100,7 @@ export const generateThumbnail = async (exportPath: string) => {
     const lineBarImage = new Jimp(
       thumbnailDetail.width,
       textHeight - 10,
-      colors.background
+      commentDetails.colors.main
     );
 
     const textImage = new Jimp(thumbnailDetail.width, thumbnailDetail.height);
@@ -125,7 +125,7 @@ export const generateThumbnail = async (exportPath: string) => {
       );
     }
 
-    textImage.color([{ apply: "xor", params: [colors.color] }]);
+    textImage.color([{ apply: "xor", params: ["ffffff"] }]);
 
     image.composite(textImage, 0, 0);
 

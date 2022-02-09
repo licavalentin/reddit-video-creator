@@ -2,6 +2,7 @@ import { join } from "path";
 
 import Jimp from "jimp";
 
+import { commentDetails } from "../config/image";
 import { imagePath, fontPath } from "../config/paths";
 import { FontFace } from "../interface/image";
 
@@ -15,7 +16,7 @@ export const generateVoting = async (
   width: number,
   voteCount: string | undefined
 ) => {
-  const arrowImage = await Jimp.read(join(imagePath, "arrow.png"));
+  const arrowImage = await Jimp.read(join(imagePath, "ups-arrow.png"));
   const arrowSize = width - 30;
   const arrow = arrowImage.resize(arrowSize, arrowSize);
 
@@ -39,9 +40,13 @@ export const generateVoting = async (
     );
   }
 
+  const downArrow = arrow.clone().rotate(180);
+  downArrow.color([{ apply: "xor", params: ["#ffffff"] }]);
+
+  arrow.color([{ apply: "xor", params: [commentDetails.colors.main] }]);
+
   image.composite(arrow, (width - arrowSize) / 2, 0);
 
-  const downArrow = arrow.rotate(180);
   image.composite(downArrow, (width - arrowSize) / 2, imageHeight - arrowSize);
 
   return image;
