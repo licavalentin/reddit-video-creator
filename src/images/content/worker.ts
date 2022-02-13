@@ -75,7 +75,7 @@ const init = async () => {
         join(renderPath, job.id + "", "avatar.png")
       );
 
-      image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
+      image.composite(avatarImage, startX - commentDetails.avatarSize, 5);
 
       // Print comment content
       const contentText = (job.content as string).split("\n").map((text) => ({
@@ -100,7 +100,7 @@ const init = async () => {
         commentDetails.colors.secondary
       );
 
-      image.composite(depthLine, startX - 38, avatarImage.getHeight());
+      image.composite(depthLine, startX - 38, avatarImage.getHeight() - 5);
 
       const mainDepthLine = new Jimp(
         5,
@@ -108,7 +108,7 @@ const init = async () => {
         commentDetails.colors.main
       );
 
-      image.composite(mainDepthLine, startX - 38, avatarImage.getHeight());
+      image.composite(mainDepthLine, startX - 38, avatarImage.getHeight() - 5);
 
       for (let i = 1; i < job.depth + 1; i++) {
         const depthLineDepth = new Jimp(

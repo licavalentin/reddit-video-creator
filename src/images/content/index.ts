@@ -32,12 +32,26 @@ export default async (comments: Comment[][]) => {
           mkdirSync(parentFolderPath);
 
           // Write text
-          const filteredText = (comment.content as Subtitle[])[c].content
-            .replace(/\*/g, "")
-            .replace(/’/g, "'")
-            .replace(/”|“/g, '"')
-            .replaceAll(".", ",")
-            .replaceAll("_", " ");
+
+          const illegalChars = [
+            "*",
+            "’",
+            "”",
+            "“",
+            "!",
+            "|",
+            ".",
+            ",",
+            ":",
+            "\n",
+            "_",
+          ];
+
+          let filteredText = (comment.content as Subtitle[])[c].content;
+
+          for (const char of illegalChars) {
+            filteredText = filteredText.replaceAll(char, " ");
+          }
 
           writeFileSync(join(parentFolderPath, "text.txt"), filteredText);
 
