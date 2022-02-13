@@ -54,7 +54,7 @@ const init = async () => {
       .composite(selectedFace, 0, 0)
       .composite(selectedHead, 0, 0);
 
-    backgroundImage.resize(commentDetails.avatarSize - 5, Jimp.AUTO);
+    backgroundImage.resize(commentDetails.avatarSize, Jimp.AUTO);
 
     await backgroundImage.writeAsync(
       join(renderPath, comment + "", "avatar.png")

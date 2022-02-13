@@ -8,7 +8,7 @@ import { fontPath, renderPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
 import { FontFace } from "../interface/image";
 import { getPost } from "../utils/helper";
-import { mkdirSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 
 /**
  * Generate array of sentences from comment
@@ -24,7 +24,7 @@ const splitText = (text: string): string[] => {
         ""
       )
       // Remove \n etc
-      .replace(/\r?\n|\r/g, " ")
+      // .replace(/\r?\n|\r/g, " ")
       // Remove url
       .replace(/(?:https?|ftp):\/\/[\n\S]+/g, "")
   )
@@ -45,7 +45,7 @@ const splitText = (text: string): string[] => {
 
     const mergedText = sentence.join(" ");
 
-    if (chars.some((char) => word.includes(char)) && mergedText.length > 50) {
+    if (chars.some((char) => word.includes(char)) && mergedText.length > 20) {
       sentences.push(mergedText);
       sentence = [];
     }
@@ -55,7 +55,7 @@ const splitText = (text: string): string[] => {
     sentences.push(sentence.join(" "));
   }
 
-  return sentences.map((c) => c.trim());
+  return sentences;
 };
 
 /**
@@ -63,18 +63,20 @@ const splitText = (text: string): string[] => {
  * @returns Comments with width, height and indentation for each comment
  */
 export const measureContent = async () => {
-  const { comments } = getPost();
+  const {
+    comments,
+    post: { author },
+  } = getPost();
 
   try {
     const parentPath = join(fontPath, "comments");
     const font = await Jimp.loadFont(join(parentPath, FontFace.Comment));
     const fontBold = await Jimp.loadFont(join(parentPath, FontFace.Username));
 
-    const userNameText = `/y/Name`;
     const userNameHeight = Jimp.measureTextHeight(
       fontBold,
-      userNameText,
-      Jimp.measureText(fontBold, userNameText)
+      author,
+      Jimp.measureText(fontBold, author)
     );
 
     let totalProcesses = 0;
@@ -88,33 +90,22 @@ export const measureContent = async () => {
         comment.depth * commentDetails.depth;
 
       const splittedText = splitText(
-        profanity.purify(comment.content as string)[0]
+        comment.content as string
+        // profanity.purify(comment.content as string)[0]
       );
 
       totalProcesses += splittedText.length;
 
-      const commentHeight: number =
-        Jimp.measureTextHeight(font, splittedText.join(" "), commentWidth) +
-        userNameHeight +
-        commentDetails.margin;
+      let commentHeight: number = userNameHeight + commentDetails.margin;
 
-      // const textCommentWidth = Jimp.measureText(font, splittedText.join(" "));
-      // const textCommentHeight = Jimp.measureTextHeight(
-      //   font,
-      //   splittedText.join(" "),
-      //   textCommentWidth + 100
-      // );
-
-      // for (const text of splittedText) {
-      //   if (text.includes("\n")) {
-      //     commentHeight += textCommentHeight;
-      //   }
-      // }
+      for (const comment of splittedText.join(" ").split("\n")) {
+        commentHeight += Jimp.measureTextHeight(font, comment, commentWidth);
+      }
 
       return {
         ...comment,
         content: splittedText.map((text, index) => ({
-          content: text.trim(),
+          content: text,
           id: index,
         })),
         width: commentWidth,

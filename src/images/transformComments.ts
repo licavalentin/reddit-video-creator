@@ -30,20 +30,27 @@ export const transformComments = async (comments: Comment[]) => {
   const finalComments: Comment[][] = [];
   let commentsTree: Comment[] = [];
 
+  const commentStartHeight = commentDetails.margin + userNameHeight;
+
   const splitComments = (comment: Comment) => {
     const commentText = (comment.content as Subtitle[]).map((e) => e.content);
 
     for (let i = 0; i < commentText.length; i++) {
       const sentence = commentText.slice(0, i + 1);
 
-      const sentenceHeight =
-        Jimp.measureTextHeight(
-          font,
-          sentence.join(" "),
-          comment.width as number
-        ) +
-        commentDetails.margin +
-        userNameHeight;
+      let sentenceHeight = commentStartHeight;
+
+      sentence
+        .join(" ")
+        .split("\n")
+        .forEach(
+          (text) =>
+            (sentenceHeight += Jimp.measureTextHeight(
+              font,
+              text,
+              comment.width as number
+            ))
+        );
 
       if (maxHeight - sentenceHeight > 0) {
         continue;
@@ -51,14 +58,19 @@ export const transformComments = async (comments: Comment[]) => {
 
       const addedText = commentText.slice(0, i);
 
-      const addedSentenceHeight =
-        Jimp.measureTextHeight(
-          font,
-          addedText.join(" "),
-          comment.width as number
-        ) +
-        userNameHeight +
-        commentDetails.margin;
+      let addedSentenceHeight = commentStartHeight;
+
+      addedText
+        .join(" ")
+        .split("\n")
+        .forEach(
+          (text) =>
+            (addedSentenceHeight += Jimp.measureTextHeight(
+              font,
+              text,
+              comment.width as number
+            ))
+        );
 
       const addedComment = {
         ...comment,
@@ -71,14 +83,18 @@ export const transformComments = async (comments: Comment[]) => {
       maxHeight = imageDetails.height - commentDetails.heightMargin;
 
       const leftText = commentText.slice(i);
-      const leftSentenceHeight =
-        Jimp.measureTextHeight(
-          font,
-          leftText.join(" "),
-          comment.width as number
-        ) +
-        commentDetails.margin +
-        userNameHeight;
+      let leftSentenceHeight = commentStartHeight;
+      leftText
+        .join(" ")
+        .split("\n")
+        .forEach(
+          (text) =>
+            (leftSentenceHeight += Jimp.measureTextHeight(
+              font,
+              text,
+              comment.width as number
+            ))
+        );
 
       const leftComment = {
         ...comment,

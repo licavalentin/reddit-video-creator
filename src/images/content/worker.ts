@@ -78,19 +78,20 @@ const init = async () => {
       image.composite(avatarImage, startX - commentDetails.avatarSize, 0);
 
       // Print comment content
-      const contentHeight: number = Jimp.measureTextHeight(
-        font,
-        (job.content as string).trim(),
-        job.width
-      );
+      const contentText = (job.content as string).split("\n").map((text) => ({
+        text,
+        height: Jimp.measureTextHeight(font, text.trim(), job.width),
+      }));
 
-      image.print(
-        font,
-        startX,
-        commentDetails.margin + userNameHeight,
-        job.content,
-        job.width
-      );
+      let startY = commentDetails.margin + userNameHeight;
+      let mainDepthLineHeight = 0;
+
+      contentText.forEach(({ text, height }) => {
+        image.print(font, startX, startY, text.trim(), job.width);
+
+        mainDepthLineHeight += height;
+        startY += height;
+      });
 
       // Composite indentation main line
       const depthLine = new Jimp(
@@ -103,26 +104,11 @@ const init = async () => {
 
       const mainDepthLine = new Jimp(
         5,
-        contentHeight - 15,
+        mainDepthLineHeight - 15,
         commentDetails.colors.main
       );
 
       image.composite(mainDepthLine, startX - 38, avatarImage.getHeight());
-
-      // const playCircleWidth = 4 * 3 + 2;
-      // const playCircle = new Jimp(
-      //   playCircleWidth,
-      //   playCircleWidth,
-      //   commentDetails.colors.main
-      // );
-
-      // playCircle.circle();
-
-      // image.composite(
-      //   playCircle,
-      //   startX - 38 - 5,
-      //   avatarImage.getHeight() + contentHeight - 15 - playCircle.getHeight()
-      // );
 
       for (let i = 1; i < job.depth + 1; i++) {
         const depthLineDepth = new Jimp(
