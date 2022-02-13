@@ -9,13 +9,11 @@ import {
   readFileSync,
 } from "fs";
 import { join } from "path";
+import { execSync } from "child_process";
 
 import { renderPath, tempData } from "../config/paths";
 import { Comment, PostFile } from "../interface/post";
 import { Arguments } from "../interface/utils";
-import { Subtitle } from "../interface/audio";
-import { execSync } from "child_process";
-import video from "video";
 
 /**
  * Create Random String
@@ -28,7 +26,7 @@ export const createRandomString = (size: number) =>
  * @param path Folder path
  * @returns List of files and folders inside folder
  */
-export const getFolders = (path: string | null): string[] => {
+export const getFolders = (path: string): string[] => {
   const files: string[] = readdirSync(path) ?? [];
 
   const filesList: string[] = [];
@@ -105,13 +103,6 @@ export const getArgument = (key: Arguments) => {
 };
 
 /**
- * Get Aspect Ratio for images
- */
-export const getAspectRatio = async (width: number, height: number) => {
-  return height == 0 ? width : getAspectRatio(height, width % height);
-};
-
-/**
  * Convert sentence to time
  */
 export const countWords = (sentence: string): number => {
@@ -144,34 +135,6 @@ export const slugify = (title: string) => {
   return title;
 };
 
-/**
- * Parse Subtitle Time Format 00:01:00,1 into seconds
- */
-const parseTime = (time: string): number => {
-  const timer = time.split(":");
-  let timeCount = 0;
-
-  for (let i = 0; i < timer.length; i++) {
-    const time = timer[i];
-
-    switch (i) {
-      case 0:
-        timeCount += Number(time) * 3600; // Hours
-        break;
-
-      case 1:
-        timeCount += Number(time) * 60; // Minutes
-        break;
-
-      case 2:
-        timeCount += parseFloat(time.replace(",", ".")); // Seconds
-        break;
-    }
-  }
-
-  return timeCount;
-};
-
 type GetDuration = (args: {
   filePath: string;
   ffprobe: string | null;
@@ -198,30 +161,6 @@ export const getDuration: GetDuration = ({
   } catch (error) {
     // console.log(error);
   }
-};
-
-/**
- * Convert Subtitle into Array
- */
-export const getSubtitles = (subtitlePath: string) => {
-  const subtitle = readFileSync(subtitlePath).toString();
-
-  const arr = subtitle
-    .trim()
-    .split("\r\n")
-    .filter((e) => e !== "");
-
-  const finalArr: Subtitle[] = [];
-
-  for (let i = 0; i < arr.length; ) {
-    finalArr.push({
-      content: arr[i + 2].trim(),
-    });
-
-    i = i + 3;
-  }
-
-  return finalArr.map((e, index) => ({ ...e, id: index }));
 };
 
 /**
