@@ -6,7 +6,7 @@ import profanity from "profanity-util";
 
 import { fontPath, assetsPath } from "../config/paths";
 import { commentDetails, thumbnailDetail } from "../config/image";
-import { getPost, slugify } from "../utils/helper";
+import { getPost } from "../utils/helper";
 
 export const generateThumbnail = async (exportPath: string) => {
   const { post } = getPost();

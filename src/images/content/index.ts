@@ -2,6 +2,8 @@ import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
+import profanity from "profanity-util";
+
 import { tempData, renderPath } from "../../config/paths";
 import { Subtitle } from "../../interface/audio";
 import { Comment } from "../../interface/post";
@@ -47,7 +49,9 @@ export default async (comments: Comment[][]) => {
             "_",
           ];
 
-          let filteredText = (comment.content as Subtitle[])[c].content;
+          let filteredText = profanity.purify(
+            (comment.content as Subtitle[])[c].content
+          )[0];
 
           for (const char of illegalChars) {
             filteredText = filteredText.replaceAll(char, " ");

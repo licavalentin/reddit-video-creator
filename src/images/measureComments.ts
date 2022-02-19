@@ -2,7 +2,7 @@ import { join } from "path";
 
 import Jimp from "jimp";
 import { decode } from "html-entities";
-import profanity from "profanity-util";
+// import profanity from "profanity-util";
 
 import { fontPath, renderPath } from "../config/paths";
 import { imageDetails, commentDetails } from "../config/image";
