@@ -1,1 +1,5 @@
-export const fps = 5;
+export const video = {
+  width: 1920,
+  height: 1080,
+  fps: 5,
+};
