@@ -1,6 +1,9 @@
 import { Composition, Still } from "remotion";
 
 import { video } from "./config/video";
+import { PostFile } from "./interface/post";
+
+import post from "./data/post.json";
 
 import Intro from "./components/Intro";
 import Outro from "./components/Outro";
@@ -11,6 +14,11 @@ import "./styles/main.scss";
 export const RemotionVideo: React.FC = () => {
   const { fps, height, width } = video;
 
+  const {
+    post: { title, author, score: postScore, all_awardings },
+    outro,
+  } = post as PostFile;
+
   return (
     <>
       <Composition
@@ -20,7 +28,12 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        // defaultProps={}
+        defaultProps={{
+          title,
+          author,
+          score: postScore,
+          awards: all_awardings,
+        }}
       />
 
       <Composition
@@ -30,7 +43,9 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        // defaultProps={}
+        defaultProps={{
+          outro,
+        }}
       />
 
       <Still

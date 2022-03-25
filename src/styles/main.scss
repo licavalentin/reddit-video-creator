@@ -10,9 +10,21 @@
 
 body {
   font-size: 2em;
-  color: var(--main-color);
+  color: var(--color);
 }
 
 ul {
   list-style: none;
+}
+
+.uparrow {
+  width: 3em;
+  height: 3em;
+
+  path {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 40;
+    stroke-miterlimit: 10;
+  }
 }

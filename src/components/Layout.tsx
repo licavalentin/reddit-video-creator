@@ -10,9 +10,7 @@ type Props = {
 const Layout: React.FC<Props> = ({ className, children }) => {
   return (
     <AbsoluteFill className={`${styles.layout} ${className}`}>
-      <div className={styles.layout__wrapper}>
-        <div className={styles.layout__content}>{children}</div>
-      </div>
+      {children}
     </AbsoluteFill>
   );
 };

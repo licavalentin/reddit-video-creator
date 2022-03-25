@@ -1,0 +1,19 @@
+.awards {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+
+  li {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+
+    img {
+      width: 1.3em;
+    }
+
+    p {
+      color: var(--text-inactive);
+    }
+  }
+}
