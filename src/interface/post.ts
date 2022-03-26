@@ -85,16 +85,19 @@ export interface Replies {
   };
 }
 
+export type PostComment = {
+  content: string;
+  user: string;
+  depth: number;
+  score: number;
+  awards: Award[];
+};
+
 export interface PostFile {
   post: Post;
-  comments: {
-    content: string;
-    user: string;
-    depth: number;
-    score: number;
-  }[];
+  comments: PostComment[];
   exportPath: string;
-  voice: string | null;
-  outro: string | null;
-  music: string | null;
+  voice: string;
+  outro: string;
+  music: string;
 }

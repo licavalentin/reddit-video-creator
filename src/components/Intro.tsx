@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Award } from "../interface/post";
 
 import Layout from "./Layout";

@@ -9,12 +9,22 @@ import styles from "../../styles/components/UI/awards.module.scss";
 
 type Props = {
   awards: Award[];
+  limit?: number;
+  counter?: boolean;
 };
 
-const Awards: React.FC<Props> = ({ awards }) => {
+const Awards: React.FC<Props> = ({ awards, limit, counter = true }) => {
+  if (awards && awards.length === 0) {
+    return null;
+  }
+
   return (
     <ul className={styles.awards}>
       {awards.map((award, index) => {
+        if (limit && limit <= index) {
+          return null;
+        }
+
         const { name, count } = award;
 
         const { path } = (
@@ -27,7 +37,7 @@ const Awards: React.FC<Props> = ({ awards }) => {
           <li key={index}>
             <Img src={image} />
 
-            <p>{count}</p>
+            {counter && <p>{count}</p>}
           </li>
         );
       })}

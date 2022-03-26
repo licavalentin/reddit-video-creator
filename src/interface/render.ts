@@ -1,4 +1,4 @@
-export type CompositionId = "intro" | "checkbox" | "circle" | "outro";
+export type CompositionId = "intro" | "comments" | "outro" | "thumbnail";
 
 export type GenerateVideo = (args: {
   id: CompositionId;

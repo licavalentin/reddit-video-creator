@@ -1,0 +1,26 @@
+.thumbnail {
+  padding: 5%;
+
+  .head {
+    display: flex;
+    column-gap: 5vw;
+
+    .subreddit {
+      font-size: 6vw;
+    }
+
+    ul {
+      font-size: 5vw;
+      column-gap: 2.5vw;
+    }
+  }
+
+  .thumbnail__title {
+    max-width: 60%;
+
+    .title {
+      font-size: 10vw;
+      line-height: 20vh;
+    }
+  }
+}
