@@ -24,9 +24,9 @@ const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
 
   return (
     <Layout>
-      <div className={styles.container}>
-        <BackgroundVideo videoPath="/videos/angry.webm" />
+      <BackgroundVideo videoPath="/videos/angry.webm" />
 
+      <div className={styles.container}>
         <div
           className={styles.intro}
           style={{ opacity, transform: `translateY(${transform}em)` }}

@@ -1,47 +1,44 @@
 .comments {
-  padding: 2em 5em;
+  margin: 2em 4.5em;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  background-color: var(--background);
+  border-radius: var(--radius);
+  padding: 0.5em 2em;
 
   .comment {
     position: relative;
     display: flex;
+    column-gap: 0.5em;
+    // border-left: 4px solid var(--arrow-inactive);
+
+    // &:first-child {
+    //   border: none;
+    // }
+
+    .comment__avatar {
+      transform: translateY(-0.5em);
+    }
 
     .comment__body {
       display: flex;
       flex-direction: column;
       row-gap: 1.2rem;
+      padding: 1em 0;
 
       .comment__details {
         display: flex;
         align-items: center;
         column-gap: 1.2rem;
+        font-weight: 500;
 
-        p {
-          font-weight: 500;
+        span {
+          color: var(--text-inactive);
         }
       }
 
       .comment__content {
-      }
-
-      .comment__score {
-        display: flex;
-        align-items: center;
-
-        svg {
-          height: 2em;
-
-          path {
-            stroke: var(--arrow-inactive);
-          }
-
-          &:last-child {
-            transform: rotate(180deg);
-          }
-        }
-
-        p {
-          font-weight: 700;
-        }
       }
     }
   }

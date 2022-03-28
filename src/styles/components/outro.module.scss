@@ -1,7 +1,11 @@
 .outro {
   background-size: cover;
   height: 100%;
-  padding: 5em;
+  margin: 2em 3em;
+  padding: 2em;
+  z-index: 1;
+  background-color: var(--background);
+  border-radius: var(--radius);
 
   .outro__title {
     text-transform: uppercase;

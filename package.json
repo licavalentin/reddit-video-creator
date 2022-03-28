@@ -6,7 +6,7 @@
     "dev": "remotion preview src/index.tsx",
     "render": "ts-node render.tsx",
     "upgrade": "remotion upgrade",
-    "render:c": "npx remotion render src/index.tsx intro out/video.mp4"
+    "render:c": "npx remotion render src/index.tsx comments out/video.mp4"
   },
   "keywords": [],
   "author": "Valentin Lica",

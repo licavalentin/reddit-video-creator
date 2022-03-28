@@ -3,7 +3,7 @@ import React from "react";
 import { Comments as CommentsProps } from "../interface/compositions";
 
 import Layout from "./Layout";
-import { RandomAvatar } from "./UI";
+import { BackgroundVideo, RandomAvatar } from "./UI";
 import { RedditArrowIcon } from "./CustomIcons";
 
 import { roundUp } from "../utils/helper";
@@ -13,6 +13,8 @@ import styles from "../styles/components/comments.module.scss";
 const Comments: React.FC<CommentsProps> = ({ comments }) => {
   return (
     <Layout>
+      <BackgroundVideo videoPath="/videos/angry.webm" />
+
       <ul className={styles.comments}>
         {comments.map((comment, index) => {
           const { user, score, depth, content, awards } = comment;
@@ -25,23 +27,15 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
               }}
               key={index}
             >
-              <RandomAvatar />
+              <RandomAvatar className={styles.comment__avatar} />
 
               <div className={styles.comment__body}>
                 <div className={styles.comment__details}>
-                  <p>{user} · </p>
+                  <p>{user}</p> <span>·</span> <span>{roundUp(score)}</span>
                   {/* <Awards awards={awards} /> */}
                 </div>
 
                 <div className={styles.comment__content}>{content}</div>
-
-                <div className={styles.comment__score}>
-                  <RedditArrowIcon />
-
-                  <p>{roundUp(score)}</p>
-
-                  <RedditArrowIcon />
-                </div>
               </div>
             </li>
           );
