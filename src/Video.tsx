@@ -1,7 +1,8 @@
-import { Composition, Still } from "remotion";
+import { Composition, getInputProps, Still } from "remotion";
 
 import { video } from "./config/video";
 import { PostFile } from "./interface/post";
+import { InputData } from "./interface/compositions";
 
 import post from "./data/post.json";
 
@@ -21,6 +22,9 @@ export const RemotionVideo: React.FC = () => {
     comments,
   } = post as PostFile;
 
+  const inputData = getInputProps() as InputData;
+  const prod = Object.keys(inputData).length !== 0;
+
   return (
     <>
       <Composition
@@ -30,12 +34,16 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        defaultProps={{
-          title,
-          author,
-          score: postScore,
-          awards: all_awardings,
-        }}
+        defaultProps={(() => {
+          if (prod && inputData.id === "intro") return inputData;
+
+          return {
+            title,
+            author,
+            score: postScore,
+            awards: all_awardings,
+          };
+        })()}
       />
 
       <Composition
@@ -45,9 +53,13 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        defaultProps={{
-          comments,
-        }}
+        defaultProps={(() => {
+          if (prod && inputData.id === "comments") return inputData;
+
+          return {
+            comments: comments[0],
+          };
+        })()}
       />
 
       <Composition
@@ -57,9 +69,13 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        defaultProps={{
-          outro,
-        }}
+        defaultProps={(() => {
+          if (prod && inputData.id === "outro") return inputData;
+
+          return {
+            outro,
+          };
+        })()}
       />
 
       <Still
@@ -67,11 +83,15 @@ export const RemotionVideo: React.FC = () => {
         component={Thumbnail}
         width={width}
         height={height}
-        defaultProps={{
-          title,
-          awards: all_awardings,
-          subreddit,
-        }}
+        defaultProps={(() => {
+          if (prod && inputData.id === "thumbnail") return inputData;
+
+          return {
+            title,
+            awards: all_awardings,
+            subreddit,
+          };
+        })()}
       />
     </>
   );

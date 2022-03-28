@@ -95,9 +95,10 @@ export type PostComment = {
 
 export interface PostFile {
   post: Post;
-  comments: PostComment[];
+  comments: PostComment[][];
   exportPath: string;
   voice: string;
   outro: string;
   music: string;
+  video: string;
 }

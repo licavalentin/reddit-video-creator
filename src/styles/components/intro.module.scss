@@ -3,19 +3,24 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  position: relative;
 
   .intro {
     display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: 20px;
-    padding: 0 7%;
+    column-gap: 0.5em;
+    margin: 0em 4.8em;
+    padding: 0.5em 2em;
+    z-index: 2;
+    background-color: var(--background);
+    border-radius: var(--radius);
 
     .score {
       display: flex;
       flex-direction: column;
       align-items: center;
-      row-gap: 10px;
+      row-gap: 0.5em;
 
       svg {
         path {
@@ -35,12 +40,12 @@
     .details {
       display: flex;
       flex-direction: column;
-      row-gap: 15px;
+      row-gap: 0.5em;
 
       .details__header {
         display: flex;
         align-items: center;
-        column-gap: 35px;
+        column-gap: 1.2em;
 
         p {
           color: var(--text-inactive);

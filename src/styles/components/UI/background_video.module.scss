@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+
+  .video {
+    height: 100%;
+  }
+}

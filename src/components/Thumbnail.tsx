@@ -1,19 +1,13 @@
 import React from "react";
 
-import { Award } from "../interface/post";
+import { Thumbnail as ThumbnailProps } from "../interface/compositions";
 
 import Layout from "./Layout";
-
-import styles from "../styles/components/thumbnail.module.scss";
 import { Awards } from "./UI";
 
-type Props = {
-  title: string;
-  subreddit: string;
-  awards: Award[];
-};
+import styles from "../styles/components/thumbnail.module.scss";
 
-const Thumbnail: React.FC<Props> = ({ title, subreddit, awards }) => {
+const Thumbnail: React.FC<ThumbnailProps> = ({ title, subreddit, awards }) => {
   return (
     <Layout>
       <div className={styles.thumbnail}>

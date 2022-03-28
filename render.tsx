@@ -1,4 +1,4 @@
-import { mkdtempSync } from "fs";
+import { mkdtempSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { tmpdir, cpus } from "os";
 import { join } from "path";
 
@@ -11,6 +11,8 @@ import {
 import { TCompMetadata, WebpackOverrideFn } from "remotion";
 
 import { GenerateVideo } from "./src/interface/render";
+import { getPost, mergeVideos } from "./src/utils/render";
+import { Comments, Intro, Outro } from "./src/interface/compositions";
 
 const render = async () => {
   console.time("Render");
@@ -40,9 +42,11 @@ const render = async () => {
 
     const tmpDir = mkdtempSync(join(tmpdir(), "remotion-"));
 
-    const videoList: string[] = [];
-
     const generateVideo: GenerateVideo = async ({ id, output, data }) => {
+      if (!existsSync(output)) {
+        mkdirSync(output);
+      }
+
       const comps = await getCompositions(bundled, {
         inputProps: data,
       });
@@ -84,6 +88,61 @@ const render = async () => {
 
       return finalOutput;
     };
+
+    const {
+      post: { title, author, all_awardings, score },
+      comments,
+      outro,
+      exportPath,
+    } = getPost();
+
+    // Generate Intro
+    const introPath = join(tmpDir, "intro");
+    await generateVideo({
+      id: "intro",
+      output: introPath,
+      data: {
+        title,
+        author,
+        awards: all_awardings,
+        score,
+      } as Intro,
+    });
+
+    // Generate Comments
+    for (let index = 0; index < comments.length; index++) {
+      const comment = comments[index];
+
+      await generateVideo({
+        id: "comments",
+        output: join(tmpDir, `comments-${index}`),
+        data: { comments: comment } as Comments,
+      });
+    }
+
+    // Generate Outro
+    const outroPath = join(tmpDir, "outro");
+    await generateVideo({
+      id: "outro",
+      output: introPath,
+      data: {
+        outro,
+      } as Outro,
+    });
+
+    const videoList: string[] = [
+      introPath,
+      ...comments.map((_, i) => join(tmpDir, `comments-${i}`)),
+      outroPath,
+    ];
+
+    const listPath = join(tmpDir, "list.txt");
+    writeFileSync(listPath, videoList.join("\n"));
+
+    mergeVideos({
+      exportPath,
+      listPath,
+    });
 
     console.log(tmpDir);
   } catch (err) {

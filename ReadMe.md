@@ -1,0 +1,8 @@
+- 📌 refactor te gjithen ne remotion
+  - 📌 make the videos like 24 fps and make like 2 vids a day
+  - 📌 include free stock footage in the background and animate te text ([example](https://www.youtube.com/watch?v=IqJHe-Xg7CY))
+- 📌 automate selecting comments
+  - 📌 manually search posts and save url in a list
+  - 📌 loop throw the list and select comments
+- 📌 automate upload to youtube with command: npm run upload
+- 📌 thumbnail

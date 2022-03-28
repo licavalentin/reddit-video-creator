@@ -1,7 +1,7 @@
-export type CompositionId = "intro" | "comments" | "outro" | "thumbnail";
+import { CompositionId, InputData } from "./compositions";
 
 export type GenerateVideo = (args: {
   id: CompositionId;
   output: string;
-  data: any;
+  data: InputData;
 }) => Promise<string>;

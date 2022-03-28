@@ -1,0 +1,48 @@
+.comments {
+  padding: 2em 5em;
+
+  .comment {
+    position: relative;
+    display: flex;
+
+    .comment__body {
+      display: flex;
+      flex-direction: column;
+      row-gap: 1.2rem;
+
+      .comment__details {
+        display: flex;
+        align-items: center;
+        column-gap: 1.2rem;
+
+        p {
+          font-weight: 500;
+        }
+      }
+
+      .comment__content {
+      }
+
+      .comment__score {
+        display: flex;
+        align-items: center;
+
+        svg {
+          height: 2em;
+
+          path {
+            stroke: var(--arrow-inactive);
+          }
+
+          &:last-child {
+            transform: rotate(180deg);
+          }
+        }
+
+        p {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
