@@ -1,138 +1,74 @@
+import axios from "axios";
+
 import {
-  TopFilter,
   Post,
-  Posts,
   Comment,
-  Filter,
-  Pagination,
   CommentWrapper,
   Replies,
+  RedditData,
+  Award,
 } from "../interface/post";
 
 const redditUrl = "https://www.reddit.com";
 
 /**
- * Get SubReddit Posts
- * @param subReddit Subreddit link
- * @param topFilter Sort Filter
+ * Fetch Post Data
  */
-export const getPosts = async (
-  subReddit: string,
-  filter: Filter,
-  topFilter?: TopFilter,
-  page?: string
-): Promise<{
-  pagination: Pagination;
-  data: Post[];
-}> => {
-  const url = `${redditUrl}/r/${subReddit}/${filter}.json${
-    filter === "top" ? `?t=${topFilter}` : ""
-  }${page ? `${filter !== "top" ? "?" : "&"}after=${page}` : ""}`;
+export const fetchPostData = async (url: string) => {
+  // Check if Url is valid
+  const { origin, pathname } = (() => {
+    try {
+      const postData = new URL(url);
 
-  const res = await fetch(url);
-  const data = await res.json();
+      if (postData.origin !== redditUrl) {
+        throw new Error("Invalid Post Url");
+      }
 
-  const fileredData = data.data.children.map((item: Posts): Post => {
-    const {
-      data: {
-        all_awardings,
-        id,
-        title,
-        author,
-        num_comments,
-        permalink,
-        score,
-        subreddit,
-        subreddit_name_prefixed,
-        total_awards_received,
-        ups,
-      },
-    } = item;
+      return postData;
+    } catch (error) {
+      throw new Error("Invalid Post Url");
+    }
+  })();
 
-    return {
-      all_awardings: all_awardings.map((awards) => {
-        const { count, name } = awards;
-        return { count, name };
-      }),
-      id,
-      title,
-      author,
-      num_comments,
-      permalink,
-      score,
-      subreddit,
-      subreddit_name_prefixed,
-      total_awards_received,
-      ups,
-      added: false,
-    };
+  const urls = `${origin}${pathname}.json?sort=top`;
+
+  // Fetch Post data
+  const { data } = (await axios.get(urls)) as { data: RedditData };
+
+  const {
+    all_awardings,
+    title,
+    num_comments,
+    subreddit,
+    selftext,
+    author,
+    created_utc,
+    over_18,
+    score,
+  } = data[0].data.children[0].data;
+
+  // todo []. in the future cache fetcher posts
+
+  const postAwards: Award[] = all_awardings.map((awards) => {
+    const { count, name } = awards;
+
+    return { count, name };
   });
 
-  return {
-    pagination: {
-      next: data.data.after,
-      before: data.data.before,
-    },
-    data: fileredData,
-  };
-};
-
-/**
- * Get Post comments
- * @param subredditId SubReddit Id
- * @param commentId Comment Id
- * @param commentSlug Comment Slug
- */
-
-export const getComments = async (
-  subredditId: string,
-  commentId: string,
-  commentSlug: string
-) => {
-  const url = `${redditUrl}/r/${subredditId}/comments/${commentId}/${commentSlug}.json?sort=top`;
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  const getPostDetails = (): Post => {
-    const {
-      all_awardings,
-      id,
-      title,
-      author,
-      num_comments,
-      permalink,
-      score,
-      subreddit,
-      subreddit_name_prefixed,
-      total_awards_received,
-      ups,
-      selftext,
-    } = data[0].data.children[0].data as Post;
-
-    return {
-      all_awardings: all_awardings.map((awards) => {
-        const { count, name } = awards;
-
-        return { count, name };
-      }),
-      id,
-      title,
-      author,
-      num_comments,
-      permalink,
-      score,
-      subreddit,
-      subreddit_name_prefixed,
-      total_awards_received,
-      ups,
-      selftext,
-    };
+  const postDetails: Post = {
+    all_awardings: postAwards,
+    title,
+    author,
+    num_comments,
+    subreddit,
+    selftext,
+    created_utc,
+    over_18,
+    score,
   };
 
-  const postDetails = getPostDetails();
-
-  const comments: Comment[] = [];
+  const commentList: Comment[][] = [];
+  let comments: Comment[] = [];
 
   for (const commentTree of data[1].data.children) {
     if (commentTree.kind === "more") {
@@ -143,37 +79,36 @@ export const getComments = async (
       const {
         data: {
           author,
-          ups,
-          id,
           body,
           replies,
           all_awardings,
           created_utc,
           depth,
-          parent_id,
           score,
         },
       } = commentDetails;
+
+      if (depth === 0) {
+        if (comments.length > 0) {
+          commentList.push(comments);
+        }
+        comments = [];
+      }
+
+      if (depth > 2 || score < 1000 || comments[depth]) {
+        return;
+      }
+
       comments.push({
         author,
-        ups,
-        id,
-        body: body,
+        body,
         all_awardings: all_awardings.map((awards) => {
           const { count, name } = awards;
           return { count, name };
         }),
         created_utc,
         depth,
-        parent_id,
         score,
-        selected: false,
-        collapse:
-          replies !== "" &&
-          replies?.data.children.length !== 1 &&
-          typeof replies?.data.children[0] !== "string" &&
-          replies?.data.children[0].kind !== "more",
-        visible: true,
       });
 
       if (replies !== "") {
@@ -192,17 +127,26 @@ export const getComments = async (
     cleanUpComment(commentTree);
   }
 
-  if (postDetails.selftext !== "") {
-    comments.unshift({
-      ...postDetails,
-      body: postDetails.selftext as string,
-      created_utc: 1,
-      depth: 0,
-    });
-  }
-
   return {
-    postDetails,
-    comments,
+    post: postDetails,
+    comments: [
+      ...(() => {
+        if (selftext !== "")
+          return [
+            {
+              author,
+              body: selftext,
+              all_awardings: postAwards,
+              created_utc,
+              depth: 0,
+              score,
+            },
+          ];
+
+        return [];
+      })(),
+      ...commentList,
+      [comments],
+    ],
   };
 };

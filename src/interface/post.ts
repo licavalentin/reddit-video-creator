@@ -26,19 +26,28 @@ export interface Award {
 
 export interface Post {
   subreddit: string;
+  selftext: string;
   title: string;
-  subreddit_name_prefixed: string;
-  ups: number;
-  total_awards_received: number;
+  author: string;
+  over_18: boolean;
+  all_awardings: Award[];
+  num_comments: number;
+  created_utc: number;
+  score: number;
+}
+
+export interface Comment {
+  author: string;
+  body: string;
+  replies?: Replies | "";
+  parent_id?: string;
   score: number;
   all_awardings: Award[];
-  id: string;
-  author: string;
-  num_comments: number;
-  permalink: string;
-  added?: boolean;
-  created?: boolean;
-  selftext?: string;
+  created_utc: number;
+  depth: number;
+  selected?: boolean;
+  collapse?: boolean;
+  visible?: boolean;
 }
 
 export interface Posts {
@@ -54,22 +63,6 @@ export type Controls = {
   filter: Filter;
   topFilter?: TopFilter;
 };
-
-export interface Comment {
-  ups: number;
-  id: string;
-  author: string;
-  body: string;
-  replies?: Replies | "";
-  parent_id?: string;
-  score: number;
-  all_awardings: Award[];
-  created_utc: number;
-  depth: number;
-  selected?: boolean;
-  collapse?: boolean;
-  visible?: boolean;
-}
 
 export interface CommentWrapper {
   kind: string | "more";
@@ -102,3 +95,20 @@ export interface PostFile {
   music: string;
   video: string;
 }
+
+export type RedditData = [
+  {
+    data: {
+      children: [
+        {
+          data: Post;
+        }
+      ];
+    };
+  },
+  {
+    data: {
+      children: CommentWrapper[];
+    };
+  }
+];

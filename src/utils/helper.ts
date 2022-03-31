@@ -1,3 +1,5 @@
+import { CalculateComments } from "../interface/helper";
+
 /**
  * Roundup number to 1k, 1M ...
  * @param number Number to Roundup
@@ -13,4 +15,14 @@ export const roundUp = (number: number): string => {
   return `${newStr[newStr.length - 1].split("").reverse().join("")}${
     " kmgtpe"[newStr.length - 1]
   }`;
+};
+
+/**
+ * Calculate scroll effect on comments
+ */
+export const calculateComments: CalculateComments = async ({ commentsEl }) => {
+  if (commentsEl.current) {
+  }
+
+  return 0;
 };
