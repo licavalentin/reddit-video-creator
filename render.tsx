@@ -11,8 +11,9 @@ import {
   generateBundle,
 } from "./src/utils/render";
 
-import generateAudio from "./src/audio/index";
-import { fetchPostData } from "./src/utils/redditApi";
+// import generateAudio from "./src/audio/index";
+import { fetchPostData } from "./src/utils/reddit";
+import { createAudio } from "./src/audio";
 
 const render = async () => {
   console.time("Render");
@@ -32,7 +33,10 @@ const render = async () => {
 
     const { post, comments } = await fetchPostData(postsList[0]);
 
-    writeFileSync(join(__dirname, "test2.json"), JSON.stringify(comments));
+    // await createAudio({
+    //   comments,
+    //   tmpDir,
+    // });
 
     // Fetch Local Post File
     // const {

@@ -1,53 +1,68 @@
 import cluster from "cluster";
-import { writeFileSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-// import { tempPath } from "../config/paths";
-// import { Comment } from "../interface/post";
+import { Comment } from "../interface/post";
+import { deleteFolder } from "../utils/render";
 
-// import { getPost, spreadWork } from "../utils/helper";
-// import { getVoice } from "./lib";
+import { spreadWork } from "./lib";
 
-export default async (): Promise<null> => {
+type CreateAudio = (args: {
+  comments: Comment[][];
+  tmpDir: string;
+}) => Promise<null>;
+
+export const createAudio: CreateAudio = async ({ comments, tmpDir }) => {
   return new Promise(async (resolve) => {
-    // const {
-    //   cli: { balcon, bal4web },
-    //   customAudio,
-    // } = getPost();
-    // const folders = [];
-    // for (let i = 0; i < comments.length; i++) {
-    //   const comment = comments[i];
-    //   for (let j = 0; j < comment.content.length; j++) {
-    //     folders.push(`${i}-${j}`);
-    //   }
-    // }
-    // const work = spreadWork(folders);
-    // let counter = work.length;
-    // const voice = getVoice();
-    // for (let index = 0; index < work.length; index++) {
-    //   const jobs = work[index];
-    //   const jobsFilePath = join(tempPath, "data", `${index}-audio.json`);
-    //   writeFileSync(
-    //     jobsFilePath,
-    //     JSON.stringify({
-    //       jobs,
-    //       voice,
-    //       bal4web,
-    //       balcon,
-    //       customAudio,
-    //     })
-    //   );
-    //   cluster.setupPrimary({
-    //     exec: join(__dirname, "worker.js"),
-    //     args: [jobsFilePath],
-    //   });
-    //   const worker = cluster.fork();
-    //   worker.on("exit", () => {
-    //     counter--;
-    //     if (counter === 0) {
-    //       resolve(null);
-    //     }
-    //   });
-    // }
+    const audioPath = join(__dirname, "..", "..", "public", "audio");
+    deleteFolder(audioPath);
+    mkdirSync(audioPath);
+
+    const jobs: { text: string; id: [number, number, number] }[] = [];
+
+    for (let i = 0; i < comments.length; i++) {
+      const commentsList = comments[i];
+
+      for (let j = 0; j < commentsList.length; j++) {
+        const comment = commentsList[j];
+
+        for (let k = 0; k < (comment.body as string[]).length; k++) {
+          jobs.push({
+            text: (comment.body as string[])[k],
+            id: [i, j, k],
+          });
+        }
+      }
+    }
+
+    const work = spreadWork(jobs);
+
+    let counter = work.length;
+
+    for (let index = 0; index < work.length; index++) {
+      const jobs = work[index];
+
+      const audioDataPath = join(tmpDir, `${index}-audio.json`);
+
+      writeFileSync(audioDataPath, JSON.stringify(jobs));
+
+      cluster.setupPrimary({
+        exec: join(__dirname, "worker.js"),
+        args: [
+          JSON.stringify({
+            audioDataPath,
+          }),
+        ],
+      });
+
+      const worker = cluster.fork();
+
+      worker.on("exit", () => {
+        counter--;
+        if (counter === 0) {
+          resolve(null);
+        }
+      });
+    }
   });
 };

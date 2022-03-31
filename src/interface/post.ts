@@ -38,7 +38,7 @@ export interface Post {
 
 export interface Comment {
   author: string;
-  body: string;
+  body: string[] | string;
   replies?: Replies | "";
   parent_id?: string;
   score: number;

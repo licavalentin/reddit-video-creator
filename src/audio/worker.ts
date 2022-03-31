@@ -1,40 +1,36 @@
-// import { readFileSync } from "fs";
-// import { join } from "path";
+import { readFileSync } from "fs";
+import { join } from "path";
 
-// import { renderPath } from "../config/paths";
+import { generateAudioFile } from "./lib";
 
-// import { generateAudioFile } from "./lib";
+import { audio } from "../config/audio";
 
-// const init = async () => {
-//   const args = process.argv.slice(2);
-//   const { jobs, voice, bal4web, balcon, customAudio } = JSON.parse(
-//     readFileSync(args[0]).toString()
-//   ) as {
-//     jobs: string[];
-//     voice: string;
-//     bal4web: string | null;
-//     balcon: string | null;
-//     customAudio: boolean;
-//   };
+const init = async () => {
+  const args = process.argv.slice(2);
+  const jobs = JSON.parse(readFileSync(args[0]).toString()) as {
+    text: string;
+    id: [number, number, number];
+  }[];
 
-//   for (const folder of jobs) {
-//     const ids = folder.split("-");
-//     const exportPath = join(renderPath, ids[0], folder);
+  for (const job of jobs) {
+    const exportPath = join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "audio",
+      `${job.id.join("-")}.mp3`
+    );
 
-//     generateAudioFile({
-//       exportPath,
-//       textFilePath: join(exportPath, "text.txt"),
-//       voice,
-//       bal4web,
-//       balcon,
-//       customAudio,
-//     });
-//   }
+    generateAudioFile({
+      customAudio: audio.custom_audio,
+      outputPath: exportPath,
+      text: job.text,
+    });
+  }
 
-//   // Kill Worker
-//   process.exit();
-// };
+  // Kill Worker
+  process.exit();
+};
 
-// init();
-
-export {};
+init();

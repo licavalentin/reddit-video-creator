@@ -1,5 +1,13 @@
 import { execSync } from "child_process";
-import { readFileSync, existsSync, mkdirSync } from "fs";
+import {
+  readFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  lstatSync,
+  unlinkSync,
+  rmdirSync,
+} from "fs";
 import { join } from "path";
 import { cpus } from "os";
 
@@ -116,4 +124,21 @@ export const generateVideo: GenerateVideo = async ({
   });
 
   return finalOutput;
+};
+
+/**
+ * Delete Folder with its contents
+ */
+export const deleteFolder = (path: string) => {
+  if (existsSync(path)) {
+    readdirSync(path).forEach((file: string) => {
+      const curPath = join(path, file);
+      if (lstatSync(curPath).isDirectory()) {
+        deleteFolder(curPath);
+      } else {
+        unlinkSync(curPath);
+      }
+    });
+    rmdirSync(path);
+  }
 };

@@ -21,7 +21,9 @@
     "react-dom": "^17.0.2",
     "remotion": "^2.6.12",
     "sass": "^1.49.9",
-    "sass-loader": "^12.6.0"
+    "sass-loader": "^12.6.0",
+    "wink-eng-lite-web-model": "^1.4.0",
+    "wink-nlp": "^1.11.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",

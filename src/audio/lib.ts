@@ -1,97 +1,90 @@
-// import { execSync } from "child_process";
-// import { existsSync } from "fs";
-// import { join } from "path";
+import { execSync } from "child_process";
+import { cpus } from "os";
 
-// import { getPost } from "../utils/helper";
+import { audio } from "../config/audio";
 
-// /**
-//  * Get Voices List
-//  * @returns List of voices
-//  */
-// export const getVoice = () => {
-//   const {
-//     cli: { balcon, bal4web },
-//     voice,
-//     customAudio,
-//   } = getPost();
+/**
+ * Get Voices List
+ * @returns List of voices
+ */
+export const getVoice = () => {
+  if (!audio.custom_audio) {
+    const voices = execSync(`balcon -l`).toString();
 
-//   if (voice) return voice;
+    const listOfVoice = voices
+      .trim()
+      .split("\n")
+      .map((v) => v.trim())
+      .filter((v) => v !== "SAPI 5:");
 
-//   if (!customAudio) {
-//     const voices = execSync(
-//       `${balcon && existsSync(balcon) ? `"${balcon}"` : "balcon"} -l`
-//     ).toString();
+    return listOfVoice[0];
+  } else {
+    const voices = execSync(`bal4web -s m -m`).toString();
 
-//     const listOfVoice = voices
-//       .trim()
-//       .split("\n")
-//       .map((v) => v.trim())
-//       .filter((v) => v !== "SAPI 5:");
+    const listOfVoice = voices
+      .trim()
+      .split("\n")
+      .map((v) => v.trim())
+      .filter((v) => v !== "* Microsoft Azure *" && v.includes("en-US"))[0]
+      .split(" en-US ")[1]
+      .slice(1, -1)
+      .split(", ");
 
-//     return listOfVoice[0];
-//   } else {
-//     const voices = execSync(
-//       `${bal4web && existsSync(bal4web) ? `"${bal4web}"` : "bal4web"} -s m -m`
-//     ).toString();
+    return listOfVoice[0];
+  }
+};
 
-//     const listOfVoice = voices
-//       .trim()
-//       .split("\n")
-//       .map((v) => v.trim())
-//       .filter((v) => v !== "* Microsoft Azure *" && v.includes("en-US"))[0]
-//       .split(" en-US ")[1]
-//       .slice(1, -1)
-//       .split(", ");
+type AudioGenerator = (args: {
+  text: string;
+  outputPath: string;
+  customAudio: boolean;
+}) => void;
 
-//     return listOfVoice[0];
-//   }
-// };
+/**
+ * Generate Audio from text
+ */
+export const generateAudioFile: AudioGenerator = ({
+  text,
+  outputPath,
+  customAudio,
+}) => {
+  if (!customAudio) {
+    const command = `balcon -n ${audio.voice_name} -t "${text}" -w "${outputPath}"`;
 
-// type AudioGenerator = (args: {
-//   textFilePath: string;
-//   exportPath: string;
-//   voice: string;
-//   balcon?: string | null;
-//   bal4web?: string | null;
-//   customAudio: boolean;
-// }) => void;
+    try {
+      execSync(command);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    const command = `bal4web -s Microsoft -l en-Us -n ${audio.voice_name} -t "${text}" -w "${outputPath}"`;
 
-// /**
-//  * Generate Audio from text
-//  */
-// export const generateAudioFile: AudioGenerator = ({
-//   textFilePath,
-//   exportPath,
-//   voice,
-//   balcon,
-//   bal4web,
-//   customAudio,
-// }) => {
-//   const outputPath = join(exportPath, "audio.mp3");
+    try {
+      execSync(command);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-//   if (!customAudio) {
-//     const command = `${
-//       balcon && existsSync(balcon) ? `"${balcon}"` : "balcon"
-//     } -n ${voice} -f "${textFilePath}" -w "${outputPath}"`;
+  console.log("audio-generated");
+};
 
-//     try {
-//       execSync(command);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   } else {
-//     const command = `${
-//       bal4web && existsSync(bal4web) ? `"${bal4web}"` : "bal4web"
-//     } -s Microsoft -l en-Us -n ${voice} -f "${textFilePath}" -w "${outputPath}"`;
+/**
+ * Spread work count for each cluster
+ * @param work Array of any items
+ */
+export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
+  const cpuCount = cpus().length;
+  const workPerCpu = Math.floor(work.length / cpuCount);
+  let leftWork = work.length % cpuCount;
+  const workSpreed: T[][] = [];
+  let counter = 0;
 
-//     try {
-//       execSync(command);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
+  for (let i = 0; i < cpuCount; i++) {
+    const increment = i < leftWork ? workPerCpu + 1 : workPerCpu;
+    workSpreed[i] = work.slice(counter, counter + increment);
+    counter += increment;
+  }
 
-//   console.log("audio-generated");
-// };
-
-export {};
+  return workSpreed.filter((e) => e.length > 0);
+};

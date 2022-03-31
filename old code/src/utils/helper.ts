@@ -203,23 +203,3 @@ export const splitByDepth = (commentsList: Comment[]) => {
 
   return comments;
 };
-
-/**
- * Spread work count for each cluster
- * @param work Array of any items
- */
-export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
-  const cpuCount = cpus().length;
-  const workPerCpu = Math.floor(work.length / cpuCount);
-  let leftWork = work.length % cpuCount;
-  const workSpreed: T[][] = [];
-  let counter = 0;
-
-  for (let i = 0; i < cpuCount; i++) {
-    const increment = i < leftWork ? workPerCpu + 1 : workPerCpu;
-    workSpreed[i] = work.slice(counter, counter + increment);
-    counter += increment;
-  }
-
-  return workSpreed.filter((e) => e.length > 0);
-};
