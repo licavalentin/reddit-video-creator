@@ -1,4 +1,4 @@
-import { Award, PostComment } from "./post";
+import { Award, Comment } from "./post";
 
 export type CompositionId = "intro" | "outro" | "thumbnail" | "comments";
 
@@ -24,7 +24,7 @@ export type Thumbnail = {
 
 export type Comments = {
   id?: "comments";
-  comments: PostComment[];
+  comments: Comment[];
 };
 
 export type InputData = Intro | Outro | Thumbnail | Comments;

@@ -35,21 +35,19 @@ export const getVoice = () => {
 };
 
 type AudioGenerator = (args: {
-  text: string;
+  textFilePath: string;
   outputPath: string;
-  customAudio: boolean;
 }) => void;
 
 /**
  * Generate Audio from text
  */
 export const generateAudioFile: AudioGenerator = ({
-  text,
+  textFilePath,
   outputPath,
-  customAudio,
 }) => {
-  if (!customAudio) {
-    const command = `balcon -n ${audio.voice_name} -t "${text}" -w "${outputPath}"`;
+  if (!audio.custom_audio) {
+    const command = `balcon -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
       execSync(command);
@@ -57,7 +55,9 @@ export const generateAudioFile: AudioGenerator = ({
       console.log(error);
     }
   } else {
-    const command = `bal4web -s Microsoft -l en-Us -n ${audio.voice_name} -t "${text}" -w "${outputPath}"`;
+    const command = `bal4web -s m -l en-Us -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
+
+    console.log(command);
 
     try {
       execSync(command);

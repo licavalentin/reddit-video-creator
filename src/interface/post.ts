@@ -40,14 +40,10 @@ export interface Comment {
   author: string;
   body: string[] | string;
   replies?: Replies | "";
-  parent_id?: string;
   score: number;
   all_awardings: Award[];
   created_utc: number;
   depth: number;
-  selected?: boolean;
-  collapse?: boolean;
-  visible?: boolean;
 }
 
 export interface Posts {
@@ -88,7 +84,7 @@ export type PostComment = {
 
 export interface PostFile {
   post: Post;
-  comments: PostComment[][];
+  comments: Comment[][];
   exportPath: string;
   voice: string;
   outro: string;

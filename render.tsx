@@ -31,80 +31,70 @@ const render = async () => {
       throw new Error("Please Add Posts");
     }
 
-    const { post, comments } = await fetchPostData(postsList[0]);
+    const {
+      post: { title, author, all_awardings, score },
+      comments,
+    } = await fetchPostData(postsList[0]);
 
-    // await createAudio({
-    //   comments,
-    //   tmpDir,
-    // });
-
-    // Fetch Local Post File
-    // const {
-    //   post: { title, author, all_awardings, score },
-    //   comments,
-    //   outro,
-    //   exportPath,
-    // } = getPost();
-
-    // Generate Audio Files
-    // await generateAudio();
+    createAudio({
+      comments,
+      tmpDir,
+    });
 
     // Bundle React Code
-    // const bundled = await generateBundle();
+    const bundled = await generateBundle();
 
-    // // Generate Intro Video
-    // const introPath = join(tmpDir, "intro");
-    // await generateVideo({
-    //   bundled,
-    //   id: "intro",
-    //   output: introPath,
-    //   data: {
-    //     title,
-    //     author,
-    //     awards: all_awardings,
-    //     score,
-    //   } as Intro,
-    // });
+    // Generate Intro Video
+    const introPath = join(tmpDir, "intro");
+    await generateVideo({
+      bundled,
+      id: "intro",
+      output: introPath,
+      data: {
+        title,
+        author,
+        awards: all_awardings,
+        score,
+      } as Intro,
+    });
 
-    // // Generate Comments
-    // for (let index = 0; index < comments.length; index++) {
-    //   const comment = comments[index];
+    // Generate Comments
+    for (let index = 0; index < comments.length; index++) {
+      await generateVideo({
+        bundled,
+        id: "comments",
+        output: join(tmpDir, `comments-${index}`),
+        data: { comments: comments[index] },
+      });
+    }
 
-    //   await generateVideo({
-    //     bundled,
-    //     id: "comments",
-    //     output: join(tmpDir, `comments-${index}`),
-    //     data: { comments: comment } as Comments,
-    //   });
-    // }
+    // Generate Outro
+    const outroPath = join(tmpDir, "outro");
+    await generateVideo({
+      bundled,
 
-    // // Generate Outro
-    // const outroPath = join(tmpDir, "outro");
-    // await generateVideo({
-    //   bundled,
+      id: "outro",
+      output: introPath,
+      data: {
+        outro: "Go fuck your self",
+      } as Outro,
+    });
 
-    //   id: "outro",
-    //   output: introPath,
-    //   data: {
-    //     outro,
-    //   } as Outro,
-    // });
+    const videoList: string[] = [
+      introPath,
+      ...comments.map((_, i) => join(tmpDir, `comments-${i}`)),
+      outroPath,
+    ];
 
-    // const videoList: string[] = [
-    //   introPath,
-    //   ...comments.map((_, i) => join(tmpDir, `comments-${i}`)),
-    //   outroPath,
-    // ];
+    const listPath = join(tmpDir, "list.txt");
+    writeFileSync(listPath, videoList.join("\n"));
 
-    // const listPath = join(tmpDir, "list.txt");
-    // writeFileSync(listPath, videoList.join("\n"));
+    mergeVideos({
+      exportPath: "C:\\Users\\licav\\Desktop",
+      listPath,
+    });
 
-    // mergeVideos({
-    //   exportPath,
-    //   listPath,
-    // });
-
-    // console.log(tmpDir);
+    console.log(tmpDir);
   } catch (err) {
     console.error(err);
   }

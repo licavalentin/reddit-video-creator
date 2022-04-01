@@ -4,7 +4,7 @@ import { continueRender, delayRender } from "remotion";
 import { Comments as CommentsProps } from "../interface/compositions";
 
 import Layout from "./Layout";
-import { BackgroundVideo, RandomAvatar } from "./UI";
+import { Awards, BackgroundVideo, RandomAvatar } from "./UI";
 
 import { calculateComments, roundUp } from "../utils/helper";
 
@@ -36,7 +36,7 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
 
       <ul className={styles.comments} ref={commentsEl}>
         {comments.map((comment, index) => {
-          const { user, score, depth, content, awards } = comment;
+          const { author, score, depth, body, all_awardings } = comment;
 
           return (
             <li
@@ -50,11 +50,11 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
 
               <div className={styles.comment__body}>
                 <div className={styles.comment__details}>
-                  <p>{user}</p> <span>·</span> <span>{roundUp(score)}</span>
-                  {/* <Awards awards={awards} /> */}
+                  <p>{author}</p> <span>·</span> <span>{roundUp(score)}</span>
+                  {all_awardings && <Awards awards={all_awardings} limit={4} />}
                 </div>
 
-                <div className={styles.comment__content}>{content}</div>
+                <div className={styles.comment__content}>{body}</div>
               </div>
             </li>
           );

@@ -17,10 +17,10 @@ export const RemotionVideo: React.FC = () => {
   const { fps, height, width } = video;
 
   const {
-    post: { title, author, score: postScore, all_awardings, subreddit },
+    post: { title, author, score, all_awardings, subreddit },
     outro,
     comments,
-  } = post as PostFile;
+  } = post;
 
   const inputData = getInputProps() as InputData;
   const prod = Object.keys(inputData).length !== 0;
@@ -40,7 +40,7 @@ export const RemotionVideo: React.FC = () => {
           return {
             title,
             author,
-            score: postScore,
+            score,
             awards: all_awardings,
           };
         })()}
@@ -54,7 +54,8 @@ export const RemotionVideo: React.FC = () => {
         width={width}
         height={height}
         defaultProps={(() => {
-          if (prod && inputData.id === "comments") return inputData;
+          if (prod && inputData.id === "comments")
+            return { comments: inputData.comments };
 
           return {
             comments: comments[0],
