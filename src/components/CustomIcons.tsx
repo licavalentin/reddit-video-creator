@@ -1,14 +1,15 @@
 export const RedditArrowIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    x="0"
-    y="0"
-    enableBackground="new 0 0 612 792"
-    version="1.1"
-    viewBox="0 0 612 792"
-    xmlSpace="preserve"
+    fill="none"
+    viewBox="0 0 442 483"
     className="uparrow"
   >
-    <path d="M519.64 433.32H402.71v224.49c0 4.05-3.29 7.34-7.34 7.34H211.02c-4.05 0-7.34-3.29-7.34-7.34V433.32H89.28c-6.33 0-9.69-7.47-5.49-12.2l104.93-118.46L298.97 178.2c2.92-3.3 8.07-3.3 10.99 0L420.2 302.66l104.93 118.46c4.19 4.73.83 12.2-5.49 12.2z"></path>
+    <path
+      stroke="#1D1D1B"
+      strokeMiterlimit="10"
+      strokeWidth="38"
+      d="M416.2 253H310.1v203.7c0 3.6-3 6.6-6.6 6.6H136.2c-3.7 0-6.6-3-6.6-6.6V253H25.7c-5.7 0-8.8-6.8-5-11.1l95.2-107.5 100-112.9c2.6-3 7.4-3 10 0l100 113L421.1 242c3.9 4.2.8 11-4.9 11z"
+    ></path>
   </svg>
 );

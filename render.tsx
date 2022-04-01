@@ -2,18 +2,13 @@ import { mkdtempSync, readFileSync, writeFileSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 
-import { Comments, Intro, Outro } from "./src/interface/compositions";
+import { Intro, Outro } from "./src/utils/compositions";
 
-import {
-  getPost,
-  mergeVideos,
-  generateVideo,
-  generateBundle,
-} from "./src/utils/render";
+import { mergeVideos, generateVideo, generateBundle } from "./src/utils/render";
 
 // import generateAudio from "./src/audio/index";
 import { fetchPostData } from "./src/utils/reddit";
-import { createAudio } from "./src/audio";
+// import { createAudio } from "./src/audio";
 
 const render = async () => {
   console.time("Render");
@@ -36,10 +31,10 @@ const render = async () => {
       comments,
     } = await fetchPostData(postsList[0]);
 
-    createAudio({
-      comments,
-      tmpDir,
-    });
+    // createAudio({
+    //   comments,
+    //   tmpDir,
+    // });
 
     // Bundle React Code
     const bundled = await generateBundle();
@@ -72,18 +67,19 @@ const render = async () => {
     const outroPath = join(tmpDir, "outro");
     await generateVideo({
       bundled,
-
       id: "outro",
-      output: introPath,
+      output: outroPath,
       data: {
-        outro: "Go fuck your self",
+        outro: "💖 Thank you for watching",
       } as Outro,
     });
 
     const videoList: string[] = [
-      introPath,
-      ...comments.map((_, i) => join(tmpDir, `comments-${i}`)),
-      outroPath,
+      `file '${join(introPath, "out.mp4")}`,
+      ...comments.map(
+        (_, i) => `file '${join(tmpDir, `comments-${i}`, "out.mp4")}'`
+      ),
+      `file '${join(outroPath, "out.mp4")}`,
     ];
 
     const listPath = join(tmpDir, "list.txt");

@@ -2,6 +2,7 @@ import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 
 import { Intro as IntroProps } from "../interface/compositions";
+import { video } from "../config/video";
 
 import Layout from "./Layout";
 import { RedditArrowIcon } from "./CustomIcons";
@@ -15,12 +16,11 @@ const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
-  const opacity = interpolate(frame, [0, 8], [0, 1]);
-  const transform = interpolate(
-    frame,
-    [0, 8, 9, durationInFrames],
-    [1, 0, 0, 0]
-  );
+  const opacity = video.fps > 24 ? interpolate(frame, [0, 8], [0, 1]) : 1;
+  const transform =
+    video.fps > 24
+      ? interpolate(frame, [0, 5, 6, durationInFrames], [1, 0, 0, 0])
+      : 0;
 
   return (
     <Layout>

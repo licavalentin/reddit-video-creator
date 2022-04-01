@@ -10,7 +10,7 @@ import {
   Replies,
   RedditData,
   Award,
-} from "../interface/post";
+} from "./post";
 
 const redditUrl = "https://www.reddit.com";
 

@@ -26,6 +26,7 @@ dist
 build
 *.exe
 *.mp4
+*.mp3
 *.webm
 content
 authors.json

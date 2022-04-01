@@ -9,12 +9,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: 0.5em;
+    column-gap: 1em;
     margin: 0em 4.8em;
-    padding: 0.5em 2em;
+    padding: 1em 2em;
     z-index: 2;
     background-color: var(--background);
     border-radius: var(--radius);
+    box-shadow: 0 0 10px 0px black;
 
     .score {
       display: flex;
@@ -23,10 +24,6 @@
       row-gap: 0.5em;
 
       svg {
-        path {
-          stroke: var(--arrow-inactive);
-        }
-
         &:last-child {
           transform: rotate(180deg);
         }
@@ -50,9 +47,6 @@
         p {
           color: var(--text-inactive);
         }
-      }
-
-      .title {
       }
     }
   }

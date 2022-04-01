@@ -1,6 +1,5 @@
 import { execSync } from "child_process";
 import {
-  readFileSync,
   existsSync,
   mkdirSync,
   readdirSync,
@@ -11,22 +10,15 @@ import {
 import { join } from "path";
 import { cpus } from "os";
 
+import { WebpackOverrideFn, TCompMetadata } from "remotion";
 import {
   getCompositions,
   renderFrames,
   stitchFramesToVideo,
 } from "@remotion/renderer";
-import { WebpackOverrideFn } from "remotion";
-
-import { PostFile } from "../interface/post";
-import { GenerateVideo } from "../interface/render";
-import { TCompMetadata } from "remotion";
 import { bundle } from "@remotion/bundler";
 
-export const getPost = () =>
-  JSON.parse(
-    readFileSync(join(__dirname, "..", "data", "post.json")).toString()
-  ) as PostFile;
+import { CompositionId, InputData } from "./compositions";
 
 type MergeVideos = (args: {
   listPath: string;
@@ -68,10 +60,17 @@ export const generateBundle: () => Promise<string> = async () => {
     },
   });
 
-  return await bundle(join(__dirname, "./src/index.tsx"), () => {}, {
+  return await bundle(join(__dirname, "../index.tsx"), () => {}, {
     webpackOverride,
   });
 };
+
+type GenerateVideo = (args: {
+  bundled: string;
+  id: CompositionId;
+  output: string;
+  data: InputData;
+}) => Promise<string>;
 
 // Generate Video
 export const generateVideo: GenerateVideo = async ({

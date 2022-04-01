@@ -5,6 +5,7 @@
   z-index: 2;
   background-color: var(--background);
   border-radius: var(--radius);
+  box-shadow: 0 0 10px 0px black;
   padding: 0.5em 2em;
 
   .comment {
@@ -18,13 +19,13 @@
     // }
 
     .comment__avatar {
-      transform: translateY(-0.5em);
+      transform: translateY(-1em);
     }
 
     .comment__body {
       display: flex;
       flex-direction: column;
-      row-gap: 1.2rem;
+      row-gap: 0.8rem;
       padding: 1em 0;
 
       .comment__details {
@@ -35,6 +36,19 @@
 
         span {
           color: var(--text-inactive);
+          display: flex;
+          align-items: center;
+          column-gap: 0.3em;
+
+          svg {
+            width: 1em;
+            height: 1em;
+
+            path {
+              fill: var(--arrow-up);
+              stroke: var(--arrow-up);
+            }
+          }
         }
       }
 

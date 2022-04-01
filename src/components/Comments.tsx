@@ -5,6 +5,7 @@ import { Comments as CommentsProps } from "../interface/compositions";
 
 import Layout from "./Layout";
 import { Awards, BackgroundVideo, RandomAvatar } from "./UI";
+import { RedditArrowIcon } from "./CustomIcons";
 
 import { calculateComments, roundUp } from "../utils/helper";
 
@@ -50,7 +51,12 @@ const Comments: React.FC<CommentsProps> = ({ comments }) => {
 
               <div className={styles.comment__body}>
                 <div className={styles.comment__details}>
-                  <p>{author}</p> <span>·</span> <span>{roundUp(score)}</span>
+                  <p>{author}</p> <span>·</span>
+                  <span>
+                    <RedditArrowIcon />
+                    {roundUp(score)}
+                  </span>
+                  <span>·</span>
                   {all_awardings && <Awards awards={all_awardings} limit={4} />}
                 </div>
 

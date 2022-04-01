@@ -6,11 +6,12 @@
   z-index: 1;
   background-color: var(--background);
   border-radius: var(--radius);
+  box-shadow: 0 0 10px 0px black;
 
   .outro__title {
     text-transform: uppercase;
     text-align: center;
-    font-size: 3.7em;
+    font-size: 3em;
     font-weight: 900;
   }
 }

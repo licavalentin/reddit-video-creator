@@ -18,12 +18,12 @@ ul {
 }
 
 .uparrow {
-  width: 3em;
-  height: 3em;
+  width: 1.8em;
+  height: 1.8em;
 
   path {
     fill: none;
-    stroke: #000000;
+    stroke: var(--arrow-inactive);
     stroke-width: 40;
     stroke-miterlimit: 10;
   }

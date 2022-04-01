@@ -7,8 +7,6 @@
 []. automate upload to youtube with command: npm run upload
 []. thumbnail
 []. create bash script for program
-
-
 []. krijo nje algoritem per scroll e posteve (delayRender)
 
 
