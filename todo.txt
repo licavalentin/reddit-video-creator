@@ -9,6 +9,9 @@
 []. create bash script for program
 []. krijo nje algoritem per scroll e posteve (delayRender)
 
+[]. krijo app per cel per seletimin e posteve 
+[]. app te perdoret dhe per settings
+
 
 Steps:
   []. implement generating audio files 

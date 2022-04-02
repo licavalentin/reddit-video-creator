@@ -22,9 +22,9 @@ export type Thumbnail = {
   awards: Award[];
 };
 
-export type Comments = {
+export type CommentsGroup = {
   id?: "comments";
   comments: Comment[];
 };
 
-export type InputData = Intro | Outro | Thumbnail | Comments;
+export type InputData = Intro | Outro | Thumbnail | CommentsGroup;

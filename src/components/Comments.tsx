@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { continueRender, delayRender } from "remotion";
 
-import { Comments as CommentsProps } from "../interface/compositions";
+import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
 import { Awards, BackgroundVideo, RandomAvatar } from "./UI";
@@ -11,7 +11,7 @@ import { calculateComments, roundUp } from "../utils/helper";
 
 import styles from "../styles/components/comments.module.scss";
 
-const Comments: React.FC<CommentsProps> = ({ comments }) => {
+const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const commentsEl = useRef<HTMLUListElement>(null);
   const [animation, setAnimation] = useState<number | null>(null);
 

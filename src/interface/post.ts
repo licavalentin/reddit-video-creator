@@ -29,14 +29,20 @@ export interface Post {
   score: number;
 }
 
+export interface CommentBody {
+  frames?: number[];
+  text: string;
+}
+
 export interface Comment {
   author: string;
-  body: string[] | string;
+  body: CommentBody[] | string;
   replies?: Replies | "";
   score: number;
   all_awardings: Award[];
   created_utc: number;
   depth: number;
+  audio?: string;
 }
 
 export interface PostFile {
@@ -48,3 +54,20 @@ export interface PostFile {
   music: string;
   video: string;
 }
+
+export type RedditData = [
+  {
+    data: {
+      children: [
+        {
+          data: Post;
+        }
+      ];
+    };
+  },
+  {
+    data: {
+      children: CommentWrapper[];
+    };
+  }
+];

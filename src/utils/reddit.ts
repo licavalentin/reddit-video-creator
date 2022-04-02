@@ -10,7 +10,7 @@ import {
   Replies,
   RedditData,
   Award,
-} from "./post";
+} from "../interface/post";
 
 const redditUrl = "https://www.reddit.com";
 
@@ -18,6 +18,8 @@ const redditUrl = "https://www.reddit.com";
  * Fetch Post Data
  */
 export const fetchPostData = async (url: string) => {
+  console.log("Fetching Post");
+
   // Check if Url is valid
   const { origin, pathname } = (() => {
     try {
@@ -138,7 +140,14 @@ export const fetchPostData = async (url: string) => {
           [
             {
               author,
-              body: selftext,
+              body: nlp
+                .readDoc(selftext as string)
+                .sentences()
+                .out()
+                .map((text) => ({
+                  text,
+                  frames: [0, 0],
+                })),
               all_awardings: postAwards(all_awardings),
               created_utc,
               depth: 0,
@@ -156,9 +165,15 @@ export const fetchPostData = async (url: string) => {
       body: nlp
         .readDoc(comment.body as string)
         .sentences()
-        .out(),
+        .out()
+        .map((text) => ({
+          text,
+          frames: [0, 0],
+        })),
     }))
   );
+
+  console.log("Post Fetched Successfully");
 
   return {
     post: postDetails,

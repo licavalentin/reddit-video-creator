@@ -1,12 +1,9 @@
-import { useEffect } from "react";
 import { Composition, getInputProps, Still } from "remotion";
 
 import { video } from "./config/video";
-import { PostFile } from "./interface/post";
 import { InputData } from "./interface/compositions";
 
 import post from "./data/post.json";
-import comments from "./data/data.json";
 
 import Intro from "./components/Intro";
 import Outro from "./components/Outro";
@@ -20,7 +17,7 @@ export const RemotionVideo: React.FC = () => {
 
   const {
     post: { title, author, score, all_awardings, subreddit },
-    outro,
+    comments,
   } = post;
 
   const inputData = getInputProps() as InputData;
@@ -55,11 +52,10 @@ export const RemotionVideo: React.FC = () => {
         width={width}
         height={height}
         defaultProps={(() => {
-          if (prod && inputData.id === "comments")
-            return { comments: inputData.comments };
+          if (prod && inputData.id === "comments") return inputData;
 
           return {
-            comments: comments[4],
+            comments: comments[0],
           };
         })()}
       />
@@ -75,7 +71,7 @@ export const RemotionVideo: React.FC = () => {
           if (prod && inputData.id === "outro") return inputData;
 
           return {
-            outro,
+            outro: "💖 Thank you for watching",
           };
         })()}
       />

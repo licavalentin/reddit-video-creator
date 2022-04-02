@@ -57,8 +57,6 @@ export const generateAudioFile: AudioGenerator = ({
   } else {
     const command = `bal4web -s m -l en-Us -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
-    console.log(command);
-
     try {
       execSync(command);
     } catch (error) {

@@ -18,7 +18,7 @@ import {
 } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
-import { CompositionId, InputData } from "./compositions";
+import { CompositionId, InputData } from "../interface/compositions";
 
 type MergeVideos = (args: {
   listPath: string;
@@ -140,4 +140,48 @@ export const deleteFolder = (path: string) => {
     });
     rmdirSync(path);
   }
+};
+
+type GetDuration = (args: {
+  filePath: string;
+  audioTrimDuration?: number;
+}) => number;
+
+/**
+ * Get File Duration
+ */
+export const getDuration: GetDuration = ({
+  filePath,
+  audioTrimDuration = 0,
+}) => {
+  const args = `ffprobe -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
+
+  try {
+    return (
+      Number(execSync(args, { stdio: "pipe" }).toString().trim()) -
+      audioTrimDuration
+    );
+  } catch (error) {
+    return 0;
+  }
+};
+
+/**
+ * Spread work count for each cluster
+ * @param work Array of any items
+ */
+export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
+  const cpuCount = cpus().length;
+  const workPerCpu = Math.floor(work.length / cpuCount);
+  let leftWork = work.length % cpuCount;
+  const workSpreed: T[][] = [];
+  let counter = 0;
+
+  for (let i = 0; i < cpuCount; i++) {
+    const increment = i < leftWork ? workPerCpu + 1 : workPerCpu;
+    workSpreed[i] = work.slice(counter, counter + increment);
+    counter += increment;
+  }
+
+  return workSpreed.filter((e) => e.length > 0);
 };
