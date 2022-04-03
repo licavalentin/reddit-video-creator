@@ -1,24 +1,25 @@
 import React from "react";
 import { Img, staticFile } from "remotion";
 
+import { AvatarDetails } from "../../interface/post";
+
 import styles from "../../styles/components/UI/random_avatar.module.scss";
 
 type Props = {
   className?: string;
+  avatar: AvatarDetails;
 };
 
-const RandomAvatar: React.FC<Props> = ({ className }) => {
-  const ramdomHead = Math.floor(Math.random() * 173);
-  const ramdomFace = Math.floor(Math.random() * 94);
-  const ramdomBody = Math.floor(Math.random() * 178);
+const RandomAvatar: React.FC<Props> = ({ className, avatar }) => {
+  const { face, head, body } = avatar;
 
   return (
     <div className={`${styles.avatar} ${className}`}>
       <Img src={staticFile(`/avatar/default-body.png`)} />
-      <Img src={staticFile(`/avatar/body/${ramdomBody}-body.png`)} />
+      <Img src={staticFile(`/avatar/body/${body}-body.png`)} />
       <Img src={staticFile(`/avatar/default-head.png`)} />
-      <Img src={staticFile(`/avatar/face/${ramdomFace}-face.png`)} />
-      <Img src={staticFile(`/avatar/head/${ramdomHead}-head.png`)} />
+      <Img src={staticFile(`/avatar/face/${face}-face.png`)} />
+      <Img src={staticFile(`/avatar/head/${head}-head.png`)} />
 
       <div className={styles.avatar__background} />
     </div>

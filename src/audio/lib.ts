@@ -64,7 +64,7 @@ export const generateAudioFile: AudioGenerator = ({
     }
   }
 
-  console.log("audio-generated");
+  // console.log("audio-generated");
 };
 
 /**

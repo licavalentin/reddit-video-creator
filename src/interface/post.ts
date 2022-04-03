@@ -34,7 +34,14 @@ export interface CommentBody {
   text: string;
 }
 
+export interface AvatarDetails {
+  face: number;
+  head: number;
+  body: number;
+}
+
 export interface Comment {
+  index?: number;
   author: string;
   body: CommentBody[] | string;
   replies?: Replies | "";
@@ -43,6 +50,7 @@ export interface Comment {
   created_utc: number;
   depth: number;
   audio?: string;
+  avatar?: AvatarDetails;
 }
 
 export interface PostFile {

@@ -11,6 +11,7 @@ import Thumbnail from "./components/Thumbnail";
 import Comments from "./components/Comments";
 
 import "./styles/main.scss";
+import { CommentBody, Comment } from "./interface/post";
 
 export const RemotionVideo: React.FC = () => {
   const { fps, height, width } = video;
@@ -22,6 +23,40 @@ export const RemotionVideo: React.FC = () => {
 
   const inputData = getInputProps() as InputData;
   const prod = Object.keys(inputData).length !== 0;
+
+  const commentConfig: {
+    durationInFrames: number;
+    defaultProps: {
+      comments: Comment[];
+    };
+  } = (() => {
+    const calcDuration = (comments: Comment[]) => {
+      let totalFrames = 0;
+
+      for (const comment of comments) {
+        for (const item of comment.body) {
+          const [start, end] = (item as CommentBody).frames as [number, number];
+          totalFrames += end - start;
+        }
+      }
+
+      return totalFrames;
+    };
+
+    if (prod && inputData.id === "comments") {
+      return {
+        durationInFrames: calcDuration(inputData.comments),
+        defaultProps: inputData,
+      };
+    }
+
+    return {
+      durationInFrames: calcDuration(comments[0]),
+      defaultProps: {
+        comments: comments[0],
+      },
+    };
+  })();
 
   return (
     <>
@@ -47,17 +82,11 @@ export const RemotionVideo: React.FC = () => {
       <Composition
         id="comments"
         component={Comments}
-        durationInFrames={1 * fps}
         fps={fps}
         width={width}
         height={height}
-        defaultProps={(() => {
-          if (prod && inputData.id === "comments") return inputData;
-
-          return {
-            comments: comments[0],
-          };
-        })()}
+        durationInFrames={commentConfig.durationInFrames}
+        defaultProps={commentConfig.defaultProps}
       />
 
       <Composition

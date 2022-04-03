@@ -24,6 +24,8 @@ const render = async () => {
     // Check if we have selected posts
     if (postsList.length === 0) throw new Error("Please Add Posts");
 
+    console.log(`📁 Project dir: ${tmpDir}`);
+
     // Fetch Post
     const {
       post: { title, author, all_awardings, score, subreddit },
@@ -38,6 +40,8 @@ const render = async () => {
 
     // Bundle React Code
     const bundled = await generateBundle();
+
+    console.log("🎥 Generating Video");
 
     // Generate Intro Video
     const introPath = join(tmpDir, "intro");
@@ -91,7 +95,7 @@ const render = async () => {
       listPath,
     });
 
-    console.log(tmpDir);
+    console.log("🎥 Video Generated Successfully");
   } catch (err) {
     console.error(err);
   }

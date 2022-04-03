@@ -1,36 +1,20 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 
 import { Intro as IntroProps } from "../interface/compositions";
-import { video } from "../config/video";
 
 import Layout from "./Layout";
 import { RedditArrowIcon } from "./CustomIcons";
-import { Awards, BackgroundVideo } from "./UI";
+import { Awards } from "./UI";
 
 import { roundUp } from "../utils/helper";
 
 import styles from "../styles/components/intro.module.scss";
 
 const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
-
-  const opacity = video.fps > 24 ? interpolate(frame, [0, 8], [0, 1]) : 1;
-  const transform =
-    video.fps > 24
-      ? interpolate(frame, [0, 5, 6, durationInFrames], [1, 0, 0, 0])
-      : 0;
-
   return (
     <Layout>
-      <BackgroundVideo videoPath="/videos/angry.webm" />
-
       <div className={styles.container}>
-        <div
-          className={styles.intro}
-          style={{ opacity, transform: `translateY(${transform}em)` }}
-        >
+        <div className={styles.intro}>
           <div className={styles.score}>
             <RedditArrowIcon />
 
@@ -42,7 +26,7 @@ const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
           <div className={styles.details}>
             <div className={styles.details__header}>
               <p>Posted by u/{author}</p>
-
+              <span>·</span>
               <Awards awards={awards} />
             </div>
 

@@ -44,7 +44,8 @@
         align-items: center;
         column-gap: 1.2em;
 
-        p {
+        p,
+        span {
           color: var(--text-inactive);
         }
       }

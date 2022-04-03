@@ -14,6 +14,8 @@ type CreateAudio = (args: {
 
 export const createAudio: CreateAudio = async ({ comments, tmpDir }) => {
   return new Promise(async (resolve) => {
+    console.log("🎵 Generating Audio");
+
     const audioPath = join(__dirname, "..", "..", "public", "audio");
     deleteFolder(audioPath);
     mkdirSync(audioPath);
@@ -57,6 +59,8 @@ export const createAudio: CreateAudio = async ({ comments, tmpDir }) => {
           resolve(
             comments.map((cg, i) => {
               let totalDuration = 0;
+
+              console.log("🎵 Audio Generated Successfully");
 
               return cg.map((c, j) => {
                 return {

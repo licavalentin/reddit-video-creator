@@ -95,12 +95,8 @@ export const generateVideo: GenerateVideo = async ({
   const { assetsInfo } = await renderFrames({
     config: video,
     webpackBundle: bundled,
-    onStart: () => console.log("Rendering frames..."),
-    onFrameUpdate: (f) => {
-      if (f % 10 === 0) {
-        console.log(`Rendered frame ${f}`);
-      }
-    },
+    onStart: () => {},
+    onFrameUpdate: () => {},
     parallelism: cpus().length,
     outputDir: output,
     inputProps: data,
@@ -120,6 +116,8 @@ export const generateVideo: GenerateVideo = async ({
     assetsInfo,
     imageFormat: "png",
     parallelism: cpus().length,
+    // pixelFormat: "yuva420p",
+    // codec: "vp8",
   });
 
   return finalOutput;

@@ -1,5 +1,6 @@
-import axios from "axios";
+import { join } from "path";
 
+import axios from "axios";
 import winkNLP from "wink-nlp";
 import model from "wink-eng-lite-web-model";
 
@@ -11,14 +12,32 @@ import {
   RedditData,
   Award,
 } from "../interface/post";
+import { readdirSync } from "fs";
 
 const redditUrl = "https://www.reddit.com";
+/**
+ * List all files and folders inside folder
+ * @param path Folder path
+ * @returns List of files and folders inside folder
+ */
+export const getFolders = (path: string): string[] => {
+  const files: string[] = readdirSync(path) ?? [];
+
+  const filesList: string[] = [];
+
+  for (const file of files) {
+    const index = parseInt(file.split("-")[0], 10);
+    filesList[index] = file;
+  }
+
+  return filesList.filter((item) => !item.includes(".json"));
+};
 
 /**
  * Fetch Post Data
  */
 export const fetchPostData = async (url: string) => {
-  console.log("Fetching Post");
+  console.log("📰 Fetching Post");
 
   // Check if Url is valid
   const { origin, pathname } = (() => {
@@ -133,6 +152,17 @@ export const fetchPostData = async (url: string) => {
 
   const nlp = winkNLP(model);
 
+  const publicFile = join(__dirname, "..", "..", "public", "avatar");
+  const faces = getFolders(join(publicFile, "face")).map((e) =>
+    Number(e.replace("-face.png", ""))
+  );
+  const heads = getFolders(join(publicFile, "head")).map((e) =>
+    Number(e.replace("-head.png", ""))
+  );
+  const bodies = getFolders(join(publicFile, "body")).map((e) =>
+    Number(e.replace("-body.png", ""))
+  );
+
   const selectedComments: Comment[][] = [
     ...(() => {
       if (selftext !== "")
@@ -160,7 +190,7 @@ export const fetchPostData = async (url: string) => {
     })(),
     ...commentList,
   ].map((comments) =>
-    comments.map((comment) => ({
+    comments.map((comment, index) => ({
       ...comment,
       body: nlp
         .readDoc(comment.body as string)
@@ -170,13 +200,19 @@ export const fetchPostData = async (url: string) => {
           text,
           frames: [0, 0],
         })),
+      avatar: {
+        face: faces[Math.floor(Math.random() * faces.length)],
+        head: heads[Math.floor(Math.random() * heads.length)],
+        body: bodies[Math.floor(Math.random() * bodies.length)],
+      },
+      index,
     }))
   );
 
-  console.log("Post Fetched Successfully");
+  console.log("📰 Post Fetched Successfully");
 
   return {
     post: postDetails,
-    comments: selectedComments,
+    comments: [selectedComments[0]],
   };
 };
