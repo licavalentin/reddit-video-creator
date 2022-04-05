@@ -1,13 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Audio,
-  continueRender,
-  delayRender,
-  staticFile,
-  useCurrentFrame,
-} from "remotion";
+import { continueRender, delayRender, useCurrentFrame } from "remotion";
 
-import { AvatarDetails, CommentBody } from "../interface/post";
+import { AvatarDetails } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
@@ -22,7 +16,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
 
   const commentsEl = useRef<HTMLUListElement>(null);
-  const [animation, setAnimation] = useState<number | null>(null);
+  const [transform, setTransform] = useState<number>(0);
 
   const [handle] = useState(() => delayRender());
 
@@ -31,47 +25,43 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
       commentsEl,
     });
 
-    setAnimation(animationData);
+    setTransform(animationData);
 
     continueRender(handle);
   };
 
   useEffect(() => {
     renderAnimation();
-  }, []);
+  }, [frame]);
+
+  const frameCounter = comments.map((e) => e.body.length);
 
   return (
     <Layout>
-      {/* {comments.map((comment, index) =>
-        (comment.body as CommentBody[]).map((text, idx) => {
-          return (
-            <Audio
-              src={staticFile(
-                `/audio/${[comment.index as number, index, idx].join("-")}.mp3`
-              )}
-              startFrom={(text.frames as number[])[0]}
-              endAt={(text.frames as number[])[1]}
-            />
-          );
-        })
-      )} */}
-
-      <ul className={styles.comments} ref={commentsEl}>
+      <ul
+        className={styles.comments}
+        ref={commentsEl}
+        style={{
+          transform: `translateY(${transform}px)`,
+        }}
+      >
         {comments.map((comment, index) => {
           const { author, score, depth, body, all_awardings, avatar } = comment;
 
-          if (
-            ((body as CommentBody[])[0].frames as number[])[0] >= frame &&
-            index > 0
-          ) {
-            return;
-          }
+          let prevFrames: number = 0;
+
+          frameCounter.forEach((frames, idx) => {
+            if (index > idx) {
+              prevFrames += frames;
+            }
+          });
 
           return (
             <li
               className={styles.comment}
               style={{
                 marginLeft: `${depth * 100}px`,
+                opacity: prevFrames >= frame && index > 0 ? 0 : 1,
               }}
               key={index}
             >
@@ -97,10 +87,19 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                 </div>
 
                 <div className={styles.comment__content}>
-                  {(body as CommentBody[])
-                    .filter((t) => (t.frames as number[])[0] <= frame)
-                    .map((e) => e.text)
-                    .join(" ")}
+                  <span className={`${styles.all__content} all__content`}>
+                    {(body as string[]).join(" ")}
+                  </span>
+
+                  <span className={`${styles.visible__content} visible-text`}>
+                    {(body as string[])
+                      .filter((_, idx) => {
+                        if (prevFrames + idx <= frame) {
+                          return _;
+                        }
+                      })
+                      .join(" ")}
+                  </span>
                 </div>
               </div>
             </li>

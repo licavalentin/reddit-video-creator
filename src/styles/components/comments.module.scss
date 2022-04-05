@@ -53,6 +53,18 @@
       }
 
       .comment__content {
+        position: relative;
+
+        .all__content {
+          opacity: 0;
+        }
+
+        .visible__content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+        }
       }
     }
   }

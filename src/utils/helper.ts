@@ -22,6 +22,21 @@ export const roundUp = (number: number): string => {
  */
 export const calculateComments: CalculateComments = async ({ commentsEl }) => {
   if (commentsEl.current) {
+    const containerHeight = commentsEl.current.offsetHeight;
+
+    const childrenHeight: number[] = [];
+
+    commentsEl.current.querySelectorAll("li").forEach((item, index) => {
+      const textContent = item.querySelector(
+        "span.visible-text"
+      ) as HTMLSpanElement;
+
+      if (textContent) {
+        childrenHeight.push(textContent.offsetHeight);
+      }
+    });
+
+    console.log(containerHeight, childrenHeight);
   }
 
   return 0;

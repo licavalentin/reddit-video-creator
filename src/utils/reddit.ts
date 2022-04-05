@@ -1,8 +1,6 @@
 import { join } from "path";
 
 import axios from "axios";
-import winkNLP from "wink-nlp";
-import model from "wink-eng-lite-web-model";
 
 import {
   Post,
@@ -15,6 +13,45 @@ import {
 import { readdirSync } from "fs";
 
 const redditUrl = "https://www.reddit.com";
+
+/**
+ * Generate array of sentences from comment
+ * @param {string} text Comment text
+ */
+const splitText = (text: string): string[] => {
+  // Decode html code to text
+  const words = text
+    .replace(/(?:https?|ftp):\/\/[\n\S]+/g, "")
+    .split(" ")
+    .filter((text) => text.trim() !== "");
+
+  if (words.length === 1) {
+    return words;
+  }
+
+  const sentences: string[] = [];
+  let sentence: string[] = [];
+
+  for (const word of words) {
+    sentence.push(word);
+
+    const chars = [".", "!", "?"];
+
+    const mergedText = sentence.join(" ");
+
+    if (chars.some((char) => word.includes(char))) {
+      sentences.push(mergedText);
+      sentence = [];
+    }
+  }
+
+  if (sentence.length !== 0) {
+    sentences.push(sentence.join(" "));
+  }
+
+  return sentences;
+};
+
 /**
  * List all files and folders inside folder
  * @param path Folder path
@@ -150,8 +187,6 @@ export const fetchPostData = async (url: string) => {
     cleanUpComment(commentTree);
   }
 
-  const nlp = winkNLP(model);
-
   const publicFile = join(__dirname, "..", "..", "public", "avatar");
   const faces = getFolders(join(publicFile, "face")).map((e) =>
     Number(e.replace("-face.png", ""))
@@ -170,14 +205,7 @@ export const fetchPostData = async (url: string) => {
           [
             {
               author,
-              body: nlp
-                .readDoc(selftext as string)
-                .sentences()
-                .out()
-                .map((text) => ({
-                  text,
-                  frames: [0, 0],
-                })),
+              body: splitText(selftext as string),
               all_awardings: postAwards(all_awardings),
               created_utc,
               depth: 0,
@@ -192,14 +220,7 @@ export const fetchPostData = async (url: string) => {
   ].map((comments) =>
     comments.map((comment, index) => ({
       ...comment,
-      body: nlp
-        .readDoc(comment.body as string)
-        .sentences()
-        .out()
-        .map((text) => ({
-          text,
-          frames: [0, 0],
-        })),
+      body: splitText(comment.body as string),
       avatar: {
         face: faces[Math.floor(Math.random() * faces.length)],
         head: heads[Math.floor(Math.random() * heads.length)],
@@ -213,6 +234,6 @@ export const fetchPostData = async (url: string) => {
 
   return {
     post: postDetails,
-    comments: [selectedComments[0]],
+    comments: selectedComments,
   };
 };

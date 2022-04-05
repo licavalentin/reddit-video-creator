@@ -3,7 +3,7 @@ import { Composition, getInputProps, Still } from "remotion";
 import { video } from "./config/video";
 import { InputData } from "./interface/compositions";
 
-import post from "./data/post.json";
+import post from "./data/posti.json";
 
 import Intro from "./components/Intro";
 import Outro from "./components/Outro";
@@ -11,7 +11,7 @@ import Thumbnail from "./components/Thumbnail";
 import Comments from "./components/Comments";
 
 import "./styles/main.scss";
-import { CommentBody, Comment } from "./interface/post";
+import { Comment } from "./interface/post";
 
 export const RemotionVideo: React.FC = () => {
   const { fps, height, width } = video;
@@ -30,18 +30,12 @@ export const RemotionVideo: React.FC = () => {
       comments: Comment[];
     };
   } = (() => {
-    const calcDuration = (comments: Comment[]) => {
-      let totalFrames = 0;
-
-      for (const comment of comments) {
-        for (const item of comment.body) {
-          const [start, end] = (item as CommentBody).frames as [number, number];
-          totalFrames += end - start;
-        }
-      }
-
-      return totalFrames;
-    };
+    const calcDuration = (comments: Comment[]) =>
+      comments.reduce(
+        (previousValue, currentValue) =>
+          previousValue + currentValue.body.length,
+        0
+      );
 
     if (prod && inputData.id === "comments") {
       return {
@@ -50,10 +44,12 @@ export const RemotionVideo: React.FC = () => {
       };
     }
 
+    const localComments = comments[0];
+
     return {
-      durationInFrames: calcDuration(comments[0]),
+      durationInFrames: calcDuration(localComments),
       defaultProps: {
-        comments: comments[0],
+        comments: localComments,
       },
     };
   })();

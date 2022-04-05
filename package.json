@@ -6,7 +6,7 @@
     "dev": "remotion preview src/index.tsx",
     "render": "ts-node render.tsx",
     "upgrade": "remotion upgrade",
-    "render:c": "npx remotion render src/index.tsx comments out/video.mp4",
+    "render:c": "npx remotion render src/index.tsx intro out/video.mp4",
     "test": "ts-node render.tsx"
   },
   "keywords": [],
@@ -21,9 +21,7 @@
     "react-dom": "^17.0.2",
     "remotion": "^2.6.12",
     "sass": "^1.49.9",
-    "sass-loader": "^12.6.0",
-    "wink-eng-lite-web-model": "^1.4.0",
-    "wink-nlp": "^1.11.0"
+    "sass-loader": "^12.6.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",

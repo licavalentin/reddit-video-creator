@@ -27,75 +27,76 @@ const render = async () => {
     console.log(`📁 Project dir: ${tmpDir}`);
 
     // Fetch Post
-    const {
-      post: { title, author, all_awardings, score, subreddit },
-      comments,
-    } = await fetchPostData(postsList[0]);
+    const data = await fetchPostData(postsList[0]);
 
-    // Create Audio Files
-    const newComments = await createAudio({
-      comments,
-      tmpDir,
-    });
+    writeFileSync("post.json", JSON.stringify(data));
 
-    // Bundle React Code
-    const bundled = await generateBundle();
+    return;
 
-    console.log("🎥 Generating Video");
+    // // Create Audio Files
+    // await createAudio({
+    //   comments,
+    //   tmpDir,
+    // });
 
-    // Generate Intro Video
-    const introPath = join(tmpDir, "intro");
-    await generateVideo({
-      bundled,
-      id: "intro",
-      output: introPath,
-      data: {
-        title,
-        author,
-        awards: all_awardings,
-        score,
-      } as Intro,
-    });
+    // // Bundle React Code
+    // const bundled = await generateBundle();
 
-    // Generate Comments
-    for (let index = 0; index < newComments.length; index++) {
-      await generateVideo({
-        bundled,
-        id: "comments",
-        output: join(tmpDir, `comments-${index}`),
-        data: { comments: newComments[index] } as CommentsGroup,
-      });
-    }
+    // console.log("🎥 Generating Video");
 
-    // Generate Outro
-    const outroPath = join(tmpDir, "outro");
-    await generateVideo({
-      bundled,
-      id: "outro",
-      output: outroPath,
-      data: {
-        outro: "💖 Thank you for watching",
-      } as Outro,
-    });
+    // // Generate Intro Video
+    // const introPath = join(tmpDir, "intro");
+    // await generateVideo({
+    //   bundled,
+    //   id: "intro",
+    //   output: introPath,
+    //   data: {
+    //     title,
+    //     author,
+    //     awards: all_awardings,
+    //     score,
+    //   } as Intro,
+    // });
 
-    const videoList: string[] = [
-      ffmpegFile(join(introPath, "out.mp4")),
-      ...comments.map((_, i) =>
-        ffmpegFile(join(tmpDir, `comments-${i}`, "out.mp4"))
-      ),
-      ffmpegFile(join(outroPath, "out.mp4")),
-    ];
+    // // Generate Comments
+    // for (let index = 0; index < comments.length; index++) {
+    //   await generateVideo({
+    //     bundled,
+    //     id: "comments",
+    //     output: join(tmpDir, `comments-${index}`),
+    //     data: { comments: comments[index] } as CommentsGroup,
+    //   });
+    // }
 
-    const listPath = join(tmpDir, "list.txt");
-    writeFileSync(listPath, videoList.join("\n"));
+    // // Generate Outro
+    // const outroPath = join(tmpDir, "outro");
+    // await generateVideo({
+    //   bundled,
+    //   id: "outro",
+    //   output: outroPath,
+    //   data: {
+    //     outro: "💖 Thank you for watching",
+    //   } as Outro,
+    // });
 
-    // Merge Rendered Videos
-    mergeVideos({
-      exportPath: "C:\\Users\\licav\\Desktop",
-      listPath,
-    });
+    // const videoList: string[] = [
+    //   ffmpegFile(join(introPath, "out.mp4")),
+    //   ...comments.map((_, i) =>
+    //     ffmpegFile(join(tmpDir, `comments-${i}`, "out.mp4"))
+    //   ),
+    //   ffmpegFile(join(outroPath, "out.mp4")),
+    // ];
 
-    console.log("🎥 Video Generated Successfully");
+    // const listPath = join(tmpDir, "list.txt");
+    // writeFileSync(listPath, videoList.join("\n"));
+
+    // // Merge Rendered Videos
+    // mergeVideos({
+    //   exportPath: "C:\\Users\\licav\\Desktop",
+    //   listPath,
+    // });
+
+    // console.log("🎥 Video Generated Successfully");
   } catch (err) {
     console.error(err);
   }

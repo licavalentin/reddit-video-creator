@@ -29,11 +29,6 @@ export interface Post {
   score: number;
 }
 
-export interface CommentBody {
-  frames?: number[];
-  text: string;
-}
-
 export interface AvatarDetails {
   face: number;
   head: number;
@@ -43,7 +38,7 @@ export interface AvatarDetails {
 export interface Comment {
   index?: number;
   author: string;
-  body: CommentBody[] | string;
+  body: string[] | string;
   replies?: Replies | "";
   score: number;
   all_awardings: Award[];
