@@ -3,7 +3,7 @@ import { Composition, getInputProps, Still } from "remotion";
 import { video } from "./config/video";
 import { InputData } from "./interface/compositions";
 
-import post from "./data/posti.json";
+import post from "./data/post.json";
 
 import Intro from "./components/Intro";
 import Outro from "./components/Outro";
@@ -44,7 +44,7 @@ export const RemotionVideo: React.FC = () => {
       };
     }
 
-    const localComments = comments[0];
+    const localComments = comments[4];
 
     return {
       durationInFrames: calcDuration(localComments),

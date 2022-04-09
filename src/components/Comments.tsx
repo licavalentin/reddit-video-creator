@@ -18,21 +18,21 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const commentsEl = useRef<HTMLUListElement>(null);
   const [transform, setTransform] = useState<number>(0);
 
-  const [handle] = useState(() => delayRender());
+  // const [handle] = useState(() => delayRender());
 
-  const renderAnimation = async () => {
-    const animationData = await calculateComments({
-      commentsEl,
-    });
+  // const renderAnimation = async () => {
+  // const animationData = await calculateComments({
+  //   commentsEl,
+  // });
 
-    setTransform(animationData);
+  // setTransform(animationData);
 
-    continueRender(handle);
-  };
+  // continueRender(handle);
+  // };
 
-  useEffect(() => {
-    renderAnimation();
-  }, [frame]);
+  // useEffect(() => {
+  //   renderAnimation();
+  // }, [frame]);
 
   const frameCounter = comments.map((e) => e.body.length);
 
