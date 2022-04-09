@@ -30,9 +30,9 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   // continueRender(handle);
   // };
 
-  // useEffect(() => {
-  //   renderAnimation();
-  // }, [frame]);
+  useEffect(() => {
+    calculateComments({ commentsEl, comments });
+  }, []);
 
   const frameCounter = comments.map((e) => e.body.length);
 
@@ -58,7 +58,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
           return (
             <li
-              className={styles.comment}
+              className={`${styles.comment} comment`}
               style={{
                 marginLeft: `${depth * 100}px`,
                 opacity: prevFrames >= frame && index > 0 ? 0 : 1,
@@ -87,6 +87,8 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                 </div>
 
                 <div className={styles.comment__content}>
+                  <span className={`${styles.calc__content} calc__content`} />
+
                   <span className={`${styles.all__content} all__content`}>
                     {(body as string[]).join(" ")}
                   </span>

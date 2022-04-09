@@ -27,6 +27,7 @@
       flex-direction: column;
       row-gap: 0.8rem;
       padding: 1em 0;
+      width: 100%;
 
       .comment__details {
         display: flex;
@@ -54,6 +55,10 @@
 
       .comment__content {
         position: relative;
+
+        .calc__content {
+          opacity: 0;
+        }
 
         .all__content {
           opacity: 0;

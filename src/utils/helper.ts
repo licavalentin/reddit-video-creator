@@ -20,23 +20,32 @@ export const roundUp = (number: number): string => {
 /**
  * Calculate scroll effect on comments
  */
-export const calculateComments: CalculateComments = async ({ commentsEl }) => {
+export const calculateComments: CalculateComments = async ({
+  commentsEl,
+  comments,
+}) => {
   if (commentsEl.current) {
     const containerHeight = commentsEl.current.offsetHeight;
 
     const childrenHeight: number[] = [];
 
-    commentsEl.current.querySelectorAll("li").forEach((item, index) => {
-      const textContent = item.querySelector(
-        "span.visible-text"
+    commentsEl.current.querySelectorAll("li.comment").forEach((item, index) => {
+      const parentHeight = (item as HTMLLIElement).offsetHeight;
+
+      const spanEl = item.querySelector(
+        "span.calc__content"
       ) as HTMLSpanElement;
 
-      if (textContent) {
-        childrenHeight.push(textContent.offsetHeight);
-      }
+      return (comments[index].body as string[]).map((text, idx) => {
+        spanEl.textContent = (comments[index].body as string[])
+          .slice(0, idx)
+          .join(" ");
+
+        return spanEl.offsetHeight;
+      });
     });
 
-    console.log(containerHeight, childrenHeight);
+    // console.log(containerHeight, childrenHeight);
   }
 
   return 0;
