@@ -16,6 +16,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
 
   const commentsEl = useRef<HTMLUListElement>(null);
+  const frameCounter = useRef(comments.map((e) => e.body.length));
   const [transform, setTransform] = useState<number>(0);
 
   // const [handle] = useState(() => delayRender());
@@ -34,15 +35,13 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
     calculateComments({ commentsEl, comments });
   }, []);
 
-  const frameCounter = comments.map((e) => e.body.length);
-
   return (
     <Layout>
       <ul
         className={styles.comments}
         ref={commentsEl}
         style={{
-          transform: `translateY(${transform}px)`,
+          transform: `translateY(-${0}%)`,
         }}
       >
         {comments.map((comment, index) => {
@@ -50,7 +49,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
           let prevFrames: number = 0;
 
-          frameCounter.forEach((frames, idx) => {
+          frameCounter.current.forEach((frames, idx) => {
             if (index > idx) {
               prevFrames += frames;
             }
@@ -88,10 +87,6 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
                 <div className={styles.comment__content}>
                   <span className={`${styles.calc__content} calc__content`} />
-
-                  <span className={`${styles.all__content} all__content`}>
-                    {(body as string[]).join(" ")}
-                  </span>
 
                   <span className={`${styles.visible__content} visible-text`}>
                     {(body as string[])

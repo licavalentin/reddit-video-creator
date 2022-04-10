@@ -46,6 +46,7 @@ export interface Comment {
   depth: number;
   audio?: string;
   avatar?: AvatarDetails;
+  scroll?: number;
 }
 
 export interface PostFile {

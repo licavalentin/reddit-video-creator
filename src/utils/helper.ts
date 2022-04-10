@@ -1,3 +1,4 @@
+import { video } from "../config/video";
 import { CalculateComments } from "../interface/helper";
 
 /**
@@ -25,44 +26,30 @@ export const calculateComments: CalculateComments = async ({
   comments,
 }) => {
   if (commentsEl.current) {
-    const containerHeight = commentsEl.current.offsetHeight;
-
-    const childrenHeight: number[] = [];
-
-    let startHeight = 0;
-
     commentsEl.current.querySelectorAll("li.comment").forEach((item, index) => {
-      const parentHeight = (item as HTMLLIElement).offsetHeight;
-      const fontSize = parseFloat(
-        getComputedStyle(document.querySelector("body") as HTMLBodyElement)
-          .fontSize
-      );
-
-      const allContentHeight = (
-        item.querySelector("span.all__content") as HTMLSpanElement
-      ).offsetHeight;
-
       const spanEl = item.querySelector(
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      const commentDetailsHeight = parentHeight - allContentHeight - fontSize;
+      let count = 0;
 
-      const heights = (comments[index].body as string[]).map((_, idx) => {
-        spanEl.textContent = (comments[index].body as string[])
-          .slice(0, idx)
-          .join(" ");
+      const frames = (comments[index].body as string[])
+        .map((_, idx) => {
+          spanEl.textContent = (comments[index].body as string[])
+            .slice(0, idx)
+            .join(" ");
 
-        const commentHeight = spanEl.offsetHeight + commentDetailsHeight;
+          const isInFrame =
+            window.innerHeight - spanEl.offsetTop + spanEl.offsetHeight;
 
-        const total = commentHeight + startHeight;
+          if (Math.floor(isInFrame / video.height) > count) {
+            count++;
+            return idx;
+          }
+        })
+        .filter((e) => e);
 
-        startHeight += commentHeight;
-
-        return total;
-      });
-
-      console.log(heights);
+      console.log(frames);
     });
 
     // console.log(containerHeight, childrenHeight);

@@ -44,7 +44,7 @@ export const RemotionVideo: React.FC = () => {
       };
     }
 
-    const localComments = comments[4];
+    const localComments = comments[0];
 
     return {
       durationInFrames: calcDuration(localComments),
@@ -81,7 +81,7 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        durationInFrames={commentConfig.durationInFrames}
+        durationInFrames={commentConfig.durationInFrames + 1}
         defaultProps={commentConfig.defaultProps}
       />
 
