@@ -5,4 +5,4 @@ import { Comment } from "./post";
 export type CalculateComments = (args: {
   commentsEl: RefObject<HTMLUListElement>;
   comments: Comment[];
-}) => Promise<number>;
+}) => [number[], number[]] | null;

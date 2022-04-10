@@ -21,39 +21,54 @@ export const roundUp = (number: number): string => {
 /**
  * Calculate scroll effect on comments
  */
-export const calculateComments: CalculateComments = async ({
+export const calculateComments: CalculateComments = ({
   commentsEl,
   comments,
 }) => {
   if (commentsEl.current) {
+    let frames: number[] = [];
+    let count = 0;
+
+    const marginTop = commentsEl.current.offsetTop;
+
     commentsEl.current.querySelectorAll("li.comment").forEach((item, index) => {
       const spanEl = item.querySelector(
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      let count = 0;
-
-      const frames = (comments[index].body as string[])
+      const framesCheck = (comments[index].body as string[])
         .map((_, idx) => {
           spanEl.textContent = (comments[index].body as string[])
             .slice(0, idx)
             .join(" ");
 
           const isInFrame =
-            window.innerHeight - spanEl.offsetTop + spanEl.offsetHeight;
+            window.innerHeight -
+            spanEl.offsetTop +
+            spanEl.offsetHeight +
+            marginTop;
 
           if (Math.floor(isInFrame / video.height) > count) {
             count++;
-            return idx;
+            return idx + index;
           }
         })
         .filter((e) => e);
 
-      console.log(frames);
+      frames = [...frames, ...(framesCheck as number[])];
     });
 
-    // console.log(containerHeight, childrenHeight);
+    let frame: number[] = [];
+    let transform: number[] = [];
+
+    for (let index = 0; index < frames.length; index++) {
+      const frameKey = frames[index];
+      frame.push(frameKey - 1, frameKey);
+      transform.push(index, index + 1);
+    }
+
+    return [frame, transform];
   }
 
-  return 0;
+  return null;
 };

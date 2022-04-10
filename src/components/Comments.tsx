@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { continueRender, delayRender, useCurrentFrame } from "remotion";
+import {
+  continueRender,
+  delayRender,
+  interpolate,
+  useCurrentFrame,
+} from "remotion";
 
 import { AvatarDetails } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
@@ -15,34 +20,50 @@ import styles from "../styles/components/comments.module.scss";
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
 
+  const [handle] = useState(() => delayRender());
   const commentsEl = useRef<HTMLUListElement>(null);
   const frameCounter = useRef(comments.map((e) => e.body.length));
-  const [transform, setTransform] = useState<number>(0);
 
-  // const [handle] = useState(() => delayRender());
-
-  // const renderAnimation = async () => {
-  // const animationData = await calculateComments({
-  //   commentsEl,
-  // });
-
-  // setTransform(animationData);
-
-  // continueRender(handle);
-  // };
+  const [transformData, setTransformData] = useState<[number[], number[]]>([
+    [0, 1],
+    [0, 0],
+  ]);
 
   useEffect(() => {
-    calculateComments({ commentsEl, comments });
+    const animationData = calculateComments({
+      commentsEl,
+      comments,
+    });
+
+    setTransformData(animationData as [number[], number[]]);
+
+    continueRender(handle);
   }, []);
 
   return (
     <Layout>
+      {/* <div>
+        {(() => {
+          let num = 0;
+
+          for (let index = 0; index < transformData[0].length; index++) {
+            const currentFrame = transformData[0][index];
+
+            if (currentFrame === frame) {
+              transformData[1][index];
+            }
+          }
+
+          return num;
+        })()}
+      </div> */}
+
       <ul
         className={styles.comments}
         ref={commentsEl}
-        style={{
-          transform: `translateY(-${0}%)`,
-        }}
+        // style={{
+        //   transform: `translateY(-${transform * 50}%)`,
+        // }}
       >
         {comments.map((comment, index) => {
           const { author, score, depth, body, all_awardings, avatar } = comment;
