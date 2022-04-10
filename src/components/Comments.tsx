@@ -71,7 +71,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
               />
 
               <div className={styles.comment__body}>
-                <div className={styles.comment__details}>
+                <div className={`${styles.comment__details} comment__details`}>
                   <p>{author}</p>
 
                   <span>·</span>

@@ -29,20 +29,40 @@ export const calculateComments: CalculateComments = async ({
 
     const childrenHeight: number[] = [];
 
+    let startHeight = 0;
+
     commentsEl.current.querySelectorAll("li.comment").forEach((item, index) => {
       const parentHeight = (item as HTMLLIElement).offsetHeight;
+      const fontSize = parseFloat(
+        getComputedStyle(document.querySelector("body") as HTMLBodyElement)
+          .fontSize
+      );
+
+      const allContentHeight = (
+        item.querySelector("span.all__content") as HTMLSpanElement
+      ).offsetHeight;
 
       const spanEl = item.querySelector(
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      return (comments[index].body as string[]).map((text, idx) => {
+      const commentDetailsHeight = parentHeight - allContentHeight - fontSize;
+
+      const heights = (comments[index].body as string[]).map((_, idx) => {
         spanEl.textContent = (comments[index].body as string[])
           .slice(0, idx)
           .join(" ");
 
-        return spanEl.offsetHeight;
+        const commentHeight = spanEl.offsetHeight + commentDetailsHeight;
+
+        const total = commentHeight + startHeight;
+
+        startHeight += commentHeight;
+
+        return total;
       });
+
+      console.log(heights);
     });
 
     // console.log(containerHeight, childrenHeight);
