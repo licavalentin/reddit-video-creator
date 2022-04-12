@@ -20,6 +20,7 @@ export interface Award {
 export interface TextComment {
   text: string;
   durationInFrames: number;
+  frames?: [number, number];
   audio: string;
 }
 

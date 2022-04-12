@@ -1,5 +1,5 @@
 import React from "react";
-import { Audio, staticFile } from "remotion";
+import { Audio, staticFile, useVideoConfig } from "remotion";
 
 import { Intro as IntroProps } from "../interface/compositions";
 
@@ -12,11 +12,13 @@ import { roundUp } from "../utils/helper";
 import styles from "../styles/components/intro.module.scss";
 
 const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
+  const { durationInFrames } = useVideoConfig();
+
   const audioFile = staticFile("/audio/intro.mp3");
 
   return (
     <Layout>
-      <Audio src={audioFile} />
+      <Audio src={audioFile} startFrom={0} endAt={durationInFrames} />
 
       <div className={styles.container}>
         <div className={styles.intro}>

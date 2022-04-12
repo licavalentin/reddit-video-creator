@@ -4,10 +4,8 @@
   "description": "Create videos from questions",
   "scripts": {
     "dev": "remotion preview src/index.tsx",
-    "render": "ts-node render.tsx",
-    "upgrade": "remotion upgrade",
-    "render:c": "npx remotion render src/index.tsx intro out/video.mp4",
-    "test": "ts-node render.tsx"
+    "build": "ts-node render.tsx",
+    "test": "npx remotion render src/index.tsx comments out/video.mp4"
   },
   "keywords": [],
   "author": "Valentin Lica",

@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Audio,
   continueRender,
   delayRender,
   interpolate,
+  Series,
+  staticFile,
   useCurrentFrame,
 } from "remotion";
 
@@ -23,7 +26,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
   // const [handle] = useState(() => delayRender());
   const commentsEl = useRef<HTMLUListElement>(null);
-  const frameCounter = useRef(comments.map((e) => e.body.length));
+  // const frameCounter = useRef(comments.map((e) => e.body.length));
 
   // const [transformData, setTransformData] = useState<
   //   [number[], number[], number]
@@ -47,9 +50,26 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   //   setTransform(interpolate(frame, transformData[0], transformData[1]));
   // }, [frame]);
 
+  const audioFiles = (() => {
+    let audioData: TextComment[] = [];
+
+    for (const comment of comments) {
+      audioData = [...audioData, ...(comment.body as TextComment[])];
+    }
+
+    return audioData;
+  })();
+
   return (
     <Layout>
-      {/* {transformData.join()} - {transform} */}
+      <Series>
+        {audioFiles.map(({ audio, durationInFrames }, index) => (
+          <Series.Sequence durationInFrames={durationInFrames} key={index}>
+            <Audio src={staticFile(`/audio/${audio}`)} />
+          </Series.Sequence>
+        ))}
+      </Series>
+
       <ul
         className={styles.comments}
         ref={commentsEl}
@@ -63,20 +83,16 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
         {comments.map((comment, index) => {
           const { author, score, depth, body, all_awardings, avatar } = comment;
 
-          let prevFrames: number = 0;
-
-          frameCounter.current.forEach((frames, idx) => {
-            if (index > idx) {
-              prevFrames += frames;
-            }
-          });
-
           return (
             <li
               className={`${styles.comment} comment`}
               style={{
                 marginLeft: `${depth * 100}px`,
-                opacity: prevFrames >= frame && index > 0 ? 0 : 1,
+                opacity:
+                  ((body as TextComment[])[0].frames as [number, number])[0] >=
+                    frame && index > 0
+                    ? 0
+                    : 1,
               }}
               key={index}
             >
@@ -110,11 +126,10 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
                   <span className={`${styles.visible__content} visible-text`}>
                     {(body as TextComment[])
-                      .filter((e, idx) => {
-                        if (prevFrames + idx <= frame) {
-                          return e.text;
-                        }
-                      })
+                      .filter(
+                        ({ frames }) => (frames as [number, number])[0] <= frame
+                      )
+                      .map((e) => e.text)
                       .join(" ")}
                   </span>
                 </div>

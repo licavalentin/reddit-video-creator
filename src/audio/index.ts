@@ -118,13 +118,16 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
 
                   const frames = Math.ceil(durationInSeconds * video.fps);
 
-                  durationInFrames += frames;
-
-                  return {
+                  const data = {
                     text,
                     durationInFrames: frames,
                     audio: audioFilePath,
+                    frames: [durationInFrames, durationInFrames + frames - 1],
                   };
+
+                  durationInFrames += frames;
+
+                  return data;
                 }) as TextComment[],
               }));
 

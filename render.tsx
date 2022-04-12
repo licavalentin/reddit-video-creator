@@ -36,7 +36,10 @@ const render = async () => {
       tmpDir,
     });
 
-    writeFileSync("post.json", JSON.stringify(newData));
+    writeFileSync(
+      join(__dirname, "src", "data", "post.json"),
+      JSON.stringify(newData)
+    );
 
     // // Bundle React Code
     // const bundled = await generateBundle();
