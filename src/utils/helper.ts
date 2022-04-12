@@ -27,45 +27,41 @@ export const calculateComments: CalculateComments = ({
   comments,
 }) => {
   if (commentsEl.current) {
-    let frames: number[] = [];
-    let count = 0;
-
     const marginTop = commentsEl.current.offsetTop;
+    let count = 0;
+    let frame: number[] = [];
+    let transform: number[] = [];
 
-    commentsEl.current.querySelectorAll("li.comment").forEach((item, index) => {
+    commentsEl.current.querySelectorAll("li.comment").forEach((item, idx) => {
       const spanEl = item.querySelector(
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      const framesCheck = (comments[index].body as TextComment[])
-        .map((_, idx) => {
-          spanEl.textContent = (comments[index].body as TextComment[])
-            .slice(0, idx)
-            .map((e) => e.text)
-            .join(" ");
+      const body = comments[idx].body as TextComment[];
 
-          const isInFrame =
-            window.innerHeight - (spanEl.offsetTop + spanEl.offsetHeight);
-          const frameHeight = video.height - marginTop * 2;
+      for (let index = 0; index < body.length; index++) {
+        spanEl.textContent = body
+          .slice(0, index)
+          .map((e) => e.text)
+          .join(" ");
 
-          if (Math.floor(isInFrame / frameHeight) > count) {
-            count++;
-            return idx + index;
-          }
-        })
-        .filter((e) => e);
+        const isInFrame =
+          window.innerHeight - spanEl.offsetTop + spanEl.offsetHeight;
+        const frameHeight = video.height - marginTop * 2;
 
-      frames = [...frames, ...(framesCheck as number[])];
+        if (Math.floor(isInFrame / frameHeight) > count) {
+          const frames = body[index].frames as [number, number];
+
+          // [0, 20, 21, 40],
+          // [0, 1, 1, 0]
+
+          frame.push(frames[0], frames[0] + 1);
+          transform.push(count * frameHeight, (count + 1) * frameHeight);
+
+          count++;
+        }
+      }
     });
-
-    let frame: number[] = [];
-    let transform: number[] = [];
-
-    for (let index = 0; index < frames.length; index++) {
-      const frameKey = frames[index];
-      frame.push(frameKey - 1, frameKey, frameKey + 1);
-      transform.push(index, index + 1, index + 1);
-    }
 
     return [frame, transform, marginTop];
   }

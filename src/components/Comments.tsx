@@ -9,7 +9,6 @@ import {
   useCurrentFrame,
 } from "remotion";
 
-import { video } from "../config/video";
 import { AvatarDetails, TextComment } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
@@ -24,30 +23,29 @@ import styles from "../styles/components/comments.module.scss";
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
 
-  // const [handle] = useState(() => delayRender());
+  const [handle] = useState(() => delayRender());
   const commentsEl = useRef<HTMLUListElement>(null);
-  // const frameCounter = useRef(comments.map((e) => e.body.length));
 
-  // const [transformData, setTransformData] = useState<
-  //   [number[], number[], number]
-  // >([[0, 1], [0, 0], 0]);
-  // const [transform, setTransform] = useState<number>(0);
+  const [transformData, setTransformData] = useState<
+    [number[], number[], number]
+  >([[0, 1], [0, 0], 0]);
+  const [transform, setTransform] = useState<number>(0);
 
-  // useEffect(() => {
-  //   const animationData = calculateComments({
-  //     commentsEl,
-  //     comments,
-  //   }) as [number[], number[], number];
+  useEffect(() => {
+    const animationData = calculateComments({
+      commentsEl,
+      comments,
+    }) as [number[], number[], number];
 
-  //   console.log(animationData);
+    setTransformData(animationData);
 
-  //   setTransformData(animationData);
-
-  //   continueRender(handle);
-  // }, []);
+    continueRender(handle);
+  }, []);
 
   // useEffect(() => {
-  //   setTransform(interpolate(frame, transformData[0], transformData[1]));
+  //   if (transformData[0].length > 0 && transformData[0][0] !== 0) {
+  //     setTransform(interpolate(frame, transformData[0], transformData[1]));
+  //   }
   // }, [frame]);
 
   const audioFiles = (() => {
@@ -73,12 +71,9 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
       <ul
         className={styles.comments}
         ref={commentsEl}
-        // style={{
-        //   transform: `translateY(-${
-        //     (video.height - transformData[2] * 2) *
-        //     (transform > 0 ? transform : 0)
-        //   }px)`,
-        // }}
+        style={{
+          transform: `translateY(-${transform}px)`,
+        }}
       >
         {comments.map((comment, index) => {
           const { author, score, depth, body, all_awardings, avatar } = comment;

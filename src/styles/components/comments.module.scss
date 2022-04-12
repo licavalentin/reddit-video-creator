@@ -56,15 +56,13 @@
       .comment__content {
         position: relative;
 
-        .calc__content {
-          opacity: 0;
-        }
-
+        .calc__content,
         .all__content {
           opacity: 0;
         }
 
-        .visible__content {
+        .visible__content,
+        .all__content {
           position: absolute;
           top: 0;
           left: 0;
