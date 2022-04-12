@@ -24,30 +24,22 @@ export const RemotionVideo: React.FC = () => {
   const inputData = getInputProps() as InputData;
   const prod = Object.keys(inputData).length !== 0;
 
+  const introConfig = (() => {})();
+
   const commentConfig: {
     durationInFrames: number;
     defaultProps: {
       comments: Comment[];
     };
   } = (() => {
-    const calcDuration = (comments: Comment[]) =>
-      comments.reduce(
-        (previousValue, currentValue) =>
-          previousValue + currentValue.body.length,
-        0
-      );
-
     if (prod && inputData.id === "comments") {
-      return {
-        durationInFrames: calcDuration(inputData.comments),
-        defaultProps: inputData,
-      };
+      return inputData;
     }
 
     const localComments = comments[0];
 
     return {
-      durationInFrames: calcDuration(localComments),
+      durationInFrames: localComments,
       defaultProps: {
         comments: localComments,
       },

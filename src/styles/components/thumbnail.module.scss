@@ -1,5 +1,31 @@
+.image {
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  opacity: 0.5;
+  display: none;
+}
+
 .thumbnail {
-  padding: 5em;
+  z-index: 4;
+  padding: 1em;
+  height: 100%;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    // background: rgb(0, 0, 0);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 18%,
+      rgba(0, 0, 0, 0.6843779748227417) 51%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
 
   .head {
     display: flex;
@@ -17,10 +43,15 @@
 
   .thumbnail__title {
     max-width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
 
     .title {
-      font-size: 10vw;
-      line-height: 20vh;
+      font-size: 18vw;
+      line-height: 34vh;
+      text-transform: uppercase;
     }
   }
 }

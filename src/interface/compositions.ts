@@ -24,7 +24,10 @@ export type Thumbnail = {
 
 export type CommentsGroup = {
   id?: "comments";
-  comments: Comment[];
+  durationInFrames: number;
+  defaultProps: {
+    comments: Comment[];
+  };
 };
 
 export type InputData = Intro | Outro | Thumbnail | CommentsGroup;

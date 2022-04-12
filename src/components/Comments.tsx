@@ -16,53 +16,48 @@ import { RedditArrowIcon } from "./CustomIcons";
 import { calculateComments, roundUp } from "../utils/helper";
 
 import styles from "../styles/components/comments.module.scss";
+import { video } from "../config/video";
 
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
 
-  const [handle] = useState(() => delayRender());
+  // const [handle] = useState(() => delayRender());
   const commentsEl = useRef<HTMLUListElement>(null);
   const frameCounter = useRef(comments.map((e) => e.body.length));
 
-  const [transformData, setTransformData] = useState<[number[], number[]]>([
-    [0, 1],
-    [0, 0],
-  ]);
+  // const [transformData, setTransformData] = useState<
+  //   [number[], number[], number]
+  // >([[0, 1], [0, 0], 0]);
+  // const [transform, setTransform] = useState<number>(0);
 
-  useEffect(() => {
-    const animationData = calculateComments({
-      commentsEl,
-      comments,
-    });
+  // useEffect(() => {
+  //   const animationData = calculateComments({
+  //     commentsEl,
+  //     comments,
+  //   }) as [number[], number[], number];
 
-    setTransformData(animationData as [number[], number[]]);
+  //   console.log(animationData);
 
-    continueRender(handle);
-  }, []);
+  //   setTransformData(animationData);
+
+  //   continueRender(handle);
+  // }, []);
+
+  // useEffect(() => {
+  //   setTransform(interpolate(frame, transformData[0], transformData[1]));
+  // }, [frame]);
 
   return (
     <Layout>
-      {/* <div>
-        {(() => {
-          let num = 0;
-
-          for (let index = 0; index < transformData[0].length; index++) {
-            const currentFrame = transformData[0][index];
-
-            if (currentFrame === frame) {
-              transformData[1][index];
-            }
-          }
-
-          return num;
-        })()}
-      </div> */}
-
+      {/* {transformData.join()} - {transform} */}
       <ul
         className={styles.comments}
         ref={commentsEl}
         // style={{
-        //   transform: `translateY(-${transform * 50}%)`,
+        //   transform: `translateY(-${
+        //     (video.height - transformData[2] * 2) *
+        //     (transform > 0 ? transform : 0)
+        //   }px)`,
         // }}
       >
         {comments.map((comment, index) => {
@@ -108,6 +103,10 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
                 <div className={styles.comment__content}>
                   <span className={`${styles.calc__content} calc__content`} />
+
+                  <span className={styles.all__content}>
+                    {(body as string[]).join(" ")}
+                  </span>
 
                   <span className={`${styles.visible__content} visible-text`}>
                     {(body as string[])

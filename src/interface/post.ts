@@ -17,10 +17,17 @@ export interface Award {
   name: string;
 }
 
+export interface TextComment {
+  text: string;
+  durationInFrames: number;
+  audio: string;
+}
+
 export interface Post {
   subreddit: string;
   selftext: string;
-  title: string;
+  title: TextComment | string;
+  outro?: TextComment;
   author: string;
   over_18: boolean;
   all_awardings: Award[];
@@ -36,22 +43,22 @@ export interface AvatarDetails {
 }
 
 export interface Comment {
-  index?: number;
   author: string;
-  body: string[] | string;
+  body: TextComment[] | string | string[];
   replies?: Replies | "";
   score: number;
   all_awardings: Award[];
   created_utc: number;
   depth: number;
-  audio?: string;
   avatar?: AvatarDetails;
-  scroll?: number;
 }
 
 export interface PostFile {
   post: Post;
-  comments: Comment[][];
+  comments: {
+    durationInFps: number;
+    commentGroup: Comment[][];
+  };
   exportPath: string;
   voice: string;
   outro: string;

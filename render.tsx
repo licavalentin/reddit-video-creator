@@ -27,17 +27,16 @@ const render = async () => {
     console.log(`📁 Project dir: ${tmpDir}`);
 
     // Fetch Post
-    const data = await fetchPostData(postsList[0]);
+    const { comments, post } = await fetchPostData(postsList[0]);
 
-    writeFileSync("post.json", JSON.stringify(data));
+    // Create Audio Files
+    const newData = await createAudio({
+      post,
+      comments,
+      tmpDir,
+    });
 
-    return;
-
-    // // Create Audio Files
-    // await createAudio({
-    //   comments,
-    //   tmpDir,
-    // });
+    writeFileSync("post.json", JSON.stringify(newData));
 
     // // Bundle React Code
     // const bundled = await generateBundle();

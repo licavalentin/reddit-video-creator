@@ -43,12 +43,10 @@ export const calculateComments: CalculateComments = ({
             .join(" ");
 
           const isInFrame =
-            window.innerHeight -
-            spanEl.offsetTop +
-            spanEl.offsetHeight +
-            marginTop;
+            window.innerHeight - (spanEl.offsetTop + spanEl.offsetHeight);
+          const frameHeight = video.height - marginTop * 2;
 
-          if (Math.floor(isInFrame / video.height) > count) {
+          if (Math.floor(isInFrame / frameHeight) > count) {
             count++;
             return idx + index;
           }
@@ -63,11 +61,11 @@ export const calculateComments: CalculateComments = ({
 
     for (let index = 0; index < frames.length; index++) {
       const frameKey = frames[index];
-      frame.push(frameKey - 1, frameKey);
-      transform.push(index, index + 1);
+      frame.push(frameKey - 1, frameKey, frameKey + 1);
+      transform.push(index, index + 1, index + 1);
     }
 
-    return [frame, transform];
+    return [frame, transform, marginTop];
   }
 
   return null;
