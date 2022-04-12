@@ -8,11 +8,13 @@ export type Intro = {
   author: string;
   awards: Award[];
   score: number;
+  durationInFrames?: number;
 };
 
 export type Outro = {
   id?: "outro";
   outro: string;
+  durationInFrames?: number;
 };
 
 export type Thumbnail = {
@@ -24,10 +26,8 @@ export type Thumbnail = {
 
 export type CommentsGroup = {
   id?: "comments";
-  durationInFrames: number;
-  defaultProps: {
-    comments: Comment[];
-  };
+  durationInFrames?: number;
+  comments: Comment[];
 };
 
 export type InputData = Intro | Outro | Thumbnail | CommentsGroup;

@@ -6,7 +6,8 @@ import {
   useCurrentFrame,
 } from "remotion";
 
-import { AvatarDetails } from "../interface/post";
+import { video } from "../config/video";
+import { AvatarDetails, TextComment } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
@@ -16,7 +17,6 @@ import { RedditArrowIcon } from "./CustomIcons";
 import { calculateComments, roundUp } from "../utils/helper";
 
 import styles from "../styles/components/comments.module.scss";
-import { video } from "../config/video";
 
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
@@ -105,14 +105,14 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                   <span className={`${styles.calc__content} calc__content`} />
 
                   <span className={styles.all__content}>
-                    {(body as string[]).join(" ")}
+                    {(body as TextComment[]).map((e) => e.text).join(" ")}
                   </span>
 
                   <span className={`${styles.visible__content} visible-text`}>
-                    {(body as string[])
-                      .filter((_, idx) => {
+                    {(body as TextComment[])
+                      .filter((e, idx) => {
                         if (prevFrames + idx <= frame) {
-                          return _;
+                          return e.text;
                         }
                       })
                       .join(" ")}

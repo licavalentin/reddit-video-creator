@@ -56,7 +56,7 @@ export interface Comment {
 export interface PostFile {
   post: Post;
   comments: {
-    durationInFps: number;
+    durationInFrames: number;
     commentGroup: Comment[][];
   };
   exportPath: string;

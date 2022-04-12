@@ -116,8 +116,6 @@ export const generateVideo: GenerateVideo = async ({
     assetsInfo,
     imageFormat: "png",
     parallelism: cpus().length,
-    // pixelFormat: "yuva420p",
-    // codec: "vp8",
   });
 
   return finalOutput;
@@ -150,7 +148,7 @@ type GetDuration = (args: {
  */
 export const getDuration: GetDuration = ({
   filePath,
-  audioTrimDuration = 0,
+  audioTrimDuration = 0.8,
 }) => {
   const args = `ffprobe -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 

@@ -1,5 +1,6 @@
 import { video } from "../config/video";
 import { CalculateComments } from "../interface/helper";
+import { TextComment } from "../interface/post";
 
 /**
  * Roundup number to 1k, 1M ...
@@ -36,10 +37,11 @@ export const calculateComments: CalculateComments = ({
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      const framesCheck = (comments[index].body as string[])
+      const framesCheck = (comments[index].body as TextComment[])
         .map((_, idx) => {
-          spanEl.textContent = (comments[index].body as string[])
+          spanEl.textContent = (comments[index].body as TextComment[])
             .slice(0, idx)
+            .map((e) => e.text)
             .join(" ");
 
           const isInFrame =

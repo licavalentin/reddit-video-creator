@@ -234,6 +234,6 @@ export const fetchPostData = async (url: string) => {
 
   return {
     post: postDetails,
-    comments: selectedComments,
+    comments: [selectedComments[4]],
   };
 };

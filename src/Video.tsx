@@ -1,7 +1,12 @@
 import { Composition, getInputProps, Still } from "remotion";
 
 import { video } from "./config/video";
-import { InputData } from "./interface/compositions";
+import {
+  InputData,
+  Intro as IntroType,
+  Thumbnail as ThumbnailType,
+} from "./interface/compositions";
+import { Comment } from "./interface/post";
 
 import post from "./data/post.json";
 
@@ -11,20 +16,38 @@ import Thumbnail from "./components/Thumbnail";
 import Comments from "./components/Comments";
 
 import "./styles/main.scss";
-import { Comment } from "./interface/post";
 
 export const RemotionVideo: React.FC = () => {
   const { fps, height, width } = video;
 
   const {
-    post: { title, author, score, all_awardings, subreddit },
+    post: { title, author, score, all_awardings, subreddit, outro },
     comments,
   } = post;
 
   const inputData = getInputProps() as InputData;
   const prod = Object.keys(inputData).length !== 0;
 
-  const introConfig = (() => {})();
+  const introConfig: {
+    durationInFrames: number;
+    defaultProps: IntroType;
+  } = (() => {
+    if (prod && inputData.id === "intro")
+      return {
+        durationInFrames: inputData.durationInFrames as number,
+        defaultProps: inputData,
+      };
+
+    return {
+      durationInFrames: title.durationInFrames,
+      defaultProps: {
+        title: title.text,
+        author,
+        score,
+        awards: all_awardings,
+      },
+    };
+  })();
 
   const commentConfig: {
     durationInFrames: number;
@@ -32,16 +55,59 @@ export const RemotionVideo: React.FC = () => {
       comments: Comment[];
     };
   } = (() => {
-    if (prod && inputData.id === "comments") {
-      return inputData;
-    }
+    if (prod && inputData.id === "comments")
+      return {
+        durationInFrames: inputData.durationInFrames as number,
+        defaultProps: {
+          comments: inputData.comments,
+        },
+      };
 
     const localComments = comments[0];
 
     return {
-      durationInFrames: localComments,
+      durationInFrames: localComments.durationInFrames,
       defaultProps: {
-        comments: localComments,
+        comments: localComments.commentsGroup,
+      },
+    };
+  })();
+
+  const outroConfig: {
+    durationInFrames: number;
+    defaultProps: {
+      outro: string;
+    };
+  } = (() => {
+    if (prod && inputData.id === "outro")
+      return {
+        durationInFrames: inputData.durationInFrames as number,
+        defaultProps: {
+          outro: inputData.outro,
+        },
+      };
+
+    return {
+      durationInFrames: outro.durationInFrames,
+      defaultProps: {
+        outro: outro.text,
+      },
+    };
+  })();
+
+  const thumbnailConfig: {
+    defaultProps: ThumbnailType;
+  } = (() => {
+    if (prod && inputData.id === "thumbnail")
+      return {
+        defaultProps: inputData,
+      };
+
+    return {
+      defaultProps: {
+        title: title.text,
+        awards: all_awardings,
+        subreddit,
       },
     };
   })();
@@ -51,20 +117,10 @@ export const RemotionVideo: React.FC = () => {
       <Composition
         id="intro"
         component={Intro}
-        durationInFrames={1 * fps}
         fps={fps}
         width={width}
         height={height}
-        defaultProps={(() => {
-          if (prod && inputData.id === "intro") return inputData;
-
-          return {
-            title,
-            author,
-            score,
-            awards: all_awardings,
-          };
-        })()}
+        {...introConfig}
       />
 
       <Composition
@@ -73,24 +129,16 @@ export const RemotionVideo: React.FC = () => {
         fps={fps}
         width={width}
         height={height}
-        durationInFrames={commentConfig.durationInFrames + 1}
-        defaultProps={commentConfig.defaultProps}
+        {...commentConfig}
       />
 
       <Composition
         id="outro"
         component={Outro}
-        durationInFrames={1 * fps}
         fps={fps}
         width={width}
         height={height}
-        defaultProps={(() => {
-          if (prod && inputData.id === "outro") return inputData;
-
-          return {
-            outro: "💖 Thank you for watching",
-          };
-        })()}
+        {...outroConfig}
       />
 
       <Still
@@ -98,15 +146,7 @@ export const RemotionVideo: React.FC = () => {
         component={Thumbnail}
         width={width}
         height={height}
-        defaultProps={(() => {
-          if (prod && inputData.id === "thumbnail") return inputData;
-
-          return {
-            title,
-            awards: all_awardings,
-            subreddit,
-          };
-        })()}
+        {...thumbnailConfig}
       />
     </>
   );
