@@ -23,24 +23,24 @@ import styles from "../styles/components/comments.module.scss";
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
 
-  const [handle] = useState(() => delayRender());
+  // const [handle] = useState(() => delayRender());
   const commentsEl = useRef<HTMLUListElement>(null);
 
-  const [transformData, setTransformData] = useState<
-    [number[], number[], number]
-  >([[0, 1], [0, 0], 0]);
-  const [transform, setTransform] = useState<number>(0);
+  // const [transformData, setTransformData] = useState<
+  //   [number[], number[], number]
+  // >([[0, 1], [0, 0], 0]);
+  // const [transform, setTransform] = useState<number>(0);
 
-  useEffect(() => {
-    const animationData = calculateComments({
-      commentsEl,
-      comments,
-    }) as [number[], number[], number];
+  // useEffect(() => {
+  //   const animationData = calculateComments({
+  //     commentsEl,
+  //     comments,
+  //   }) as [number[], number[], number];
 
-    setTransformData(animationData);
+  //   setTransformData(animationData);
 
-    continueRender(handle);
-  }, []);
+  //   continueRender(handle);
+  // }, []);
 
   // useEffect(() => {
   //   if (transformData[0].length > 0 && transformData[0][0] !== 0) {
@@ -71,9 +71,9 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
       <ul
         className={styles.comments}
         ref={commentsEl}
-        style={{
-          transform: `translateY(-${transform}px)`,
-        }}
+        // style={{
+        //   transform: `translateY(-${transform}px)`,
+        // }}
       >
         {comments.map((comment, index) => {
           const { author, score, depth, body, all_awardings, avatar } = comment;
