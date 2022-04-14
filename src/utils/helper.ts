@@ -25,12 +25,18 @@ export const roundUp = (number: number): string => {
 export const calculateComments: CalculateComments = ({
   commentsEl,
   comments,
+  durationInFrames,
 }) => {
   if (commentsEl.current) {
-    const marginTop = commentsEl.current.offsetTop;
+    const marginTop = commentsEl.current.getBoundingClientRect().top;
     let count = 0;
     let frame: number[] = [];
     let transform: number[] = [];
+    const layout = (
+      document.querySelector(".layout__container") as HTMLDivElement
+    ).getBoundingClientRect();
+
+    const frameHeight = layout.height - marginTop;
 
     commentsEl.current.querySelectorAll("li.comment").forEach((item, idx) => {
       const spanEl = item.querySelector(
@@ -45,23 +51,33 @@ export const calculateComments: CalculateComments = ({
           .map((e) => e.text)
           .join(" ");
 
-        const isInFrame =
-          window.innerHeight - spanEl.offsetTop + spanEl.offsetHeight;
-        const frameHeight = video.height - marginTop * 2;
+        const { bottom } = spanEl.getBoundingClientRect();
 
-        if (Math.floor(isInFrame / frameHeight) > count) {
+        if (Math.floor(bottom / frameHeight) > count) {
           const frames = body[index].frames as [number, number];
 
           // [0, 20, 21, 40],
-          // [0, 1, 1, 0]
+          // [0, 1, 1, 1]
 
           frame.push(frames[0], frames[0] + 1);
-          transform.push(count * frameHeight, (count + 1) * frameHeight);
+
+          switch (count) {
+            case 0:
+              transform.push(0, bottom - marginTop);
+              break;
+
+            default:
+              transform.push(transform.at(-1) as number, bottom - marginTop);
+              break;
+          }
 
           count++;
         }
       }
     });
+
+    // frame.push((frame.at(-1) as number) + 1, durationInFrames);
+    // transform.push(transform.at(-1) as number, transform.at(-1) as number);
 
     return [frame, transform, marginTop];
   }

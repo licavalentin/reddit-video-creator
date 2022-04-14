@@ -42,7 +42,12 @@
       .details__header {
         display: flex;
         align-items: center;
+        // flex-direction: row;
         column-gap: 1.2em;
+
+        // @media (max-width: var(--mobile)) {
+        //   flex-direction: column;
+        // }
 
         p,
         span {
