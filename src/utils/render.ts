@@ -18,7 +18,7 @@ import {
 } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
-import { CompositionId, InputData } from "../interface/compositions";
+import { CompositionId, CompositionData } from "../interface/compositions";
 
 type MergeVideos = (args: {
   listPath: string;
@@ -41,7 +41,9 @@ export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
   }
 };
 
-export const generateBundle: () => Promise<string> = async () => {
+export const generateBundle: (path: string) => Promise<string> = async (
+  path
+) => {
   const webpackOverride: WebpackOverrideFn = (webpackConfig) => ({
     ...webpackConfig,
     module: {
@@ -60,7 +62,7 @@ export const generateBundle: () => Promise<string> = async () => {
     },
   });
 
-  return await bundle(join(__dirname, "../index.tsx"), () => {}, {
+  return await bundle(path, () => {}, {
     webpackOverride,
   });
 };
@@ -69,7 +71,7 @@ type GenerateVideo = (args: {
   bundled: string;
   id: CompositionId;
   output: string;
-  data: InputData;
+  data: CompositionData;
 }) => Promise<string>;
 
 // Generate Video
@@ -102,6 +104,7 @@ export const generateVideo: GenerateVideo = async ({
     inputProps: data,
     compositionId: id,
     imageFormat: "png",
+    onError: (e) => console.log(e),
   });
 
   const finalOutput = join(output, "out.mp4");

@@ -30,4 +30,4 @@ export type CommentsGroup = {
   comments: Comment[];
 };
 
-export type InputData = Intro | Outro | Thumbnail | CommentsGroup;
+export type CompositionData = Intro | CommentsGroup | Outro | Thumbnail;

@@ -1,72 +1,76 @@
-.comments {
-  margin: 2em 4.5em;
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
+.container {
   background-color: var(--background);
-  border-radius: var(--radius);
-  box-shadow: 0 0 10px 0px black;
-  padding: 0.5em 2em;
 
-  .comment {
-    position: relative;
+  .comments {
     display: flex;
-    column-gap: 0.5em;
-    // border-left: 4px solid var(--arrow-inactive);
+    flex-direction: column;
+    z-index: 2;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    box-shadow: 0 0 10px 0px black;
+    padding: 0.5em 2em;
+    margin: 2em 4.5em;
 
-    // &:first-child {
-    //   border: none;
-    // }
-
-    .comment__avatar {
-      transform: translateY(-1em);
-    }
-
-    .comment__body {
+    .comment {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      row-gap: 0.8rem;
-      padding: 1em 0;
-      width: 100%;
+      column-gap: 0.5em;
+      // border-left: 4px solid var(--arrow-inactive);
 
-      .comment__details {
+      // &:first-child {
+      //   border: none;
+      // }
+
+      .comment__avatar {
+        transform: translateY(-1em);
+      }
+
+      .comment__body {
         display: flex;
-        align-items: center;
-        column-gap: 1.2rem;
-        font-weight: 500;
+        flex-direction: column;
+        row-gap: 0.8rem;
+        padding: 1em 0;
+        width: 100%;
 
-        span {
-          color: var(--text-inactive);
+        .comment__details {
           display: flex;
           align-items: center;
-          column-gap: 0.3em;
+          column-gap: 1.2rem;
+          font-weight: 500;
 
-          svg {
-            width: 1em;
-            height: 1em;
+          span {
+            color: var(--text-inactive);
+            display: flex;
+            align-items: center;
+            column-gap: 0.3em;
 
-            path {
-              fill: var(--arrow-up);
-              stroke: var(--arrow-up);
+            svg {
+              width: 1em;
+              height: 1em;
+
+              path {
+                fill: var(--arrow-up);
+                stroke: var(--arrow-up);
+              }
             }
           }
         }
-      }
 
-      .comment__content {
-        position: relative;
+        .comment__content {
+          position: relative;
 
-        .calc__content,
-        .all__content {
-          opacity: 0;
-        }
+          .calc__content,
+          .all__content {
+            opacity: 0;
+          }
 
-        .calc__content,
-        .visible__content {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
+          .calc__content,
+          .visible__content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+          }
         }
       }
     }

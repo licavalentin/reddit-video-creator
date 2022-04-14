@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  AbsoluteFill,
   Audio,
   continueRender,
   delayRender,
@@ -17,7 +18,7 @@ import Layout from "./Layout";
 import { Awards, RandomAvatar } from "./UI";
 import { RedditArrowIcon } from "./CustomIcons";
 
-import { calculateComments, roundUp } from "../utils/helper";
+import { scrollAnimationHandler, roundUp } from "../utils/helper";
 
 import styles from "../styles/components/comments.module.scss";
 
@@ -26,24 +27,33 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const { durationInFrames } = useVideoConfig();
 
   const [handle] = useState(() => delayRender());
-  const commentsEl = useRef<HTMLUListElement>(null);
-  const [transformData, setTransformData] = useState<
-    [number[], number[], number]
-  >([[0, 1], [0, 0], 0]);
-
-  const transform = interpolate(frame, transformData[0], transformData[1]);
+  const container = useRef<HTMLUListElement>(null);
+  const scrollAnimation = useRef<[number[], number[]]>([
+    [0, 1],
+    [0, 0],
+  ]);
 
   useEffect(() => {
-    const animationData = calculateComments({
-      commentsEl,
+    scrollAnimation.current = scrollAnimationHandler({
+      container,
       comments,
       durationInFrames,
-    }) as [number[], number[], number];
-
-    setTransformData(animationData);
+    });
 
     continueRender(handle);
   }, []);
+
+  useEffect(() => {
+    if (scrollAnimation.current[0][0] > 0) {
+      window.scroll({
+        top: interpolate(
+          frame,
+          scrollAnimation.current[0],
+          scrollAnimation.current[1]
+        ),
+      });
+    }
+  }, [frame]);
 
   const audioFiles = (() => {
     let audioData: TextComment[] = [];
@@ -65,73 +75,74 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
         ))}
       </Series>
 
-      {JSON.stringify(transformData)}
+      <div className={styles.container}>
+        <ul className={styles.comments} ref={container}>
+          {comments.map((comment, index) => {
+            const { author, score, depth, body, all_awardings, avatar } =
+              comment;
 
-      <ul
-        className={styles.comments}
-        ref={commentsEl}
-        style={{
-          transform: `translateY(-${transform}px)`,
-        }}
-      >
-        {comments.map((comment, index) => {
-          const { author, score, depth, body, all_awardings, avatar } = comment;
+            return (
+              <li
+                className={`${styles.comment} comment`}
+                style={{
+                  marginLeft: `${depth * 100}px`,
+                  opacity:
+                    (
+                      (body as TextComment[])[0].frames as [number, number]
+                    )[0] >= frame && index > 0
+                      ? 0
+                      : 1,
+                }}
+                key={index}
+              >
+                <RandomAvatar
+                  className={styles.comment__avatar}
+                  avatar={avatar as AvatarDetails}
+                />
 
-          return (
-            <li
-              className={`${styles.comment} comment`}
-              style={{
-                marginLeft: `${depth * 100}px`,
-                opacity:
-                  ((body as TextComment[])[0].frames as [number, number])[0] >=
-                    frame && index > 0
-                    ? 0
-                    : 1,
-              }}
-              key={index}
-            >
-              <RandomAvatar
-                className={styles.comment__avatar}
-                avatar={avatar as AvatarDetails}
-              />
+                <div className={styles.comment__body}>
+                  <div
+                    className={`${styles.comment__details} comment__details`}
+                  >
+                    <p>{author}</p>
 
-              <div className={styles.comment__body}>
-                <div className={`${styles.comment__details} comment__details`}>
-                  <p>{author}</p>
+                    <span>·</span>
 
-                  <span>·</span>
+                    <span>
+                      <RedditArrowIcon />
+                      {roundUp(score)}
+                    </span>
 
-                  <span>
-                    <RedditArrowIcon />
-                    {roundUp(score)}
-                  </span>
+                    <span>·</span>
 
-                  <span>·</span>
+                    {all_awardings && (
+                      <Awards awards={all_awardings} limit={4} />
+                    )}
+                  </div>
 
-                  {all_awardings && <Awards awards={all_awardings} limit={4} />}
+                  <div className={styles.comment__content}>
+                    <span className={`${styles.calc__content} calc__content`} />
+
+                    <span className={styles.all__content}>
+                      {(body as TextComment[]).map((e) => e.text).join(" ")}
+                    </span>
+
+                    <span className={`${styles.visible__content} visible-text`}>
+                      {(body as TextComment[])
+                        .filter(
+                          ({ frames }) =>
+                            (frames as [number, number])[0] <= frame
+                        )
+                        .map((e) => e.text)
+                        .join(" ")}
+                    </span>
+                  </div>
                 </div>
-
-                <div className={styles.comment__content}>
-                  <span className={`${styles.calc__content} calc__content`} />
-
-                  <span className={styles.all__content}>
-                    {(body as TextComment[]).map((e) => e.text).join(" ")}
-                  </span>
-
-                  <span className={`${styles.visible__content} visible-text`}>
-                    {(body as TextComment[])
-                      .filter(
-                        ({ frames }) => (frames as [number, number])[0] <= frame
-                      )
-                      .map((e) => e.text)
-                      .join(" ")}
-                  </span>
-                </div>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </Layout>
   );
 };

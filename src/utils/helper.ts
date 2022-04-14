@@ -1,5 +1,4 @@
-import { video } from "../config/video";
-import { CalculateComments } from "../interface/helper";
+import { ScrollAnimationHandler } from "../interface/helper";
 import { TextComment } from "../interface/post";
 
 /**
@@ -22,65 +21,70 @@ export const roundUp = (number: number): string => {
 /**
  * Calculate scroll effect on comments
  */
-export const calculateComments: CalculateComments = ({
-  commentsEl,
+export const scrollAnimationHandler: ScrollAnimationHandler = ({
+  container,
   comments,
   durationInFrames,
 }) => {
-  if (commentsEl.current) {
-    const marginTop = commentsEl.current.getBoundingClientRect().top;
-    let count = 0;
-    let frame: number[] = [];
-    let transform: number[] = [];
+  if (container.current) {
     const layout = (
       document.querySelector(".layout__container") as HTMLDivElement
     ).getBoundingClientRect();
+    let count: number = 0;
+    let frame: number[] = [];
+    let animation: number[] = [];
+    const inFrameHeight = layout.height - layout.height / 3;
 
-    const frameHeight = layout.height - marginTop;
+    const commentsList = container.current.querySelectorAll("li.comment");
+    const topMargin = container.current.getBoundingClientRect().top;
 
-    commentsEl.current.querySelectorAll("li.comment").forEach((item, idx) => {
-      const spanEl = item.querySelector(
+    for (
+      let commentIndex = 0;
+      commentIndex < commentsList.length;
+      commentIndex++
+    ) {
+      const comment = commentsList[commentIndex];
+
+      const content = comment.querySelector(
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      const body = comments[idx].body as TextComment[];
+      const body = comments[commentIndex].body as TextComment[];
 
-      for (let index = 0; index < body.length; index++) {
-        spanEl.textContent = body
-          .slice(0, index)
+      for (let textIndex = 0; textIndex < body.length; textIndex++) {
+        content.textContent = body
+          .slice(0, textIndex)
           .map((e) => e.text)
           .join(" ");
 
-        const { bottom } = spanEl.getBoundingClientRect();
+        const { height, top } = content.getBoundingClientRect();
 
-        if (Math.floor(bottom / frameHeight) > count) {
-          const frames = body[index].frames as [number, number];
+        const inFrame =
+          inFrameHeight * count + inFrameHeight - (count > 0 ? topMargin : 0);
 
-          // [0, 20, 21, 40],
-          // [0, 1, 1, 1]
+        if (height + top > inFrame) {
+          const frames = body[textIndex].frames as [number, number];
+          frame.push(frames[0] - 1, frames[0]);
 
-          frame.push(frames[0], frames[0] + 1);
-
-          switch (count) {
-            case 0:
-              transform.push(0, bottom - marginTop);
-              break;
-
-            default:
-              transform.push(transform.at(-1) as number, bottom - marginTop);
-              break;
-          }
+          animation.push(
+            count === 0 ? 0 : (animation.at(-1) as number),
+            inFrame
+          );
 
           count++;
         }
       }
-    });
+    }
 
-    // frame.push((frame.at(-1) as number) + 1, durationInFrames);
-    // transform.push(transform.at(-1) as number, transform.at(-1) as number);
+    frame.push((frame.at(-1) as number) + 1, durationInFrames);
+    const lastAnimation = animation.at(-1) as number;
+    animation.push(lastAnimation, lastAnimation);
 
-    return [frame, transform, marginTop];
+    if (frame.length > 1) return [frame, animation];
   }
 
-  return null;
+  return [
+    [0, 1],
+    [0, 0],
+  ];
 };
