@@ -25,14 +25,14 @@ export const IntroComposition: React.FC = () => {
   } = (() => {
     if (prod)
       return {
-        durationInFrames: inputData.durationInFrames as number,
+        durationInFrames: 1,
         defaultProps: inputData,
       };
 
     return {
-      durationInFrames: title.durationInFrames,
+      durationInFrames: 1,
       defaultProps: {
-        title: title.text,
+        title,
         author,
         score,
         awards: all_awardings,

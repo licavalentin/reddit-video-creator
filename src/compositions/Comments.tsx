@@ -3,6 +3,7 @@ import { Composition, getInputProps, registerRoot } from "remotion";
 
 import { video } from "../config/video";
 import { CommentsGroup } from "../interface/compositions";
+import { Comment } from "../interface/post";
 
 import Comments from "../components/Comments";
 
@@ -17,6 +18,12 @@ export const CommentsComposition: React.FC = () => {
 
   const { comments } = post;
 
+  const calcDuration = (comments: Comment[]) =>
+    comments.reduce(
+      (previousValue, currentValue) => previousValue + currentValue.body.length,
+      0
+    );
+
   const commentConfig: {
     durationInFrames: number;
     defaultProps: {
@@ -25,7 +32,7 @@ export const CommentsComposition: React.FC = () => {
   } = (() => {
     if (prod)
       return {
-        durationInFrames: inputData.durationInFrames as number,
+        durationInFrames: calcDuration(inputData.comments),
         defaultProps: {
           comments: inputData.comments,
         },
@@ -34,9 +41,9 @@ export const CommentsComposition: React.FC = () => {
     const localComments = comments[0];
 
     return {
-      durationInFrames: localComments.durationInFrames,
+      durationInFrames: calcDuration(localComments),
       defaultProps: {
-        comments: localComments.commentsGroup,
+        comments: localComments,
       },
     };
   })();

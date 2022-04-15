@@ -15,32 +15,6 @@ export const OutroComposition: React.FC = () => {
   const inputData = getInputProps() as OutroType;
   const prod = Object.keys(inputData).length !== 0;
 
-  const {
-    post: { outro },
-  } = post;
-
-  const outroConfig: {
-    durationInFrames: number;
-    defaultProps: {
-      outro: string;
-    };
-  } = (() => {
-    if (prod)
-      return {
-        durationInFrames: inputData.durationInFrames as number,
-        defaultProps: {
-          outro: inputData.outro,
-        },
-      };
-
-    return {
-      durationInFrames: outro.durationInFrames,
-      defaultProps: {
-        outro: outro.text,
-      },
-    };
-  })();
-
   return (
     <Composition
       id="outro"
@@ -48,7 +22,10 @@ export const OutroComposition: React.FC = () => {
       fps={fps}
       width={width}
       height={height}
-      {...outroConfig}
+      durationInFrames={1}
+      defaultProps={{
+        outro: prod ? inputData.outro : post.post.outro,
+      }}
     />
   );
 };

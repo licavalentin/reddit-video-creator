@@ -1,32 +1,24 @@
 import cluster from "cluster";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
-import { video } from "../config/video";
 
-import { Comment, Post, TextComment } from "../interface/post";
+import { Comment, Post } from "../interface/post";
 
-import { deleteFolder, getDuration, spreadWork } from "../utils/render";
+import { spreadWork } from "../utils/render";
 
 type CreateAudio = (args: {
   post: Post;
   comments: Comment[][];
   tmpDir: string;
-}) => Promise<{
-  post: Post;
-  comments: {
-    durationInFrames: number;
-    commentsGroup: Comment[];
-  }[];
-}>;
+}) => Promise<null>;
 
 export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
   return new Promise(async (resolve) => {
     console.log("🎵 Generating Audio");
 
-    const audioPath = join(__dirname, "..", "..", "public", "audio");
-
-    if (existsSync(audioPath)) deleteFolder(audioPath);
-
+    const dataPath = join(tmpDir, "data");
+    mkdirSync(dataPath);
+    const audioPath = join(tmpDir, "audio");
     mkdirSync(audioPath);
 
     const audios: string[] = [];
@@ -37,7 +29,7 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
         for (let k = 0; k < body.length; k++) {
           const fileName = [i, j, k].join("-");
 
-          writeFileSync(join(tmpDir, `${fileName}.txt`), body[k]);
+          writeFileSync(join(dataPath, `${fileName}.txt`), body[k]);
 
           audios.push(fileName);
         }
@@ -45,11 +37,11 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
     }
 
     const introId = "intro";
-    writeFileSync(join(tmpDir, `${introId}.txt`), post.title as string);
+    writeFileSync(join(dataPath, `${introId}.txt`), post.title as string);
 
     const outroId = "outro";
-    const outroMessage = "Thank you for watching";
-    writeFileSync(join(tmpDir, `${outroId}.txt`), outroMessage);
+    const outroMessage = "Thank you for watching see you on another video buy";
+    writeFileSync(join(dataPath, `${outroId}.txt`), outroMessage);
 
     audios.push(introId, outroId);
 
@@ -59,7 +51,7 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(tmpDir, `${index}-audio.json`);
+      const jobsFilePath = join(dataPath, `${index}-audio.json`);
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
 
@@ -74,69 +66,7 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
         counter--;
 
         if (counter === 0) {
-          resolve({
-            post: {
-              ...post,
-              title: (() => {
-                const audioFilePath = `${introId}.mp3`;
-
-                const durationInSeconds = getDuration({
-                  filePath: join(audioPath, audioFilePath),
-                });
-
-                return {
-                  text: post.title as string,
-                  durationInFrames: Math.ceil(durationInSeconds * video.fps),
-                  audio: audioFilePath,
-                };
-              })(),
-              outro: (() => {
-                const audioFilePath = `${outroId}.mp3`;
-
-                const durationInSeconds = getDuration({
-                  filePath: join(audioPath, audioFilePath),
-                });
-
-                return {
-                  text: outroMessage,
-                  durationInFrames: Math.ceil(durationInSeconds * video.fps),
-                  audio: audioFilePath,
-                };
-              })(),
-            },
-            comments: comments.map((commentGroup, i) => {
-              let durationInFrames: number = 0;
-
-              const commentsGroup = commentGroup.map((comment, j) => ({
-                ...comment,
-                body: (comment.body as string[]).map((text, k) => {
-                  const audioFilePath = `${[i, j, k].join("-")}.mp3`;
-
-                  const durationInSeconds = getDuration({
-                    filePath: join(audioPath, audioFilePath),
-                  });
-
-                  const frames = Math.ceil(durationInSeconds * video.fps);
-
-                  const data = {
-                    text,
-                    durationInFrames: frames,
-                    audio: audioFilePath,
-                    frames: [durationInFrames, durationInFrames + frames - 1],
-                  };
-
-                  durationInFrames += frames;
-
-                  return data;
-                }) as TextComment[],
-              }));
-
-              return {
-                durationInFrames,
-                commentsGroup,
-              };
-            }),
-          });
+          resolve(null);
         }
       });
     }

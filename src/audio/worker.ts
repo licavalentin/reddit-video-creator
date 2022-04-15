@@ -10,8 +10,8 @@ const init = async () => {
 
   for (const ids of comments) {
     generateAudioFile({
-      outputPath: join(__dirname, "..", "..", "public", "audio", `${ids}.mp3`),
-      textFilePath: join(tmpDir, `${ids}.txt`),
+      outputPath: join(tmpDir, "audio", `${ids}.mp3`),
+      textFilePath: join(tmpDir, "data", `${ids}.txt`),
     });
   }
 

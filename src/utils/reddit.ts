@@ -1,3 +1,4 @@
+import { readdirSync } from "fs";
 import { join } from "path";
 
 import axios from "axios";
@@ -10,7 +11,6 @@ import {
   RedditData,
   Award,
 } from "../interface/post";
-import { readdirSync } from "fs";
 
 const redditUrl = "https://www.reddit.com";
 
@@ -112,8 +112,6 @@ export const fetchPostData = async (url: string) => {
     over_18,
     score,
   } = data[0].data.children[0].data;
-
-  // todo []. in the future cache fetcher posts
 
   const postAwards = (all_awardings: Award[]) =>
     all_awardings.map((awards) => {
@@ -223,7 +221,7 @@ export const fetchPostData = async (url: string) => {
     })(),
     ...commentList,
   ].map((comments) =>
-    comments.map((comment, index) => ({
+    comments.map((comment) => ({
       ...comment,
       body: splitText(comment.body as string),
       avatar: {
@@ -231,7 +229,6 @@ export const fetchPostData = async (url: string) => {
         head: heads[Math.floor(Math.random() * heads.length)],
         body: bodies[Math.floor(Math.random() * bodies.length)],
       },
-      index,
     }))
   );
 

@@ -17,7 +17,7 @@ const MidComposition: React.FC = () => {
       fps={fps}
       width={width}
       height={height}
-      durationInFrames={1 * fps}
+      durationInFrames={1}
       defaultProps={{
         logo: "/reddit-logo.png",
       }}

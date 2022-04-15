@@ -17,18 +17,11 @@ export interface Award {
   name: string;
 }
 
-export interface TextComment {
-  text: string;
-  durationInFrames: number;
-  frames?: [number, number];
-  audio: string;
-}
-
 export interface Post {
   subreddit: string;
   selftext: string;
-  title: TextComment | string;
-  outro?: TextComment;
+  title: string;
+  outro?: string;
   author: string;
   over_18: boolean;
   all_awardings: Award[];
@@ -45,7 +38,7 @@ export interface AvatarDetails {
 
 export interface Comment {
   author: string;
-  body: TextComment[] | string | string[];
+  body: string | string[];
   replies?: Replies | "";
   score: number;
   all_awardings: Award[];

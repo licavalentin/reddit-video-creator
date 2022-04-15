@@ -13,7 +13,6 @@ export type Intro = {
   author: string;
   awards: Award[];
   score: number;
-  durationInFrames?: number;
 };
 
 export type Mid = {
@@ -24,7 +23,6 @@ export type Mid = {
 export type Outro = {
   id?: "outro";
   outro: string;
-  durationInFrames?: number;
 };
 
 export type Thumbnail = {
@@ -36,7 +34,6 @@ export type Thumbnail = {
 
 export type CommentsGroup = {
   id?: "comments";
-  durationInFrames?: number;
   comments: Comment[];
 };
 

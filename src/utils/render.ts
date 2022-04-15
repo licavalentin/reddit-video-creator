@@ -42,9 +42,10 @@ export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
   }
 };
 
-export const generateBundle: (path: string) => Promise<string> = async (
-  path
-) => {
+export const generateBundle: (
+  path: string,
+  bundleDir: string
+) => Promise<string> = async (path, bundleDir) => {
   const webpackOverride: WebpackOverrideFn = (webpackConfig) => ({
     ...webpackConfig,
     module: {
@@ -65,6 +66,7 @@ export const generateBundle: (path: string) => Promise<string> = async (
 
   return await bundle(path, () => {}, {
     webpackOverride,
+    outDir: bundleDir,
   });
 };
 
@@ -73,7 +75,7 @@ type GenerateVideo = (args: {
   id: CompositionId;
   output: string;
   data: CompositionData;
-}) => Promise<string>;
+}) => Promise<void>;
 
 // Generate Video
 export const generateVideo: GenerateVideo = async ({
@@ -95,7 +97,7 @@ export const generateVideo: GenerateVideo = async ({
     throw new Error(`No video called ${id}`);
   }
 
-  const { assetsInfo } = await renderFrames({
+  await renderFrames({
     config: video,
     webpackBundle: bundled,
     onStart: () => {},
@@ -107,25 +109,6 @@ export const generateVideo: GenerateVideo = async ({
     imageFormat: "png",
     onError: (e) => console.log(e),
   });
-
-  const finalOutput = join(output, `out.${videoConfig.fileFormat}`);
-
-  await stitchFramesToVideo({
-    dir: output,
-    force: true,
-    fps: video.fps,
-    height: video.height,
-    width: video.width,
-    outputLocation: finalOutput,
-    assetsInfo,
-    imageFormat: "png",
-    parallelism: cpus().length,
-    pixelFormat: "yuva444p10le",
-    codec: "prores",
-    proResProfile: "4444",
-  });
-
-  return finalOutput;
 };
 
 /**

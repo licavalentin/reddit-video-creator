@@ -1,6 +1,5 @@
 import { video } from "../config/video";
 import { ScrollAnimationHandler } from "../interface/helper";
-import { TextComment } from "../interface/post";
 
 /**
  * Roundup number to 1k, 1M ...
@@ -39,6 +38,8 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
     const commentsList = container.current.querySelectorAll("li.comment");
     const containerEl = container.current.getBoundingClientRect();
 
+    const frameCounter = comments.map((e) => e.body.length);
+
     for (
       let commentIndex = 0;
       commentIndex < commentsList.length;
@@ -50,13 +51,10 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      const body = comments[commentIndex].body as TextComment[];
+      const body = comments[commentIndex].body as string[];
 
       for (let textIndex = 0; textIndex < body.length; textIndex++) {
-        content.innerHTML = body
-          .slice(0, textIndex)
-          .map((e) => e.text)
-          .join(" ");
+        content.innerHTML = body.slice(0, textIndex).join(" ");
 
         const { height, top } = content.getBoundingClientRect();
 
@@ -66,7 +64,15 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
           (count > 0 ? containerEl.top : 0);
 
         if (height + top > inFrame) {
-          const frames = body[textIndex].frames as [number, number];
+          let prevFrames: number = textIndex;
+
+          for (let idx = 0; idx < frameCounter.length; idx++) {
+            if (commentIndex > idx) {
+              prevFrames += frameCounter[idx];
+            }
+          }
+
+          const frames = [prevFrames - 1, prevFrames];
 
           if (video.fps >= 24) {
             const animationTime = 8;
