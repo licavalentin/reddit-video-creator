@@ -1,5 +1,4 @@
 .container {
-  padding: 2em 4.5em;
   // background-color: var(--background);
   min-height: 100%;
 
@@ -16,7 +15,7 @@
     box-shadow: 0 0 10px 0px black;
     padding: 0.5em 2em;
     flex: 1;
-    margin: auto;
+    margin: 2em 4.5em;
 
     .comment {
       position: relative;

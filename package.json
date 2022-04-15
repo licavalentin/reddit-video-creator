@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "remotion preview src/compositions/Comments.tsx",
     "build": "ts-node render.tsx",
-    "test": "npx remotion render src/compositions/Mid.tsx mid out/video.mp4"
+    "test": "npx remotion render src/compositions/Intro.tsx intro out/video.mkv"
   },
   "keywords": [],
   "author": "Valentin Lica",

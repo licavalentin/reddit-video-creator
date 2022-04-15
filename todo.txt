@@ -1,12 +1,7 @@
 []. post data duhet te perfshife ne body text framet per text, audio, dhe me per comment group durationinfps
 
 
-
-
-
-
-
-
+ffmpeg -loop 1 -i public/bc.jpg -i out/video.mkv -filter_complex "[1]scale=1920:1080[inner];[0][inner]overlay=0:0:shortest=1[out]" -map "[out]" -map 1:a -c:a copy -y output.mkv
 
 
 

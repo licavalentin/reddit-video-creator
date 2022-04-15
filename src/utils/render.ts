@@ -18,6 +18,7 @@ import {
 } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
+import { video as videoConfig } from "../config/video";
 import { CompositionId, CompositionData } from "../interface/compositions";
 
 type MergeVideos = (args: {
@@ -31,7 +32,7 @@ type MergeVideos = (args: {
 export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
   const command = `ffmpeg -y -safe 0 -f concat -i ${listPath} -c copy "${join(
     exportPath,
-    `${title ?? "video"}.mp4`
+    `${title ?? "video"}.${videoConfig.fileFormat}`
   )}"`;
 
   try {
@@ -107,7 +108,7 @@ export const generateVideo: GenerateVideo = async ({
     onError: (e) => console.log(e),
   });
 
-  const finalOutput = join(output, "out.mp4");
+  const finalOutput = join(output, `out.${videoConfig.fileFormat}`);
 
   await stitchFramesToVideo({
     dir: output,
@@ -119,6 +120,9 @@ export const generateVideo: GenerateVideo = async ({
     assetsInfo,
     imageFormat: "png",
     parallelism: cpus().length,
+    pixelFormat: "yuva444p10le",
+    codec: "prores",
+    proResProfile: "4444",
   });
 
   return finalOutput;

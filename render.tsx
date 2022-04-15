@@ -3,12 +3,13 @@ import { tmpdir } from "os";
 import { join } from "path";
 
 import { ffmpegFile } from "./src/config/paths";
+import { video } from "./src/config/video";
 import { Intro, Outro, CommentsGroup } from "./src/interface/compositions";
+import { TextComment } from "./src/interface/post";
 
 import { mergeVideos, generateVideo, generateBundle } from "./src/utils/render";
 import { fetchPostData } from "./src/utils/reddit";
 import { createAudio } from "./src/audio";
-import { TextComment } from "./src/interface/post";
 
 const render = async () => {
   console.time("Render");
@@ -105,18 +106,19 @@ const render = async () => {
       } as Outro,
     });
 
+    const outVideo = `out.${video.fileFormat}`;
     const videoList: string[] = [
-      ffmpegFile(join(introPath, "out.mp4")),
+      ffmpegFile(join(introPath, outVideo)),
       ...newData.comments.map((_: any, i: number) =>
-        ffmpegFile(join(tmpDir, `comments-${i}`, "out.mp4"))
+        ffmpegFile(join(tmpDir, `comments-${i}`, outVideo))
       ),
-      ffmpegFile(join(outroPath, "out.mp4")),
+      ffmpegFile(join(outroPath, outVideo)),
     ];
 
     const listPath = join(tmpDir, "list.txt");
     writeFileSync(
       listPath,
-      videoList.join(`\n${ffmpegFile(join(midPath, "out.mp4"))}\n`)
+      videoList.join(`\n${ffmpegFile(join(midPath, outVideo))}\n`)
     );
 
     // Merge Rendered Videos
