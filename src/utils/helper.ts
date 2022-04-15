@@ -1,5 +1,6 @@
 import { video } from "../config/video";
 import { ScrollAnimationHandler } from "../interface/helper";
+import { CommentText } from "../interface/post";
 
 /**
  * Roundup number to 1k, 1M ...
@@ -51,10 +52,13 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
         "span.calc__content"
       ) as HTMLSpanElement;
 
-      const body = comments[commentIndex].body as string[];
+      const body = comments[commentIndex].body as CommentText[];
 
       for (let textIndex = 0; textIndex < body.length; textIndex++) {
-        content.innerHTML = body.slice(0, textIndex).join(" ");
+        content.innerHTML = body
+          .slice(0, textIndex)
+          .map((e) => e.text)
+          .join(" ");
 
         const { height, top } = content.getBoundingClientRect();
 

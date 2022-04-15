@@ -208,7 +208,10 @@ export const fetchPostData = async (url: string) => {
           [
             {
               author,
-              body: splitText(selftext as string),
+              body: splitText(selftext as string).map((text, frame) => ({
+                text,
+                frame,
+              })),
               all_awardings: postAwards(all_awardings),
               created_utc,
               depth: 0,
@@ -220,17 +223,30 @@ export const fetchPostData = async (url: string) => {
       return [];
     })(),
     ...commentList,
-  ].map((comments) =>
-    comments.map((comment) => ({
+  ].map((comments) => {
+    let totalFrames: number = 0;
+
+    const commentsList = comments.map((comment) => ({
       ...comment,
-      body: splitText(comment.body as string),
+      body: splitText(comment.body as string).map((text, frame) => {
+        const data = {
+          text,
+          frame: totalFrames + frame,
+        };
+
+        totalFrames++;
+
+        return data;
+      }),
       avatar: {
         face: faces[Math.floor(Math.random() * faces.length)],
         head: heads[Math.floor(Math.random() * heads.length)],
         body: bodies[Math.floor(Math.random() * bodies.length)],
       },
-    }))
-  );
+    }));
+
+    return commentsList;
+  });
 
   console.log("📰 Post Fetched Successfully");
 

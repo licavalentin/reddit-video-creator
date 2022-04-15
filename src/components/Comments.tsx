@@ -8,7 +8,7 @@ import {
   useVideoConfig,
 } from "remotion";
 
-import { AvatarDetails } from "../interface/post";
+import { AvatarDetails, CommentText } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
@@ -22,7 +22,6 @@ import styles from "../styles/components/comments.module.scss";
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
-  const frameCounter = useRef(comments.map((e) => e.body.length));
 
   const [handle] = useState(() => delayRender());
   const container = useRef<HTMLUListElement>(null);
@@ -44,7 +43,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   }, []);
 
   useEffect(() => {
-    if (scrollAnimation.current[0][0] > 0) {
+    if (scrollAnimation.current[0].length === 2) {
       window.scroll({
         top: interpolate(
           frame,
@@ -70,20 +69,15 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
             const { author, score, depth, body, all_awardings, avatar } =
               comment;
 
-            let prevFrames: number = 0;
-
-            for (let idx = 0; idx < frameCounter.current.length; idx++) {
-              if (index > idx) {
-                prevFrames += frameCounter.current[idx];
-              }
-            }
-
             return (
               <li
                 className={`${styles.comment} comment`}
                 style={{
                   marginLeft: `${depth * 100}px`,
-                  opacity: prevFrames >= frame && index > 0 ? 0 : 1,
+                  opacity:
+                    (body as CommentText[])[0].frame >= frame && index > 0
+                      ? 0
+                      : 1,
                 }}
                 key={index}
               >
@@ -118,19 +112,20 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                     <span
                       className={styles.all__content}
                       dangerouslySetInnerHTML={{
-                        __html: (body as string[]).join(" "),
+                        __html: (body as CommentText[])
+                          .map((e) => e.text)
+                          .join(" "),
                       }}
                     />
 
                     <span
                       className={`${styles.visible__content} visible-text`}
                       dangerouslySetInnerHTML={{
-                        __html: (body as string[])
-                          .filter((_, idx) => {
-                            if (prevFrames + idx <= frame) {
-                              return _;
-                            }
-                          })
+                        __html: (body as CommentText[])
+                          .filter(
+                            ({ frame: currentFrame }) => currentFrame <= frame
+                          )
+                          .map((e) => e.text)
                           .join(" "),
                       }}
                     />

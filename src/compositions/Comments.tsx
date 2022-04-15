@@ -21,7 +21,7 @@ export const CommentsComposition: React.FC = () => {
   const calcDuration = (comments: Comment[]) =>
     comments.reduce(
       (previousValue, currentValue) => previousValue + currentValue.body.length,
-      0
+      1
     );
 
   const commentConfig: {

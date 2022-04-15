@@ -36,9 +36,14 @@ export interface AvatarDetails {
   body: number;
 }
 
+export interface CommentText {
+  frame: number;
+  text: string;
+}
+
 export interface Comment {
   author: string;
-  body: string | string[];
+  body: string | CommentText[];
   replies?: Replies | "";
   score: number;
   all_awardings: Award[];

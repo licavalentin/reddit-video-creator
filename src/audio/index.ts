@@ -2,7 +2,7 @@ import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-import { Comment, Post } from "../interface/post";
+import { Comment, CommentText, Post } from "../interface/post";
 
 import { spreadWork } from "../utils/render";
 
@@ -25,11 +25,11 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
     for (let i = 0; i < comments.length; i++) {
       const commentGroup = comments[i];
       for (let j = 0; j < commentGroup.length; j++) {
-        const body = commentGroup[j].body as string[];
+        const body = commentGroup[j].body as CommentText[];
         for (let k = 0; k < body.length; k++) {
           const fileName = [i, j, k].join("-");
 
-          writeFileSync(join(dataPath, `${fileName}.txt`), body[k]);
+          writeFileSync(join(dataPath, `${fileName}.txt`), body[k].text);
 
           audios.push(fileName);
         }

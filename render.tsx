@@ -22,24 +22,24 @@ const render = async () => {
     // Create Temp dir to store render files
     const tmpDir = join(tmpdir(), "reddit-video-creator");
 
-    // if (existsSync(tmpDir)) {
-    //   deleteFolder(tmpDir);
-    // }
+    if (existsSync(tmpDir)) {
+      deleteFolder(tmpDir);
+    }
 
-    // mkdirSync(tmpDir);
+    mkdirSync(tmpDir);
 
-    // // todo: []. Fetch selected posts and automatically chose comments
-    // const postsList: string[] = JSON.parse(
-    //   readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
-    // );
+    // todo: []. Fetch selected posts and automatically chose comments
+    const postsList: string[] = JSON.parse(
+      readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
+    );
 
-    // // Check if we have selected posts
-    // if (postsList.length === 0) throw new Error("Please Add Posts");
+    // Check if we have selected posts
+    if (postsList.length === 0) throw new Error("Please Add Posts");
 
-    // console.log(`📁 Project dir: ${tmpDir}`);
+    console.log(`📁 Project dir: ${tmpDir}`);
 
-    // // Fetch Post
-    // const { comments, post } = await fetchPostData(postsList[0]);
+    // Fetch Post
+    const { comments, post } = await fetchPostData(postsList[0]);
 
     // // Create Audio Files
     // await createAudio({
@@ -48,76 +48,81 @@ const render = async () => {
     //   tmpDir,
     // });
 
-    const { post, comments } = JSON.parse(
-      readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    // const { post, comments } = JSON.parse(
+    //   readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    // );
+
+    writeFileSync(
+      join(__dirname, "src", "data", "post.json"),
+      JSON.stringify({ post, comments })
     );
 
     // Bundle React Code
-    console.log("🎥 Generating Video");
+    // console.log("🎥 Generating Video");
 
-    const compositionPath = join(__dirname, "src", "compositions");
+    // const compositionPath = join(__dirname, "src", "compositions");
 
-    const bundleDir = join(tmpDir, "bundle");
+    // const bundleDir = join(tmpDir, "bundle");
 
-    // Generate Intro Video
-    const introPath = join(tmpDir, "intro");
-    await generateVideo({
-      bundled: await generateBundle(
-        join(compositionPath, "Intro.tsx"),
-        bundleDir
-      ),
-      id: "intro",
-      output: introPath,
-      data: {
-        title: post.title,
-        author: post.author,
-        awards: post.all_awardings,
-        score: post.score,
-      } as Intro,
-    });
+    // // Generate Intro Video
+    // const introPath = join(tmpDir, "intro");
+    // await generateVideo({
+    //   bundled: await generateBundle(
+    //     join(compositionPath, "Intro.tsx"),
+    //     bundleDir
+    //   ),
+    //   id: "intro",
+    //   output: introPath,
+    //   data: {
+    //     title: post.title,
+    //     author: post.author,
+    //     awards: post.all_awardings,
+    //     score: post.score,
+    //   } as Intro,
+    // });
 
-    // Generate Comments
-    for (let index = 0; index < comments.length; index++) {
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Comments.tsx"),
-          bundleDir
-        ),
-        id: "comments",
-        output: join(tmpDir, `comments-${index}`),
-        data: {
-          comments: comments[index],
-        } as CommentsGroup,
-      });
+    // // Generate Comments
+    // for (let index = 0; index < comments.length; index++) {
+    //   await generateVideo({
+    //     bundled: await generateBundle(
+    //       join(compositionPath, "Comments.tsx"),
+    //       bundleDir
+    //     ),
+    //     id: "comments",
+    //     output: join(tmpDir, `comments-${index}`),
+    //     data: {
+    //       comments: comments[index],
+    //     } as CommentsGroup,
+    //   });
 
-      console.log(`Comments ${index} Finished`);
-    }
+    //   console.log(`Comments ${index} Finished`);
+    // }
 
-    // Generate Mid
-    const midPath = join(tmpDir, "mid");
-    await generateVideo({
-      bundled: await generateBundle(
-        join(compositionPath, "Mid.tsx"),
-        bundleDir
-      ),
-      id: "mid",
-      output: midPath,
-      data: {},
-    });
+    // // Generate Mid
+    // const midPath = join(tmpDir, "mid");
+    // await generateVideo({
+    //   bundled: await generateBundle(
+    //     join(compositionPath, "Mid.tsx"),
+    //     bundleDir
+    //   ),
+    //   id: "mid",
+    //   output: midPath,
+    //   data: {},
+    // });
 
-    // Generate Outro
-    const outroPath = join(tmpDir, "outro");
-    await generateVideo({
-      bundled: await generateBundle(
-        join(compositionPath, "Outro.tsx"),
-        bundleDir
-      ),
-      id: "outro",
-      output: outroPath,
-      data: {
-        outro: post.outro,
-      } as Outro,
-    });
+    // // Generate Outro
+    // const outroPath = join(tmpDir, "outro");
+    // await generateVideo({
+    //   bundled: await generateBundle(
+    //     join(compositionPath, "Outro.tsx"),
+    //     bundleDir
+    //   ),
+    //   id: "outro",
+    //   output: outroPath,
+    //   data: {
+    //     outro: post.outro,
+    //   } as Outro,
+    // });
 
     // const outVideo = `out.${video.fileFormat}`;
     // const videoList: string[] = [
