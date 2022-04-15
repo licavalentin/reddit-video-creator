@@ -1,6 +1,11 @@
 import { Award, Comment } from "./post";
 
-export type CompositionId = "intro" | "outro" | "thumbnail" | "comments";
+export type CompositionId =
+  | "intro"
+  | "outro"
+  | "thumbnail"
+  | "comments"
+  | "mid";
 
 export type Intro = {
   id?: "intro";
@@ -9,6 +14,11 @@ export type Intro = {
   awards: Award[];
   score: number;
   durationInFrames?: number;
+};
+
+export type Mid = {
+  id?: "mid";
+  logo: string;
 };
 
 export type Outro = {
@@ -30,4 +40,4 @@ export type CommentsGroup = {
   comments: Comment[];
 };
 
-export type CompositionData = Intro | CommentsGroup | Outro | Thumbnail;
+export type CompositionData = Intro | CommentsGroup | Outro | Thumbnail | {};

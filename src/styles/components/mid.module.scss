@@ -1,0 +1,11 @@
+.container {
+  box-shadow: 0 0 10px 0px black;
+  margin: 2em 4.5em;
+  padding: 0.5em 2em;
+  background-color: var(--background);
+  border-radius: var(--radius);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,3 +1,4 @@
+import { video } from "../config/video";
 import { ScrollAnimationHandler } from "../interface/helper";
 import { TextComment } from "../interface/post";
 
@@ -36,7 +37,7 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
     const inFrameHeight = layout.height - layout.height / 3;
 
     const commentsList = container.current.querySelectorAll("li.comment");
-    const topMargin = container.current.getBoundingClientRect().top;
+    const containerEl = container.current.getBoundingClientRect();
 
     for (
       let commentIndex = 0;
@@ -52,7 +53,7 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
       const body = comments[commentIndex].body as TextComment[];
 
       for (let textIndex = 0; textIndex < body.length; textIndex++) {
-        content.textContent = body
+        content.innerHTML = body
           .slice(0, textIndex)
           .map((e) => e.text)
           .join(" ");
@@ -60,11 +61,22 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
         const { height, top } = content.getBoundingClientRect();
 
         const inFrame =
-          inFrameHeight * count + inFrameHeight - (count > 0 ? topMargin : 0);
+          inFrameHeight * count +
+          inFrameHeight -
+          (count > 0 ? containerEl.top : 0);
 
         if (height + top > inFrame) {
           const frames = body[textIndex].frames as [number, number];
-          frame.push(frames[0] - 1, frames[0]);
+
+          if (video.fps >= 24) {
+            const animationTime = 8;
+            frame.push(
+              frames[0] - animationTime / 2,
+              frames[0] + animationTime / 2
+            );
+          } else {
+            frame.push(frames[0] - 1, frames[0]);
+          }
 
           animation.push(
             count === 0 ? 0 : (animation.at(-1) as number),
@@ -76,11 +88,13 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
       }
     }
 
-    frame.push((frame.at(-1) as number) + 1, durationInFrames);
-    const lastAnimation = animation.at(-1) as number;
-    animation.push(lastAnimation, lastAnimation);
+    if (frame.length > 1 && count > 0) {
+      frame.push((frame.at(-1) as number) + 1, durationInFrames);
+      const lastAnimation = animation.at(-1) as number;
+      animation.push(lastAnimation, lastAnimation);
 
-    if (frame.length > 1) return [frame, animation];
+      return [frame, animation];
+    }
   }
 
   return [

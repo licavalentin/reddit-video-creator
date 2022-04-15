@@ -4,6 +4,7 @@ import {
   Audio,
   continueRender,
   delayRender,
+  Easing,
   interpolate,
   Series,
   staticFile,
@@ -34,11 +35,13 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   ]);
 
   useEffect(() => {
-    scrollAnimation.current = scrollAnimationHandler({
-      container,
-      comments,
-      durationInFrames,
-    });
+    if (scrollAnimation.current[0].length === 2) {
+      scrollAnimation.current = scrollAnimationHandler({
+        container,
+        comments,
+        durationInFrames,
+      });
+    }
 
     continueRender(handle);
   }, []);
@@ -49,7 +52,10 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
         top: interpolate(
           frame,
           scrollAnimation.current[0],
-          scrollAnimation.current[1]
+          scrollAnimation.current[1],
+          {
+            easing: Easing.ease,
+          }
         ),
       });
     }
@@ -75,7 +81,11 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
         ))}
       </Series>
 
-      <div className={styles.container}>
+      <div
+        className={`${styles.container} ${
+          scrollAnimation.current[0].length === 2 ? styles.container__small : ""
+        }`}
+      >
         <ul className={styles.comments} ref={container}>
           {comments.map((comment, index) => {
             const { author, score, depth, body, all_awardings, avatar } =
@@ -123,19 +133,27 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                   <div className={styles.comment__content}>
                     <span className={`${styles.calc__content} calc__content`} />
 
-                    <span className={styles.all__content}>
-                      {(body as TextComment[]).map((e) => e.text).join(" ")}
-                    </span>
+                    <span
+                      className={styles.all__content}
+                      dangerouslySetInnerHTML={{
+                        __html: (body as TextComment[])
+                          .map((e) => e.text)
+                          .join(" "),
+                      }}
+                    />
 
-                    <span className={`${styles.visible__content} visible-text`}>
-                      {(body as TextComment[])
-                        .filter(
-                          ({ frames }) =>
-                            (frames as [number, number])[0] <= frame
-                        )
-                        .map((e) => e.text)
-                        .join(" ")}
-                    </span>
+                    <span
+                      className={`${styles.visible__content} visible-text`}
+                      dangerouslySetInnerHTML={{
+                        __html: (body as TextComment[])
+                          .filter(
+                            ({ frames }) =>
+                              (frames as [number, number])[0] <= frame
+                          )
+                          .map((e) => e.text)
+                          .join(" "),
+                      }}
+                    />
                   </div>
                 </div>
               </li>

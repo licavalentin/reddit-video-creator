@@ -8,6 +8,10 @@
   font-family: "IBM Plex Sans", sans-serif;
 }
 
+html {
+  background-color: var(--background);
+}
+
 body {
   font-size: 32px;
   color: var(--color);

@@ -28,23 +28,23 @@ const render = async () => {
     console.log(`📁 Project dir: ${tmpDir}`);
 
     // Fetch Post
-    // const { comments, post } = await fetchPostData(postsList[0]);
+    const { comments, post } = await fetchPostData(postsList[0]);
 
-    // // Create Audio Files
-    // const newData = await createAudio({
-    //   post,
-    //   comments,
-    //   tmpDir,
-    // });
+    // Create Audio Files
+    const newData = await createAudio({
+      post,
+      comments,
+      tmpDir,
+    });
 
-    // writeFileSync(
-    //   join(__dirname, "src", "data", "post.json"),
-    //   JSON.stringify(newData)
-    // );
-
-    const newData = JSON.parse(
-      readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    writeFileSync(
+      join(__dirname, "src", "data", "post.json"),
+      JSON.stringify(newData)
     );
+
+    // const newData = JSON.parse(
+    //   readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    // );
 
     // Bundle React Code
     console.log("🎥 Generating Video");
@@ -83,6 +83,15 @@ const render = async () => {
       console.log(`Comments ${index} Finished`);
     }
 
+    // Generate Mid
+    const midPath = join(tmpDir, "mid");
+    await generateVideo({
+      bundled: await generateBundle(join(compositionPath, "Mid.tsx")),
+      id: "mid",
+      output: midPath,
+      data: {},
+    });
+
     // Generate Outro
     const outroPath = join(tmpDir, "outro");
     const outroData = newData.post.outro as TextComment;
@@ -105,7 +114,10 @@ const render = async () => {
     ];
 
     const listPath = join(tmpDir, "list.txt");
-    writeFileSync(listPath, videoList.join("\n"));
+    writeFileSync(
+      listPath,
+      videoList.join(`\n${ffmpegFile(join(midPath, "out.mp4"))}\n`)
+    );
 
     // Merge Rendered Videos
     mergeVideos({
