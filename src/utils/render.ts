@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import {
   existsSync,
   mkdirSync,
@@ -11,36 +10,10 @@ import { join } from "path";
 import { cpus } from "os";
 
 import { WebpackOverrideFn, TCompMetadata } from "remotion";
-import {
-  getCompositions,
-  renderFrames,
-  stitchFramesToVideo,
-} from "@remotion/renderer";
+import { getCompositions, renderFrames } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
-import { video as videoConfig } from "../config/video";
 import { CompositionId, CompositionData } from "../interface/compositions";
-
-type MergeVideos = (args: {
-  listPath: string;
-  exportPath: string;
-  title?: string;
-}) => void;
-/**
- * Merge Videos together
- */
-export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
-  const command = `ffmpeg -y -safe 0 -f concat -i ${listPath} -c copy "${join(
-    exportPath,
-    `${title ?? "video"}.${videoConfig.fileFormat}`
-  )}"`;
-
-  try {
-    execSync(command, { stdio: "pipe" });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const generateBundle: (
   path: string,
@@ -125,30 +98,6 @@ export const deleteFolder = (path: string) => {
       }
     });
     rmdirSync(path);
-  }
-};
-
-type GetDuration = (args: {
-  filePath: string;
-  audioTrimDuration?: number;
-}) => number;
-
-/**
- * Get File Duration
- */
-export const getDuration: GetDuration = ({
-  filePath,
-  audioTrimDuration = 0.8,
-}) => {
-  const args = `ffprobe -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
-
-  try {
-    return (
-      Number(execSync(args, { stdio: "pipe" }).toString().trim()) -
-      audioTrimDuration
-    );
-  } catch (error) {
-    return 0;
   }
 };
 

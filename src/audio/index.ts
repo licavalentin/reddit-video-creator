@@ -1,6 +1,7 @@
 import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
+import { introPath, outroPath, tempAudio, tempData } from "../config/paths";
 
 import { Comment, CommentText, Post } from "../interface/post";
 
@@ -9,17 +10,14 @@ import { spreadWork } from "../utils/render";
 type CreateAudio = (args: {
   post: Post;
   comments: Comment[][];
-  tmpDir: string;
 }) => Promise<null>;
 
-export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
+export const createAudio: CreateAudio = async ({ post, comments }) => {
   return new Promise(async (resolve) => {
     console.log("🎵 Generating Audio");
 
-    const dataPath = join(tmpDir, "data");
-    mkdirSync(dataPath);
-    const audioPath = join(tmpDir, "audio");
-    mkdirSync(audioPath);
+    mkdirSync(tempData);
+    mkdirSync(tempAudio);
 
     const audios: string[] = [];
     for (let i = 0; i < comments.length; i++) {
@@ -29,7 +27,13 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
         for (let k = 0; k < body.length; k++) {
           const fileName = [i, j, k].join("-");
 
-          writeFileSync(join(dataPath, `${fileName}.txt`), body[k].text);
+          writeFileSync(
+            join(tempData, `${fileName}.txt`),
+            body[k].text.replace(
+              /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+              ""
+            )
+          );
 
           audios.push(fileName);
         }
@@ -37,11 +41,11 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
     }
 
     const introId = "intro";
-    writeFileSync(join(dataPath, `${introId}.txt`), post.title as string);
+    writeFileSync(join(tempData, `${introId}.txt`), post.title as string);
 
     const outroId = "outro";
     const outroMessage = "Thank you for watching see you on another video buy";
-    writeFileSync(join(dataPath, `${outroId}.txt`), outroMessage);
+    writeFileSync(join(tempData, `${outroId}.txt`), outroMessage);
 
     audios.push(introId, outroId);
 
@@ -51,13 +55,13 @@ export const createAudio: CreateAudio = async ({ post, comments, tmpDir }) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(dataPath, `${index}-audio.json`);
+      const jobsFilePath = join(tempData, `${index}-audio.json`);
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
 
       cluster.setupPrimary({
         exec: join(__dirname, "worker.ts"),
-        args: [jobsFilePath, tmpDir],
+        args: [jobsFilePath],
       });
 
       const worker = cluster.fork();

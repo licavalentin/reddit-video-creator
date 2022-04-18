@@ -3,4 +3,5 @@ export const video = {
   height: 1080,
   fps: 1,
   fileFormat: "mp4",
+  ffmpegFps: 5,
 };

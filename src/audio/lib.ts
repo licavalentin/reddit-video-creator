@@ -45,11 +45,15 @@ export const generateAudioFile: AudioGenerator = ({
   textFilePath,
   outputPath,
 }) => {
+  const timeout = {
+    timeout: 3 * 60000,
+  };
+
   if (!audio.custom_audio) {
     const command = `balcon -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
-      execSync(command);
+      execSync(command, timeout);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +61,7 @@ export const generateAudioFile: AudioGenerator = ({
     const command = `bal4web -s m -l en-Us -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
-      execSync(command);
+      execSync(command, timeout);
     } catch (error) {
       console.log(error);
     }

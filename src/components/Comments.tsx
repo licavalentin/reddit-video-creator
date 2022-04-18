@@ -12,7 +12,7 @@ import { AvatarDetails, CommentText } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
-import { Awards, RandomAvatar } from "./UI";
+import { Awards, BackgroundImage, RandomAvatar } from "./UI";
 import { RedditArrowIcon } from "./CustomIcons";
 
 import { scrollAnimationHandler, roundUp } from "../utils/helper";
@@ -59,6 +59,8 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
   return (
     <Layout>
+      {/* <BackgroundImage path="/bc.jpg" /> */}
+
       <div
         className={`${styles.container} ${
           scrollAnimation.current[0].length === 2 ? styles.container__small : ""

@@ -1,71 +1,76 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { tmpdir } from "os";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  writeFileSync,
+} from "fs";
 import { join } from "path";
 
-import { ffmpegFile } from "./src/config/paths";
-import { video } from "./src/config/video";
+import {
+  commentPath,
+  introPath,
+  midPath,
+  outroPath,
+  tmpDir,
+} from "./src/config/paths";
 import { Intro, Outro, CommentsGroup } from "./src/interface/compositions";
 
 import {
-  mergeVideos,
   generateVideo,
   generateBundle,
   deleteFolder,
 } from "./src/utils/render";
 import { fetchPostData } from "./src/utils/reddit";
 import { createAudio } from "./src/audio";
+import { mergeFrames } from "./src/video";
 
 const render = async () => {
   console.time("Render");
 
   try {
-    // Create Temp dir to store render files
-    const tmpDir = join(tmpdir(), "reddit-video-creator");
+    // // Create Temp dir to store render files
+    // if (existsSync(tmpDir)) {
+    //   deleteFolder(tmpDir);
+    // }
 
-    if (existsSync(tmpDir)) {
-      deleteFolder(tmpDir);
-    }
+    // mkdirSync(tmpDir);
 
-    mkdirSync(tmpDir);
+    // // todo: []. Fetch selected posts and automatically chose comments
+    // const postsList: string[] = JSON.parse(
+    //   readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
+    // );
 
-    // todo: []. Fetch selected posts and automatically chose comments
-    const postsList: string[] = JSON.parse(
-      readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
-    );
+    // // Check if we have selected posts
+    // if (postsList.length === 0) throw new Error("Please Add Posts");
 
-    // Check if we have selected posts
-    if (postsList.length === 0) throw new Error("Please Add Posts");
+    // console.log(`📁 Project dir: ${tmpDir}`);
 
-    console.log(`📁 Project dir: ${tmpDir}`);
-
-    // Fetch Post
-    const { comments, post } = await fetchPostData(postsList[0]);
+    // // Fetch Post
+    // const { comments, post } = await fetchPostData(postsList[0]);
 
     // // Create Audio Files
     // await createAudio({
     //   post,
     //   comments,
-    //   tmpDir,
     // });
 
-    // const { post, comments } = JSON.parse(
-    //   readFileSync(join(__dirname, "src", "data", "post.json")).toString()
-    // );
-
-    writeFileSync(
-      join(__dirname, "src", "data", "post.json"),
-      JSON.stringify({ post, comments })
+    const { post, comments } = JSON.parse(
+      readFileSync(join(__dirname, "src", "data", "post.json")).toString()
     );
+
+    // writeFileSync(
+    //   join(__dirname, "src", "data", "post.json"),
+    //   JSON.stringify({ post, comments })
+    // );
 
     // Bundle React Code
     // console.log("🎥 Generating Video");
 
     // const compositionPath = join(__dirname, "src", "compositions");
-
     // const bundleDir = join(tmpDir, "bundle");
 
     // // Generate Intro Video
-    // const introPath = join(tmpDir, "intro");
     // await generateVideo({
     //   bundled: await generateBundle(
     //     join(compositionPath, "Intro.tsx"),
@@ -89,7 +94,7 @@ const render = async () => {
     //       bundleDir
     //     ),
     //     id: "comments",
-    //     output: join(tmpDir, `comments-${index}`),
+    //     output: commentPath(index),
     //     data: {
     //       comments: comments[index],
     //     } as CommentsGroup,
@@ -99,7 +104,6 @@ const render = async () => {
     // }
 
     // // Generate Mid
-    // const midPath = join(tmpDir, "mid");
     // await generateVideo({
     //   bundled: await generateBundle(
     //     join(compositionPath, "Mid.tsx"),
@@ -111,7 +115,6 @@ const render = async () => {
     // });
 
     // // Generate Outro
-    // const outroPath = join(tmpDir, "outro");
     // await generateVideo({
     //   bundled: await generateBundle(
     //     join(compositionPath, "Outro.tsx"),
@@ -123,6 +126,10 @@ const render = async () => {
     //     outro: post.outro,
     //   } as Outro,
     // });
+
+    await mergeFrames({
+      comments,
+    });
 
     // const outVideo = `out.${video.fileFormat}`;
     // const videoList: string[] = [

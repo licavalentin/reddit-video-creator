@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "fs";
+import { readdirSync } from "fs";
 import { join } from "path";
 
 import axios from "axios";
@@ -10,7 +10,6 @@ import {
   Replies,
   RedditData,
   Award,
-  CommentText,
 } from "../interface/post";
 
 const redditUrl = "https://www.reddit.com";
@@ -23,10 +22,6 @@ const splitText = (text: string): string[] => {
   // Decode html code to text
   const words = text
     // Remove emoji
-    .replace(
-      /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
-      ""
-    )
     .replace(/(?:https?|ftp):\/\/[\n\S]+/g, "")
     .split(" ")
     .filter((text) => text.trim() !== "");
@@ -244,6 +239,6 @@ export const fetchPostData = async (url: string) => {
 
   return {
     post: postDetails,
-    comments: selectedComments,
+    comments: selectedComments.filter((_, index) => index < 4),
   };
 };
