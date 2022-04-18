@@ -16,10 +16,10 @@ const RandomAvatar: React.FC<Props> = ({ className, avatar }) => {
   return (
     <div className={`${styles.avatar} ${className}`}>
       <Img src={staticFile(`/avatar/default-body.png`)} />
-      <Img src={staticFile(`/avatar/body/${body}-body.png`)} />
+      <Img src={staticFile(`/avatar/body/${body}`)} />
       <Img src={staticFile(`/avatar/default-head.png`)} />
-      <Img src={staticFile(`/avatar/face/${face}-face.png`)} />
-      <Img src={staticFile(`/avatar/head/${head}-head.png`)} />
+      <Img src={staticFile(`/avatar/face/${face}`)} />
+      <Img src={staticFile(`/avatar/head/${head}`)} />
 
       <div className={styles.avatar__background} />
     </div>

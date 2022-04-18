@@ -75,7 +75,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                 style={{
                   marginLeft: `${depth * 100}px`,
                   opacity:
-                    (body as CommentText[])[0].frame >= frame && index > 0
+                    (body as CommentText[])[0].frame > frame && index > 0
                       ? 0
                       : 1,
                 }}
@@ -99,10 +99,11 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                       {roundUp(score)}
                     </span>
 
-                    <span>·</span>
-
-                    {all_awardings && (
-                      <Awards awards={all_awardings} limit={4} />
+                    {all_awardings && all_awardings.length > 0 && (
+                      <>
+                        <span>·</span>
+                        <Awards awards={all_awardings} limit={4} />
+                      </>
                     )}
                   </div>
 

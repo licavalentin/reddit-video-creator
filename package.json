@@ -4,7 +4,7 @@
   "description": "Create videos from questions",
   "scripts": {
     "dev": "remotion preview src/compositions/Comments.tsx",
-    "build": "ts-node render.tsx",
+    "start": "ts-node render.tsx",
     "test": "npx remotion render src/compositions/Comments.tsx comments out/video.mkv"
   },
   "keywords": [],

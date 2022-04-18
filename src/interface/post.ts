@@ -31,9 +31,9 @@ export interface Post {
 }
 
 export interface AvatarDetails {
-  face: number;
-  head: number;
-  body: number;
+  face: string;
+  head: string;
+  body: string;
 }
 
 export interface CommentText {

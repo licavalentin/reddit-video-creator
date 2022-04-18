@@ -1,4 +1,4 @@
-import { readdirSync } from "fs";
+import { existsSync, readdirSync } from "fs";
 import { join } from "path";
 
 import axios from "axios";
@@ -10,6 +10,7 @@ import {
   Replies,
   RedditData,
   Award,
+  CommentText,
 } from "../interface/post";
 
 const redditUrl = "https://www.reddit.com";
@@ -132,6 +133,15 @@ export const fetchPostData = async (url: string) => {
     score,
   };
 
+  const publicFolder = join(__dirname, "..", "..", "public");
+  const avatarFolder = join(publicFolder, "avatar");
+  const faces = getFolders(join(avatarFolder, "face"));
+  const heads = getFolders(join(avatarFolder, "head"));
+  const bodies = getFolders(join(avatarFolder, "body"));
+
+  const selectAvatar = (images: string[]): string =>
+    images[Math.floor(Math.random() * images.length)];
+
   const commentList: Comment[][] = [];
   let comments: Comment[] = [];
 
@@ -190,28 +200,14 @@ export const fetchPostData = async (url: string) => {
     cleanUpComment(commentTree);
   }
 
-  const publicFile = join(__dirname, "..", "..", "public", "avatar");
-  const faces = getFolders(join(publicFile, "face")).map((e) =>
-    Number(e.replace("-face.png", ""))
-  );
-  const heads = getFolders(join(publicFile, "head")).map((e) =>
-    Number(e.replace("-head.png", ""))
-  );
-  const bodies = getFolders(join(publicFile, "body")).map((e) =>
-    Number(e.replace("-body.png", ""))
-  );
-
   const selectedComments: Comment[][] = [
     ...(() => {
-      if (selftext !== "")
+      if (selftext.length > 80)
         return [
           [
             {
               author,
-              body: splitText(selftext as string).map((text, frame) => ({
-                text,
-                frame,
-              })),
+              body: selftext,
               all_awardings: postAwards(all_awardings),
               created_utc,
               depth: 0,
@@ -226,26 +222,22 @@ export const fetchPostData = async (url: string) => {
   ].map((comments) => {
     let totalFrames: number = 0;
 
-    const commentsList = comments.map((comment) => ({
+    return comments.map((comment) => ({
       ...comment,
-      body: splitText(comment.body as string).map((text, frame) => {
-        const data = {
-          text,
-          frame: totalFrames + frame,
-        };
-
+      body: splitText(comment.body as string).map((text) => {
         totalFrames++;
 
-        return data;
+        return {
+          text,
+          frame: totalFrames - 1,
+        };
       }),
       avatar: {
-        face: faces[Math.floor(Math.random() * faces.length)],
-        head: heads[Math.floor(Math.random() * heads.length)],
-        body: bodies[Math.floor(Math.random() * bodies.length)],
+        face: selectAvatar(faces),
+        head: selectAvatar(heads),
+        body: selectAvatar(bodies),
       },
     }));
-
-    return commentsList;
   });
 
   console.log("📰 Post Fetched Successfully");

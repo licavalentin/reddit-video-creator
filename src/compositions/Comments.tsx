@@ -3,7 +3,7 @@ import { Composition, getInputProps, registerRoot } from "remotion";
 
 import { video } from "../config/video";
 import { CommentsGroup } from "../interface/compositions";
-import { Comment } from "../interface/post";
+import { Comment, CommentText } from "../interface/post";
 
 import Comments from "../components/Comments";
 
@@ -18,11 +18,12 @@ export const CommentsComposition: React.FC = () => {
 
   const { comments } = post;
 
-  const calcDuration = (comments: Comment[]) =>
-    comments.reduce(
-      (previousValue, currentValue) => previousValue + currentValue.body.length,
-      1
-    );
+  // Todo send to reddit
+  const calcDuration = (comments: Comment[]) => {
+    const lastComment = comments.length - 1;
+    const lastCommentBody = comments[lastComment].body as CommentText[];
+    return lastCommentBody[lastCommentBody.length - 1].frame + 1;
+  };
 
   const commentConfig: {
     durationInFrames: number;
@@ -38,7 +39,7 @@ export const CommentsComposition: React.FC = () => {
         },
       };
 
-    const localComments = comments[0];
+    const localComments = comments[1];
 
     return {
       durationInFrames: calcDuration(localComments),
