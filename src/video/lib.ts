@@ -76,7 +76,7 @@ type MergeVideos = (args: {
  * Merge Videos together
  */
 export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
-  const command = `ffmpeg -y -safe 0 -f concat -i ${listPath} -c copy "${join(
+  const command = `ffmpeg -y -safe 0 -f concat -i "${listPath}" -c copy "${join(
     exportPath,
     `${title ?? "video"}.${video.fileFormat}`
   )}"`;
