@@ -37,6 +37,10 @@ export const generateBundle: (
     },
   });
 
+  if (existsSync(bundleDir)) {
+    deleteFolder(bundleDir);
+  }
+
   return await bundle(path, () => {}, {
     webpackOverride,
     outDir: bundleDir,
@@ -75,7 +79,7 @@ export const generateVideo: GenerateVideo = async ({
     webpackBundle: bundled,
     onStart: () => {},
     onFrameUpdate: () => {},
-    parallelism: cpus().length,
+    parallelism: cpus().length - 1,
     outputDir: output,
     inputProps: data,
     compositionId: id,

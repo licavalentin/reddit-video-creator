@@ -18,10 +18,9 @@ export const getDuration: GetDuration = ({
   const args = `ffprobe -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 
   try {
-    return (
-      Number(execSync(args, { stdio: "pipe" }).toString().trim()) -
-      audioTrimDuration
-    );
+    const value = Number(execSync(args, { stdio: "pipe" }).toString().trim());
+
+    return value - audioTrimDuration;
   } catch (error) {
     return 0;
   }
@@ -64,7 +63,7 @@ export const generateVideoFile: GenerateFileVideo = ({
     console.log(error);
   }
 
-  console.log("video-generated");
+  // console.log("video-generated");
 };
 
 type MergeVideos = (args: {

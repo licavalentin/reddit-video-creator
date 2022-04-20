@@ -52,19 +52,6 @@ export interface Comment {
   avatar?: AvatarDetails;
 }
 
-export interface PostFile {
-  post: Post;
-  comments: {
-    durationInFrames: number;
-    commentGroup: Comment[][];
-  };
-  exportPath: string;
-  voice: string;
-  outro: string;
-  music: string;
-  video: string;
-}
-
 export type RedditData = [
   {
     data: {

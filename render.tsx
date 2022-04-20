@@ -55,102 +55,81 @@ const render = async () => {
     //   comments,
     // });
 
-    const { post, comments } = JSON.parse(
-      readFileSync(join(__dirname, "src", "data", "post.json")).toString()
-    );
-
     // writeFileSync(
     //   join(__dirname, "src", "data", "post.json"),
     //   JSON.stringify({ post, comments })
     // );
 
+    const { post, comments } = JSON.parse(
+      readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    );
+
     // Bundle React Code
-    // console.log("🎥 Generating Video");
+    console.log("🎥 Generating Video");
 
-    // const compositionPath = join(__dirname, "src", "compositions");
-    // const bundleDir = join(tmpDir, "bundle");
+    const compositionPath = join(__dirname, "src", "compositions");
+    const bundleDir = join(tmpDir, "bundle");
 
-    // // Generate Intro Video
-    // await generateVideo({
-    //   bundled: await generateBundle(
-    //     join(compositionPath, "Intro.tsx"),
-    //     bundleDir
-    //   ),
-    //   id: "intro",
-    //   output: introPath,
-    //   data: {
-    //     title: post.title,
-    //     author: post.author,
-    //     awards: post.all_awardings,
-    //     score: post.score,
-    //   } as Intro,
-    // });
+    // Generate Intro Video
+    await generateVideo({
+      bundled: await generateBundle(
+        join(compositionPath, "Intro.tsx"),
+        bundleDir
+      ),
+      id: "intro",
+      output: introPath,
+      data: {
+        title: post.title,
+        author: post.author,
+        awards: post.all_awardings,
+        score: post.score,
+      } as Intro,
+    });
 
-    // // Generate Comments
-    // for (let index = 0; index < comments.length; index++) {
-    //   await generateVideo({
-    //     bundled: await generateBundle(
-    //       join(compositionPath, "Comments.tsx"),
-    //       bundleDir
-    //     ),
-    //     id: "comments",
-    //     output: commentPath(index),
-    //     data: {
-    //       comments: comments[index],
-    //     } as CommentsGroup,
-    //   });
+    // Generate Comments
+    for (let index = 0; index < comments.length; index++) {
+      await generateVideo({
+        bundled: await generateBundle(
+          join(compositionPath, "Comments.tsx"),
+          bundleDir
+        ),
+        id: "comments",
+        output: commentPath(index),
+        data: {
+          comments: comments[index],
+        } as CommentsGroup,
+      });
 
-    //   console.log(`Comments ${index} Finished`);
-    // }
+      console.log(`💬 Comments ${index + 1} Finished`);
+    }
 
-    // // Generate Mid
-    // await generateVideo({
-    //   bundled: await generateBundle(
-    //     join(compositionPath, "Mid.tsx"),
-    //     bundleDir
-    //   ),
-    //   id: "mid",
-    //   output: midPath,
-    //   data: {},
-    // });
+    // Generate Mid
+    await generateVideo({
+      bundled: await generateBundle(
+        join(compositionPath, "Mid.tsx"),
+        bundleDir
+      ),
+      id: "mid",
+      output: midPath,
+      data: {},
+    });
 
-    // // Generate Outro
-    // await generateVideo({
-    //   bundled: await generateBundle(
-    //     join(compositionPath, "Outro.tsx"),
-    //     bundleDir
-    //   ),
-    //   id: "outro",
-    //   output: outroPath,
-    //   data: {
-    //     outro: post.outro,
-    //   } as Outro,
-    // });
+    // Generate Outro
+    await generateVideo({
+      bundled: await generateBundle(
+        join(compositionPath, "Outro.tsx"),
+        bundleDir
+      ),
+      id: "outro",
+      output: outroPath,
+      data: {
+        outro: post.outro,
+      } as Outro,
+    });
 
     await mergeFrames({
       comments,
     });
-
-    // const outVideo = `out.${video.fileFormat}`;
-    // const videoList: string[] = [
-    //   ffmpegFile(join(introPath, outVideo)),
-    //   ...comments.map((_: any, i: number) =>
-    //     ffmpegFile(join(tmpDir, `comments-${i}`, outVideo))
-    //   ),
-    //   ffmpegFile(join(outroPath, outVideo)),
-    // ];
-
-    // const listPath = join(tmpDir, "list.txt");
-    // writeFileSync(
-    //   listPath,
-    //   videoList.join(`\n${ffmpegFile(join(midPath, outVideo))}\n`)
-    // );
-
-    // // Merge Rendered Videos
-    // mergeVideos({
-    //   exportPath: "C:\\Users\\licav\\Desktop",
-    //   listPath,
-    // });
 
     console.log("🎥 Video Generated Successfully");
   } catch (err) {

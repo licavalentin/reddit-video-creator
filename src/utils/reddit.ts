@@ -1,6 +1,9 @@
 import { readdirSync } from "fs";
 import { join } from "path";
 
+import wink from "wink-nlp";
+import model from "wink-eng-lite-web-model";
+
 import axios from "axios";
 
 import {
@@ -13,45 +16,6 @@ import {
 } from "../interface/post";
 
 const redditUrl = "https://www.reddit.com";
-
-/**
- * Generate array of sentences from comment
- * @param {string} text Comment text
- */
-const splitText = (text: string): string[] => {
-  // Decode html code to text
-  const words = text
-    // Remove emoji
-    .replace(/(?:https?|ftp):\/\/[\n\S]+/g, "")
-    .split(" ")
-    .filter((text) => text.trim() !== "");
-
-  if (words.length === 1) {
-    return words;
-  }
-
-  const sentences: string[] = [];
-  let sentence: string[] = [];
-
-  for (const word of words) {
-    sentence.push(word);
-
-    const chars = [".", "!", "?"];
-
-    const mergedText = sentence.join(" ");
-
-    if (chars.some((char) => word.includes(char))) {
-      sentences.push(mergedText);
-      sentence = [];
-    }
-  }
-
-  if (sentence.length !== 0) {
-    sentences.push(sentence.join(" "));
-  }
-
-  return sentences;
-};
 
 /**
  * List all files and folders inside folder
@@ -77,6 +41,8 @@ export const getFolders = (path: string): string[] => {
 export const fetchPostData = async (url: string) => {
   console.log("📰 Fetching Post");
 
+  const nlp = wink(model);
+
   // Check if Url is valid
   const { origin, pathname } = (() => {
     try {
@@ -92,10 +58,10 @@ export const fetchPostData = async (url: string) => {
     }
   })();
 
-  const urls = `${origin}${pathname}.json?sort=top`;
-
   // Fetch Post data
-  const { data } = (await axios.get(urls)) as { data: RedditData };
+  const { data } = (await axios.get(`${origin}${pathname}.json?sort=top`)) as {
+    data: RedditData;
+  };
 
   const {
     all_awardings,
@@ -112,7 +78,6 @@ export const fetchPostData = async (url: string) => {
   const postAwards = (all_awardings: Award[]) =>
     all_awardings.map((awards) => {
       const { count, name } = awards;
-
       return { count, name };
     });
 
@@ -166,7 +131,13 @@ export const fetchPostData = async (url: string) => {
         comments = [];
       }
 
-      if (depth > 2 || score < 1000 || comments[depth]) {
+      if (
+        depth > 2 ||
+        score < 1000 ||
+        comments[depth] ||
+        (body as string) === "[deleted]" ||
+        (body as string) === "[removed]"
+      ) {
         return;
       }
 
@@ -217,28 +188,58 @@ export const fetchPostData = async (url: string) => {
   ].map((comments) => {
     let totalFrames: number = 0;
 
-    return comments.map((comment) => ({
-      ...comment,
-      body: splitText(comment.body as string).map((text) => {
-        totalFrames++;
+    return comments.map((comment) => {
+      let cleanText = (comment.body as string)
+        //replace the linebreaks with <br>
+        .replace(/(?:\r\n|\r|\n)/g, "<br>");
+      //check for links [text](url)
+      let elements = cleanText.match(/\[.*?\)/g);
+      if (elements !== null && elements.length > 0) {
+        for (const text of elements) {
+          cleanText = cleanText.replace(
+            text,
+            (text.match(/\[(.*?)\]/) as RegExpMatchArray)[1]
+          );
+        }
+      }
 
-        return {
-          text,
-          frame: totalFrames - 1,
-        };
-      }),
-      avatar: {
-        face: selectAvatar(faces),
-        head: selectAvatar(heads),
-        body: selectAvatar(bodies),
-      },
-    }));
+      const splitText = nlp
+        .readDoc(cleanText.replace(/(?:https?|ftp):\/\/[\n\S]+/g, ""))
+        .sentences()
+        .out();
+      const body: string[] = [];
+
+      for (const text of splitText) {
+        if (text.length < 50 && body.length > 0) {
+          body[body.length - 1] = `${body[body.length - 1]} ${text}`;
+        } else {
+          body.push(text);
+        }
+      }
+
+      return {
+        ...comment,
+        body: body.map((text) => {
+          totalFrames++;
+
+          return {
+            text: text.trim(),
+            frame: totalFrames - 1,
+          };
+        }),
+        avatar: {
+          face: selectAvatar(faces),
+          head: selectAvatar(heads),
+          body: selectAvatar(bodies),
+        },
+      };
+    });
   });
 
   console.log("📰 Post Fetched Successfully");
 
   return {
     post: postDetails,
-    comments: selectedComments.filter((_, index) => index < 4),
+    comments: selectedComments.filter((_, index) => index < 8),
   };
 };

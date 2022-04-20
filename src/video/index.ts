@@ -1,5 +1,5 @@
 import cluster from "cluster";
-import { writeFileSync } from "fs";
+import { existsSync, writeFileSync } from "fs";
 import { join } from "path";
 import {
   commentPath,
@@ -53,12 +53,8 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
     }[] = [introData, outroData, midData];
 
     const fileList: string[] = [
-      ffmpegFile(
-        join(introData.exportPath, `${introData.title}.${video.fileFormat}`)
-      ),
-      ffmpegFile(
-        join(midData.exportPath, `${midData.title}.${video.fileFormat}`)
-      ),
+      join(introData.exportPath, `${introData.title}.${video.fileFormat}`),
+      join(midData.exportPath, `${midData.title}.${video.fileFormat}`),
     ];
 
     for (let i = 0; i < comments.length; i++) {
@@ -74,12 +70,18 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
         for (let k = 0; k < body.length; k++) {
           const { frame } = body[k];
 
+          const audioFilePath = join(tempAudio, `${[i, j, k].join("-")}.mp3`);
+
+          if (!existsSync(audioFilePath)) {
+            continue;
+          }
+
           const commentData = {
             image: imagePath(
               commentGroupPath,
-              String(frame).padStart(Math.ceil(totalFrames / 10), "0")
+              String(frame).padStart(String(totalFrames).length, "0")
             ),
-            audio: join(tempAudio, `${[i, j, k].join("-")}.mp3`),
+            audio: audioFilePath,
             exportPath: commentGroupPath,
             title: `video-${frame}`,
           };
@@ -87,32 +89,22 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
           files.push(commentData);
 
           fileList.push(
-            ffmpegFile(
-              join(
-                commentData.exportPath,
-                `${commentData.title}.${video.fileFormat}`
-              )
+            join(
+              commentData.exportPath,
+              `${commentData.title}.${video.fileFormat}`
             )
           );
         }
       }
 
       fileList.push(
-        ffmpegFile(
-          join(midData.exportPath, `${midData.title}.${video.fileFormat}`)
-        )
+        join(midData.exportPath, `${midData.title}.${video.fileFormat}`)
       );
     }
 
     fileList.push(
-      ffmpegFile(
-        join(outroData.exportPath, `${outroData.title}.${video.fileFormat}`)
-      )
+      join(outroData.exportPath, `${outroData.title}.${video.fileFormat}`)
     );
-
-    const listPath = join(tempData, "render-list.txt");
-
-    writeFileSync(listPath, fileList.join(" \n"));
 
     const work = spreadWork(files);
     let counter = work.length;
@@ -134,12 +126,24 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
       worker.on("exit", () => {
         counter--;
 
-        mergeVideos({
-          listPath,
-          exportPath: "C:\\Users\\licav\\Desktop",
-        });
-
         if (counter === 0) {
+          const listPath = join(tempData, "render-list.txt");
+
+          writeFileSync(
+            listPath,
+            fileList
+              .filter((e) => existsSync(e))
+              .map((e) => ffmpegFile(e))
+              .join(" \n")
+          );
+
+          console.log(`📦 Merging Videos`);
+
+          mergeVideos({
+            listPath,
+            exportPath: "C:\\Users\\licav\\Desktop",
+          });
+
           resolve(null);
         }
       });

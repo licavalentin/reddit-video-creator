@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  AbsoluteFill,
   continueRender,
   delayRender,
-  Easing,
   interpolate,
   useCurrentFrame,
   useVideoConfig,
@@ -25,46 +25,58 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
 
   const [handle] = useState(() => delayRender());
   const container = useRef<HTMLUListElement>(null);
-  const scrollAnimation = useRef<[number[], number[]]>([
-    [0, 1],
-    [0, 0],
-  ]);
+  const [scrollAnimation, setScrollAnimation] =
+    useState<[number[], number[]]>();
+  const [bottoms, setBottoms] = useState<
+    {
+      bottom: number;
+      frame: number;
+    }[]
+  >([]);
 
   useEffect(() => {
-    if (scrollAnimation.current[0].length === 2) {
-      scrollAnimation.current = scrollAnimationHandler({
+    if (scrollAnimation !== undefined) {
+      window.scroll({
+        top: interpolate(frame, scrollAnimation[0], scrollAnimation[1]),
+      });
+    }
+  }, [frame]);
+
+  useEffect(() => {
+    if (scrollAnimation === undefined) {
+      const data = scrollAnimationHandler({
         container,
         comments,
         durationInFrames,
       });
-    }
 
-    continueRender(handle);
+      setScrollAnimation([data[0], data[1]]);
+      setBottoms(data[2]);
+
+      continueRender(handle);
+    }
   }, []);
-
-  useEffect(() => {
-    if (scrollAnimation.current[0].length === 2) {
-      window.scroll({
-        top: interpolate(
-          frame,
-          scrollAnimation.current[0],
-          scrollAnimation.current[1],
-          {
-            easing: Easing.ease,
-          }
-        ),
-      });
-    }
-  }, [frame]);
 
   return (
     <Layout>
       {/* <BackgroundImage path="/bc.jpg" /> */}
 
+      <AbsoluteFill>
+        <ul>
+          <li>Frame: {frame}</li>
+          <li>Scroll Animation: {JSON.stringify(scrollAnimation)}</li>
+          {bottoms.length > 0 && (
+            <li>
+              Text Bottom Position: {bottoms[frame].bottom} In Frame:{" "}
+              {bottoms[frame].bottom}
+            </li>
+          )}
+        </ul>
+      </AbsoluteFill>
+
       <div
-        className={`${styles.container} ${
-          scrollAnimation.current[0].length === 2 ? styles.container__small : ""
-        }`}
+        className={`${styles.container} 
+        ${scrollAnimation == undefined ? styles.container__small : ""}`}
       >
         <ul className={styles.comments} ref={container}>
           {comments.map((comment, index) => {

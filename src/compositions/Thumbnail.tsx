@@ -8,6 +8,8 @@ import Thumbnail from "../components/Thumbnail";
 
 import post from "../data/post.json";
 
+import "../styles/main.scss";
+
 export const ThumbnailStill: React.FC = () => {
   const { fps, height, width } = video;
 

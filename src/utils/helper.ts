@@ -34,12 +34,18 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
     let count: number = 0;
     let frame: number[] = [];
     let animation: number[] = [];
-    const inFrameHeight = layout.height - layout.height / 3;
 
     const commentsList = container.current.querySelectorAll("li.comment");
-    const containerEl = container.current.getBoundingClientRect();
 
     const frameCounter = comments.map((e) => e.body.length);
+
+    let fontSize: number = 0;
+    let firstSpanTop: number = 0;
+
+    const bottoms: {
+      bottom: number;
+      frame: number;
+    }[] = [];
 
     for (
       let commentIndex = 0;
@@ -54,20 +60,35 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
 
       const body = comments[commentIndex].body as CommentText[];
 
+      if (commentIndex === 0) {
+        content.innerHTML = body[0].text;
+
+        firstSpanTop = content.getBoundingClientRect().top;
+
+        fontSize = parseFloat(
+          window.getComputedStyle(content, null).getPropertyValue("font-size")
+        );
+
+        content.innerHTML = "";
+      }
+
       for (let textIndex = 0; textIndex < body.length; textIndex++) {
         content.innerHTML = body
           .slice(0, textIndex)
           .map((e) => e.text)
           .join(" ");
 
-        const { height, top } = content.getBoundingClientRect();
+        const { bottom } = content.getBoundingClientRect();
 
-        const inFrame =
-          inFrameHeight * count +
-          inFrameHeight -
-          (count > 0 ? containerEl.top : 0);
+        bottoms.push({
+          bottom,
+          frame: body[textIndex].frame,
+        });
 
-        if (height + top > inFrame) {
+        const inFrameHeight = layout.height - firstSpanTop;
+        const inFrame = inFrameHeight * count + inFrameHeight;
+
+        if (bottom > inFrame) {
           let prevFrames: number = textIndex;
 
           for (let idx = 0; idx < frameCounter.length; idx++) {
@@ -76,17 +97,7 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
             }
           }
 
-          const frames = [prevFrames - 1, prevFrames];
-
-          if (video.fps >= 24) {
-            const animationTime = 8;
-            frame.push(
-              frames[0] - animationTime / 2,
-              frames[0] + animationTime / 2
-            );
-          } else {
-            frame.push(frames[0] - 1, frames[0]);
-          }
+          frame.push(prevFrames - 2, prevFrames - 1);
 
           animation.push(
             count === 0 ? 0 : (animation.at(-1) as number),
@@ -103,12 +114,9 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
       const lastAnimation = animation.at(-1) as number;
       animation.push(lastAnimation, lastAnimation);
 
-      return [frame, animation];
+      return [frame, animation, bottoms];
     }
   }
 
-  return [
-    [0, 1],
-    [0, 0],
-  ];
+  return [[], [], []];
 };

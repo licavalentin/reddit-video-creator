@@ -6,4 +6,11 @@ export type ScrollAnimationHandler = (args: {
   container: RefObject<HTMLUListElement>;
   comments: Comment[];
   durationInFrames: number;
-}) => [number[], number[]];
+}) => [
+  number[],
+  number[],
+  {
+    bottom: number;
+    frame: number;
+  }[]
+];

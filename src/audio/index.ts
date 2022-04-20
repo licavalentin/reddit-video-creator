@@ -1,7 +1,7 @@
 import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
-import { introPath, outroPath, tempAudio, tempData } from "../config/paths";
+import { tempAudio, tempData } from "../config/paths";
 
 import { Comment, CommentText, Post } from "../interface/post";
 
@@ -27,13 +27,18 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
         for (let k = 0; k < body.length; k++) {
           const fileName = [i, j, k].join("-");
 
-          writeFileSync(
-            join(tempData, `${fileName}.txt`),
-            body[k].text.replace(
+          const cleanText = body[k].text
+            .replace(/<br>/g, " ")
+            .replace(
               /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
               ""
-            )
-          );
+            );
+
+          if (cleanText.replace(/[^a-zA-Z0-9]+/g, "-").length < 3) {
+            continue;
+          }
+
+          writeFileSync(join(tempData, `${fileName}.txt`), cleanText);
 
           audios.push(fileName);
         }
