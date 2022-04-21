@@ -31,18 +31,12 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
     const layout = (
       document.querySelector(".layout__container") as HTMLDivElement
     ).getBoundingClientRect();
-    let count: number = 0;
-    let frame: number[] = [];
-    let animation: number[] = [];
-
     const commentsList = container.current.querySelectorAll("li.comment");
-
-    const frameCounter = comments.map((e) => e.body.length);
-
+    let topMargin: number = 0;
     let fontSize: number = 0;
-    let firstSpanTop: number = 0;
-
-    const bottoms: {
+    let frames: number[] = [];
+    let positions: number[] = [];
+    const textHeights: {
       bottom: number;
       frame: number;
     }[] = [];
@@ -62,10 +56,9 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
 
       if (commentIndex === 0) {
         content.innerHTML = body[0].text;
+        topMargin = content.getBoundingClientRect().top;
 
-        firstSpanTop = content.getBoundingClientRect().top;
-
-        fontSize = parseFloat(
+        fontSize = Number(
           window.getComputedStyle(content, null).getPropertyValue("font-size")
         );
 
@@ -74,49 +67,38 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
 
       for (let textIndex = 0; textIndex < body.length; textIndex++) {
         content.innerHTML = body
-          .slice(0, textIndex)
+          .slice(0, textIndex + 1)
           .map((e) => e.text)
           .join(" ");
 
-        const { bottom } = content.getBoundingClientRect();
-
-        bottoms.push({
-          bottom,
+        textHeights.push({
+          bottom: content.getBoundingClientRect().bottom,
           frame: body[textIndex].frame,
         });
-
-        const inFrameHeight = layout.height - firstSpanTop;
-        const inFrame = inFrameHeight * count + inFrameHeight;
-
-        if (bottom > inFrame) {
-          let prevFrames: number = textIndex;
-
-          for (let idx = 0; idx < frameCounter.length; idx++) {
-            if (commentIndex > idx) {
-              prevFrames += frameCounter[idx];
-            }
-          }
-
-          frame.push(prevFrames - 2, prevFrames - 1);
-
-          animation.push(
-            count === 0 ? 0 : (animation.at(-1) as number),
-            inFrame
-          );
-
-          count++;
-        }
       }
     }
 
-    if (frame.length > 1 && count > 0) {
-      frame.push((frame.at(-1) as number) + 1, durationInFrames);
-      const lastAnimation = animation.at(-1) as number;
-      animation.push(lastAnimation, lastAnimation);
+    const inFrameHeight = layout.height - layout.height / 4;
+    let inFrame = inFrameHeight;
+    let count = 0;
 
-      return [frame, animation, bottoms];
+    for (const { bottom, frame } of textHeights) {
+      if (bottom >= inFrame) {
+        const scroll = bottom - (topMargin + fontSize);
+
+        if (frame - 1 < 1) continue;
+
+        frames.push(frame - 1, frame);
+
+        positions.push(count === 0 ? 0 : (positions.at(-1) as number), scroll);
+
+        inFrame = scroll + inFrameHeight;
+        count++;
+      }
+    }
+
+    if (frames.length > 1) {
+      return [frames, positions, textHeights];
     }
   }
-
-  return [[], [], []];
 };

@@ -1,7 +1,9 @@
 .container {
   // background-color: var(--background);
-  min-height: 100%;
+  // min-height: 100%;
   padding: 2em 4.5em;
+  height: 5000vh;
+  z-index: 2;
 
   &__small {
     display: flex;

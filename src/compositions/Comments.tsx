@@ -39,7 +39,7 @@ export const CommentsComposition: React.FC = () => {
         },
       };
 
-    const localComments = comments[1];
+    const localComments = comments[5];
 
     return {
       durationInFrames: calcDuration(localComments),

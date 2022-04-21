@@ -26,8 +26,13 @@ const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
           <div className={styles.details}>
             <div className={styles.details__header}>
               <p>Posted by u/{author}</p>
-              <span>·</span>
-              <Awards awards={awards} />
+
+              {awards.length > 0 && (
+                <>
+                  <span>·</span>
+                  <Awards awards={awards} />
+                </>
+              )}
             </div>
 
             <h1 className={styles.title}>{title}</h1>

@@ -12,7 +12,7 @@ import { AvatarDetails, CommentText } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
-import { Awards, BackgroundImage, RandomAvatar } from "./UI";
+import { Awards, BackgroundImage, PopUp, RandomAvatar } from "./UI";
 import { RedditArrowIcon } from "./CustomIcons";
 
 import { scrollAnimationHandler, roundUp } from "../utils/helper";
@@ -50,8 +50,10 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
         durationInFrames,
       });
 
-      setScrollAnimation([data[0], data[1]]);
-      setBottoms(data[2]);
+      if (data) {
+        setScrollAnimation([data[0], data[1]]);
+        setBottoms(data[2]);
+      }
 
       continueRender(handle);
     }
@@ -61,18 +63,25 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
     <Layout>
       {/* <BackgroundImage path="/bc.jpg" /> */}
 
-      <AbsoluteFill>
+      {/* <PopUp>
         <ul>
-          <li>Frame: {frame}</li>
-          <li>Scroll Animation: {JSON.stringify(scrollAnimation)}</li>
+          <li>🖼️ Frame: {frame}</li>
+          {scrollAnimation && (
+            <li>
+              ⚓ Scroll Animation:{" "}
+              {scrollAnimation
+                .map((e) => e.map((r) => Math.floor(r)).join(","))
+                .join(" # ")}
+            </li>
+          )}
           {bottoms.length > 0 && (
             <li>
-              Text Bottom Position: {bottoms[frame].bottom} In Frame:{" "}
-              {bottoms[frame].bottom}
+              🗺️ Bottom Position: {Math.floor(bottoms[frame].bottom)} # In
+              Frame: {bottoms[frame].frame}
             </li>
           )}
         </ul>
-      </AbsoluteFill>
+      </PopUp> */}
 
       <div
         className={`${styles.container} 
