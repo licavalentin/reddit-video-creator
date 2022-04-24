@@ -124,6 +124,8 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
       const worker = cluster.fork();
 
       worker.on("exit", () => {
+        console.log(`🍿 Video Group ${counter} finished`);
+
         counter--;
 
         if (counter === 0) {

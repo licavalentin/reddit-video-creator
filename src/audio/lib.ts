@@ -50,7 +50,7 @@ export const generateAudioFile: AudioGenerator = ({
   };
 
   if (!audio.custom_audio) {
-    const command = `balcon -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
+    const command = `balcon -iu -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
       execSync(command, timeout);
@@ -58,7 +58,7 @@ export const generateAudioFile: AudioGenerator = ({
       console.log(error);
     }
   } else {
-    const command = `bal4web -s m -l en-Us -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
+    const command = `bal4web -s m -l en-Us -iu -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
       execSync(command, timeout);

@@ -1,0 +1,9 @@
+[].  
+    "durationInFrames": 10,
+    "durationInSeconds": 2000
+    "body": [
+          {
+            "text": "Text",
+            "frame": 0,
+            "duration": 10,
+          },

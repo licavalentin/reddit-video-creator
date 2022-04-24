@@ -43,7 +43,7 @@
         display: flex;
         align-items: center;
         // flex-direction: row;
-        column-gap: 1.2em;
+        column-gap: 0.7em;
 
         // @media (max-width: var(--mobile)) {
         //   flex-direction: column;
@@ -52,6 +52,14 @@
         p,
         span {
           color: var(--text-inactive);
+        }
+
+        div {
+          margin-left: auto;
+          border: 0.2rem solid var(--red);
+          color: var(--red);
+          border-radius: var(--radius);
+          padding: 2px 5px;
         }
       }
     }

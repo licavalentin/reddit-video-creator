@@ -13,6 +13,8 @@ export type Intro = {
   author: string;
   awards: Award[];
   score: number;
+  created_utc: number;
+  over_18: boolean;
 };
 
 export type Mid = {
@@ -30,6 +32,7 @@ export type Thumbnail = {
   title: string;
   subreddit: string;
   awards: Award[];
+  background: string;
 };
 
 export type CommentsGroup = {

@@ -5,14 +5,4 @@ import { Comment } from "./post";
 export type ScrollAnimationHandler = (args: {
   container: RefObject<HTMLUListElement>;
   comments: Comment[];
-  durationInFrames: number;
-}) =>
-  | [
-      number[],
-      number[],
-      {
-        bottom: number;
-        frame: number;
-      }[]
-    ]
-  | undefined;
+}) => [number[], number[]] | undefined;

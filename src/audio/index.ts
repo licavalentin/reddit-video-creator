@@ -19,6 +19,8 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
     mkdirSync(tempData);
     mkdirSync(tempAudio);
 
+    const newComments: Comment[][] = [...comments];
+
     const audios: string[] = [];
     for (let i = 0; i < comments.length; i++) {
       const commentGroup = comments[i];
@@ -32,7 +34,8 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
             .replace(
               /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
               ""
-            );
+            )
+            .replaceAll(".", ",");
 
           if (cleanText.replace(/[^a-zA-Z0-9]+/g, "-").length < 3) {
             continue;
@@ -49,7 +52,8 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
     writeFileSync(join(tempData, `${introId}.txt`), post.title as string);
 
     const outroId = "outro";
-    const outroMessage = "Thank you for watching see you on another video buy";
+    const outroMessage =
+      "Make sure to subscribe and turn on notification, See you on another video, Bye";
     writeFileSync(join(tempData, `${outroId}.txt`), outroMessage);
 
     audios.push(introId, outroId);

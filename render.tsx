@@ -24,45 +24,47 @@ import {
 import { fetchPostData } from "./src/utils/reddit";
 import { createAudio } from "./src/audio";
 import { mergeFrames } from "./src/video";
+import { getCompositions, renderStill } from "@remotion/renderer";
+import { TCompMetadata } from "remotion";
 
 const render = async () => {
   console.time("Render");
 
   try {
-    // // Create Temp dir to store render files
-    // if (existsSync(tmpDir)) {
-    //   deleteFolder(tmpDir);
-    // }
+    // Create Temp dir to store render files
+    if (existsSync(tmpDir)) {
+      deleteFolder(tmpDir);
+    }
 
-    // mkdirSync(tmpDir);
+    mkdirSync(tmpDir);
 
-    // // todo: []. Fetch selected posts and automatically chose comments
-    // const postsList: string[] = JSON.parse(
-    //   readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
-    // );
-
-    // // Check if we have selected posts
-    // if (postsList.length === 0) throw new Error("Please Add Posts");
-
-    // console.log(`📁 Project dir: ${tmpDir}`);
-
-    // // Fetch Post
-    // const { comments, post } = await fetchPostData(postsList[0]);
-
-    // // Create Audio Files
-    // await createAudio({
-    //   post,
-    //   comments,
-    // });
-
-    // writeFileSync(
-    //   join(__dirname, "src", "data", "post.json"),
-    //   JSON.stringify({ post, comments })
-    // );
-
-    const { post, comments } = JSON.parse(
-      readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    // todo: []. Fetch selected posts and automatically chose comments
+    const postsList: string[] = JSON.parse(
+      readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
     );
+
+    // Check if we have selected posts
+    if (postsList.length === 0) throw new Error("Please Add Posts");
+
+    console.log(`📁 Project dir: ${tmpDir}`);
+
+    // Fetch Post
+    const { comments, post } = await fetchPostData(postsList[0]);
+
+    // Create Audio Files
+    await createAudio({
+      post,
+      comments,
+    });
+
+    writeFileSync(
+      join(__dirname, "src", "data", "post.json"),
+      JSON.stringify({ post, comments })
+    );
+
+    // const { post, comments } = JSON.parse(
+    //   readFileSync(join(__dirname, "src", "data", "post.json")).toString()
+    // );
 
     // Bundle React Code
     console.log("🎥 Generating Video");
@@ -127,8 +129,34 @@ const render = async () => {
       } as Outro,
     });
 
+    const stillBundle = await generateBundle(
+      join(compositionPath, "Thumbnail.tsx"),
+      bundleDir
+    );
+    const thumbnailComps = await getCompositions(stillBundle);
+    const thumbnailVideo = thumbnailComps.find(
+      (c) => c.id === "thumbnail"
+    ) as TCompMetadata;
+
     await mergeFrames({
       comments,
+    });
+
+    await renderStill({
+      composition: thumbnailVideo,
+      webpackBundle: stillBundle,
+      output: "C:\\Users\\licav\\Desktop\\thumbnail.png",
+      onError: (error) => {
+        console.error(
+          "The following error occured when rendering the still: ",
+          error.message
+        );
+      },
+      inputProps: {
+        title: post.title,
+        subreddit: post.subreddit,
+        awards: post.all_awardings,
+      },
     });
 
     console.log("🎥 Video Generated Successfully");

@@ -25,7 +25,6 @@ export const roundUp = (number: number): string => {
 export const scrollAnimationHandler: ScrollAnimationHandler = ({
   container,
   comments,
-  durationInFrames,
 }) => {
   if (container.current) {
     const layout = (
@@ -58,7 +57,7 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
         content.innerHTML = body[0].text;
         topMargin = content.getBoundingClientRect().top;
 
-        fontSize = Number(
+        fontSize = parseFloat(
           window.getComputedStyle(content, null).getPropertyValue("font-size")
         );
 
@@ -82,23 +81,24 @@ export const scrollAnimationHandler: ScrollAnimationHandler = ({
     let inFrame = inFrameHeight;
     let count = 0;
 
-    for (const { bottom, frame } of textHeights) {
-      if (bottom >= inFrame) {
-        const scroll = bottom - (topMargin + fontSize);
+    for (const text of textHeights) {
+      if (text.bottom >= inFrame) {
+        const scroll = text.bottom - (topMargin + fontSize);
 
-        if (frame - 1 < 1) continue;
+        inFrame = scroll + inFrameHeight;
 
-        frames.push(frame - 1, frame);
+        if (text.frame < 2) continue;
+
+        frames.push(text.frame - 2, text.frame - 1);
 
         positions.push(count === 0 ? 0 : (positions.at(-1) as number), scroll);
 
-        inFrame = scroll + inFrameHeight;
         count++;
       }
     }
 
     if (frames.length > 1) {
-      return [frames, positions, textHeights];
+      return [frames, positions];
     }
   }
 };

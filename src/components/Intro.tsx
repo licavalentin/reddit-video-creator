@@ -9,8 +9,16 @@ import { Awards } from "./UI";
 import { roundUp } from "../utils/helper";
 
 import styles from "../styles/components/intro.module.scss";
+import moment from "moment";
 
-const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
+const Intro: React.FC<IntroProps> = ({
+  title,
+  author,
+  awards,
+  score,
+  created_utc,
+  over_18,
+}) => {
   return (
     <Layout>
       <div className={styles.container}>
@@ -27,12 +35,18 @@ const Intro: React.FC<IntroProps> = ({ title, author, awards, score }) => {
             <div className={styles.details__header}>
               <p>Posted by u/{author}</p>
 
+              <span>·</span>
+
+              <p>{moment(created_utc).format("MMM Do YY")}</p>
+
               {awards.length > 0 && (
                 <>
                   <span>·</span>
                   <Awards awards={awards} />
                 </>
               )}
+
+              {over_18 && <div>NSFW</div>}
             </div>
 
             <h1 className={styles.title}>{title}</h1>

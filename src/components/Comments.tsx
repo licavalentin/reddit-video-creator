@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  AbsoluteFill,
   continueRender,
   delayRender,
   interpolate,
   useCurrentFrame,
-  useVideoConfig,
 } from "remotion";
 
 import { AvatarDetails, CommentText } from "../interface/post";
 import { CommentsGroup } from "../interface/compositions";
 
 import Layout from "./Layout";
-import { Awards, BackgroundImage, PopUp, RandomAvatar } from "./UI";
+import { Awards, RandomAvatar } from "./UI";
 import { RedditArrowIcon } from "./CustomIcons";
 
 import { scrollAnimationHandler, roundUp } from "../utils/helper";
@@ -21,18 +19,11 @@ import styles from "../styles/components/comments.module.scss";
 
 const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
 
   const [handle] = useState(() => delayRender());
   const container = useRef<HTMLUListElement>(null);
   const [scrollAnimation, setScrollAnimation] =
     useState<[number[], number[]]>();
-  const [bottoms, setBottoms] = useState<
-    {
-      bottom: number;
-      frame: number;
-    }[]
-  >([]);
 
   useEffect(() => {
     if (scrollAnimation !== undefined) {
@@ -47,12 +38,10 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
       const data = scrollAnimationHandler({
         container,
         comments,
-        durationInFrames,
       });
 
       if (data) {
-        setScrollAnimation([data[0], data[1]]);
-        setBottoms(data[2]);
+        setScrollAnimation(data);
       }
 
       continueRender(handle);
@@ -92,67 +81,90 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
             const { author, score, depth, body, all_awardings, avatar } =
               comment;
 
+            const content = body as CommentText[];
+
             return (
               <li
-                className={`${styles.comment} comment`}
+                className={`${styles.comment__wrapper} comment`}
                 style={{
                   marginLeft: `${depth * 100}px`,
-                  opacity:
-                    (body as CommentText[])[0].frame > frame && index > 0
-                      ? 0
-                      : 1,
+                  opacity: content[0].frame > frame && index > 0 ? 0 : 1,
                 }}
                 key={index}
               >
-                <RandomAvatar
-                  className={styles.comment__avatar}
-                  avatar={avatar as AvatarDetails}
-                />
+                <ul
+                  className={styles.depth}
+                  style={{
+                    transform: `translateX(-${depth * 100}px)`,
+                  }}
+                >
+                  {Array.from({ length: depth + 1 }, () => undefined).map(
+                    (_, index, arr) => (
+                      <li className={styles.line}>
+                        <div
+                          className={
+                            index === arr.length - 1 &&
+                            content[content.length - 1].frame >= frame
+                              ? styles.current
+                              : ""
+                          }
+                        />
+                      </li>
+                    )
+                  )}
+                </ul>
 
-                <div className={styles.comment__body}>
-                  <div
-                    className={`${styles.comment__details} comment__details`}
-                  >
-                    <p>{author}</p>
+                <div className={styles.comment}>
+                  <RandomAvatar
+                    className={styles.comment__avatar}
+                    avatar={avatar as AvatarDetails}
+                  />
 
-                    <span>·</span>
+                  <div className={styles.comment__body}>
+                    <div
+                      className={`${styles.comment__details} comment__details`}
+                    >
+                      <p>{author}</p>
 
-                    <span>
-                      <RedditArrowIcon />
-                      {roundUp(score)}
-                    </span>
+                      <span>·</span>
 
-                    {all_awardings && all_awardings.length > 0 && (
-                      <>
-                        <span>·</span>
-                        <Awards awards={all_awardings} limit={4} />
-                      </>
-                    )}
-                  </div>
+                      <span>
+                        <RedditArrowIcon />
+                        {roundUp(score)}
+                      </span>
 
-                  <div className={styles.comment__content}>
-                    <span className={`${styles.calc__content} calc__content`} />
+                      {all_awardings && all_awardings.length > 0 && (
+                        <>
+                          <span>·</span>
+                          <Awards awards={all_awardings} limit={4} />
+                        </>
+                      )}
+                    </div>
 
-                    <span
-                      className={styles.all__content}
-                      dangerouslySetInnerHTML={{
-                        __html: (body as CommentText[])
-                          .map((e) => e.text)
-                          .join(" "),
-                      }}
-                    />
+                    <div className={styles.comment__content}>
+                      <span
+                        className={`${styles.calc__content} calc__content`}
+                      />
 
-                    <span
-                      className={`${styles.visible__content} visible-text`}
-                      dangerouslySetInnerHTML={{
-                        __html: (body as CommentText[])
-                          .filter(
-                            ({ frame: currentFrame }) => currentFrame <= frame
-                          )
-                          .map((e) => e.text)
-                          .join(" "),
-                      }}
-                    />
+                      <span
+                        className={styles.all__content}
+                        dangerouslySetInnerHTML={{
+                          __html: content.map((e) => e.text).join(" "),
+                        }}
+                      />
+
+                      <span
+                        className={`${styles.visible__content} visible-text`}
+                        dangerouslySetInnerHTML={{
+                          __html: content
+                            .filter(
+                              ({ frame: currentFrame }) => currentFrame <= frame
+                            )
+                            .map((e) => e.text)
+                            .join(" "),
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </li>

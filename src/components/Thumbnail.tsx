@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { continueRender, delayRender } from "remotion";
+
+import textFit from "textfit";
 
 import { Thumbnail as ThumbnailProps } from "../interface/compositions";
 
@@ -7,9 +10,25 @@ import { Awards } from "./UI";
 
 import styles from "../styles/components/thumbnail.module.scss";
 
-const Thumbnail: React.FC<ThumbnailProps> = ({ title, subreddit, awards }) => {
+const Thumbnail: React.FC<ThumbnailProps> = ({
+  title,
+  subreddit,
+  awards,
+  background,
+}) => {
+  const [handle] = useState(() => delayRender());
+  const titleEl = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    textFit(titleEl.current);
+
+    setTimeout(() => {
+      continueRender(handle);
+    }, 500);
+  }, []);
+
   return (
-    <Layout>
+    <Layout src={background}>
       <div className={styles.thumbnail}>
         <div className={styles.head}>
           <h3 className={styles.subreddit}>r/{subreddit}</h3>
@@ -17,7 +36,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({ title, subreddit, awards }) => {
           <Awards awards={awards} limit={3} counter={false} />
         </div>
 
-        <div className={styles.thumbnail__title}>
+        <div className={styles.thumbnail__title} ref={titleEl}>
           <h1 className={styles.title}>{title}</h1>
         </div>
       </div>

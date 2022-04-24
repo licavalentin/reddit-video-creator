@@ -6,7 +6,8 @@
     "dev": "remotion preview src/compositions/Comments.tsx",
     "upgrade": "remotion upgrade",
     "start": "ts-node render.tsx",
-    "test": "npx remotion render src/compositions/Comments.tsx comments out/video.mkv"
+    "test": "npx remotion render src/compositions/Comments.tsx comments out/video.mkv",
+    "test:th": "npx remotion still src/compositions/Thumbnail.tsx thumbnail out/thumbnail.png"
   },
   "keywords": [],
   "author": "Valentin Lica",
@@ -16,11 +17,13 @@
     "@remotion/cli": "^2.6.16",
     "@remotion/renderer": "^2.6.16",
     "axios": "^0.26.1",
+    "moment": "^2.29.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remotion": "^2.6.16",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
+    "textfit": "^2.4.0",
     "wink-eng-lite-web-model": "^1.4.1",
     "wink-nlp": "^1.11.0"
   },

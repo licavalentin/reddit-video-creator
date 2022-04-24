@@ -7,11 +7,11 @@ Config.Output.setOverwriteOutput(true);
 
 Config.Rendering.setConcurrency(cpus().length);
 
-Config.Output.setPixelFormat("yuva444p10le");
+// Config.Output.setPixelFormat("yuva444p10le");
 
-Config.Output.setCodec("prores");
+// Config.Output.setCodec("prores");
 
-Config.Output.setProResProfile("4444");
+// Config.Output.setProResProfile("4444");
 
 Config.Bundling.overrideWebpackConfig((currentConfiguration) => {
   return {

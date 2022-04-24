@@ -16,7 +16,7 @@ export const IntroComposition: React.FC = () => {
   const prod = Object.keys(inputData).length !== 0;
 
   const {
-    post: { title, author, score, all_awardings },
+    post: { title, author, score, all_awardings, created_utc, over_18 },
   } = post;
 
   const introConfig: {
@@ -36,6 +36,8 @@ export const IntroComposition: React.FC = () => {
         author,
         score,
         awards: all_awardings,
+        created_utc,
+        over_18,
       },
     };
   })();
