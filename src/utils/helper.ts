@@ -1,7 +1,14 @@
-import { video } from "../config/video";
 import { ScrollAnimationHandler } from "../interface/helper";
 import { CommentText } from "../interface/post";
 
+/**
+ * Convert sentence to time
+ * @param sentence Sentence to convert number
+ */
+export const countWords = (sentence: string): number => {
+  const numWords = parseInt(sentence.replace(/[^\d]/g, "") || "0");
+  return parseFloat((numWords / 170).toFixed(1).replace(".0", ""));
+};
 /**
  * Roundup number to 1k, 1M ...
  * @param number Number to Roundup

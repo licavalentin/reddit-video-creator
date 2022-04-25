@@ -39,6 +39,8 @@ export interface AvatarDetails {
 export interface CommentText {
   frame: number;
   text: string;
+  audio: string;
+  duration?: number;
 }
 
 export interface Comment {
@@ -50,6 +52,12 @@ export interface Comment {
   created_utc: number;
   depth: number;
   avatar?: AvatarDetails;
+}
+
+export interface CommentGroup {
+  durationInFrames: number;
+  durationInSeconds: number;
+  comments: Comment[];
 }
 
 export type RedditData = [

@@ -17,7 +17,7 @@
     box-shadow: 0 0 10px 0px black;
     padding: 0.5em 2em;
     flex: 1;
-    transform: translateY(-30%);
+    // transform: translateY(-30%);
 
     .comment__wrapper {
       position: relative;
@@ -38,6 +38,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          padding-bottom: 1em;
 
           &:last-child {
             height: calc(100% - 4.3em);
@@ -51,6 +52,8 @@
 
             &.current {
               background-color: var(--depth-active);
+
+              padding-bottom: 1em;
             }
           }
         }

@@ -3,7 +3,6 @@ import { join } from "path";
 
 import wink from "wink-nlp";
 import model from "wink-eng-lite-web-model";
-
 import axios from "axios";
 
 import {
@@ -13,7 +12,10 @@ import {
   Replies,
   RedditData,
   Award,
+  CommentText,
+  CommentGroup,
 } from "../interface/post";
+import { commentPath, imagePath } from "../config/paths";
 
 const redditUrl = "https://www.reddit.com";
 
@@ -166,7 +168,7 @@ export const fetchPostData = async (url: string) => {
     cleanUpComment(commentTree);
   }
 
-  const selectedComments: Comment[][] = [
+  const selectedComments: CommentGroup[] = [
     ...(() => {
       if (selftext.length > 80)
         return [
@@ -185,10 +187,11 @@ export const fetchPostData = async (url: string) => {
       return [];
     })(),
     ...commentList,
-  ].map((comments) => {
-    let totalFrames: number = 0;
+  ].map((comments, i) => {
+    const commentGroupPath = commentPath(i);
 
-    return comments.map((comment) => {
+    let durationInFrames: number = 0;
+    const commentsList = comments.map((comment, j) => {
       let cleanText = (comment.body as string)
         //replace the linebreaks with <br>
         .replace(/(?:\r\n|\r|\n)/g, "<br>");
@@ -219,14 +222,14 @@ export const fetchPostData = async (url: string) => {
 
       return {
         ...comment,
-        body: body.map((text) => {
-          totalFrames++;
+        body: body.map((text, k) => {
+          durationInFrames++;
 
           return {
             text: text.trim(),
-            frame: totalFrames - 1,
+            frame: durationInFrames - 1,
           };
-        }),
+        }) as CommentText[],
         avatar: {
           face: selectAvatar(faces),
           head: selectAvatar(heads),
@@ -234,12 +237,18 @@ export const fetchPostData = async (url: string) => {
         },
       };
     });
+
+    return {
+      durationInFrames: durationInFrames - 1,
+      durationInSeconds: 0,
+      comments: commentsList,
+    };
   });
 
   console.log("📰 Post Fetched Successfully");
 
   return {
     post: postDetails,
-    comments: selectedComments.filter((_, index) => index < 8),
+    comments: selectedComments,
   };
 };

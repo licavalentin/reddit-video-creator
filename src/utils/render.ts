@@ -5,6 +5,7 @@ import {
   lstatSync,
   unlinkSync,
   rmdirSync,
+  readFileSync,
 } from "fs";
 import { join } from "path";
 import { cpus } from "os";
@@ -14,6 +15,8 @@ import { getCompositions, renderFrames } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
 import { CompositionId, CompositionData } from "../interface/compositions";
+import { CommentGroup, CommentText } from "../interface/post";
+import { tempData } from "../config/paths";
 
 export const generateBundle: (
   path: string,
@@ -123,4 +126,56 @@ export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
   }
 
   return workSpreed.filter((e) => e.length > 0);
+};
+
+export const createPlaylist = (comments: CommentGroup[]): CommentGroup[][] => {
+  const newComments = comments.map((group, i) => {
+    let durationInSeconds = 0;
+
+    const commentsGroup = group.comments.map((comment, j) => {
+      return {
+        ...comment,
+        body: (comment.body as CommentText[]).map((content, k) => {
+          const ids = [i, j, k].join("-");
+
+          const duration = Number(
+            parseFloat(
+              readFileSync(join(tempData, `${ids}-duration.txt`)).toString()
+            ).toFixed(2)
+          );
+
+          durationInSeconds = Math.floor(durationInSeconds + duration);
+
+          return {
+            ...content,
+            duration,
+            audio: `${ids}.mp3`,
+          };
+        }),
+      };
+    });
+
+    return {
+      ...group,
+      durationInSeconds,
+      comments: commentsGroup,
+    };
+  });
+
+  const playlist: CommentGroup[][] = [];
+  let items: CommentGroup[] = [];
+
+  let maxTime = 8 * 60;
+  for (const group of newComments) {
+    if (maxTime < 0) {
+      playlist.push(items);
+      items = [];
+      maxTime = 8 * 60;
+    }
+
+    maxTime -= group.durationInSeconds as number;
+    items.push(group);
+  }
+
+  return playlist;
 };

@@ -16,8 +16,6 @@ export const CommentsComposition: React.FC = () => {
   const inputData = getInputProps() as CommentsGroup;
   const prod = Object.keys(inputData).length !== 0;
 
-  const { comments } = post;
-
   // Todo send to reddit
   const calcDuration = (comments: Comment[]) => {
     const lastComment = comments.length - 1;
@@ -39,7 +37,7 @@ export const CommentsComposition: React.FC = () => {
         },
       };
 
-    const localComments = comments[5];
+    const localComments = post.comments[0];
 
     return {
       durationInFrames: calcDuration(localComments),

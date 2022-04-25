@@ -100,7 +100,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
                 >
                   {Array.from({ length: depth + 1 }, () => undefined).map(
                     (_, index, arr) => (
-                      <li className={styles.line}>
+                      <li className={styles.line} key={index}>
                         <div
                           className={
                             index === arr.length - 1 &&

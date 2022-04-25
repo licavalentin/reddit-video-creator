@@ -1,725 +1,946 @@
 {
   "post": {
     "all_awardings": [
-      { "count": 6, "name": "Silver" },
+      { "count": 3, "name": "All-Seeing Upvote" },
+      { "count": 48, "name": "Silver" },
       { "count": 2, "name": "Gold" },
-      { "count": 1, "name": "Platinum" }
+      { "count": 42, "name": "Helpful" },
+      { "count": 31, "name": "Wholesome" }
     ],
-    "title": "What is the scariest story you know that is 100% true?",
-    "author": "Noahs_25",
-    "num_comments": 27570,
+    "title": "What historical events are so absurd that they would be too strange for a fiction story or a movie?",
+    "author": "Aquatax",
+    "num_comments": 9493,
     "subreddit": "AskReddit",
     "selftext": "",
-    "created_utc": 1565699601,
+    "created_utc": 1637159656,
     "over_18": false,
-    "score": 84089
+    "score": 44327
   },
   "comments": [
-    [
-      {
-        "author": "[deleted]",
-        "body": [
-          {
-            "text": "Was working the evening shift at a gas station. Man comes in all disoriented. I go to help him out.",
-            "frame": 0
-          },
-          {
-            "text": "he has a gash on his head and doesn't know where he was.",
-            "frame": 1
-          },
-          {
-            "text": "I couldn't see any crashes around so assumed he had fallen or something.",
-            "frame": 2
-          },
-          {
-            "text": "Normally we are supposed to stay inside the glass shielded register area whenever anyone is in the store.",
-            "frame": 3
-          },
-          {
-            "text": "I, being a nice human being, went to help while calling the police/EMS. They got there and checked him out. They thought his head may have been fractured. Took him to the ER. I went back to work.",
-            "frame": 4
-          },
-          {
-            "text": "Cops stopped back by for some coffee a few hours later.",
-            "frame": 5
-          },
-          {
-            "text": "They told me the guy got hit by a baseball bat trying to break into a little girl's bedroom and was wanted for rape and murder in two other states. I never left the register area at night again.",
-            "frame": 6
+    {
+      "durationInFrames": 19,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "irou-",
+          "body": [
+            {
+              "text": "from the last time this was asked:<br><br>The Marathon at the 1904 Olympics in St. Louis.",
+              "frame": 0
+            },
+            {
+              "text": "<br><br>* The first place finisher did most of the race in a car.",
+              "frame": 1
+            },
+            {
+              "text": "He had intended to drop out, and got a car back to the stadium to get his change of clothes, and just kind of started jogging when he heard the fanfare.",
+              "frame": 2
+            },
+            {
+              "text": "<br>* The second place finisher was carried across the finish line, legs technically twitching, by his trainers.",
+              "frame": 3
+            },
+            {
+              "text": "They had been refusing him water, and giving him a mixture of Brandy and Rat Poison for the entire race.",
+              "frame": 4
+            },
+            {
+              "text": "Doping wasn't illegal yet (and this was a terrible attempt at it), so he got the gold when the First guy was revealed. <br>* Third finisher was unremarkable, somehow.",
+              "frame": 5
+            },
+            {
+              "text": "<br>* Fourth finisher was a Cuban Mailman, who had raised the funds to attend the olympics by running non-stop around his entire country.",
+              "frame": 6
+            },
+            {
+              "text": "He landed in New Orleans, and promptly lost all of the travelling money on a riverboat casino.",
+              "frame": 7
+            },
+            {
+              "text": "He ran the race in dress shoes and long trousers (cut off at the knee by a fellow competitor with a knife).",
+              "frame": 8
+            },
+            {
+              "text": "He probably would have come in first (well, second, behind the car) had it not been for the hour nap he took on the side of the track after eating rotten apples he found on the side of the race.",
+              "frame": 9
+            },
+            {
+              "text": "<br>* 9th and 12th finishers were from South Africa, and ran barefoot.",
+              "frame": 10
+            },
+            {
+              "text": "South Africa didn't actually send a delegation - these were students who just happened to be in town and thought it sounded fun. 9th was chased a mile off course by angry dogs.",
+              "frame": 11
+            },
+            {
+              "text": "Note: These are the first Africans to compete in any modern Olympic event.",
+              "frame": 12
+            },
+            {
+              "text": "<br>* Half the participants had never raced competatively before. Some died.",
+              "frame": 13
+            },
+            {
+              "text": "<br>* St. Louis only had one water stop on the entire run.",
+              "frame": 14
+            },
+            {
+              "text": "This, coupled with the dusty road, and exacerbated by the cars kicking up dust, lead to the above fatalities.",
+              "frame": 15
+            },
+            {
+              "text": "And yet, somehow, Rat Poison guy survived to get the Gold.",
+              "frame": 16
+            },
+            {
+              "text": "<br>* The Russian delegation arrived a week late, because they were still using the Julian calendar. In 1904.",
+              "frame": 17
+            }
+          ],
+          "all_awardings": [
+            { "count": 14, "name": "Silver" },
+            { "count": 1, "name": "Gold" },
+            { "count": 13, "name": "Helpful" },
+            { "count": 16, "name": "Wholesome" },
+            { "count": 2, "name": "hehehehe" },
+            { "count": 1, "name": "This" },
+            { "count": 1, "name": "Table Slap" },
+            { "count": 1, "name": "I'll Drink to That" },
+            { "count": 1, "name": "Evil Cackle" },
+            { "count": 1, "name": "Bless Up" },
+            { "count": 1, "name": "Buff Doge" },
+            { "count": 1, "name": "Shocked" }
+          ],
+          "created_utc": 1637172434,
+          "depth": 0,
+          "score": 38159,
+          "avatar": {
+            "face": "53-face.png",
+            "head": "104-head.png",
+            "body": "75-body.png"
           }
-        ],
-        "all_awardings": [
-          { "count": 1, "name": "Silver" },
-          { "count": 1, "name": "Gold" },
-          { "count": 1, "name": "Platinum" }
-        ],
-        "created_utc": 1565710341,
-        "depth": 0,
-        "score": 51235,
-        "avatar": {
-          "face": "24-face.png",
-          "head": "71-head.png",
-          "body": "24-body.png"
-        }
-      },
-      {
-        "author": "JPCollectibles",
-        "body": [{ "text": "Kudos to the slugger that hit him.", "frame": 7 }],
-        "all_awardings": [{ "count": 1, "name": "Silver" }],
-        "created_utc": 1565716009,
-        "depth": 1,
-        "score": 18373,
-        "avatar": {
-          "face": "79-face.png",
-          "head": "39-head.png",
-          "body": "126-body.png"
-        }
-      },
-      {
-        "author": "Sassanach36",
-        "body": [
-          { "text": "Plot twist: It was the six year old.", "frame": 8 }
-        ],
-        "all_awardings": [{ "count": 1, "name": "Silver" }],
-        "created_utc": 1565716508,
-        "depth": 2,
-        "score": 8279,
-        "avatar": {
-          "face": "23-face.png",
-          "head": "24-head.png",
-          "body": "169-body.png"
-        }
-      }
-    ],
-    [
-      {
-        "author": "Lillipout",
-        "body": [
-          { "text": "The Lake Nyos Disaster.", "frame": 0 },
-          {
-            "text": "The lake periodically belches a cloud of invisible carbon dioxide gas that suffocates everything within a 16 mile radius.",
-            "frame": 1
-          },
-          {
-            "text": "In 1986, over 1700 people and all their livestock died without even understanding what was happening to them.",
-            "frame": 2
+        },
+        {
+          "author": "Mattrockj",
+          "body": [
+            {
+              "text": "Somehow the fact that 3rd was unremarkable makes it so much funnier",
+              "frame": 18
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637176163,
+          "depth": 1,
+          "score": 12338,
+          "avatar": {
+            "face": "44-face.png",
+            "head": "129-head.png",
+            "body": "150-body.png"
           }
-        ],
-        "all_awardings": [{ "count": 2, "name": "Silver" }],
-        "created_utc": 1565707405,
-        "depth": 0,
-        "score": 45191,
-        "avatar": {
-          "face": "18-face.png",
-          "head": "43-head.png",
-          "body": "89-body.png"
-        }
-      },
-      {
-        "author": "snaafuuu",
-        "body": [
-          {
-            "text": "My science teacher in high school was in the Peace Corps and one of the first people to come across this village after it happened.",
-            "frame": 3
-          },
-          {
-            "text": "He said it was so eerie because all the flies and mosquitoes had died and it was so silent.",
-            "frame": 4
+        },
+        {
+          "author": "irou-",
+          "body": [
+            {
+              "text": "3rd place should be played by Michael Cera.",
+              "frame": 19
+            }
+          ],
+          "all_awardings": [
+            { "count": 2, "name": "Helpful" },
+            { "count": 1, "name": "Wholesome" },
+            { "count": 1, "name": "Snek" },
+            { "count": 1, "name": "Buff Doge" },
+            { "count": 1, "name": "Brighten My Day" },
+            { "count": 1, "name": "Spit-take" }
+          ],
+          "created_utc": 1637176620,
+          "depth": 2,
+          "score": 10021,
+          "avatar": {
+            "face": "9-face.png",
+            "head": "110-head.png",
+            "body": "61-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565714848,
-        "depth": 1,
-        "score": 25388,
-        "avatar": {
-          "face": "49-face.png",
-          "head": "73-head.png",
-          "body": "18-body.png"
         }
-      },
-      {
-        "author": "SpaceGeneralAmerica",
-        "body": [
-          {
-            "text": "&gt; all the flies and mosquitoes had died  <br><br>This scares me far more than the death of the people and livestock.",
-            "frame": 5
-          },
-          {
-            "text": "Because no matter where you go, you always expect for at least one fly or mosquito to be there. But to find even those things dead... my God.",
-            "frame": 6
+      ]
+    },
+    {
+      "durationInFrames": 7,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "splitdipless",
+          "body": [
+            { "text": "The Toronto Circus Riot of 1855.", "frame": 0 },
+            {
+              "text": "<br><br>The Fire Department and some clowns get into a disagreement at a whorehouse, and get into a punch-up.",
+              "frame": 1
+            },
+            {
+              "text": "The clowns win, but the firemen return to the circus later and start attacking in revenge.",
+              "frame": 2
+            },
+            {
+              "text": "The firemen win the day but violence is stopped when the militia come in.",
+              "frame": 3
+            },
+            {
+              "text": "The police do nothing, so the city fires all the police (and I mean everyone) and starts a new police force.",
+              "frame": 4
+            }
+          ],
+          "all_awardings": [
+            { "count": 7, "name": "Silver" },
+            { "count": 1, "name": "Platinum" },
+            { "count": 10, "name": "Helpful" },
+            { "count": 7, "name": "Wholesome" },
+            { "count": 1, "name": "All-Seeing Upvote" }
+          ],
+          "created_utc": 1637171236,
+          "depth": 0,
+          "score": 29415,
+          "avatar": {
+            "face": "53-face.png",
+            "head": "115-head.png",
+            "body": "169-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565716542,
-        "depth": 2,
-        "score": 13362,
-        "avatar": {
-          "face": "1-face.png",
-          "head": "104-head.png",
-          "body": "152-body.png"
-        }
-      }
-    ],
-    [
-      {
-        "author": "-spookyxghost-",
-        "body": [
-          {
-            "text": "The story of Mary Vincent always stands out to me.",
-            "frame": 0
-          },
-          {
-            "text": "<br><br>In 1978, 15 year old Mary was hitchhiking. A man named Lawrence Singleton picked her up.",
-            "frame": 1
-          },
-          {
-            "text": "<br><br>He brutally raped her, and eventually made her get out of the car.",
-            "frame": 2
-          },
-          {
-            "text": "She planned to run, but he noticed, and cut both her arms off.",
-            "frame": 3
-          },
-          {
-            "text": "He threw her into a ditch/ravine and left her to die.",
-            "frame": 4
-          },
-          {
-            "text": "<br><br>She packed her stumps with mud to stop the bleeding and spent all night crawling out.",
-            "frame": 5
-          },
-          {
-            "text": "<br><br>She eventually makes it to the highway and starts walking, naked and covered in blood. The first car that saw her sped away in fear. The second car was a couple on their honeymoon. They picked her up and she survived.",
-            "frame": 6
-          },
-          {
-            "text": "<br><br>Edited to add: I was in a rush when I wrote this, so you should definitely read more into the story, it’s crazy.",
-            "frame": 7
-          },
-          {
-            "text": "From the horrific act itself, to the court proceedings, to the fact that he hardly served any time.",
-            "frame": 8
+        },
+        {
+          "author": "atreethatownsitself",
+          "body": [
+            {
+              "text": "This absolute absurdity of this paragraph amazes me. What the fuck. 😂",
+              "frame": 5
+            }
+          ],
+          "all_awardings": [{ "count": 1, "name": "Silver" }],
+          "created_utc": 1637180046,
+          "depth": 1,
+          "score": 8677,
+          "avatar": {
+            "face": "74-face.png",
+            "head": "162-head.png",
+            "body": "68-body.png"
           }
-        ],
-        "all_awardings": [{ "count": 2, "name": "Silver" }],
-        "created_utc": 1565713813,
-        "depth": 0,
-        "score": 38113,
-        "avatar": {
-          "face": "68-face.png",
-          "head": "76-head.png",
-          "body": "40-body.png"
-        }
-      },
-      {
-        "author": "eleanorlance",
-        "body": [
-          {
-            "text": "what really upsets me most about this is that singleton was released from jail for “good behavior” and went on to murder a different woman a few years later, roxanne hayes.",
-            "frame": 9
+        },
+        {
+          "author": "reddog323",
+          "body": [
+            {
+              "text": "&gt; The Fire Department and some clowns get into a disagreement at a whorehouse<br><br>You know, no matter what happens going forward, it’s going to be a good story with an opening line like that.",
+              "frame": 6
+            },
+            {
+              "text": "<br><br>Edit: this is now my highest rated comment for 2021.",
+              "frame": 7
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637186746,
+          "depth": 2,
+          "score": 6141,
+          "avatar": {
+            "face": "8-face.png",
+            "head": "123-head.png",
+            "body": "160-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565719509,
-        "depth": 1,
-        "score": 21460,
-        "avatar": {
-          "face": "34-face.png",
-          "head": "109-head.png",
-          "body": "120-body.png"
         }
-      },
-      {
-        "author": "Florenceismyhomie",
-        "body": [
-          {
-            "text": "I think in these scenarios we can safely say that if you can rape someone, chop their fucking arms off and leave them to die, you aren’t ever safe to be released.",
-            "frame": 10
+      ]
+    },
+    {
+      "durationInFrames": 22,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "happybex",
+          "body": [
+            {
+              "text": "Back in the 1780’s, after being elected President, George Washington decided to send a letter to Congress that basically said, “Hey, looking forward to working with y’all, this will be exciting!”",
+              "frame": 0
+            },
+            {
+              "text": "<br><br>However, George wasn’t very eloquent, and was generally busy and stressed, so he asked his friend James Madison to compose the letter to Congress, which James did.",
+              "frame": 1
+            },
+            {
+              "text": "<br><br>When Congress received the letter, they decided to respond in kind, not wanting to slight the new president.",
+              "frame": 2
+            },
+            {
+              "text": "They wanted to send back a letter that essentially said, “We’re glad you’re excited, so are we!”",
+              "frame": 3
+            },
+            {
+              "text": "They decided there was no one better in Congress to write the letter than their very own…James Madison.",
+              "frame": 4
+            },
+            {
+              "text": "<br><br>So, James writes a response to the letter he wrote in the first place, and Congress sends it to George.",
+              "frame": 5
+            },
+            {
+              "text": "George decided to respond with something along the lines of, “Oh, good, I’m excited that you’re excited, too!”",
+              "frame": 6
+            },
+            {
+              "text": "— and since his buddy James did such an excellent job with the first letter, George again went to him and had him compose the response.",
+              "frame": 7
+            },
+            {
+              "text": "<br><br>Congress received the letter and again not wanting to be awkward and ignore the PRESIDENT, decided to reply with yet another letter that basically said, “Hey, we’re excited that you’re excited that we’re excited!”",
+              "frame": 8
+            },
+            {
+              "text": "…and once again, they had James Madison compose the response.",
+              "frame": 9
+            },
+            {
+              "text": "<br><br>So James Madison, future 4th president of the United States, wound up writing himself 4 letters back and forth between “George Washington” and “Congress”, and was too embarrassed to tell anyone about it while it was going on.",
+              "frame": 10
+            },
+            {
+              "text": "<br><br>\\-----------------<br><br>Edit: A few people have asked for a source, and I Googled my little heart out and finally found the following snippet in an editor's note on the initial letter George Washington sent to Congress  (emphasis mine) :<br><br>&amp;#x200B;<br><br>&gt;At their Mount Vernon meeting Washington and JM agreed that the Humphreys draft, which contained numerous legislative proposals, should be discarded in favor of a brief address that deliberately omitted specific recommendations to Congress.",
+              "frame": 11
+            },
+            {
+              "text": "The one recommendation which the president made in his inaugural, that Congress consider amendments to the Constitution, was one that JM had much at heart.",
+              "frame": 12
+            },
+            {
+              "text": "If the passage on amendments suggests the pen of JM, a remark by Washington in his note of 5 May 1789 clearly points to him as the author of the address: “Notwithstanding the conviction I am under of the labour which is imposed upon you by Public Individuals as well as public bodies—Yet, as you have began, so I would wish you to finish, the good work in a short reply to the Address of the House of Representatives.”",
+              "frame": 13
+            },
+            {
+              "text": "**Thus in the opening series of formal exchanges between the president and Congress, JM was in dialogue with himself.",
+              "frame": 14
+            },
+            {
+              "text": "Having composed the inaugural, he drew up in turn the address of the House of Representatives in reply to the president (5 May), the president’s reply to the House address (8 May), and for good measure the president’s reply to the Senate address (18 May).",
+              "frame": 15
+            },
+            {
+              "text": "**<br><br>This was by far the most official account I can find of this anecdote, and I hope it's helpful for those looking for more information!",
+              "frame": 16
+            }
+          ],
+          "all_awardings": [
+            { "count": 19, "name": "Silver" },
+            { "count": 1, "name": "Gold" },
+            { "count": 1, "name": "Platinum" },
+            { "count": 11, "name": "Helpful" },
+            { "count": 20, "name": "Wholesome" },
+            { "count": 1, "name": "Take My Energy" },
+            { "count": 1, "name": "Bravo Grande!" },
+            { "count": 2, "name": "Rocket Like" }
+          ],
+          "created_utc": 1637178845,
+          "depth": 0,
+          "score": 21013,
+          "avatar": {
+            "face": "63-face.png",
+            "head": "131-head.png",
+            "body": "118-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565722563,
-        "depth": 2,
-        "score": 19422,
-        "avatar": {
-          "face": "35-face.png",
-          "head": "74-head.png",
-          "body": "84-body.png"
-        }
-      }
-    ],
-    [
-      {
-        "author": "mcsmith610",
-        "body": [
-          {
-            "text": "John List killed his whole family-wife, mother, daughter and two sons.",
-            "frame": 0
-          },
-          {
-            "text": "He meticulously planned the whole thing-cancelling all delivery services, excusing the kids from school, and even turned the air conditioning as low as possible to preserve the bodies for as long as possible.",
-            "frame": 1
-          },
-          {
-            "text": "<br><br>After he killed them all, he placed the bodies in sleeping bags and lined them up.",
-            "frame": 2
-          },
-          {
-            "text": "He then wrote a letter to his pastor explaining why he had to kill them.",
-            "frame": 3
-          },
-          {
-            "text": "<br><br>He then leaves and isn’t heard from again.",
-            "frame": 4
-          },
-          {
-            "text": "<br><br>18 years later he’s remarried and doing the same job as before but this time he doesn’t have any children.",
-            "frame": 5
-          },
-          {
-            "text": "He’s finally arrested after a tip was given to the FBI.",
-            "frame": 6
-          },
-          {
-            "text": "<br><br>Crazy thing is that because he planned it so well, the bodies weren’t discovered until a month after the murders so he had a huge head start and essentially started a new life in the same career and was heavily involved in a new church down in Virginia. Took 18 years to capture him.",
-            "frame": 7
+        },
+        {
+          "author": "Briggsnotmyers",
+          "body": [
+            {
+              "text": "One time I had a friend call me and tell me how she was having a conflict with someone whom she did not name and, being at different schools, I assumed I did not know.",
+              "frame": 17
+            },
+            {
+              "text": "I analyzed what I thought the other party was trying to accomplish and suggested an angle to approach resolution from.",
+              "frame": 18
+            },
+            {
+              "text": "<br><br>The next day my other friend calls me and says she was in an argument with her friend but now that friend seems to want to make up and is asking what she can do to fix the situation.",
+              "frame": 19
+            },
+            {
+              "text": "<br><br>So I told Friend 2 to tell Friend 1 what I'd already prepped Friend 1 to hear from a successful reply to her overture.",
+              "frame": 20
+            },
+            {
+              "text": "They both thanked me later for helping them solve their problem so diplomatically. I felt like a supervillain.",
+              "frame": 21
+            }
+          ],
+          "all_awardings": [
+            { "count": 2, "name": "Helpful" },
+            { "count": 4, "name": "Wholesome" }
+          ],
+          "created_utc": 1637187134,
+          "depth": 1,
+          "score": 8079,
+          "avatar": {
+            "face": "94-face.png",
+            "head": "105-head.png",
+            "body": "146-body.png"
           }
-        ],
-        "all_awardings": [{ "count": 2, "name": "Gold" }],
-        "created_utc": 1565705384,
-        "depth": 0,
-        "score": 38102,
-        "avatar": {
-          "face": "84-face.png",
-          "head": "15-head.png",
-          "body": "1-body.png"
-        }
-      },
-      {
-        "author": "tmckey150",
-        "body": [
-          { "text": "What did the letter say that he left?", "frame": 8 }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565708735,
-        "depth": 1,
-        "score": 13317,
-        "avatar": {
-          "face": "19-face.png",
-          "head": "24-head.png",
-          "body": "81-body.png"
-        }
-      },
-      {
-        "author": "mcsmith610",
-        "body": [
-          {
-            "text": "He pretty much explained that he killed his family to ensure their entry into heaven because he was worried they were straying from their faith.",
-            "frame": 9
-          },
-          {
-            "text": "So in a way, he thought he was saving their souls.",
-            "frame": 10
+        },
+        {
+          "author": "Grizzly_228",
+          "body": [
+            {
+              "text": "You are more like an anti-Hero: brings light and justice in the world operating through lies and deception",
+              "frame": 22
+            }
+          ],
+          "all_awardings": [{ "count": 1, "name": "Helpful" }],
+          "created_utc": 1637189487,
+          "depth": 2,
+          "score": 2858,
+          "avatar": {
+            "face": "6-face.png",
+            "head": "55-head.png",
+            "body": "14-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565708911,
-        "depth": 2,
-        "score": 22573,
-        "avatar": {
-          "face": "0-face.png",
-          "head": "125-head.png",
-          "body": "97-body.png"
         }
-      }
-    ],
-    [
-      {
-        "author": "JimmyL2014",
-        "body": [
-          {
-            "text": "One of my friends had someone following her home, hiding in the bushes so they couldn't be seen.",
-            "frame": 0
-          },
-          {
-            "text": "She booked it to her house, got inside, and he was watching the house from the outside. She called the cops. They come along quietly and got the jump on him. He had condoms, handcuffs, and a knife.",
-            "frame": 1
-          },
-          {
-            "text": "When they got his DNA, it turned out that he was linked to a half dozen rapes in the area.",
-            "frame": 2
-          },
-          {
-            "text": "She credits her regimen of running sprints to outrunning him that night and firmly believes she would have been raped if she couldn't outrun him then.",
-            "frame": 3
+      ]
+    },
+    {
+      "durationInFrames": 10,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "Sebillian",
+          "body": [
+            { "text": "Juan Pujol García.", "frame": 0 },
+            {
+              "text": "<br><br>WWII spy who won both the German Iron Cross and Order of the British Empire for spying.",
+              "frame": 1
+            },
+            {
+              "text": "<br><br>He initially approached British Intelligence and offered his services, and was refused.",
+              "frame": 2
+            },
+            {
+              "text": "Undeterred, he created the persona of a loyal Nazi supporter, became a German agent, gathered a payroll of fake sub-agents (all bankrolled by Germany), persuaded the German Navy to chase a fake convoy, then finally got recruited by the Allies.",
+              "frame": 3
+            },
+            {
+              "text": "He finally fed misleading info to the Axis about the D-Day landings, causing them to deploy forces to the wrong locations, even after the invasion had begun.",
+              "frame": 4
+            }
+          ],
+          "all_awardings": [
+            { "count": 1, "name": "Helpful" },
+            { "count": 6, "name": "Wholesome" }
+          ],
+          "created_utc": 1637165487,
+          "depth": 0,
+          "score": 19921,
+          "avatar": {
+            "face": "8-face.png",
+            "head": "143-head.png",
+            "body": "57-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565701568,
-        "depth": 0,
-        "score": 35391,
-        "avatar": {
-          "face": "20-face.png",
-          "head": "134-head.png",
-          "body": "29-body.png"
-        }
-      },
-      {
-        "author": "Quireman",
-        "body": [
-          {
-            "text": "Not trying to make light of the story or anything, but he actually had condoms? Never thought of a rapist doing protected sex.",
-            "frame": 4
+        },
+        {
+          "author": "Leone_0",
+          "body": [
+            {
+              "text": "&gt;On occasion, he had to invent reasons why his agents had failed to report easily available information that the Germans would eventually know about.",
+              "frame": 5
+            },
+            {
+              "text": "For example, he reported that his (fabricated) Liverpool agent had fallen ill just before a major fleet movement from that port, and so was unable to report the event.",
+              "frame": 6
+            },
+            {
+              "text": "To support this story, the agent eventually 'died' and an obituary was placed in the local newspaper as further evidence to convince the Germans.",
+              "frame": 7
+            },
+            {
+              "text": "The Germans were also persuaded to pay a pension to the agent's widow.",
+              "frame": 8
+            },
+            {
+              "text": "<br><br>Truly incredible<br><br>&gt;The Germans paid Pujol US$340,000 to support his network of agents, which at one point totalled 27 fabricated characters.",
+              "frame": 9
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637168169,
+          "depth": 1,
+          "score": 11539,
+          "avatar": {
+            "face": "45-face.png",
+            "head": "28-head.png",
+            "body": "65-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565703511,
-        "depth": 1,
-        "score": 4101,
-        "avatar": {
-          "face": "12-face.png",
-          "head": "71-head.png",
-          "body": "131-body.png"
-        }
-      },
-      {
-        "author": "camerajack21",
-        "body": [
-          { "text": "It happens quite a lot I think.", "frame": 5 },
-          {
-            "text": "Very little chance of depositing any DNA and thus less chance of getting caught.",
-            "frame": 6
-          },
-          {
-            "text": "The same way you'd wear gloves when carrying out a crime if you were even slightly using your brain.",
-            "frame": 7
+        },
+        {
+          "author": "AlexFeels",
+          "body": [
+            {
+              "text": "27 fabricated characters? That's actually crazy how he got away with that",
+              "frame": 10
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637171886,
+          "depth": 2,
+          "score": 6303,
+          "avatar": {
+            "face": "91-face.png",
+            "head": "156-head.png",
+            "body": "66-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565703913,
-        "depth": 2,
-        "score": 5894,
-        "avatar": {
-          "face": "6-face.png",
-          "head": "55-head.png",
-          "body": "89-body.png"
         }
-      }
-    ],
-    [
-      {
-        "author": "sixesand7s",
-        "body": [
-          {
-            "text": "In my town in the early 90's there was a notorious killer that had all of BC, Canada on watch.",
-            "frame": 0
-          },
-          {
-            "text": "My wifes mother (years and years before I knew them) had been home alone while her Husband was in England doing tree surgeon work (arborist)<br><br>She was in her laundry room when a man walked up from her basement, completely scaring her, she freaked out and said what the hell are you doing here?",
-            "frame": 1
-          },
-          {
-            "text": "<br><br>He said he was friends with her husband and was just coming to see if he was here, apparently he told him he could just walk in. Which she knew was bullshit.",
-            "frame": 2
-          },
-          {
-            "text": "<br><br>She was smart enough to tell him that he was just at the store and would be back any minute.",
-            "frame": 3
-          },
-          {
-            "text": "He said he would wait outside for him, as soon as he left she called the police, but he was long gone by the time they got here.",
-            "frame": 4
-          },
-          {
-            "text": "<br><br>Two weeks later, the killer was caught, his mugshot put on TV and it was the guy in her house.",
-            "frame": 5
-          },
-          {
-            "text": "<br><br>&amp;#x200B;<br><br>EDIT: The Guys Name was Terry Driver Heres a link to his Wiki",
-            "frame": 6
+      ]
+    },
+    {
+      "durationInFrames": 2,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "Tsquare43",
+          "body": [
+            {
+              "text": "Hitler, Tito, Stalin, Trotsky, and Freud were living in the same Vienna neighborhood in 1913",
+              "frame": 0
+            }
+          ],
+          "all_awardings": [
+            { "count": 1, "name": "Silver" },
+            { "count": 6, "name": "Helpful" },
+            { "count": 2, "name": "Wholesome" }
+          ],
+          "created_utc": 1637175774,
+          "depth": 0,
+          "score": 17021,
+          "avatar": {
+            "face": "29-face.png",
+            "head": "67-head.png",
+            "body": "54-body.png"
           }
-        ],
-        "all_awardings": [{ "count": 1, "name": "Gold" }],
-        "created_utc": 1565714821,
-        "depth": 0,
-        "score": 34022,
-        "avatar": {
-          "face": "53-face.png",
-          "head": "56-head.png",
-          "body": "106-body.png"
-        }
-      },
-      {
-        "author": "FlyingRatSauce",
-        "body": [
-          {
-            "text": "My family has a similar story and I’m pretty sure some of you serial killer buffs out there might figure out who it is before the reveal because their story is pretty unique.",
-            "frame": 7
-          },
-          {
-            "text": "<br><br>When my parents were in college they went on a trip down to Florida.",
-            "frame": 8
-          },
-          {
-            "text": "They had met through mutual friends and were down there together but hadn’t gone on a date yet.",
-            "frame": 9
-          },
-          {
-            "text": "My dad and one of his friends were planing to meet my mom and some of her friends at a hotel but being the carefree college guys they were they lost track of time and realized it was impossible to get to the hotel on time by walking.",
-            "frame": 10
-          },
-          {
-            "text": "<br><br>They decided the best solution to their problem was to hitch hike and a car with two women picked him up.",
-            "frame": 11
-          },
-          {
-            "text": "<br><br>Everything seemed fine until the driver asked them if it was okay to stop for gas.",
-            "frame": 12
-          },
-          {
-            "text": "My dad and his friend agreed it was no problem since they were making good time and she drove into a gas station.",
-            "frame": 13
-          },
-          {
-            "text": "She then pumped her car full of gas before hopping back in and flooring it, basically stealing the gas with two hitch hikers in the back.",
-            "frame": 14
-          },
-          {
-            "text": "My dad and his friend were beginning to freak out when she pulled a gun from under her seat and asked “are we gonna have a problem” or something like that.",
-            "frame": 15
-          },
-          {
-            "text": "<br><br>My dad and his friend shook their heads vehemently because what else do you do in that situation.",
-            "frame": 16
-          },
-          {
-            "text": "<br><br>She then drove them to the hotel and dropped them off without so much as a scratch and they kinda thought nothing of it until the news started reporting on a serial killer in Florida known as Aileen Wuornos.",
-            "frame": 17
-          },
-          {
-            "text": "He took one look at her picture and instantly recognized her as the driver.",
-            "frame": 18
-          },
-          {
-            "text": "<br><br>The only reason my dad thinks she didn’t straight up kill them was because they were supper polite and respectful to her and her victims where usually scumbag guys trying to take advantage of her.",
-            "frame": 19
-          },
-          {
-            "text": "<br><br>Tl;Dr: Aileen Wuornos is the reason my dad got to his first date with mom on time. <br><br>Edit: spelling",
-            "frame": 20
+        },
+        {
+          "author": "nashamagirl99",
+          "body": [
+            {
+              "text": "The best sitcom setup<br><br>Edit: r/ComradeSShow seems to already have the idea",
+              "frame": 1
+            }
+          ],
+          "all_awardings": [
+            { "count": 1, "name": "Silver" },
+            { "count": 1, "name": "Helpful" },
+            { "count": 2, "name": "Wholesome" }
+          ],
+          "created_utc": 1637183680,
+          "depth": 1,
+          "score": 6724,
+          "avatar": {
+            "face": "71-face.png",
+            "head": "127-head.png",
+            "body": "116-body.png"
           }
-        ],
-        "all_awardings": [
-          { "count": 1, "name": "Silver" },
-          { "count": 1, "name": "Gold" },
-          { "count": 1, "name": "Platinum" }
-        ],
-        "created_utc": 1565725518,
-        "depth": 1,
-        "score": 11947,
-        "avatar": {
-          "face": "42-face.png",
-          "head": "143-head.png",
-          "body": "16-body.png"
-        }
-      },
-      {
-        "author": "grusel_cookie",
-        "body": [
-          {
-            "text": "Omg this is the craziest how I met your mother story I ever heard",
-            "frame": 21
+        },
+        {
+          "author": "Username_RANDINT",
+          "body": [{ "text": "F•I•E•N•D•S", "frame": 2 }],
+          "all_awardings": [
+            { "count": 6, "name": "Silver" },
+            { "count": 1, "name": "Gold" },
+            { "count": 1, "name": "Helpful" },
+            { "count": 4, "name": "Wholesome" },
+            { "count": 1, "name": "Bravo!" }
+          ],
+          "created_utc": 1637190036,
+          "depth": 2,
+          "score": 8024,
+          "avatar": {
+            "face": "49-face.png",
+            "head": "27-head.png",
+            "body": "116-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565726663,
-        "depth": 2,
-        "score": 5622,
-        "avatar": {
-          "face": "74-face.png",
-          "head": "140-head.png",
-          "body": "124-body.png"
         }
-      }
-    ],
-    [
-      {
-        "author": "persondude27",
-        "body": [
-          {
-            "text": "An acquaintance of mine sent his son to triathlon camp in Texas.",
-            "frame": 0
-          },
-          {
-            "text": "<br><br>A week later, his son came back from camp.",
-            "frame": 1
-          },
-          {
-            "text": "The next day, the son was complaining of a headache. Four days later, he was dead.",
-            "frame": 2
-          },
-          {
-            "text": "Healthy, happy, fit 12 year old one week, dead the next.",
-            "frame": 3
-          },
-          {
-            "text": "<br><br>Turns out the lake had Naegleria fowleri, the brain-eating amoeba.",
-            "frame": 4
-          },
-          {
-            "text": "Nothing scares me as irrationally as already being dead and waiting for your body to catch on. <br><br>Link for those interested.",
-            "frame": 5
+      ]
+    },
+    {
+      "durationInFrames": 7,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "SugoiBakaMatt",
+          "body": [
+            {
+              "text": "May have been said already, but when Napoleon returned to France from his exile, a Regiment of French soldiers were sent by the Coalition Powers to intercept him.",
+              "frame": 0
+            },
+            {
+              "text": "Upon seeing them, Napoleon approached and simply said, \"If you wish to kill your Emperor, here I am.\"",
+              "frame": 1
+            },
+            {
+              "text": "The Commander of the Regiment ordered his men to open fire.",
+              "frame": 2
+            },
+            {
+              "text": "Out of the 2,000 soldiers present, not a single one obeyed the order.",
+              "frame": 3
+            },
+            {
+              "text": "They all joined Napoleon and marched to Paris with him. Truly a real life Mary-Sue.",
+              "frame": 4
+            },
+            {
+              "text": "At least until he was thoroughly beaten and exiled again, permanently this time.",
+              "frame": 5
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637165900,
+          "depth": 0,
+          "score": 14923,
+          "avatar": {
+            "face": "50-face.png",
+            "head": "77-head.png",
+            "body": "86-body.png"
           }
-        ],
-        "all_awardings": [{ "count": 1, "name": "Silver" }],
-        "created_utc": 1565707583,
-        "depth": 0,
-        "score": 32388,
-        "avatar": {
-          "face": "18-face.png",
-          "head": "41-head.png",
-          "body": "142-body.png"
-        }
-      },
-      {
-        "author": "surpriseDRE",
-        "body": [
-          { "text": "Naegleria is terrifying to me!", "frame": 6 },
-          {
-            "text": "You can get it just from getting water up your nose swimming in a lake or (I’ve heard but am too lazy to check) there have been people who got it from using a Neti Pot",
-            "frame": 7
+        },
+        {
+          "author": "Spoon99",
+          "body": [
+            {
+              "text": "This scene was actually in that old Waterloo movie! Seemed a bitover the top to me when I watched it.",
+              "frame": 6
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637177364,
+          "depth": 1,
+          "score": 2800,
+          "avatar": {
+            "face": "82-face.png",
+            "head": "26-head.png",
+            "body": "16-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565714062,
-        "depth": 1,
-        "score": 9314,
-        "avatar": {
-          "face": "94-face.png",
-          "head": "76-head.png",
-          "body": "2-body.png"
-        }
-      },
-      {
-        "author": "persondude27",
-        "body": [
-          {
-            "text": "Yep, the amoeba needs to come into contact with the top of your nose, so you have to snort the water.",
-            "frame": 8
-          },
-          {
-            "text": "Or, if you happened to live in Louisiana in 2013, they weren't using enough chorline in the water supply, so people using neti-pots with tap water were exposed.",
-            "frame": 9
-          },
-          {
-            "text": "<br><br>The good news is that the brain-eaters really like specific conditions - they like very warm (80F+), stangnant water with zero salt or chlorine.",
-            "frame": 10
-          },
-          {
-            "text": "So even a little bit of chlorine or bromine is enough to protect yourself.",
-            "frame": 11
-          },
-          {
-            "text": "In the US, only lakes in the South (Texas, Louisiana, Florida, Georgia, etc) meet those conditions, and humans don't want to spend a lot of time in that water since it's usually pretty gross.",
-            "frame": 12
-          },
-          {
-            "text": "Even then, you still have to get the water up your nose (water skiing or jetskiing are the two common causes). (edit, also cases in MN and AZ).",
-            "frame": 13
-          },
-          {
-            "text": "<br><br>Interestingly, there was a guy here who did an AMA about a treatment.",
-            "frame": 14
-          },
-          {
-            "text": "You just have to move quickly, because once a person loses their sense of smell, it's already over (because the amoebae have eaten your olfactory bulb, the part of your brain responsible for smelling.",
-            "frame": 15
-          },
-          {
-            "text": "Then it continues eating, and eventually ends up at your brainstem, which controls things like breathing and heart rate).",
-            "frame": 16
+        },
+        {
+          "author": "aptpioneer",
+          "body": [
+            {
+              "text": "There are so many Napoleon facts that are this level of over-the-top, his life is basically unadaptable.",
+              "frame": 7
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637184285,
+          "depth": 2,
+          "score": 2018,
+          "avatar": {
+            "face": "20-face.png",
+            "head": "85-head.png",
+            "body": "41-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565714611,
-        "depth": 2,
-        "score": 8924,
-        "avatar": {
-          "face": "68-face.png",
-          "head": "69-head.png",
-          "body": "165-body.png"
         }
-      }
-    ],
-    [
-      {
-        "author": "Tsquare43",
-        "body": [
-          {
-            "text": "3 sailors survived the sinking of the USS *West Virgina* at Pearl Harbor, only to die 16 days later, due to the lack of air.",
-            "frame": 0
-          },
-          {
-            "text": "The Navy knew they were there, but couldn't get to them. <br><br>16 days to die",
-            "frame": 1
+      ]
+    },
+    {
+      "durationInFrames": 20,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "Ganglebot",
+          "body": [
+            {
+              "text": "A guy broke into the Prime Minster of Canada's house with a knife, intent to kill the Prime Minster.",
+              "frame": 0
+            },
+            {
+              "text": "<br><br>The Prime Minster's wife hears someone walking around downstairs and tries to wake her husband.",
+              "frame": 1
+            },
+            {
+              "text": "The PM just tells her its nothing, go back to sleep.",
+              "frame": 2
+            },
+            {
+              "text": "<br><br>She gets up and investigates - finding the knife wielding assassin.",
+              "frame": 3
+            },
+            {
+              "text": "She grabs an Inuit statue of a loon and beats the shit out of the guy.",
+              "frame": 4
+            },
+            {
+              "text": "Our PM then runs into the hall and helps his wife take down the assassin.",
+              "frame": 5
+            },
+            {
+              "text": "These are two people in their 60's just kicking the shit out of some dude in his late 20's. <br><br>She calls the local police who arrive, only to realise they forgot the fucking key to the front gate, so they send someone back to the station get it.",
+              "frame": 6
+            },
+            {
+              "text": "<br><br>The assassin was later confirmed to have major mental health issues.",
+              "frame": 7
+            },
+            {
+              "text": "Less than 5 years later, he was successfully treated for his schizophrenia, released from his treatment facility and formally apologised to the couple.",
+              "frame": 8
+            },
+            {
+              "text": "<br><br>EDIT: Imagine getting your ass handed to you by these two:",
+              "frame": 9
+            }
+          ],
+          "all_awardings": [
+            { "count": 2, "name": "Silver" },
+            { "count": 2, "name": "Gold" },
+            { "count": 4, "name": "Helpful" },
+            { "count": 2, "name": "Wholesome" }
+          ],
+          "created_utc": 1637175296,
+          "depth": 0,
+          "score": 14252,
+          "avatar": {
+            "face": "83-face.png",
+            "head": "106-head.png",
+            "body": "132-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565701943,
-        "depth": 0,
-        "score": 29283,
-        "avatar": {
-          "face": "33-face.png",
-          "head": "132-head.png",
-          "body": "158-body.png"
-        }
-      },
-      {
-        "author": "RestartingMyLife0918",
-        "body": [
-          { "text": "Harrison Okene 2013 Nigerian boat sinking.", "frame": 2 },
-          {
-            "text": "Was trapped in the boat for 3 days at the bottom of the ocean.",
-            "frame": 3
-          },
-          {
-            "text": "<br><br> interview  rescue video  5:30 the diver finds the area Harrison is in. See's a hand a few feet from his face and reaches out to grab it. Only then did they realize the person was alive.",
-            "frame": 4
-          },
-          {
-            "text": "30 seconds later the diver enters the air pocket Harrison has been surviving in.",
-            "frame": 5
+        },
+        {
+          "author": "Sea2Chi",
+          "body": [
+            {
+              "text": "Imagine being his family and getting that call.",
+              "frame": 10
+            },
+            {
+              "text": "<br><br>\"Miss I'm sorry to wake you but your son's been arrested.",
+              "frame": 11
+            },
+            {
+              "text": "He tried to kill the Prime minister and his wife.\" <br><br>\"My god, are they ok?\" <br><br>\"The PM? Yes, they're completely fine.",
+              "frame": 12
+            },
+            {
+              "text": "Your son however sustained multiple injuries and is currently being treated at the hospital.\"",
+              "frame": 13
+            },
+            {
+              "text": "<br><br>\"Oh dear, I suppose the police did what they had to in order to stop him.\" <br><br>\"The police?",
+              "frame": 14
+            },
+            {
+              "text": "No no no, they accidentally locked themselves out of the gates, It was actually the PM who stopped your son.",
+              "frame": 15
+            },
+            {
+              "text": "Well, technically his wife, the PM showed up after she had already subdued the would-be assassin.\" <br><br>\"The PM's wife? Isn't she pensioner age?\"",
+              "frame": 16
+            },
+            {
+              "text": "<br><br>\"Yes, however apparently she is still quite formidable in a brawl as your son discovered.",
+              "frame": 17
+            },
+            {
+              "text": "Beat the stuffing out of him, blood everywhere, a real badger that one, wouldn't want to find her in a dark alley if you know what I mean.",
+              "frame": 18
+            },
+            {
+              "text": "Oh, yes your son, sorry about that, he'll most likely be in the ICU for a day or two with a skull fracture and broken ribs.\"",
+              "frame": 19
+            }
+          ],
+          "all_awardings": [
+            { "count": 6, "name": "Silver" },
+            { "count": 1, "name": "Gold" },
+            { "count": 4, "name": "Helpful" },
+            { "count": 3, "name": "Wholesome" },
+            { "count": 1, "name": "Bravo!" },
+            { "count": 1, "name": "Table Slap" }
+          ],
+          "created_utc": 1637185661,
+          "depth": 1,
+          "score": 6948,
+          "avatar": {
+            "face": "23-face.png",
+            "head": "15-head.png",
+            "body": "160-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565716239,
-        "depth": 1,
-        "score": 8166,
-        "avatar": {
-          "face": "30-face.png",
-          "head": "38-head.png",
-          "body": "83-body.png"
-        }
-      },
-      {
-        "author": "throwaway_thyroid",
-        "body": [
-          { "text": "Wow. What a moment for everyone involved.", "frame": 6 },
-          {
-            "text": "I can't imagine three days, and then suddenly a person appears.",
-            "frame": 7
+        },
+        {
+          "author": "Duffman_can_never_di",
+          "body": [
+            {
+              "text": "PM: “Oh my wife, a real battle axe, she is.”",
+              "frame": 20
+            }
+          ],
+          "all_awardings": [
+            { "count": 1, "name": "Silver" },
+            { "count": 1, "name": "Take My Energy" }
+          ],
+          "created_utc": 1637190573,
+          "depth": 2,
+          "score": 1865,
+          "avatar": {
+            "face": "83-face.png",
+            "head": "55-head.png",
+            "body": "25-body.png"
           }
-        ],
-        "all_awardings": [],
-        "created_utc": 1565718562,
-        "depth": 2,
-        "score": 4207,
-        "avatar": {
-          "face": "19-face.png",
-          "head": "24-head.png",
-          "body": "30-body.png"
         }
-      }
-    ]
+      ]
+    },
+    {
+      "durationInFrames": 24,
+      "durationInSeconds": 0,
+      "comments": [
+        {
+          "author": "Infernal_Contraption",
+          "body": [
+            {
+              "text": "The RMS Carmania<br><br>In 1914, just after the outbreak of the First World War, Germany had a cunning idea.",
+              "frame": 0
+            },
+            {
+              "text": "They needed to ensure naval superiority in the Atlantic, but there was no way they could manufacture enough new battleships in order to contest what was traditionally Britain’s inviolate domain.",
+              "frame": 1
+            },
+            {
+              "text": "<br><br>So, they took the SMS Cap Trafalgar – an 18,700tn luxury ocean liner, and retrofitted it with two 4.1inch guns and six 1lb “pom-pom” autocannons – and also had one of its funnels removed so that this colossal Frankenstein’s Monster of a ship would appear (for all intents and purposes) to be a cruiser under the command of the British Merchant Navy.",
+              "frame": 2
+            },
+            {
+              "text": "<br><br>The ruse complete, it would prowl the South Atlantic under false flags; ‘dressed’ as a British ship, it could approach the British supply line and at the last minute fly the German colours before wreaking havoc and undermining the until-now-unimpeachable British Navy.",
+              "frame": 3
+            },
+            {
+              "text": "They even renamed it the RMS Carmania – 'RMS' standing for 'Royal Mail Ship', a type of fast steamer used to carry international post - to complete the illusion and ensure that it would never be recognised as being formerly a German passenger/cargo ship until it was far, far too late.",
+              "frame": 4
+            },
+            {
+              "text": "<br><br>Military historians generally concur that it was a bold but brilliant plan.",
+              "frame": 5
+            },
+            {
+              "text": "At a fraction of the time and cost of a new custom-built battleship, the newly christened RMS Carmania should cost the British fleets thousands of lives and millions of tonnes of lost ships before it could be reliably identified…. <br><br>…..Except for one tiny problem.",
+              "frame": 6
+            },
+            {
+              "text": "<br><br>On the 14th of September 1914, after a fruitless first voyage ending with no sightings of any targets and being forced to refuel empty handed, the “RMS Carmania” met its first ever opponent just off the coast of Trinidad.",
+              "frame": 7
+            },
+            {
+              "text": "<br><br>It was \\*THE\\* RMS Carmania, a 19,500tn ocean liner retrofitted with eight 4.7inch guns and deployed as a cruiser by the \\*REAL\\* British Merchant Navy.",
+              "frame": 8
+            },
+            {
+              "text": "<br><br>From four miles away the real RMS’ crew realised that the ship they were looking at was not in fact the ship that they were standing on and opened fire.",
+              "frame": 9
+            },
+            {
+              "text": "It took 2 hours of vicious age-of-sail style broadsides, but eventually the doppelgänger was sunk with the maimed victor limping away under escort to Brazil for repairs.",
+              "frame": 10
+            },
+            {
+              "text": "<br><br>\\*\\*BONUS FACTS I DISCOVERED WHILE ANSWERING COMMENTS:\\*\\*<br><br>FACT 1: Towards the end of the fight, the first ship to arrive was a German ship called the SS Kronprins Wilhelm.",
+              "frame": 11
+            },
+            {
+              "text": "At this point the (British) RMS Carmania was barely afloat, holed beneath the waterline and likely to be finished off by a stiff breeze.... But the Kronprins Wilhelm just turned and left without getting involved.",
+              "frame": 12
+            },
+            {
+              "text": "<br><br>Turns out, the Kronprins had been listening to SOS calls from both ships and knew that \"the RMS Carmania\" had sunk, but wasn't sure which was which.",
+              "frame": 13
+            },
+            {
+              "text": "Rather than investigate and likely get caught by other British ships answering the same calls, they decided it might be a trap and left them to it.",
+              "frame": 14
+            },
+            {
+              "text": "Because of this, the Carmania was rescued and went on to sail for another 18 years.",
+              "frame": 15
+            },
+            {
+              "text": "<br><br>FACT 2:  The RMS Carmania had a sister-ship called the Caronia, and together they were known as the 'Pretty Sisters'.",
+              "frame": 16
+            },
+            {
+              "text": "This was publicly known information - the Cap Trafalgar was deliberately disguised as a 'Pretty Sister' based on the designs and appearance.",
+              "frame": 17
+            },
+            {
+              "text": "<br><br>So it's not even as though the Cap Trafalgar were deliberately disguised as the Carmenia - it was 50/50 that they could have impersonated the Caronia, save for the name painted on the front of the hull.",
+              "frame": 18
+            },
+            {
+              "text": "The outcome could have been very different, save for a coinflip between two names.",
+              "frame": 19
+            },
+            {
+              "text": "<br><br>FACT 3: The RMS Carmania had gone to Trinidade because they knew that islands nearby were being used as staging posts for German ships, and the first they encountered was another retrofitted ship that had been sent there to hunt cargo ships.",
+              "frame": 20
+            },
+            {
+              "text": "<br><br>Effectively; the RMS Carmania was a secretly retrofitted cargo ship, hunting another secretly retrofitted cargo ship, that was itself secretly hunting cargo ships, but couldn't find any except for the one that wasn't a cargo ship any more *and who knew they were there anyway so it wasn't a secret any more*. Spy vs Spy barely begins to cover it.",
+              "frame": 21
+            },
+            {
+              "text": "<br><br>EDIT BY POPULAR DEMAND, OBLIGATORY SHITTY MEME:<br><br>",
+              "frame": 22
+            }
+          ],
+          "all_awardings": [
+            { "count": 4, "name": "Silver" },
+            { "count": 1, "name": "Gold" },
+            { "count": 9, "name": "Helpful" },
+            { "count": 4, "name": "Wholesome" },
+            { "count": 1, "name": "All-Seeing Upvote" }
+          ],
+          "created_utc": 1637168173,
+          "depth": 0,
+          "score": 10688,
+          "avatar": {
+            "face": "24-face.png",
+            "head": "15-head.png",
+            "body": "20-body.png"
+          }
+        },
+        {
+          "author": "Ryan0413",
+          "body": [
+            {
+              "text": "I bet the Germans saw the real Carmania and went \"aw man, you gotta be kidding me\"",
+              "frame": 23
+            }
+          ],
+          "all_awardings": [{ "count": 1, "name": "Wholesome" }],
+          "created_utc": 1637175981,
+          "depth": 1,
+          "score": 6457,
+          "avatar": {
+            "face": "18-face.png",
+            "head": "76-head.png",
+            "body": "63-body.png"
+          }
+        },
+        {
+          "author": "Tak_Jaehon",
+          "body": [
+            {
+              "text": "Just imagine being the spotter that had to tell the captain.",
+              "frame": 24
+            }
+          ],
+          "all_awardings": [],
+          "created_utc": 1637179738,
+          "depth": 2,
+          "score": 3186,
+          "avatar": {
+            "face": "70-face.png",
+            "head": "71-head.png",
+            "body": "81-body.png"
+          }
+        }
+      ]
+    }
   ]
 }

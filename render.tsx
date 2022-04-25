@@ -20,6 +20,7 @@ import {
   generateVideo,
   generateBundle,
   deleteFolder,
+  createPlaylist,
 } from "./src/utils/render";
 import { fetchPostData } from "./src/utils/reddit";
 import { createAudio } from "./src/audio";
@@ -38,7 +39,6 @@ const render = async () => {
 
     mkdirSync(tmpDir);
 
-    // todo: []. Fetch selected posts and automatically chose comments
     const postsList: string[] = JSON.parse(
       readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
     );
@@ -48,116 +48,115 @@ const render = async () => {
 
     console.log(`📁 Project dir: ${tmpDir}`);
 
-    // Fetch Post
-    const { comments, post } = await fetchPostData(postsList[0]);
+    // // Fetch Post
+    const postData = await fetchPostData(postsList[0]);
 
     // Create Audio Files
-    await createAudio({
-      post,
-      comments,
-    });
+    await createAudio(postData);
 
-    writeFileSync(
-      join(__dirname, "src", "data", "post.json"),
-      JSON.stringify({ post, comments })
-    );
-
-    // const { post, comments } = JSON.parse(
+    // const playlistData = JSON.parse(
     //   readFileSync(join(__dirname, "src", "data", "post.json")).toString()
     // );
 
-    // Bundle React Code
-    console.log("🎥 Generating Video");
+    const playlist = createPlaylist(postData.comments);
 
-    const compositionPath = join(__dirname, "src", "compositions");
-    const bundleDir = join(tmpDir, "bundle");
-
-    // Generate Intro Video
-    await generateVideo({
-      bundled: await generateBundle(
-        join(compositionPath, "Intro.tsx"),
-        bundleDir
-      ),
-      id: "intro",
-      output: introPath,
-      data: {
-        title: post.title,
-        author: post.author,
-        awards: post.all_awardings,
-        score: post.score,
-      } as Intro,
-    });
-
-    // Generate Comments
-    for (let index = 0; index < comments.length; index++) {
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Comments.tsx"),
-          bundleDir
-        ),
-        id: "comments",
-        output: commentPath(index),
-        data: {
-          comments: comments[index],
-        } as CommentsGroup,
-      });
-
-      console.log(`💬 Comments ${index + 1} Finished`);
-    }
-
-    // Generate Mid
-    await generateVideo({
-      bundled: await generateBundle(
-        join(compositionPath, "Mid.tsx"),
-        bundleDir
-      ),
-      id: "mid",
-      output: midPath,
-      data: {},
-    });
-
-    // Generate Outro
-    await generateVideo({
-      bundled: await generateBundle(
-        join(compositionPath, "Outro.tsx"),
-        bundleDir
-      ),
-      id: "outro",
-      output: outroPath,
-      data: {
-        outro: post.outro,
-      } as Outro,
-    });
-
-    const stillBundle = await generateBundle(
-      join(compositionPath, "Thumbnail.tsx"),
-      bundleDir
+    writeFileSync(
+      join(__dirname, "src", "data", "playlist.json"),
+      JSON.stringify({ post: postData.post, playlist })
     );
-    const thumbnailComps = await getCompositions(stillBundle);
-    const thumbnailVideo = thumbnailComps.find(
-      (c) => c.id === "thumbnail"
-    ) as TCompMetadata;
 
-    await mergeFrames({
-      comments,
-    });
+    // // Bundle React Code
+    // console.log("🎥 Generating Video");
 
-    await renderStill({
-      composition: thumbnailVideo,
-      webpackBundle: stillBundle,
-      output: "C:\\Users\\licav\\Desktop\\thumbnail.png",
-      onError: (error) => {
-        console.error(
-          "The following error occured when rendering the still: ",
-          error.message
-        );
-      },
-      inputProps: {
-        title: post.title,
-        subreddit: post.subreddit,
-        awards: post.all_awardings,
-      },
-    });
+    // const compositionPath = join(__dirname, "src", "compositions");
+    // const bundleDir = join(tmpDir, "bundle");
+
+    // // Generate Intro Video
+    // await generateVideo({
+    //   bundled: await generateBundle(
+    //     join(compositionPath, "Intro.tsx"),
+    //     bundleDir
+    //   ),
+    //   id: "intro",
+    //   output: introPath,
+    //   data: {
+    //     title: playlist.post.title,
+    //     author: playlist.post.author,
+    //     awards: playlist.post.all_awardings,
+    //     score: playlist.post.score,
+    //   } as Intro,
+    // });
+
+    // // Generate Comments
+    // for (let index = 0; index < playlist.length; index++) {
+    //   await generateVideo({
+    //     bundled: await generateBundle(
+    //       join(compositionPath, "Comments.tsx"),
+    //       bundleDir
+    //     ),
+    //     id: "comments",
+    //     output: commentPath(index),
+    //     data: {
+    //       comments: comments[index],
+    //     } as CommentsGroup,
+    //   });
+
+    //   console.log(`💬 Comments ${index + 1} Finished`);
+    // }
+
+    // // Generate Mid
+    // await generateVideo({
+    //   bundled: await generateBundle(
+    //     join(compositionPath, "Mid.tsx"),
+    //     bundleDir
+    //   ),
+    //   id: "mid",
+    //   output: midPath,
+    //   data: {},
+    // });
+
+    // // Generate Outro
+    // await generateVideo({
+    //   bundled: await generateBundle(
+    //     join(compositionPath, "Outro.tsx"),
+    //     bundleDir
+    //   ),
+    //   id: "outro",
+    //   output: outroPath,
+    //   data: {
+    //     outro: playlist.post.outro,
+    //   } as Outro,
+    // });
+
+    // await mergeFrames({
+    //   comments,
+    // });
+
+    // const stillBundle = await generateBundle(
+    //   join(compositionPath, "Thumbnail.tsx"),
+    //   bundleDir
+    // );
+    // const thumbnailComps = await getCompositions(stillBundle);
+    // const thumbnailVideo = thumbnailComps.find(
+    //   (c) => c.id === "thumbnail"
+    // ) as TCompMetadata;
+
+    // await renderStill({
+    //   composition: thumbnailVideo,
+    //   webpackBundle: stillBundle,
+    //   output: "C:\\Users\\licav\\Desktop\\thumbnail.png",
+    //   onError: (error) => {
+    //     console.error(
+    //       "The following error occured when rendering the still: ",
+    //       error.message
+    //     );
+    //   },
+    //   inputProps: {
+    //     title: playlist.post.title,
+    //     subreddit: playlist.post.subreddit,
+    //     awards: playlist.post.all_awardings,
+    //   },
+    // });
 
     console.log("🎥 Video Generated Successfully");
   } catch (err) {
