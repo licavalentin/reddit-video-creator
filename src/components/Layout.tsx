@@ -12,7 +12,7 @@ type Props = {
 const Layout: React.FC<Props> = ({ className, src, children }) => {
   return (
     <>
-      <BackgroundImage src={src ?? `/bc.jpg`} />
+      {src && <BackgroundImage src={src} />}
 
       <AbsoluteFill
         className={`${styles.layout} ${className} layout__container`}

@@ -32,7 +32,7 @@ export type Thumbnail = {
   title: string;
   subreddit: string;
   awards: Award[];
-  background: string;
+  background?: string;
 };
 
 export type CommentsGroup = {
