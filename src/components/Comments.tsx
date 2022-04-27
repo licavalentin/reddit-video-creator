@@ -17,7 +17,7 @@ import { scrollAnimationHandler, roundUp } from "../utils/helper";
 
 import styles from "../styles/components/comments.module.scss";
 
-const Comments: React.FC<CommentsGroup> = ({ comments }) => {
+const Comments: React.FC<CommentsGroup> = ({ comments, background }) => {
   const frame = useCurrentFrame();
 
   const [handle] = useState(() => delayRender());
@@ -49,7 +49,7 @@ const Comments: React.FC<CommentsGroup> = ({ comments }) => {
   }, []);
 
   return (
-    <Layout>
+    <Layout src={background}>
       {/* <BackgroundImage path="/bc.jpg" /> */}
 
       {/* <PopUp>

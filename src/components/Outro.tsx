@@ -6,9 +6,9 @@ import Layout from "./Layout";
 
 import styles from "../styles/components/outro.module.scss";
 
-const Outro: React.FC<OutroProps> = ({ outro }) => {
+const Outro: React.FC<OutroProps> = ({ outro, background }) => {
   return (
-    <Layout>
+    <Layout src={background}>
       <div className={styles.outro}>
         <h1 className={styles.outro__title}>{outro}</h1>
       </div>

@@ -18,9 +18,10 @@ const Intro: React.FC<IntroProps> = ({
   score,
   created_utc,
   over_18,
+  background,
 }) => {
   return (
-    <Layout>
+    <Layout src={background}>
       <div className={styles.container}>
         <div className={styles.intro}>
           <div className={styles.score}>

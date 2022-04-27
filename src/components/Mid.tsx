@@ -7,11 +7,11 @@ import Layout from "./Layout";
 
 import styles from "../styles/components/mid.module.scss";
 
-const Mid: React.FC<Mid> = ({ logo }) => {
+const Mid: React.FC<Mid> = ({ logo, background }) => {
   const image = staticFile(logo);
 
   return (
-    <Layout>
+    <Layout src={background}>
       <div className={styles.container}>
         <Img src={image} />
       </div>

@@ -1,5 +1,2 @@
 [].  
 
-
-alias bal4web='wine /home/john/Clis/bal4web/bal4web.exe'
-

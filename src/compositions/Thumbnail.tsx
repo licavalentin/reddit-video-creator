@@ -30,6 +30,7 @@ export const ThumbnailStill: React.FC = () => {
         title,
         awards: all_awardings,
         subreddit,
+        background: "/bc.jpg",
       },
     };
   })();
