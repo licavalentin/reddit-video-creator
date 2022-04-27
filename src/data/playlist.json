@@ -1,11 +1,11 @@
 {
   "post": {
     "all_awardings": [
-      { "count": 48, "name": "Silver" },
-      { "count": 2, "name": "Gold" },
       { "count": 42, "name": "Helpful" },
       { "count": 31, "name": "Wholesome" },
-      { "count": 3, "name": "All-Seeing Upvote" }
+      { "count": 3, "name": "All-Seeing Upvote" },
+      { "count": 48, "name": "Silver" },
+      { "count": 2, "name": "Gold" }
     ],
     "title": "What historical events are so absurd that they would be too strange for a fiction story or a movie?",
     "author": "Aquatax",
@@ -14,13 +14,13 @@
     "selftext": "",
     "created_utc": 1637159656,
     "over_18": false,
-    "score": 44326
+    "score": 44338
   },
   "playlist": [
     [
       {
         "durationInFrames": 19,
-        "durationInSeconds": 112,
+        "durationInSeconds": 110,
         "comments": [
           {
             "author": "irou-",
@@ -34,7 +34,7 @@
               {
                 "text": "<br><br>* The first place finisher did most of the race in a car.",
                 "frame": 1,
-                "duration": 3.64,
+                "duration": 3.13,
                 "audio": "0-0-1.mp3"
               },
               {
@@ -46,7 +46,7 @@
               {
                 "text": "<br>* The second place finisher was carried across the finish line, legs technically twitching, by his trainers.",
                 "frame": 3,
-                "duration": 6.49,
+                "duration": 6,
                 "audio": "0-0-3.mp3"
               },
               {
@@ -58,13 +58,13 @@
               {
                 "text": "Doping wasn't illegal yet (and this was a terrible attempt at it), so he got the gold when the First guy was revealed. <br>* Third finisher was unremarkable, somehow.",
                 "frame": 5,
-                "duration": 9.79,
+                "duration": 9.21,
                 "audio": "0-0-5.mp3"
               },
               {
                 "text": "<br>* Fourth finisher was a Cuban Mailman, who had raised the funds to attend the olympics by running non-stop around his entire country.",
                 "frame": 6,
-                "duration": 7.86,
+                "duration": 7.45,
                 "audio": "0-0-6.mp3"
               },
               {
@@ -88,7 +88,7 @@
               {
                 "text": "<br>* 9th and 12th finishers were from South Africa, and ran barefoot.",
                 "frame": 10,
-                "duration": 4.69,
+                "duration": 4.15,
                 "audio": "0-0-10.mp3"
               },
               {
@@ -106,13 +106,13 @@
               {
                 "text": "<br>* Half the participants had never raced competatively before. Some died.",
                 "frame": 13,
-                "duration": 4.84,
+                "duration": 4.25,
                 "audio": "0-0-13.mp3"
               },
               {
                 "text": "<br>* St. Louis only had one water stop on the entire run.",
                 "frame": 14,
-                "duration": 4.19,
+                "duration": 3.64,
                 "audio": "0-0-14.mp3"
               },
               {
@@ -130,7 +130,7 @@
               {
                 "text": "<br>* The Russian delegation arrived a week late, because they were still using the Julian calendar. In 1904.",
                 "frame": 17,
-                "duration": 7.1,
+                "duration": 6.54,
                 "audio": "0-0-17.mp3"
               }
             ],
@@ -150,11 +150,11 @@
             ],
             "created_utc": 1637172434,
             "depth": 0,
-            "score": 38165,
+            "score": 38158,
             "avatar": {
-              "face": "55-face.png",
-              "head": "5-head.png",
-              "body": "12-body.png"
+              "face": "18-face.png",
+              "head": "162-head.png",
+              "body": "41-body.png"
             }
           },
           {
@@ -170,11 +170,11 @@
             "all_awardings": [],
             "created_utc": 1637176163,
             "depth": 1,
-            "score": 12332,
+            "score": 12336,
             "avatar": {
-              "face": "59-face.png",
-              "head": "50-head.png",
-              "body": "95-body.png"
+              "face": "32-face.png",
+              "head": "84-head.png",
+              "body": "65-body.png"
             }
           },
           {
@@ -197,11 +197,11 @@
             ],
             "created_utc": 1637176620,
             "depth": 2,
-            "score": 10017,
+            "score": 10011,
             "avatar": {
-              "face": "51-face.png",
-              "head": "43-head.png",
-              "body": "121-body.png"
+              "face": "22-face.png",
+              "head": "100-head.png",
+              "body": "126-body.png"
             }
           }
         ]
@@ -253,11 +253,11 @@
             ],
             "created_utc": 1637171236,
             "depth": 0,
-            "score": 29417,
+            "score": 29423,
             "avatar": {
-              "face": "28-face.png",
-              "head": "13-head.png",
-              "body": "29-body.png"
+              "face": "44-face.png",
+              "head": "51-head.png",
+              "body": "20-body.png"
             }
           },
           {
@@ -273,11 +273,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637180046,
             "depth": 1,
-            "score": 8670,
+            "score": 8674,
             "avatar": {
-              "face": "86-face.png",
-              "head": "72-head.png",
-              "body": "5-body.png"
+              "face": "36-face.png",
+              "head": "21-head.png",
+              "body": "25-body.png"
             }
           },
           {
@@ -299,18 +299,18 @@
             "all_awardings": [],
             "created_utc": 1637186746,
             "depth": 2,
-            "score": 6141,
+            "score": 6144,
             "avatar": {
-              "face": "58-face.png",
-              "head": "108-head.png",
-              "body": "121-body.png"
+              "face": "66-face.png",
+              "head": "154-head.png",
+              "body": "79-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 22,
-        "durationInSeconds": 205,
+        "durationInSeconds": 204,
         "comments": [
           {
             "author": "happybex",
@@ -318,7 +318,7 @@
               {
                 "text": "Back in the 1780’s, after being elected President, George Washington decided to send a letter to Congress that basically said, “Hey, looking forward to working with y’all, this will be exciting!”",
                 "frame": 0,
-                "duration": 11.1,
+                "duration": 11.09,
                 "audio": "2-0-0.mp3"
               },
               {
@@ -336,7 +336,7 @@
               {
                 "text": "They wanted to send back a letter that essentially said, “We’re glad you’re excited, so are we!”",
                 "frame": 3,
-                "duration": 5.08,
+                "duration": 5.04,
                 "audio": "2-0-3.mp3"
               },
               {
@@ -354,7 +354,7 @@
               {
                 "text": "George decided to respond with something along the lines of, “Oh, good, I’m excited that you’re excited, too!”",
                 "frame": 6,
-                "duration": 6.63,
+                "duration": 6.49,
                 "audio": "2-0-6.mp3"
               },
               {
@@ -366,7 +366,7 @@
               {
                 "text": "<br><br>Congress received the letter and again not wanting to be awkward and ignore the PRESIDENT, decided to reply with yet another letter that basically said, “Hey, we’re excited that you’re excited that we’re excited!”",
                 "frame": 8,
-                "duration": 11.01,
+                "duration": 10.88,
                 "audio": "2-0-8.mp3"
               },
               {
@@ -430,11 +430,11 @@
             ],
             "created_utc": 1637178845,
             "depth": 0,
-            "score": 21013,
+            "score": 21021,
             "avatar": {
-              "face": "91-face.png",
-              "head": "57-head.png",
-              "body": "10-body.png"
+              "face": "0-face.png",
+              "head": "170-head.png",
+              "body": "57-body.png"
             }
           },
           {
@@ -477,11 +477,11 @@
             ],
             "created_utc": 1637187134,
             "depth": 1,
-            "score": 8086,
+            "score": 8082,
             "avatar": {
-              "face": "32-face.png",
-              "head": "106-head.png",
-              "body": "45-body.png"
+              "face": "5-face.png",
+              "head": "126-head.png",
+              "body": "32-body.png"
             }
           },
           {
@@ -497,18 +497,18 @@
             "all_awardings": [{ "count": 1, "name": "Helpful" }],
             "created_utc": 1637189487,
             "depth": 2,
-            "score": 2857,
+            "score": 2856,
             "avatar": {
-              "face": "30-face.png",
-              "head": "22-head.png",
-              "body": "172-body.png"
+              "face": "4-face.png",
+              "head": "155-head.png",
+              "body": "48-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 10,
-        "durationInSeconds": 78,
+        "durationInSeconds": 77,
         "comments": [
           {
             "author": "Sebillian",
@@ -550,11 +550,11 @@
             ],
             "created_utc": 1637165487,
             "depth": 0,
-            "score": 19916,
+            "score": 19919,
             "avatar": {
-              "face": "30-face.png",
-              "head": "30-head.png",
-              "body": "18-body.png"
+              "face": "55-face.png",
+              "head": "126-head.png",
+              "body": "42-body.png"
             }
           },
           {
@@ -594,11 +594,11 @@
             "all_awardings": [],
             "created_utc": 1637168169,
             "depth": 1,
-            "score": 11545,
+            "score": 11541,
             "avatar": {
-              "face": "27-face.png",
-              "head": "126-head.png",
-              "body": "130-body.png"
+              "face": "28-face.png",
+              "head": "129-head.png",
+              "body": "97-body.png"
             }
           },
           {
@@ -607,18 +607,18 @@
               {
                 "text": "27 fabricated characters? That's actually crazy how he got away with that",
                 "frame": 10,
-                "duration": 5.59,
+                "duration": 4.71,
                 "audio": "3-2-0.mp3"
               }
             ],
             "all_awardings": [],
             "created_utc": 1637171886,
             "depth": 2,
-            "score": 6311,
+            "score": 6308,
             "avatar": {
-              "face": "16-face.png",
-              "head": "59-head.png",
-              "body": "13-body.png"
+              "face": "28-face.png",
+              "head": "172-head.png",
+              "body": "72-body.png"
             }
           }
         ]
@@ -644,11 +644,11 @@
             ],
             "created_utc": 1637175774,
             "depth": 0,
-            "score": 17018,
+            "score": 17021,
             "avatar": {
-              "face": "72-face.png",
-              "head": "152-head.png",
-              "body": "90-body.png"
+              "face": "6-face.png",
+              "head": "146-head.png",
+              "body": "73-body.png"
             }
           },
           {
@@ -668,11 +668,11 @@
             ],
             "created_utc": 1637183680,
             "depth": 1,
-            "score": 6729,
+            "score": 6725,
             "avatar": {
               "face": "5-face.png",
-              "head": "120-head.png",
-              "body": "110-body.png"
+              "head": "116-head.png",
+              "body": "166-body.png"
             }
           },
           {
@@ -694,18 +694,18 @@
             ],
             "created_utc": 1637190036,
             "depth": 2,
-            "score": 8027,
+            "score": 8022,
             "avatar": {
-              "face": "94-face.png",
-              "head": "48-head.png",
-              "body": "121-body.png"
+              "face": "10-face.png",
+              "head": "96-head.png",
+              "body": "134-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 7,
-        "durationInSeconds": 41,
+        "durationInSeconds": 40,
         "comments": [
           {
             "author": "SugoiBakaMatt",
@@ -750,11 +750,11 @@
             "all_awardings": [],
             "created_utc": 1637165900,
             "depth": 0,
-            "score": 14915,
+            "score": 14920,
             "avatar": {
-              "face": "4-face.png",
-              "head": "38-head.png",
-              "body": "75-body.png"
+              "face": "23-face.png",
+              "head": "54-head.png",
+              "body": "104-body.png"
             }
           },
           {
@@ -763,18 +763,18 @@
               {
                 "text": "This scene was actually in that old Waterloo movie! Seemed a bitover the top to me when I watched it.",
                 "frame": 6,
-                "duration": 6.15,
+                "duration": 5.35,
                 "audio": "5-1-0.mp3"
               }
             ],
             "all_awardings": [],
             "created_utc": 1637177364,
             "depth": 1,
-            "score": 2792,
+            "score": 2797,
             "avatar": {
-              "face": "80-face.png",
-              "head": "115-head.png",
-              "body": "93-body.png"
+              "face": "72-face.png",
+              "head": "43-head.png",
+              "body": "31-body.png"
             }
           },
           {
@@ -790,11 +790,11 @@
             "all_awardings": [],
             "created_utc": 1637184285,
             "depth": 2,
-            "score": 2022,
+            "score": 2025,
             "avatar": {
-              "face": "21-face.png",
-              "head": "152-head.png",
-              "body": "152-body.png"
+              "face": "28-face.png",
+              "head": "101-head.png",
+              "body": "22-body.png"
             }
           }
         ]
@@ -803,7 +803,7 @@
     [
       {
         "durationInFrames": 20,
-        "durationInSeconds": 108,
+        "durationInSeconds": 106,
         "comments": [
           {
             "author": "Ganglebot",
@@ -877,11 +877,11 @@
             ],
             "created_utc": 1637175296,
             "depth": 0,
-            "score": 14239,
+            "score": 14252,
             "avatar": {
-              "face": "6-face.png",
-              "head": "97-head.png",
-              "body": "43-body.png"
+              "face": "92-face.png",
+              "head": "92-head.png",
+              "body": "106-body.png"
             }
           },
           {
@@ -902,7 +902,7 @@
               {
                 "text": "He tried to kill the Prime minister and his wife.\" <br><br>\"My god, are they ok?\" <br><br>\"The PM? Yes, they're completely fine.",
                 "frame": 12,
-                "duration": 8.66,
+                "duration": 7.34,
                 "audio": "6-1-2.mp3"
               },
               {
@@ -914,7 +914,7 @@
               {
                 "text": "<br><br>\"Oh dear, I suppose the police did what they had to in order to stop him.\" <br><br>\"The police?",
                 "frame": 14,
-                "duration": 4.69,
+                "duration": 4.78,
                 "audio": "6-1-4.mp3"
               },
               {
@@ -926,7 +926,7 @@
               {
                 "text": "Well, technically his wife, the PM showed up after she had already subdued the would-be assassin.\" <br><br>\"The PM's wife? Isn't she pensioner age?\"",
                 "frame": 16,
-                "duration": 9.14,
+                "duration": 8.47,
                 "audio": "6-1-6.mp3"
               },
               {
@@ -958,11 +958,11 @@
             ],
             "created_utc": 1637185661,
             "depth": 1,
-            "score": 6951,
+            "score": 6948,
             "avatar": {
-              "face": "33-face.png",
-              "head": "89-head.png",
-              "body": "178-body.png"
+              "face": "47-face.png",
+              "head": "128-head.png",
+              "body": "14-body.png"
             }
           },
           {
@@ -981,18 +981,18 @@
             ],
             "created_utc": 1637190573,
             "depth": 2,
-            "score": 1866,
+            "score": 1865,
             "avatar": {
-              "face": "20-face.png",
-              "head": "53-head.png",
-              "body": "96-body.png"
+              "face": "15-face.png",
+              "head": "126-head.png",
+              "body": "103-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 24,
-        "durationInSeconds": 254,
+        "durationInSeconds": 250,
         "comments": [
           {
             "author": "Infernal_Contraption",
@@ -1048,7 +1048,7 @@
               {
                 "text": "<br><br>It was \\*THE\\* RMS Carmania, a 19,500tn ocean liner retrofitted with eight 4.7inch guns and deployed as a cruiser by the \\*REAL\\* British Merchant Navy.",
                 "frame": 8,
-                "duration": 15.41,
+                "duration": 13.34,
                 "audio": "7-0-8.mp3"
               },
               {
@@ -1066,7 +1066,7 @@
               {
                 "text": "<br><br>\\*\\*BONUS FACTS I DISCOVERED WHILE ANSWERING COMMENTS:\\*\\*<br><br>FACT 1: Towards the end of the fight, the first ship to arrive was a German ship called the SS Kronprins Wilhelm.",
                 "frame": 11,
-                "duration": 14.09,
+                "duration": 12.17,
                 "audio": "7-0-11.mp3"
               },
               {
@@ -1145,11 +1145,11 @@
             ],
             "created_utc": 1637168173,
             "depth": 0,
-            "score": 10685,
+            "score": 10687,
             "avatar": {
-              "face": "26-face.png",
-              "head": "133-head.png",
-              "body": "32-body.png"
+              "face": "45-face.png",
+              "head": "5-head.png",
+              "body": "13-body.png"
             }
           },
           {
@@ -1165,11 +1165,11 @@
             "all_awardings": [{ "count": 1, "name": "Wholesome" }],
             "created_utc": 1637175981,
             "depth": 1,
-            "score": 6447,
+            "score": 6451,
             "avatar": {
-              "face": "19-face.png",
-              "head": "98-head.png",
-              "body": "47-body.png"
+              "face": "48-face.png",
+              "head": "71-head.png",
+              "body": "71-body.png"
             }
           },
           {
@@ -1187,9 +1187,9 @@
             "depth": 2,
             "score": 3184,
             "avatar": {
-              "face": "59-face.png",
-              "head": "47-head.png",
-              "body": "86-body.png"
+              "face": "40-face.png",
+              "head": "98-head.png",
+              "body": "50-body.png"
             }
           }
         ]
@@ -1282,9 +1282,9 @@
             "depth": 0,
             "score": 10536,
             "avatar": {
-              "face": "64-face.png",
-              "head": "108-head.png",
-              "body": "70-body.png"
+              "face": "59-face.png",
+              "head": "133-head.png",
+              "body": "92-body.png"
             }
           },
           {
@@ -1300,11 +1300,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637174424,
             "depth": 1,
-            "score": 5832,
+            "score": 5840,
             "avatar": {
-              "face": "35-face.png",
-              "head": "69-head.png",
-              "body": "5-body.png"
+              "face": "11-face.png",
+              "head": "129-head.png",
+              "body": "18-body.png"
             }
           },
           {
@@ -1330,11 +1330,11 @@
             ],
             "created_utc": 1637179369,
             "depth": 2,
-            "score": 2533,
+            "score": 2535,
             "avatar": {
-              "face": "6-face.png",
-              "head": "2-head.png",
-              "body": "177-body.png"
+              "face": "18-face.png",
+              "head": "15-head.png",
+              "body": "21-body.png"
             }
           }
         ]
@@ -1368,11 +1368,11 @@
             "all_awardings": [{ "count": 1, "name": "Wholesome" }],
             "created_utc": 1637160129,
             "depth": 0,
-            "score": 9609,
+            "score": 9607,
             "avatar": {
-              "face": "81-face.png",
-              "head": "145-head.png",
-              "body": "137-body.png"
+              "face": "16-face.png",
+              "head": "98-head.png",
+              "body": "64-body.png"
             }
           },
           {
@@ -1399,7 +1399,7 @@
               {
                 "text": "<br><br>If it wasn't front page news, surely the bombs had failed?",
                 "frame": 6,
-                "duration": 3.64,
+                "duration": 3.71,
                 "audio": "9-1-3.mp3"
               },
               {
@@ -1414,9 +1414,9 @@
             "depth": 1,
             "score": 3574,
             "avatar": {
-              "face": "29-face.png",
-              "head": "171-head.png",
-              "body": "141-body.png"
+              "face": "25-face.png",
+              "head": "160-head.png",
+              "body": "123-body.png"
             }
           },
           {
@@ -1435,11 +1435,11 @@
             ],
             "created_utc": 1637179360,
             "depth": 2,
-            "score": 1618,
+            "score": 1617,
             "avatar": {
-              "face": "0-face.png",
-              "head": "35-head.png",
-              "body": "84-body.png"
+              "face": "91-face.png",
+              "head": "155-head.png",
+              "body": "58-body.png"
             }
           }
         ]
@@ -1469,11 +1469,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637160413,
             "depth": 0,
-            "score": 8993,
+            "score": 9004,
             "avatar": {
-              "face": "82-face.png",
-              "head": "91-head.png",
-              "body": "67-body.png"
+              "face": "89-face.png",
+              "head": "98-head.png",
+              "body": "8-body.png"
             }
           },
           {
@@ -1489,11 +1489,11 @@
             "all_awardings": [],
             "created_utc": 1637170357,
             "depth": 1,
-            "score": 3633,
+            "score": 3635,
             "avatar": {
-              "face": "87-face.png",
-              "head": "18-head.png",
-              "body": "71-body.png"
+              "face": "43-face.png",
+              "head": "101-head.png",
+              "body": "115-body.png"
             }
           },
           {
@@ -1509,18 +1509,18 @@
             "all_awardings": [],
             "created_utc": 1637170481,
             "depth": 2,
-            "score": 3291,
+            "score": 3288,
             "avatar": {
-              "face": "8-face.png",
-              "head": "30-head.png",
-              "body": "178-body.png"
+              "face": "12-face.png",
+              "head": "161-head.png",
+              "body": "37-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 2,
-        "durationInSeconds": 13,
+        "durationInSeconds": 12,
         "comments": [
           {
             "author": "wizardvictor",
@@ -1528,7 +1528,7 @@
               {
                 "text": "John Adams and Thomas Jefferson both died on the same day. The day? The 50th anniversary of the Fourth of July.",
                 "frame": 0,
-                "duration": 7.55,
+                "duration": 6.96,
                 "audio": "11-0-0.mp3"
               },
               {
@@ -1541,11 +1541,11 @@
             "all_awardings": [],
             "created_utc": 1637171435,
             "depth": 0,
-            "score": 7829,
+            "score": 7824,
             "avatar": {
-              "face": "19-face.png",
-              "head": "43-head.png",
-              "body": "33-body.png"
+              "face": "25-face.png",
+              "head": "68-head.png",
+              "body": "65-body.png"
             }
           },
           {
@@ -1561,11 +1561,11 @@
             "all_awardings": [],
             "created_utc": 1637178395,
             "depth": 1,
-            "score": 4405,
+            "score": 4404,
             "avatar": {
-              "face": "4-face.png",
-              "head": "145-head.png",
-              "body": "150-body.png"
+              "face": "29-face.png",
+              "head": "5-head.png",
+              "body": "36-body.png"
             }
           }
         ]
@@ -1664,7 +1664,7 @@
               {
                 "text": "<br><br>Remember how they kept digging in the wound with dirty fingers and tools?",
                 "frame": 14,
-                "duration": 3.78,
+                "duration": 3.95,
                 "audio": "12-0-14.mp3"
               },
               {
@@ -1716,11 +1716,11 @@
             ],
             "created_utc": 1637175722,
             "depth": 0,
-            "score": 7719,
+            "score": 7716,
             "avatar": {
-              "face": "82-face.png",
-              "head": "89-head.png",
-              "body": "108-body.png"
+              "face": "38-face.png",
+              "head": "141-head.png",
+              "body": "59-body.png"
             }
           },
           {
@@ -1736,11 +1736,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637183307,
             "depth": 1,
-            "score": 3043,
+            "score": 3042,
             "avatar": {
-              "face": "43-face.png",
-              "head": "138-head.png",
-              "body": "22-body.png"
+              "face": "9-face.png",
+              "head": "128-head.png",
+              "body": "36-body.png"
             }
           },
           {
@@ -1761,9 +1761,9 @@
             "depth": 2,
             "score": 2268,
             "avatar": {
-              "face": "64-face.png",
-              "head": "31-head.png",
-              "body": "59-body.png"
+              "face": "40-face.png",
+              "head": "24-head.png",
+              "body": "8-body.png"
             }
           }
         ]
@@ -1836,11 +1836,11 @@
             ],
             "created_utc": 1637181140,
             "depth": 0,
-            "score": 5796,
+            "score": 5798,
             "avatar": {
-              "face": "38-face.png",
-              "head": "118-head.png",
-              "body": "37-body.png"
+              "face": "68-face.png",
+              "head": "29-head.png",
+              "body": "65-body.png"
             }
           }
         ]
@@ -1868,11 +1868,11 @@
             "all_awardings": [{ "count": 1, "name": "All-Seeing Upvote" }],
             "created_utc": 1637176189,
             "depth": 0,
-            "score": 5583,
+            "score": 5584,
             "avatar": {
-              "face": "1-face.png",
-              "head": "26-head.png",
-              "body": "40-body.png"
+              "face": "22-face.png",
+              "head": "137-head.png",
+              "body": "13-body.png"
             }
           },
           {
@@ -1894,11 +1894,11 @@
             "all_awardings": [],
             "created_utc": 1637195104,
             "depth": 1,
-            "score": 4172,
+            "score": 4182,
             "avatar": {
-              "face": "8-face.png",
-              "head": "150-head.png",
-              "body": "106-body.png"
+              "face": "45-face.png",
+              "head": "153-head.png",
+              "body": "62-body.png"
             }
           },
           {
@@ -1914,18 +1914,18 @@
             "all_awardings": [],
             "created_utc": 1637198035,
             "depth": 2,
-            "score": 1994,
+            "score": 1996,
             "avatar": {
-              "face": "35-face.png",
-              "head": "94-head.png",
-              "body": "132-body.png"
+              "face": "71-face.png",
+              "head": "72-head.png",
+              "body": "44-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 3,
-        "durationInSeconds": 23,
+        "durationInSeconds": 24,
         "comments": [
           {
             "author": "Hyval_the_Emolga",
@@ -1949,11 +1949,11 @@
             ],
             "created_utc": 1637170719,
             "depth": 0,
-            "score": 5376,
+            "score": 5372,
             "avatar": {
-              "face": "2-face.png",
-              "head": "129-head.png",
-              "body": "57-body.png"
+              "face": "17-face.png",
+              "head": "169-head.png",
+              "body": "4-body.png"
             }
           },
           {
@@ -1962,18 +1962,18 @@
               {
                 "text": "\"They then retreated.\" <br><br><br>From ... whom?",
                 "frame": 2,
-                "duration": 1.94,
+                "duration": 2.05,
                 "audio": "15-1-0.mp3"
               }
             ],
             "all_awardings": [],
             "created_utc": 1637189642,
             "depth": 1,
-            "score": 1873,
+            "score": 1880,
             "avatar": {
-              "face": "59-face.png",
-              "head": "173-head.png",
-              "body": "98-body.png"
+              "face": "22-face.png",
+              "head": "96-head.png",
+              "body": "156-body.png"
             }
           },
           {
@@ -1982,7 +1982,7 @@
               {
                 "text": "Retreating be like: \"Omg wait you're going this way too?? \"",
                 "frame": 3,
-                "duration": 3.48,
+                "duration": 3.53,
                 "audio": "15-2-0.mp3"
               }
             ],
@@ -1992,11 +1992,11 @@
             ],
             "created_utc": 1637201595,
             "depth": 2,
-            "score": 2189,
+            "score": 2184,
             "avatar": {
-              "face": "35-face.png",
-              "head": "76-head.png",
-              "body": "77-body.png"
+              "face": "84-face.png",
+              "head": "126-head.png",
+              "body": "156-body.png"
             }
           }
         ]
@@ -2048,10 +2048,10 @@
             "all_awardings": [{ "count": 2, "name": "Silver" }],
             "created_utc": 1637175645,
             "depth": 0,
-            "score": 5339,
+            "score": 5343,
             "avatar": {
-              "face": "16-face.png",
-              "head": "33-head.png",
+              "face": "72-face.png",
+              "head": "66-head.png",
               "body": "175-body.png"
             }
           },
@@ -2068,11 +2068,11 @@
             "all_awardings": [],
             "created_utc": 1637176257,
             "depth": 1,
-            "score": 1660,
+            "score": 1663,
             "avatar": {
-              "face": "73-face.png",
-              "head": "14-head.png",
-              "body": "131-body.png"
+              "face": "84-face.png",
+              "head": "132-head.png",
+              "body": "127-body.png"
             }
           },
           {
@@ -2096,18 +2096,18 @@
             ],
             "created_utc": 1637186938,
             "depth": 2,
-            "score": 3124,
+            "score": 3127,
             "avatar": {
-              "face": "90-face.png",
-              "head": "163-head.png",
-              "body": "40-body.png"
+              "face": "47-face.png",
+              "head": "28-head.png",
+              "body": "0-body.png"
             }
           }
         ]
       },
       {
         "durationInFrames": 7,
-        "durationInSeconds": 56,
+        "durationInSeconds": 55,
         "comments": [
           {
             "author": "Thirty_Helens_Agree",
@@ -2140,11 +2140,11 @@
             "all_awardings": [{ "count": 1, "name": "Helpful" }],
             "created_utc": 1637161406,
             "depth": 0,
-            "score": 5251,
+            "score": 5247,
             "avatar": {
-              "face": "26-face.png",
-              "head": "8-head.png",
-              "body": "176-body.png"
+              "face": "1-face.png",
+              "head": "76-head.png",
+              "body": "155-body.png"
             }
           },
           {
@@ -2172,11 +2172,11 @@
             "all_awardings": [{ "count": 1, "name": "Helpful" }],
             "created_utc": 1637165286,
             "depth": 1,
-            "score": 3500,
+            "score": 3495,
             "avatar": {
-              "face": "87-face.png",
-              "head": "26-head.png",
-              "body": "98-body.png"
+              "face": "31-face.png",
+              "head": "103-head.png",
+              "body": "56-body.png"
             }
           },
           {
@@ -2185,18 +2185,18 @@
               {
                 "text": "\"In God's name, Fleming, what are you writing?\" <br><br>\"Spy story.\" <br><br>Ian Fleming?",
                 "frame": 7,
-                "duration": 5.49,
+                "duration": 4.91,
                 "audio": "17-2-0.mp3"
               }
             ],
             "all_awardings": [],
             "created_utc": 1637173219,
             "depth": 2,
-            "score": 1114,
+            "score": 1117,
             "avatar": {
-              "face": "66-face.png",
-              "head": "138-head.png",
-              "body": "65-body.png"
+              "face": "33-face.png",
+              "head": "139-head.png",
+              "body": "178-body.png"
             }
           }
         ]
@@ -2240,11 +2240,11 @@
             ],
             "created_utc": 1637178296,
             "depth": 0,
-            "score": 5197,
+            "score": 5195,
             "avatar": {
-              "face": "87-face.png",
-              "head": "129-head.png",
-              "body": "10-body.png"
+              "face": "90-face.png",
+              "head": "135-head.png",
+              "body": "55-body.png"
             }
           },
           {
@@ -2260,11 +2260,11 @@
             "all_awardings": [],
             "created_utc": 1637188905,
             "depth": 1,
-            "score": 2440,
+            "score": 2443,
             "avatar": {
-              "face": "38-face.png",
-              "head": "166-head.png",
-              "body": "85-body.png"
+              "face": "16-face.png",
+              "head": "1-head.png",
+              "body": "51-body.png"
             }
           }
         ]
@@ -2286,11 +2286,11 @@
             "all_awardings": [{ "count": 1, "name": "Helpful" }],
             "created_utc": 1637172643,
             "depth": 0,
-            "score": 5085,
+            "score": 5092,
             "avatar": {
-              "face": "48-face.png",
-              "head": "120-head.png",
-              "body": "50-body.png"
+              "face": "59-face.png",
+              "head": "148-head.png",
+              "body": "100-body.png"
             }
           },
           {
@@ -2312,11 +2312,11 @@
             "all_awardings": [],
             "created_utc": 1637180062,
             "depth": 1,
-            "score": 2601,
+            "score": 2605,
             "avatar": {
-              "face": "83-face.png",
-              "head": "36-head.png",
-              "body": "123-body.png"
+              "face": "52-face.png",
+              "head": "62-head.png",
+              "body": "176-body.png"
             }
           },
           {
@@ -2332,11 +2332,11 @@
             "all_awardings": [],
             "created_utc": 1637181057,
             "depth": 2,
-            "score": 1176,
+            "score": 1174,
             "avatar": {
-              "face": "62-face.png",
-              "head": "100-head.png",
-              "body": "46-body.png"
+              "face": "27-face.png",
+              "head": "12-head.png",
+              "body": "52-body.png"
             }
           }
         ]
@@ -2381,11 +2381,11 @@
             ],
             "created_utc": 1637176010,
             "depth": 0,
-            "score": 5024,
+            "score": 5031,
             "avatar": {
-              "face": "9-face.png",
-              "head": "88-head.png",
-              "body": "118-body.png"
+              "face": "26-face.png",
+              "head": "161-head.png",
+              "body": "80-body.png"
             }
           },
           {
@@ -2406,11 +2406,11 @@
             ],
             "created_utc": 1637194825,
             "depth": 1,
-            "score": 2775,
+            "score": 2780,
             "avatar": {
-              "face": "14-face.png",
-              "head": "134-head.png",
-              "body": "6-body.png"
+              "face": "44-face.png",
+              "head": "129-head.png",
+              "body": "61-body.png"
             }
           }
         ]
@@ -2440,11 +2440,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637160525,
             "depth": 0,
-            "score": 4821,
+            "score": 4809,
             "avatar": {
-              "face": "41-face.png",
-              "head": "29-head.png",
-              "body": "92-body.png"
+              "face": "47-face.png",
+              "head": "146-head.png",
+              "body": "70-body.png"
             }
           },
           {
@@ -2484,11 +2484,11 @@
             "all_awardings": [{ "count": 1, "name": "Helpful" }],
             "created_utc": 1637161674,
             "depth": 1,
-            "score": 4329,
+            "score": 4331,
             "avatar": {
-              "face": "67-face.png",
-              "head": "139-head.png",
-              "body": "15-body.png"
+              "face": "37-face.png",
+              "head": "66-head.png",
+              "body": "98-body.png"
             }
           },
           {
@@ -2504,11 +2504,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637168166,
             "depth": 2,
-            "score": 2343,
+            "score": 2349,
             "avatar": {
-              "face": "77-face.png",
-              "head": "140-head.png",
-              "body": "158-body.png"
+              "face": "35-face.png",
+              "head": "58-head.png",
+              "body": "86-body.png"
             }
           }
         ]
@@ -2536,11 +2536,11 @@
             "all_awardings": [],
             "created_utc": 1637159732,
             "depth": 0,
-            "score": 3707,
+            "score": 3708,
             "avatar": {
-              "face": "75-face.png",
-              "head": "79-head.png",
-              "body": "136-body.png"
+              "face": "68-face.png",
+              "head": "115-head.png",
+              "body": "141-body.png"
             }
           },
           {
@@ -2574,11 +2574,11 @@
             "all_awardings": [],
             "created_utc": 1637166870,
             "depth": 1,
-            "score": 1630,
+            "score": 1626,
             "avatar": {
-              "face": "53-face.png",
-              "head": "107-head.png",
-              "body": "86-body.png"
+              "face": "20-face.png",
+              "head": "136-head.png",
+              "body": "43-body.png"
             }
           }
         ]
@@ -2648,11 +2648,11 @@
             "all_awardings": [],
             "created_utc": 1637170918,
             "depth": 0,
-            "score": 3622,
+            "score": 3626,
             "avatar": {
-              "face": "46-face.png",
-              "head": "79-head.png",
-              "body": "75-body.png"
+              "face": "27-face.png",
+              "head": "1-head.png",
+              "body": "150-body.png"
             }
           }
         ]
@@ -2676,9 +2676,9 @@
             "depth": 0,
             "score": 3396,
             "avatar": {
-              "face": "84-face.png",
-              "head": "46-head.png",
-              "body": "114-body.png"
+              "face": "13-face.png",
+              "head": "150-head.png",
+              "body": "175-body.png"
             }
           },
           {
@@ -2697,11 +2697,11 @@
             ],
             "created_utc": 1637174931,
             "depth": 1,
-            "score": 1404,
+            "score": 1406,
             "avatar": {
-              "face": "69-face.png",
-              "head": "30-head.png",
-              "body": "30-body.png"
+              "face": "36-face.png",
+              "head": "118-head.png",
+              "body": "20-body.png"
             }
           }
         ]
@@ -2723,11 +2723,11 @@
             "all_awardings": [],
             "created_utc": 1637166309,
             "depth": 0,
-            "score": 3393,
+            "score": 3394,
             "avatar": {
-              "face": "58-face.png",
-              "head": "134-head.png",
-              "body": "165-body.png"
+              "face": "34-face.png",
+              "head": "140-head.png",
+              "body": "86-body.png"
             }
           },
           {
@@ -2767,11 +2767,11 @@
             "all_awardings": [{ "count": 1, "name": "Helpful" }],
             "created_utc": 1637173365,
             "depth": 1,
-            "score": 1970,
+            "score": 1980,
             "avatar": {
-              "face": "56-face.png",
-              "head": "165-head.png",
-              "body": "138-body.png"
+              "face": "28-face.png",
+              "head": "166-head.png",
+              "body": "99-body.png"
             }
           }
         ]
@@ -2829,11 +2829,11 @@
             "all_awardings": [{ "count": 1, "name": "Silver" }],
             "created_utc": 1637174918,
             "depth": 0,
-            "score": 3376,
+            "score": 3372,
             "avatar": {
-              "face": "57-face.png",
-              "head": "5-head.png",
-              "body": "28-body.png"
+              "face": "34-face.png",
+              "head": "76-head.png",
+              "body": "141-body.png"
             }
           }
         ]
@@ -2869,9 +2869,9 @@
             "depth": 0,
             "score": 3031,
             "avatar": {
-              "face": "53-face.png",
-              "head": "31-head.png",
-              "body": "95-body.png"
+              "face": "12-face.png",
+              "head": "40-head.png",
+              "body": "157-body.png"
             }
           },
           {
@@ -2887,11 +2887,11 @@
             "all_awardings": [{ "count": 1, "name": "Wholesome" }],
             "created_utc": 1637175033,
             "depth": 1,
-            "score": 2769,
+            "score": 2776,
             "avatar": {
-              "face": "7-face.png",
-              "head": "10-head.png",
-              "body": "22-body.png"
+              "face": "28-face.png",
+              "head": "65-head.png",
+              "body": "76-body.png"
             }
           },
           {
@@ -2919,11 +2919,11 @@
             "all_awardings": [],
             "created_utc": 1637180719,
             "depth": 2,
-            "score": 2203,
+            "score": 2206,
             "avatar": {
-              "face": "81-face.png",
-              "head": "86-head.png",
-              "body": "70-body.png"
+              "face": "84-face.png",
+              "head": "111-head.png",
+              "body": "85-body.png"
             }
           }
         ]
@@ -3011,11 +3011,11 @@
             "all_awardings": [{ "count": 2, "name": "Wholesome" }],
             "created_utc": 1637186040,
             "depth": 0,
-            "score": 2836,
+            "score": 2832,
             "avatar": {
-              "face": "33-face.png",
+              "face": "39-face.png",
               "head": "89-head.png",
-              "body": "42-body.png"
+              "body": "151-body.png"
             }
           },
           {
@@ -3037,11 +3037,11 @@
             "all_awardings": [],
             "created_utc": 1637204119,
             "depth": 1,
-            "score": 1138,
+            "score": 1143,
             "avatar": {
-              "face": "19-face.png",
-              "head": "8-head.png",
-              "body": "124-body.png"
+              "face": "85-face.png",
+              "head": "145-head.png",
+              "body": "164-body.png"
             }
           }
         ]
@@ -3065,9 +3065,9 @@
             "depth": 0,
             "score": 2502,
             "avatar": {
-              "face": "33-face.png",
-              "head": "13-head.png",
-              "body": "37-body.png"
+              "face": "15-face.png",
+              "head": "7-head.png",
+              "body": "61-body.png"
             }
           }
         ]
@@ -3095,11 +3095,11 @@
             "all_awardings": [{ "count": 1, "name": "Gold" }],
             "created_utc": 1637166456,
             "depth": 0,
-            "score": 2349,
+            "score": 2350,
             "avatar": {
-              "face": "49-face.png",
-              "head": "5-head.png",
-              "body": "22-body.png"
+              "face": "73-face.png",
+              "head": "76-head.png",
+              "body": "93-body.png"
             }
           },
           {
@@ -3121,11 +3121,11 @@
             "all_awardings": [],
             "created_utc": 1637175009,
             "depth": 1,
-            "score": 1626,
+            "score": 1624,
             "avatar": {
-              "face": "10-face.png",
-              "head": "103-head.png",
-              "body": "154-body.png"
+              "face": "68-face.png",
+              "head": "142-head.png",
+              "body": "10-body.png"
             }
           }
         ]
@@ -3161,9 +3161,9 @@
             "depth": 0,
             "score": 1984,
             "avatar": {
-              "face": "94-face.png",
-              "head": "35-head.png",
-              "body": "30-body.png"
+              "face": "29-face.png",
+              "head": "163-head.png",
+              "body": "153-body.png"
             }
           }
         ]
@@ -3241,9 +3241,9 @@
             "depth": 0,
             "score": 1918,
             "avatar": {
-              "face": "47-face.png",
-              "head": "20-head.png",
-              "body": "33-body.png"
+              "face": "38-face.png",
+              "head": "121-head.png",
+              "body": "41-body.png"
             }
           }
         ]

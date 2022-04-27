@@ -4,7 +4,8 @@ import { join } from "path";
 export const tmpDir = join(tmpdir(), "reddit-video-creator");
 export const tempAudio = join(tmpDir, "audio");
 export const tempData = join(tmpDir, "data");
-export const commentPath = (id: number) => join(tmpDir, `comments-${id}`);
+export const commentPath = (id: number | string) =>
+  join(tmpDir, `comments-${id}`);
 export const imagePath = (path: string, id: string | number) =>
   join(path, `element-${id}.png`);
 export const introPath = join(tmpDir, "intro");

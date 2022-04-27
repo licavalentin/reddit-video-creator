@@ -24,9 +24,10 @@ import {
 } from "./src/utils/render";
 import { fetchPostData } from "./src/utils/reddit";
 import { createAudio } from "./src/audio";
-import { mergeFrames } from "./src/video";
+import mergeFrames from "./src/video";
 import { getCompositions, renderStill } from "@remotion/renderer";
 import { TCompMetadata } from "remotion";
+import { homedir } from "os";
 
 const render = async () => {
   console.time("Render");
@@ -58,7 +59,7 @@ const render = async () => {
       readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
     );
 
-    const playlist = createPlaylist(postData.comments);
+    // const playlist = createPlaylist(postData.comments);
 
     // writeFileSync(
     //   join(__dirname, "src", "data", "playlist.json"),
@@ -123,7 +124,7 @@ const render = async () => {
     await renderStill({
       composition: thumbnailVideo,
       webpackBundle: stillBundle,
-      output: "C:\\Users\\licav\\Desktop\\thumbnail.png",
+      output: join(homedir(), "Desktop", "thumbnail.png"),
       onError: (error) => {
         console.error(
           "The following error occured when rendering the still: ",
@@ -137,28 +138,28 @@ const render = async () => {
       },
     });
 
-    for (const videos of playlist) {
+    for (const [i, videos] of postData.playlist.entries()) {
       // Generate Comments
-      for (const { comments } of videos) {
-        for (let index = 0; index < comments.length; index++) {
-          await generateVideo({
-            bundled: await generateBundle(
-              join(compositionPath, "Comments.tsx"),
-              bundleDir
-            ),
-            id: "comments",
-            output: commentPath(index),
-            data: {
-              comments,
-            },
-          });
-          console.log(`💬 Comments ${index + 1} Finished`);
-        }
+      for (const [j, { comments }] of videos.entries()) {
+        await generateVideo({
+          bundled: await generateBundle(
+            join(compositionPath, "Comments.tsx"),
+            bundleDir
+          ),
+          id: "comments",
+          output: commentPath(`${i}-${j}`),
+          data: {
+            comments,
+          },
+        });
 
-        // await mergeFrames({
-        //   comments,
-        // });
+        console.log(`💬 Video ${i} Comments ${j} Finished`);
       }
+
+      await mergeFrames({
+        comments: videos,
+        id: i,
+      });
     }
 
     console.log("🎥 Video Generated Successfully");

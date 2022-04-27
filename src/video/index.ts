@@ -1,5 +1,6 @@
 import cluster from "cluster";
 import { existsSync, writeFileSync } from "fs";
+import { homedir } from "os";
 import { join } from "path";
 import {
   commentPath,
@@ -13,16 +14,19 @@ import {
 } from "../config/paths";
 import { video } from "../config/video";
 
-import { Comment, CommentText } from "../interface/post";
+import { CommentGroup, CommentText } from "../interface/post";
 import { spreadWork } from "../utils/render";
 import { mergeVideos } from "./lib";
 
-type MergeFrames = (args: { comments: Comment[][] }) => Promise<null>;
+type MergeFrames = (args: {
+  comments: CommentGroup[];
+  id: string | number;
+}) => Promise<null>;
 
 /**
  * Merge Frames
  */
-export const mergeFrames: MergeFrames = async ({ comments }) => {
+const mergeFrames: MergeFrames = async ({ comments, id }) => {
   return new Promise((resolve) => {
     const introData = {
       image: imagePath(introPath, 0),
@@ -57,20 +61,14 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
       join(midData.exportPath, `${midData.title}.${video.fileFormat}`),
     ];
 
-    for (let i = 0; i < comments.length; i++) {
-      const commentGroupPath = commentPath(i);
+    for (const [i, commentGroup] of comments.entries()) {
+      const commentGroupPath = commentPath(`${id}-${i}`);
 
-      const lastBody = comments[i][comments[i].length - 1]
-        .body as CommentText[];
-      let totalFrames = lastBody[lastBody.length - 1].frame;
+      for (const comment of commentGroup.comments) {
+        const body = comment.body as CommentText[];
 
-      for (let j = 0; j < comments[i].length; j++) {
-        const body = comments[i][j].body as CommentText[];
-
-        for (let k = 0; k < body.length; k++) {
-          const { frame } = body[k];
-
-          const audioFilePath = join(tempAudio, `${[i, j, k].join("-")}.mp3`);
+        for (const { frame, audio } of body) {
+          const audioFilePath = join(tempAudio, audio);
 
           if (!existsSync(audioFilePath)) {
             continue;
@@ -79,7 +77,10 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
           const commentData = {
             image: imagePath(
               commentGroupPath,
-              String(frame).padStart(String(totalFrames).length, "0")
+              String(frame).padStart(
+                String(commentGroup.durationInFrames).length,
+                "0"
+              )
             ),
             audio: audioFilePath,
             exportPath: commentGroupPath,
@@ -112,7 +113,7 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
     for (let index = 0; index < work.length; index++) {
       const jobs = work[index];
 
-      const jobsFilePath = join(tempData, `${index}-video.json`);
+      const jobsFilePath = join(tempData, `${id}-${index}-video.json`);
 
       writeFileSync(jobsFilePath, JSON.stringify(jobs));
 
@@ -129,7 +130,7 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
         counter--;
 
         if (counter === 0) {
-          const listPath = join(tempData, "render-list.txt");
+          const listPath = join(tempData, `render-list-${id}.txt`);
 
           writeFileSync(
             listPath,
@@ -143,7 +144,8 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
 
           mergeVideos({
             listPath,
-            exportPath: "C:\\Users\\licav\\Desktop",
+            exportPath: join(homedir(), "Desktop"),
+            title: `video-${id}`,
           });
 
           resolve(null);
@@ -153,12 +155,4 @@ export const mergeFrames: MergeFrames = async ({ comments }) => {
   });
 };
 
-type RenderVideo = (args: { comments: Comment[][] }) => Promise<void>;
-
-const renderVideo: RenderVideo = async ({ comments }) => {
-  await mergeFrames({
-    comments,
-  });
-};
-
-export default renderVideo;
+export default mergeFrames;
