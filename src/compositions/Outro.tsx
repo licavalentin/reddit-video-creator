@@ -6,8 +6,6 @@ import { Outro as OutroType } from "../interface/compositions";
 
 import Outro from "../components/Outro";
 
-import post from "../data/post.json";
-
 import "../styles/main.scss";
 
 export const OutroComposition: React.FC = () => {
@@ -24,7 +22,7 @@ export const OutroComposition: React.FC = () => {
       height={height}
       durationInFrames={1}
       defaultProps={{
-        outro: prod ? inputData.outro : post.post.outro,
+        outro: prod ? inputData.outro : "Thank you for watching",
       }}
     />
   );

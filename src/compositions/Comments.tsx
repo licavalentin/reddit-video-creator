@@ -37,7 +37,7 @@ export const CommentsComposition: React.FC = () => {
         },
       };
 
-    const localComments = post.comments[0];
+    const localComments = post.comments[0] as unknown as Comment[];
 
     return {
       durationInFrames: calcDuration(localComments),
