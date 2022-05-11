@@ -26,7 +26,6 @@ export type Mid = {
 
 export type Outro = {
   id?: "outro";
-  outro: string;
   background?: string;
 };
 

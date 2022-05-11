@@ -21,7 +21,6 @@ export interface Post {
   subreddit: string;
   selftext: string;
   title: string;
-  outro?: string;
   author: string;
   over_18: boolean;
   all_awardings: Award[];

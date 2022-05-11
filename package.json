@@ -1,15 +1,14 @@
 {
-  "name": "english-render",
+  "name": "reddit-video-creator",
   "version": "1.0.0",
-  "description": "Create videos from questions",
+  "description": "Create Videos from Reddit Posts",
   "scripts": {
-    "dev": "remotion preview src/compositions/Thumbnail.tsx",
+    "dev": "remotion preview src/index.tsx",
     "upgrade": "remotion upgrade",
     "start": "ts-node render.tsx",
-    "test": "npx remotion render src/compositions/Intro.tsx intro out/video.mp4",
-    "test:th": "npx remotion still src/compositions/Thumbnail.tsx thumbnail out/thumbnail.png"
+    "test": "npx remotion render src/index.tsx comments out/video.mp4",
+    "test:th": "npx remotion still src/index.tsx thumbnail out/thumbnail.png"
   },
-  "keywords": [],
   "author": "Valentin Lica",
   "license": "ISC",
   "dependencies": {
@@ -17,7 +16,6 @@
     "@remotion/cli": "^3.0.4",
     "@remotion/renderer": "^3.0.4",
     "axios": "^0.26.1",
-    "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-textfit": "^1.1.1",

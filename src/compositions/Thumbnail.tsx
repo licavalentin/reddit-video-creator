@@ -1,15 +1,13 @@
 import React from "react";
-import { getInputProps, registerRoot, Still } from "remotion";
+import { getInputProps, Still } from "remotion";
 
 import { Thumbnail as ThumbnailType } from "../interface/compositions";
 
 import Thumbnail from "../components/Thumbnail";
 
-import post from "../data/post.json";
+import post from "../data/localPost.json";
 
-import "../styles/main.scss";
-
-export const ThumbnailStill: React.FC = () => {
+const ThumbnailStill: React.FC = () => {
   const {
     post: { title, all_awardings, subreddit },
   } = post;
@@ -30,7 +28,6 @@ export const ThumbnailStill: React.FC = () => {
         title,
         awards: all_awardings,
         subreddit,
-        background: "/bc.jpg",
       },
     };
   })();
@@ -46,4 +43,4 @@ export const ThumbnailStill: React.FC = () => {
   );
 };
 
-registerRoot(ThumbnailStill);
+export default ThumbnailStill;

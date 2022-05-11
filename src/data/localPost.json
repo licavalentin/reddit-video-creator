@@ -19,82 +19,118 @@
   "comments": [
     {
       "durationInFrames": 19,
-      "durationInSeconds": 0,
+      "durationInSeconds": 110,
       "comments": [
         {
           "author": "irou-",
           "body": [
             {
               "text": "from the last time this was asked:<br><br>The Marathon at the 1904 Olympics in St. Louis.",
-              "frame": 0
+              "frame": 0,
+              "duration": 5.56,
+              "audio": "0-0-0.mp3"
             },
             {
               "text": "<br><br>* The first place finisher did most of the race in a car.",
-              "frame": 1
+              "frame": 1,
+              "duration": 3.13,
+              "audio": "0-0-1.mp3"
             },
             {
               "text": "He had intended to drop out, and got a car back to the stadium to get his change of clothes, and just kind of started jogging when he heard the fanfare.",
-              "frame": 2
+              "frame": 2,
+              "duration": 8.05,
+              "audio": "0-0-2.mp3"
             },
             {
               "text": "<br>* The second place finisher was carried across the finish line, legs technically twitching, by his trainers.",
-              "frame": 3
+              "frame": 3,
+              "duration": 6,
+              "audio": "0-0-3.mp3"
             },
             {
               "text": "They had been refusing him water, and giving him a mixture of Brandy and Rat Poison for the entire race.",
-              "frame": 4
+              "frame": 4,
+              "duration": 5.85,
+              "audio": "0-0-4.mp3"
             },
             {
               "text": "Doping wasn't illegal yet (and this was a terrible attempt at it), so he got the gold when the First guy was revealed. <br>* Third finisher was unremarkable, somehow.",
-              "frame": 5
+              "frame": 5,
+              "duration": 9.21,
+              "audio": "0-0-5.mp3"
             },
             {
               "text": "<br>* Fourth finisher was a Cuban Mailman, who had raised the funds to attend the olympics by running non-stop around his entire country.",
-              "frame": 6
+              "frame": 6,
+              "duration": 7.45,
+              "audio": "0-0-6.mp3"
             },
             {
               "text": "He landed in New Orleans, and promptly lost all of the travelling money on a riverboat casino.",
-              "frame": 7
+              "frame": 7,
+              "duration": 5.39,
+              "audio": "0-0-7.mp3"
             },
             {
               "text": "He ran the race in dress shoes and long trousers (cut off at the knee by a fellow competitor with a knife).",
-              "frame": 8
+              "frame": 8,
+              "duration": 6.16,
+              "audio": "0-0-8.mp3"
             },
             {
               "text": "He probably would have come in first (well, second, behind the car) had it not been for the hour nap he took on the side of the track after eating rotten apples he found on the side of the race.",
-              "frame": 9
+              "frame": 9,
+              "duration": 10.55,
+              "audio": "0-0-9.mp3"
             },
             {
               "text": "<br>* 9th and 12th finishers were from South Africa, and ran barefoot.",
-              "frame": 10
+              "frame": 10,
+              "duration": 4.15,
+              "audio": "0-0-10.mp3"
             },
             {
               "text": "South Africa didn't actually send a delegation - these were students who just happened to be in town and thought it sounded fun. 9th was chased a mile off course by angry dogs.",
-              "frame": 11
+              "frame": 11,
+              "duration": 9.86,
+              "audio": "0-0-11.mp3"
             },
             {
               "text": "Note: These are the first Africans to compete in any modern Olympic event.",
-              "frame": 12
+              "frame": 12,
+              "duration": 4.46,
+              "audio": "0-0-12.mp3"
             },
             {
               "text": "<br>* Half the participants had never raced competatively before. Some died.",
-              "frame": 13
+              "frame": 13,
+              "duration": 4.25,
+              "audio": "0-0-13.mp3"
             },
             {
               "text": "<br>* St. Louis only had one water stop on the entire run.",
-              "frame": 14
+              "frame": 14,
+              "duration": 3.64,
+              "audio": "0-0-14.mp3"
             },
             {
               "text": "This, coupled with the dusty road, and exacerbated by the cars kicking up dust, lead to the above fatalities.",
-              "frame": 15
+              "frame": 15,
+              "duration": 6.78,
+              "audio": "0-0-15.mp3"
             },
             {
               "text": "And yet, somehow, Rat Poison guy survived to get the Gold.",
-              "frame": 16
+              "frame": 16,
+              "duration": 4.11,
+              "audio": "0-0-16.mp3"
             },
             {
               "text": "<br>* The Russian delegation arrived a week late, because they were still using the Julian calendar. In 1904.",
-              "frame": 17
+              "frame": 17,
+              "duration": 6.54,
+              "audio": "0-0-17.mp3"
             }
           ],
           "all_awardings": [
@@ -113,11 +149,11 @@
           ],
           "created_utc": 1637172434,
           "depth": 0,
-          "score": 38159,
+          "score": 38158,
           "avatar": {
-            "face": "53-face.png",
-            "head": "104-head.png",
-            "body": "75-body.png"
+            "face": "18-face.png",
+            "head": "162-head.png",
+            "body": "41-body.png"
           }
         },
         {
@@ -125,17 +161,19 @@
           "body": [
             {
               "text": "Somehow the fact that 3rd was unremarkable makes it so much funnier",
-              "frame": 18
+              "frame": 18,
+              "duration": 4.19,
+              "audio": "0-1-0.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637176163,
           "depth": 1,
-          "score": 12338,
+          "score": 12336,
           "avatar": {
-            "face": "44-face.png",
-            "head": "129-head.png",
-            "body": "150-body.png"
+            "face": "32-face.png",
+            "head": "84-head.png",
+            "body": "65-body.png"
           }
         },
         {
@@ -143,7 +181,9 @@
           "body": [
             {
               "text": "3rd place should be played by Michael Cera.",
-              "frame": 19
+              "frame": 19,
+              "duration": 2.64,
+              "audio": "0-2-0.mp3"
             }
           ],
           "all_awardings": [
@@ -156,38 +196,51 @@
           ],
           "created_utc": 1637176620,
           "depth": 2,
-          "score": 10021,
+          "score": 10011,
           "avatar": {
-            "face": "9-face.png",
-            "head": "110-head.png",
-            "body": "61-body.png"
+            "face": "22-face.png",
+            "head": "100-head.png",
+            "body": "126-body.png"
           }
         }
       ]
     },
     {
       "durationInFrames": 7,
-      "durationInSeconds": 0,
+      "durationInSeconds": 39,
       "comments": [
         {
           "author": "splitdipless",
           "body": [
-            { "text": "The Toronto Circus Riot of 1855.", "frame": 0 },
+            {
+              "text": "The Toronto Circus Riot of 1855.",
+              "frame": 0,
+              "duration": 3.14,
+              "audio": "1-0-0.mp3"
+            },
             {
               "text": "<br><br>The Fire Department and some clowns get into a disagreement at a whorehouse, and get into a punch-up.",
-              "frame": 1
+              "frame": 1,
+              "duration": 5.53,
+              "audio": "1-0-1.mp3"
             },
             {
               "text": "The clowns win, but the firemen return to the circus later and start attacking in revenge.",
-              "frame": 2
+              "frame": 2,
+              "duration": 5.15,
+              "audio": "1-0-2.mp3"
             },
             {
               "text": "The firemen win the day but violence is stopped when the militia come in.",
-              "frame": 3
+              "frame": 3,
+              "duration": 3.91,
+              "audio": "1-0-3.mp3"
             },
             {
               "text": "The police do nothing, so the city fires all the police (and I mean everyone) and starts a new police force.",
-              "frame": 4
+              "frame": 4,
+              "duration": 6.56,
+              "audio": "1-0-4.mp3"
             }
           ],
           "all_awardings": [
@@ -199,11 +252,11 @@
           ],
           "created_utc": 1637171236,
           "depth": 0,
-          "score": 29415,
+          "score": 29423,
           "avatar": {
-            "face": "53-face.png",
-            "head": "115-head.png",
-            "body": "169-body.png"
+            "face": "44-face.png",
+            "head": "51-head.png",
+            "body": "20-body.png"
           }
         },
         {
@@ -211,17 +264,19 @@
           "body": [
             {
               "text": "This absolute absurdity of this paragraph amazes me. What the fuck. 😂",
-              "frame": 5
+              "frame": 5,
+              "duration": 4.29,
+              "audio": "1-1-0.mp3"
             }
           ],
           "all_awardings": [{ "count": 1, "name": "Silver" }],
           "created_utc": 1637180046,
           "depth": 1,
-          "score": 8677,
+          "score": 8674,
           "avatar": {
-            "face": "74-face.png",
-            "head": "162-head.png",
-            "body": "68-body.png"
+            "face": "36-face.png",
+            "head": "21-head.png",
+            "body": "25-body.png"
           }
         },
         {
@@ -229,99 +284,137 @@
           "body": [
             {
               "text": "&gt; The Fire Department and some clowns get into a disagreement at a whorehouse<br><br>You know, no matter what happens going forward, it’s going to be a good story with an opening line like that.",
-              "frame": 6
+              "frame": 6,
+              "duration": 10.39,
+              "audio": "1-2-0.mp3"
             },
             {
               "text": "<br><br>Edit: this is now my highest rated comment for 2021.",
-              "frame": 7
+              "frame": 7,
+              "duration": 3.91,
+              "audio": "1-2-1.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637186746,
           "depth": 2,
-          "score": 6141,
+          "score": 6144,
           "avatar": {
-            "face": "8-face.png",
-            "head": "123-head.png",
-            "body": "160-body.png"
+            "face": "66-face.png",
+            "head": "154-head.png",
+            "body": "79-body.png"
           }
         }
       ]
     },
     {
       "durationInFrames": 22,
-      "durationInSeconds": 0,
+      "durationInSeconds": 204,
       "comments": [
         {
           "author": "happybex",
           "body": [
             {
               "text": "Back in the 1780’s, after being elected President, George Washington decided to send a letter to Congress that basically said, “Hey, looking forward to working with y’all, this will be exciting!”",
-              "frame": 0
+              "frame": 0,
+              "duration": 11.09,
+              "audio": "2-0-0.mp3"
             },
             {
               "text": "<br><br>However, George wasn’t very eloquent, and was generally busy and stressed, so he asked his friend James Madison to compose the letter to Congress, which James did.",
-              "frame": 1
+              "frame": 1,
+              "duration": 9.47,
+              "audio": "2-0-1.mp3"
             },
             {
               "text": "<br><br>When Congress received the letter, they decided to respond in kind, not wanting to slight the new president.",
-              "frame": 2
+              "frame": 2,
+              "duration": 5.85,
+              "audio": "2-0-2.mp3"
             },
             {
               "text": "They wanted to send back a letter that essentially said, “We’re glad you’re excited, so are we!”",
-              "frame": 3
+              "frame": 3,
+              "duration": 5.04,
+              "audio": "2-0-3.mp3"
             },
             {
               "text": "They decided there was no one better in Congress to write the letter than their very own…James Madison.",
-              "frame": 4
+              "frame": 4,
+              "duration": 5.34,
+              "audio": "2-0-4.mp3"
             },
             {
               "text": "<br><br>So, James writes a response to the letter he wrote in the first place, and Congress sends it to George.",
-              "frame": 5
+              "frame": 5,
+              "duration": 5.98,
+              "audio": "2-0-5.mp3"
             },
             {
               "text": "George decided to respond with something along the lines of, “Oh, good, I’m excited that you’re excited, too!”",
-              "frame": 6
+              "frame": 6,
+              "duration": 6.49,
+              "audio": "2-0-6.mp3"
             },
             {
               "text": "— and since his buddy James did such an excellent job with the first letter, George again went to him and had him compose the response.",
-              "frame": 7
+              "frame": 7,
+              "duration": 7.1,
+              "audio": "2-0-7.mp3"
             },
             {
               "text": "<br><br>Congress received the letter and again not wanting to be awkward and ignore the PRESIDENT, decided to reply with yet another letter that basically said, “Hey, we’re excited that you’re excited that we’re excited!”",
-              "frame": 8
+              "frame": 8,
+              "duration": 10.88,
+              "audio": "2-0-8.mp3"
             },
             {
               "text": "…and once again, they had James Madison compose the response.",
-              "frame": 9
+              "frame": 9,
+              "duration": 3.84,
+              "audio": "2-0-9.mp3"
             },
             {
               "text": "<br><br>So James Madison, future 4th president of the United States, wound up writing himself 4 letters back and forth between “George Washington” and “Congress”, and was too embarrassed to tell anyone about it while it was going on.",
-              "frame": 10
+              "frame": 10,
+              "duration": 12.09,
+              "audio": "2-0-10.mp3"
             },
             {
               "text": "<br><br>\\-----------------<br><br>Edit: A few people have asked for a source, and I Googled my little heart out and finally found the following snippet in an editor's note on the initial letter George Washington sent to Congress  (emphasis mine) :<br><br>&amp;#x200B;<br><br>&gt;At their Mount Vernon meeting Washington and JM agreed that the Humphreys draft, which contained numerous legislative proposals, should be discarded in favor of a brief address that deliberately omitted specific recommendations to Congress.",
-              "frame": 11
+              "frame": 11,
+              "duration": 29.25,
+              "audio": "2-0-11.mp3"
             },
             {
               "text": "The one recommendation which the president made in his inaugural, that Congress consider amendments to the Constitution, was one that JM had much at heart.",
-              "frame": 12
+              "frame": 12,
+              "duration": 8.46,
+              "audio": "2-0-12.mp3"
             },
             {
               "text": "If the passage on amendments suggests the pen of JM, a remark by Washington in his note of 5 May 1789 clearly points to him as the author of the address: “Notwithstanding the conviction I am under of the labour which is imposed upon you by Public Individuals as well as public bodies—Yet, as you have began, so I would wish you to finish, the good work in a short reply to the Address of the House of Representatives.”",
-              "frame": 13
+              "frame": 13,
+              "duration": 23.43,
+              "audio": "2-0-13.mp3"
             },
             {
               "text": "**Thus in the opening series of formal exchanges between the president and Congress, JM was in dialogue with himself.",
-              "frame": 14
+              "frame": 14,
+              "duration": 6.74,
+              "audio": "2-0-14.mp3"
             },
             {
               "text": "Having composed the inaugural, he drew up in turn the address of the House of Representatives in reply to the president (5 May), the president’s reply to the House address (8 May), and for good measure the president’s reply to the Senate address (18 May).",
-              "frame": 15
+              "frame": 15,
+              "duration": 14.69,
+              "audio": "2-0-15.mp3"
             },
             {
               "text": "**<br><br>This was by far the most official account I can find of this anecdote, and I hope it's helpful for those looking for more information!",
-              "frame": 16
+              "frame": 16,
+              "duration": 6.84,
+              "audio": "2-0-16.mp3"
             }
           ],
           "all_awardings": [
@@ -336,11 +429,11 @@
           ],
           "created_utc": 1637178845,
           "depth": 0,
-          "score": 21013,
+          "score": 21021,
           "avatar": {
-            "face": "63-face.png",
-            "head": "131-head.png",
-            "body": "118-body.png"
+            "face": "0-face.png",
+            "head": "170-head.png",
+            "body": "57-body.png"
           }
         },
         {
@@ -348,23 +441,33 @@
           "body": [
             {
               "text": "One time I had a friend call me and tell me how she was having a conflict with someone whom she did not name and, being at different schools, I assumed I did not know.",
-              "frame": 17
+              "frame": 17,
+              "duration": 8.76,
+              "audio": "2-1-0.mp3"
             },
             {
               "text": "I analyzed what I thought the other party was trying to accomplish and suggested an angle to approach resolution from.",
-              "frame": 18
+              "frame": 18,
+              "duration": 6.11,
+              "audio": "2-1-1.mp3"
             },
             {
               "text": "<br><br>The next day my other friend calls me and says she was in an argument with her friend but now that friend seems to want to make up and is asking what she can do to fix the situation.",
-              "frame": 19
+              "frame": 19,
+              "duration": 9.2,
+              "audio": "2-1-2.mp3"
             },
             {
               "text": "<br><br>So I told Friend 2 to tell Friend 1 what I'd already prepped Friend 1 to hear from a successful reply to her overture.",
-              "frame": 20
+              "frame": 20,
+              "duration": 6.51,
+              "audio": "2-1-3.mp3"
             },
             {
               "text": "They both thanked me later for helping them solve their problem so diplomatically. I felt like a supervillain.",
-              "frame": 21
+              "frame": 21,
+              "duration": 5.6,
+              "audio": "2-1-4.mp3"
             }
           ],
           "all_awardings": [
@@ -373,11 +476,11 @@
           ],
           "created_utc": 1637187134,
           "depth": 1,
-          "score": 8079,
+          "score": 8082,
           "avatar": {
-            "face": "94-face.png",
-            "head": "105-head.png",
-            "body": "146-body.png"
+            "face": "5-face.png",
+            "head": "126-head.png",
+            "body": "32-body.png"
           }
         },
         {
@@ -385,44 +488,59 @@
           "body": [
             {
               "text": "You are more like an anti-Hero: brings light and justice in the world operating through lies and deception",
-              "frame": 22
+              "frame": 22,
+              "duration": 6.17,
+              "audio": "2-2-0.mp3"
             }
           ],
           "all_awardings": [{ "count": 1, "name": "Helpful" }],
           "created_utc": 1637189487,
           "depth": 2,
-          "score": 2858,
+          "score": 2856,
           "avatar": {
-            "face": "6-face.png",
-            "head": "55-head.png",
-            "body": "14-body.png"
+            "face": "4-face.png",
+            "head": "155-head.png",
+            "body": "48-body.png"
           }
         }
       ]
     },
     {
       "durationInFrames": 10,
-      "durationInSeconds": 0,
+      "durationInSeconds": 77,
       "comments": [
         {
           "author": "Sebillian",
           "body": [
-            { "text": "Juan Pujol García.", "frame": 0 },
+            {
+              "text": "Juan Pujol García.",
+              "frame": 0,
+              "duration": 1.35,
+              "audio": "3-0-0.mp3"
+            },
             {
               "text": "<br><br>WWII spy who won both the German Iron Cross and Order of the British Empire for spying.",
-              "frame": 1
+              "frame": 1,
+              "duration": 5.7,
+              "audio": "3-0-1.mp3"
             },
             {
               "text": "<br><br>He initially approached British Intelligence and offered his services, and was refused.",
-              "frame": 2
+              "frame": 2,
+              "duration": 5.01,
+              "audio": "3-0-2.mp3"
             },
             {
               "text": "Undeterred, he created the persona of a loyal Nazi supporter, became a German agent, gathered a payroll of fake sub-agents (all bankrolled by Germany), persuaded the German Navy to chase a fake convoy, then finally got recruited by the Allies.",
-              "frame": 3
+              "frame": 3,
+              "duration": 14.55,
+              "audio": "3-0-3.mp3"
             },
             {
               "text": "He finally fed misleading info to the Axis about the D-Day landings, causing them to deploy forces to the wrong locations, even after the invasion had begun.",
-              "frame": 4
+              "frame": 4,
+              "duration": 9.35,
+              "audio": "3-0-4.mp3"
             }
           ],
           "all_awardings": [
@@ -431,11 +549,11 @@
           ],
           "created_utc": 1637165487,
           "depth": 0,
-          "score": 19921,
+          "score": 19919,
           "avatar": {
-            "face": "8-face.png",
-            "head": "143-head.png",
-            "body": "57-body.png"
+            "face": "55-face.png",
+            "head": "126-head.png",
+            "body": "42-body.png"
           }
         },
         {
@@ -443,33 +561,43 @@
           "body": [
             {
               "text": "&gt;On occasion, he had to invent reasons why his agents had failed to report easily available information that the Germans would eventually know about.",
-              "frame": 5
+              "frame": 5,
+              "duration": 8.95,
+              "audio": "3-1-0.mp3"
             },
             {
               "text": "For example, he reported that his (fabricated) Liverpool agent had fallen ill just before a major fleet movement from that port, and so was unable to report the event.",
-              "frame": 6
+              "frame": 6,
+              "duration": 9.96,
+              "audio": "3-1-1.mp3"
             },
             {
               "text": "To support this story, the agent eventually 'died' and an obituary was placed in the local newspaper as further evidence to convince the Germans.",
-              "frame": 7
+              "frame": 7,
+              "duration": 8.13,
+              "audio": "3-1-2.mp3"
             },
             {
               "text": "The Germans were also persuaded to pay a pension to the agent's widow.",
-              "frame": 8
+              "frame": 8,
+              "duration": 3.75,
+              "audio": "3-1-3.mp3"
             },
             {
               "text": "<br><br>Truly incredible<br><br>&gt;The Germans paid Pujol US$340,000 to support his network of agents, which at one point totalled 27 fabricated characters.",
-              "frame": 9
+              "frame": 9,
+              "duration": 11,
+              "audio": "3-1-4.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637168169,
           "depth": 1,
-          "score": 11539,
+          "score": 11541,
           "avatar": {
-            "face": "45-face.png",
-            "head": "28-head.png",
-            "body": "65-body.png"
+            "face": "28-face.png",
+            "head": "129-head.png",
+            "body": "97-body.png"
           }
         },
         {
@@ -477,31 +605,35 @@
           "body": [
             {
               "text": "27 fabricated characters? That's actually crazy how he got away with that",
-              "frame": 10
+              "frame": 10,
+              "duration": 4.71,
+              "audio": "3-2-0.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637171886,
           "depth": 2,
-          "score": 6303,
+          "score": 6308,
           "avatar": {
-            "face": "91-face.png",
-            "head": "156-head.png",
-            "body": "66-body.png"
+            "face": "28-face.png",
+            "head": "172-head.png",
+            "body": "72-body.png"
           }
         }
       ]
     },
     {
       "durationInFrames": 2,
-      "durationInSeconds": 0,
+      "durationInSeconds": 11,
       "comments": [
         {
           "author": "Tsquare43",
           "body": [
             {
               "text": "Hitler, Tito, Stalin, Trotsky, and Freud were living in the same Vienna neighborhood in 1913",
-              "frame": 0
+              "frame": 0,
+              "duration": 6.78,
+              "audio": "4-0-0.mp3"
             }
           ],
           "all_awardings": [
@@ -513,9 +645,9 @@
           "depth": 0,
           "score": 17021,
           "avatar": {
-            "face": "29-face.png",
-            "head": "67-head.png",
-            "body": "54-body.png"
+            "face": "6-face.png",
+            "head": "146-head.png",
+            "body": "73-body.png"
           }
         },
         {
@@ -523,7 +655,9 @@
           "body": [
             {
               "text": "The best sitcom setup<br><br>Edit: r/ComradeSShow seems to already have the idea",
-              "frame": 1
+              "frame": 1,
+              "duration": 5.19,
+              "audio": "4-1-0.mp3"
             }
           ],
           "all_awardings": [
@@ -533,16 +667,23 @@
           ],
           "created_utc": 1637183680,
           "depth": 1,
-          "score": 6724,
+          "score": 6725,
           "avatar": {
-            "face": "71-face.png",
-            "head": "127-head.png",
-            "body": "116-body.png"
+            "face": "5-face.png",
+            "head": "116-head.png",
+            "body": "166-body.png"
           }
         },
         {
           "author": "Username_RANDINT",
-          "body": [{ "text": "F•I•E•N•D•S", "frame": 2 }],
+          "body": [
+            {
+              "text": "F•I•E•N•D•S",
+              "frame": 2,
+              "duration": 0.88,
+              "audio": "4-2-0.mp3"
+            }
+          ],
           "all_awardings": [
             { "count": 6, "name": "Silver" },
             { "count": 1, "name": "Gold" },
@@ -552,55 +693,67 @@
           ],
           "created_utc": 1637190036,
           "depth": 2,
-          "score": 8024,
+          "score": 8022,
           "avatar": {
-            "face": "49-face.png",
-            "head": "27-head.png",
-            "body": "116-body.png"
+            "face": "10-face.png",
+            "head": "96-head.png",
+            "body": "134-body.png"
           }
         }
       ]
     },
     {
       "durationInFrames": 7,
-      "durationInSeconds": 0,
+      "durationInSeconds": 40,
       "comments": [
         {
           "author": "SugoiBakaMatt",
           "body": [
             {
               "text": "May have been said already, but when Napoleon returned to France from his exile, a Regiment of French soldiers were sent by the Coalition Powers to intercept him.",
-              "frame": 0
+              "frame": 0,
+              "duration": 8.63,
+              "audio": "5-0-0.mp3"
             },
             {
               "text": "Upon seeing them, Napoleon approached and simply said, \"If you wish to kill your Emperor, here I am.\"",
-              "frame": 1
+              "frame": 1,
+              "duration": 6.05,
+              "audio": "5-0-1.mp3"
             },
             {
               "text": "The Commander of the Regiment ordered his men to open fire.",
-              "frame": 2
+              "frame": 2,
+              "duration": 3.2,
+              "audio": "5-0-2.mp3"
             },
             {
               "text": "Out of the 2,000 soldiers present, not a single one obeyed the order.",
-              "frame": 3
+              "frame": 3,
+              "duration": 4.09,
+              "audio": "5-0-3.mp3"
             },
             {
               "text": "They all joined Napoleon and marched to Paris with him. Truly a real life Mary-Sue.",
-              "frame": 4
+              "frame": 4,
+              "duration": 5,
+              "audio": "5-0-4.mp3"
             },
             {
               "text": "At least until he was thoroughly beaten and exiled again, permanently this time.",
-              "frame": 5
+              "frame": 5,
+              "duration": 4.6,
+              "audio": "5-0-5.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637165900,
           "depth": 0,
-          "score": 14923,
+          "score": 14920,
           "avatar": {
-            "face": "50-face.png",
-            "head": "77-head.png",
-            "body": "86-body.png"
+            "face": "23-face.png",
+            "head": "54-head.png",
+            "body": "104-body.png"
           }
         },
         {
@@ -608,17 +761,19 @@
           "body": [
             {
               "text": "This scene was actually in that old Waterloo movie! Seemed a bitover the top to me when I watched it.",
-              "frame": 6
+              "frame": 6,
+              "duration": 5.35,
+              "audio": "5-1-0.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637177364,
           "depth": 1,
-          "score": 2800,
+          "score": 2797,
           "avatar": {
-            "face": "82-face.png",
-            "head": "26-head.png",
-            "body": "16-body.png"
+            "face": "72-face.png",
+            "head": "43-head.png",
+            "body": "31-body.png"
           }
         },
         {
@@ -626,318 +781,19 @@
           "body": [
             {
               "text": "There are so many Napoleon facts that are this level of over-the-top, his life is basically unadaptable.",
-              "frame": 7
+              "frame": 7,
+              "duration": 5.86,
+              "audio": "5-2-0.mp3"
             }
           ],
           "all_awardings": [],
           "created_utc": 1637184285,
           "depth": 2,
-          "score": 2018,
+          "score": 2025,
           "avatar": {
-            "face": "20-face.png",
-            "head": "85-head.png",
-            "body": "41-body.png"
-          }
-        }
-      ]
-    },
-    {
-      "durationInFrames": 20,
-      "durationInSeconds": 0,
-      "comments": [
-        {
-          "author": "Ganglebot",
-          "body": [
-            {
-              "text": "A guy broke into the Prime Minster of Canada's house with a knife, intent to kill the Prime Minster.",
-              "frame": 0
-            },
-            {
-              "text": "<br><br>The Prime Minster's wife hears someone walking around downstairs and tries to wake her husband.",
-              "frame": 1
-            },
-            {
-              "text": "The PM just tells her its nothing, go back to sleep.",
-              "frame": 2
-            },
-            {
-              "text": "<br><br>She gets up and investigates - finding the knife wielding assassin.",
-              "frame": 3
-            },
-            {
-              "text": "She grabs an Inuit statue of a loon and beats the shit out of the guy.",
-              "frame": 4
-            },
-            {
-              "text": "Our PM then runs into the hall and helps his wife take down the assassin.",
-              "frame": 5
-            },
-            {
-              "text": "These are two people in their 60's just kicking the shit out of some dude in his late 20's. <br><br>She calls the local police who arrive, only to realise they forgot the fucking key to the front gate, so they send someone back to the station get it.",
-              "frame": 6
-            },
-            {
-              "text": "<br><br>The assassin was later confirmed to have major mental health issues.",
-              "frame": 7
-            },
-            {
-              "text": "Less than 5 years later, he was successfully treated for his schizophrenia, released from his treatment facility and formally apologised to the couple.",
-              "frame": 8
-            },
-            {
-              "text": "<br><br>EDIT: Imagine getting your ass handed to you by these two:",
-              "frame": 9
-            }
-          ],
-          "all_awardings": [
-            { "count": 2, "name": "Silver" },
-            { "count": 2, "name": "Gold" },
-            { "count": 4, "name": "Helpful" },
-            { "count": 2, "name": "Wholesome" }
-          ],
-          "created_utc": 1637175296,
-          "depth": 0,
-          "score": 14252,
-          "avatar": {
-            "face": "83-face.png",
-            "head": "106-head.png",
-            "body": "132-body.png"
-          }
-        },
-        {
-          "author": "Sea2Chi",
-          "body": [
-            {
-              "text": "Imagine being his family and getting that call.",
-              "frame": 10
-            },
-            {
-              "text": "<br><br>\"Miss I'm sorry to wake you but your son's been arrested.",
-              "frame": 11
-            },
-            {
-              "text": "He tried to kill the Prime minister and his wife.\" <br><br>\"My god, are they ok?\" <br><br>\"The PM? Yes, they're completely fine.",
-              "frame": 12
-            },
-            {
-              "text": "Your son however sustained multiple injuries and is currently being treated at the hospital.\"",
-              "frame": 13
-            },
-            {
-              "text": "<br><br>\"Oh dear, I suppose the police did what they had to in order to stop him.\" <br><br>\"The police?",
-              "frame": 14
-            },
-            {
-              "text": "No no no, they accidentally locked themselves out of the gates, It was actually the PM who stopped your son.",
-              "frame": 15
-            },
-            {
-              "text": "Well, technically his wife, the PM showed up after she had already subdued the would-be assassin.\" <br><br>\"The PM's wife? Isn't she pensioner age?\"",
-              "frame": 16
-            },
-            {
-              "text": "<br><br>\"Yes, however apparently she is still quite formidable in a brawl as your son discovered.",
-              "frame": 17
-            },
-            {
-              "text": "Beat the stuffing out of him, blood everywhere, a real badger that one, wouldn't want to find her in a dark alley if you know what I mean.",
-              "frame": 18
-            },
-            {
-              "text": "Oh, yes your son, sorry about that, he'll most likely be in the ICU for a day or two with a skull fracture and broken ribs.\"",
-              "frame": 19
-            }
-          ],
-          "all_awardings": [
-            { "count": 6, "name": "Silver" },
-            { "count": 1, "name": "Gold" },
-            { "count": 4, "name": "Helpful" },
-            { "count": 3, "name": "Wholesome" },
-            { "count": 1, "name": "Bravo!" },
-            { "count": 1, "name": "Table Slap" }
-          ],
-          "created_utc": 1637185661,
-          "depth": 1,
-          "score": 6948,
-          "avatar": {
-            "face": "23-face.png",
-            "head": "15-head.png",
-            "body": "160-body.png"
-          }
-        },
-        {
-          "author": "Duffman_can_never_di",
-          "body": [
-            {
-              "text": "PM: “Oh my wife, a real battle axe, she is.”",
-              "frame": 20
-            }
-          ],
-          "all_awardings": [
-            { "count": 1, "name": "Silver" },
-            { "count": 1, "name": "Take My Energy" }
-          ],
-          "created_utc": 1637190573,
-          "depth": 2,
-          "score": 1865,
-          "avatar": {
-            "face": "83-face.png",
-            "head": "55-head.png",
-            "body": "25-body.png"
-          }
-        }
-      ]
-    },
-    {
-      "durationInFrames": 24,
-      "durationInSeconds": 0,
-      "comments": [
-        {
-          "author": "Infernal_Contraption",
-          "body": [
-            {
-              "text": "The RMS Carmania<br><br>In 1914, just after the outbreak of the First World War, Germany had a cunning idea.",
-              "frame": 0
-            },
-            {
-              "text": "They needed to ensure naval superiority in the Atlantic, but there was no way they could manufacture enough new battleships in order to contest what was traditionally Britain’s inviolate domain.",
-              "frame": 1
-            },
-            {
-              "text": "<br><br>So, they took the SMS Cap Trafalgar – an 18,700tn luxury ocean liner, and retrofitted it with two 4.1inch guns and six 1lb “pom-pom” autocannons – and also had one of its funnels removed so that this colossal Frankenstein’s Monster of a ship would appear (for all intents and purposes) to be a cruiser under the command of the British Merchant Navy.",
-              "frame": 2
-            },
-            {
-              "text": "<br><br>The ruse complete, it would prowl the South Atlantic under false flags; ‘dressed’ as a British ship, it could approach the British supply line and at the last minute fly the German colours before wreaking havoc and undermining the until-now-unimpeachable British Navy.",
-              "frame": 3
-            },
-            {
-              "text": "They even renamed it the RMS Carmania – 'RMS' standing for 'Royal Mail Ship', a type of fast steamer used to carry international post - to complete the illusion and ensure that it would never be recognised as being formerly a German passenger/cargo ship until it was far, far too late.",
-              "frame": 4
-            },
-            {
-              "text": "<br><br>Military historians generally concur that it was a bold but brilliant plan.",
-              "frame": 5
-            },
-            {
-              "text": "At a fraction of the time and cost of a new custom-built battleship, the newly christened RMS Carmania should cost the British fleets thousands of lives and millions of tonnes of lost ships before it could be reliably identified…. <br><br>…..Except for one tiny problem.",
-              "frame": 6
-            },
-            {
-              "text": "<br><br>On the 14th of September 1914, after a fruitless first voyage ending with no sightings of any targets and being forced to refuel empty handed, the “RMS Carmania” met its first ever opponent just off the coast of Trinidad.",
-              "frame": 7
-            },
-            {
-              "text": "<br><br>It was \\*THE\\* RMS Carmania, a 19,500tn ocean liner retrofitted with eight 4.7inch guns and deployed as a cruiser by the \\*REAL\\* British Merchant Navy.",
-              "frame": 8
-            },
-            {
-              "text": "<br><br>From four miles away the real RMS’ crew realised that the ship they were looking at was not in fact the ship that they were standing on and opened fire.",
-              "frame": 9
-            },
-            {
-              "text": "It took 2 hours of vicious age-of-sail style broadsides, but eventually the doppelgänger was sunk with the maimed victor limping away under escort to Brazil for repairs.",
-              "frame": 10
-            },
-            {
-              "text": "<br><br>\\*\\*BONUS FACTS I DISCOVERED WHILE ANSWERING COMMENTS:\\*\\*<br><br>FACT 1: Towards the end of the fight, the first ship to arrive was a German ship called the SS Kronprins Wilhelm.",
-              "frame": 11
-            },
-            {
-              "text": "At this point the (British) RMS Carmania was barely afloat, holed beneath the waterline and likely to be finished off by a stiff breeze.... But the Kronprins Wilhelm just turned and left without getting involved.",
-              "frame": 12
-            },
-            {
-              "text": "<br><br>Turns out, the Kronprins had been listening to SOS calls from both ships and knew that \"the RMS Carmania\" had sunk, but wasn't sure which was which.",
-              "frame": 13
-            },
-            {
-              "text": "Rather than investigate and likely get caught by other British ships answering the same calls, they decided it might be a trap and left them to it.",
-              "frame": 14
-            },
-            {
-              "text": "Because of this, the Carmania was rescued and went on to sail for another 18 years.",
-              "frame": 15
-            },
-            {
-              "text": "<br><br>FACT 2:  The RMS Carmania had a sister-ship called the Caronia, and together they were known as the 'Pretty Sisters'.",
-              "frame": 16
-            },
-            {
-              "text": "This was publicly known information - the Cap Trafalgar was deliberately disguised as a 'Pretty Sister' based on the designs and appearance.",
-              "frame": 17
-            },
-            {
-              "text": "<br><br>So it's not even as though the Cap Trafalgar were deliberately disguised as the Carmenia - it was 50/50 that they could have impersonated the Caronia, save for the name painted on the front of the hull.",
-              "frame": 18
-            },
-            {
-              "text": "The outcome could have been very different, save for a coinflip between two names.",
-              "frame": 19
-            },
-            {
-              "text": "<br><br>FACT 3: The RMS Carmania had gone to Trinidade because they knew that islands nearby were being used as staging posts for German ships, and the first they encountered was another retrofitted ship that had been sent there to hunt cargo ships.",
-              "frame": 20
-            },
-            {
-              "text": "<br><br>Effectively; the RMS Carmania was a secretly retrofitted cargo ship, hunting another secretly retrofitted cargo ship, that was itself secretly hunting cargo ships, but couldn't find any except for the one that wasn't a cargo ship any more *and who knew they were there anyway so it wasn't a secret any more*. Spy vs Spy barely begins to cover it.",
-              "frame": 21
-            },
-            {
-              "text": "<br><br>EDIT BY POPULAR DEMAND, OBLIGATORY SHITTY MEME:<br><br>",
-              "frame": 22
-            }
-          ],
-          "all_awardings": [
-            { "count": 4, "name": "Silver" },
-            { "count": 1, "name": "Gold" },
-            { "count": 9, "name": "Helpful" },
-            { "count": 4, "name": "Wholesome" },
-            { "count": 1, "name": "All-Seeing Upvote" }
-          ],
-          "created_utc": 1637168173,
-          "depth": 0,
-          "score": 10688,
-          "avatar": {
-            "face": "24-face.png",
-            "head": "15-head.png",
-            "body": "20-body.png"
-          }
-        },
-        {
-          "author": "Ryan0413",
-          "body": [
-            {
-              "text": "I bet the Germans saw the real Carmania and went \"aw man, you gotta be kidding me\"",
-              "frame": 23
-            }
-          ],
-          "all_awardings": [{ "count": 1, "name": "Wholesome" }],
-          "created_utc": 1637175981,
-          "depth": 1,
-          "score": 6457,
-          "avatar": {
-            "face": "18-face.png",
-            "head": "76-head.png",
-            "body": "63-body.png"
-          }
-        },
-        {
-          "author": "Tak_Jaehon",
-          "body": [
-            {
-              "text": "Just imagine being the spotter that had to tell the captain.",
-              "frame": 24
-            }
-          ],
-          "all_awardings": [],
-          "created_utc": 1637179738,
-          "depth": 2,
-          "score": 3186,
-          "avatar": {
-            "face": "70-face.png",
-            "head": "71-head.png",
-            "body": "81-body.png"
+            "face": "28-face.png",
+            "head": "101-head.png",
+            "body": "22-body.png"
           }
         }
       ]

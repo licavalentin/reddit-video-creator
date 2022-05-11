@@ -85,9 +85,7 @@ export const generateVideo: GenerateVideo = async ({
     parallelism: cpus().length - 1,
     outputDir: output,
     inputProps: data,
-    compositionId: id,
     imageFormat: "png",
-    onError: (e) => console.log(e),
   });
 };
 

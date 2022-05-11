@@ -9,7 +9,6 @@ import { Awards } from "./UI";
 import { roundUp } from "../utils/helper";
 
 import styles from "../styles/components/intro.module.scss";
-import moment from "moment";
 
 const Intro: React.FC<IntroProps> = ({
   title,
@@ -38,7 +37,9 @@ const Intro: React.FC<IntroProps> = ({
 
               <span>·</span>
 
-              <p>{moment(created_utc).format("MMM Do YY")}</p>
+              <p>
+                {new Date(created_utc * 1000).toLocaleString().split(",")[0]}
+              </p>
 
               {awards.length > 0 && (
                 <>

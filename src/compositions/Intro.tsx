@@ -1,16 +1,14 @@
 import React from "react";
-import { Composition, getInputProps, registerRoot } from "remotion";
+import { Composition, getInputProps } from "remotion";
 
 import { video } from "../config/video";
 import { Intro as IntroType } from "../interface/compositions";
 
 import Intro from "../components/Intro";
 
-import post from "../data/post.json";
+import post from "../data/localPost.json";
 
-import "../styles/main.scss";
-
-export const IntroComposition: React.FC = () => {
+const IntroComposition: React.FC = () => {
   const { fps, height, width } = video;
   const inputData = getInputProps() as IntroType;
   const prod = Object.keys(inputData).length !== 0;
@@ -54,4 +52,4 @@ export const IntroComposition: React.FC = () => {
   );
 };
 
-registerRoot(IntroComposition);
+export default IntroComposition;

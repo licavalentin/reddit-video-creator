@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition, getInputProps, registerRoot } from "remotion";
+import { Composition, getInputProps } from "remotion";
 
 import { video } from "../config/video";
 import { CommentsGroup } from "../interface/compositions";
@@ -7,11 +7,9 @@ import { Comment, CommentText } from "../interface/post";
 
 import Comments from "../components/Comments";
 
-import post from "../data/post.json";
+import post from "../data/localPost.json";
 
-import "../styles/main.scss";
-
-export const CommentsComposition: React.FC = () => {
+const CommentsComposition: React.FC = () => {
   const { fps, height, width } = video;
   const inputData = getInputProps() as CommentsGroup;
   const prod = Object.keys(inputData).length !== 0;
@@ -37,7 +35,7 @@ export const CommentsComposition: React.FC = () => {
         },
       };
 
-    const localComments = post.comments[0] as unknown as Comment[];
+    const localComments = post.comments[0].comments;
 
     return {
       durationInFrames: calcDuration(localComments),
@@ -59,4 +57,4 @@ export const CommentsComposition: React.FC = () => {
   );
 };
 
-registerRoot(CommentsComposition);
+export default CommentsComposition;
