@@ -82,4 +82,7 @@ export type RenderPost = {
   url: string;
   status: "finish" | "draft" | "queue";
   subreddit: string;
+  voice?: string;
+  maxDuration?: number;
+  videosCount?: number;
 };

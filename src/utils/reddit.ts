@@ -14,6 +14,7 @@ import {
   Award,
   CommentText,
   CommentGroup,
+  RenderPost,
 } from "../interface/post";
 import { commentPath, imagePath } from "../config/paths";
 
@@ -40,7 +41,7 @@ export const getFolders = (path: string): string[] => {
 /**
  * Fetch Post Data
  */
-export const fetchPostData = async (url: string) => {
+export const fetchPostData = async (post: RenderPost) => {
   console.log("📰 Fetching Post");
 
   const nlp = wink(model);
@@ -48,7 +49,7 @@ export const fetchPostData = async (url: string) => {
   // Check if Url is valid
   const { origin, pathname } = (() => {
     try {
-      const postData = new URL(url);
+      const postData = new URL(post.url);
 
       if (postData.origin !== redditUrl) {
         throw new Error("Invalid Post Url");
@@ -107,63 +108,53 @@ export const fetchPostData = async (url: string) => {
   const commentList: Comment[][] = [];
   let comments: Comment[] = [];
 
+  const cleanUpComment = (commentDetails: CommentWrapper) => {
+    const {
+      data: { author, body, replies, all_awardings, created_utc, depth, score },
+    } = commentDetails;
+
+    if (depth === 0) {
+      if (comments.length > 0) {
+        commentList.push(comments);
+      }
+
+      comments = [];
+    }
+
+    if (
+      depth > 2 ||
+      score < 1000 ||
+      comments[depth] ||
+      (body as string) === "[deleted]" ||
+      (body as string) === "[removed]"
+    ) {
+      return;
+    }
+
+    comments.push({
+      author,
+      body,
+      all_awardings: postAwards(all_awardings),
+      created_utc,
+      depth,
+      score,
+    });
+
+    if (replies !== "") {
+      for (let i = 0; i < (replies as Replies).data.children.length; i++) {
+        const element = (replies as Replies).data.children[i] as CommentWrapper;
+
+        if (element.kind !== "more") {
+          cleanUpComment(element);
+        }
+      }
+    }
+  };
+
   for (const commentTree of data[1].data.children) {
     if (commentTree.kind === "more") {
       break;
     }
-
-    const cleanUpComment = (commentDetails: CommentWrapper) => {
-      const {
-        data: {
-          author,
-          body,
-          replies,
-          all_awardings,
-          created_utc,
-          depth,
-          score,
-        },
-      } = commentDetails;
-
-      if (depth === 0) {
-        if (comments.length > 0) {
-          commentList.push(comments);
-        }
-
-        comments = [];
-      }
-
-      if (
-        depth > 2 ||
-        score < 1000 ||
-        comments[depth] ||
-        (body as string) === "[deleted]" ||
-        (body as string) === "[removed]"
-      ) {
-        return;
-      }
-
-      comments.push({
-        author,
-        body,
-        all_awardings: postAwards(all_awardings),
-        created_utc,
-        depth,
-        score,
-      });
-
-      if (replies !== "") {
-        for (let i = 0; i < (replies as Replies).data.children.length; i++) {
-          const element = (replies as Replies).data.children[
-            i
-          ] as CommentWrapper;
-
-          if (element.kind !== "more") {
-            cleanUpComment(element);
-          }
-        }
-      }
-    };
 
     cleanUpComment(commentTree);
   }
@@ -188,8 +179,6 @@ export const fetchPostData = async (url: string) => {
     })(),
     ...commentList,
   ].map((comments, i) => {
-    const commentGroupPath = commentPath(i);
-
     let durationInFrames: number = 0;
     const commentsList = comments.map((comment, j) => {
       let cleanText = (comment.body as string)
