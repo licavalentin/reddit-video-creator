@@ -19,7 +19,7 @@ export const getVoice = () => {
     return listOfVoice[0];
   } else {
     const voices = execSync(
-      `wine /home/john/Clis/bal4web/bal4web.exe -s m -m`
+      `wine /home/john/Cli/bal4web.exe -s m -m`
     ).toString();
 
     const listOfVoice = voices
@@ -60,7 +60,7 @@ export const generateAudioFile: AudioGenerator = ({
       console.log(error);
     }
   } else {
-    const command = `wine /home/john/Clis/bal4web/bal4web.exe -s m -l en-Us -iu -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
+    const command = `wine /home/john/Cli/bal4web.exe -s m -l en-Us -iu -n ${audio.voice_name} -f "${textFilePath}" -w "${outputPath}"`;
 
     try {
       execSync(command, timeout);
