@@ -17,6 +17,7 @@ import {
   RenderPost,
 } from "../interface/post";
 import { commentPath, imagePath } from "../config/paths";
+import { countWords } from "./helper";
 
 const redditUrl = "https://www.reddit.com";
 
@@ -159,6 +160,18 @@ export const fetchPostData = async (post: RenderPost) => {
     cleanUpComment(commentTree);
   }
 
+  let totalTime: number = 0;
+
+  const moreClean = commentList.filter((comments) => {
+    for (const comment of comments) {
+      totalTime += countWords(comment.body as string);
+    }
+
+    if (totalTime < post.maxDuration * post.videosCount) {
+      return comments;
+    }
+  });
+
   const selectedComments: CommentGroup[] = [
     ...(() => {
       if (selftext.length > 80)
@@ -177,7 +190,7 @@ export const fetchPostData = async (post: RenderPost) => {
 
       return [];
     })(),
-    ...commentList,
+    ...moreClean,
   ].map((comments, i) => {
     let durationInFrames: number = 0;
     const commentsList = comments.map((comment, j) => {

@@ -15,7 +15,7 @@ import { getCompositions, renderFrames } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
 import { CompositionId, CompositionData } from "../interface/compositions";
-import { CommentGroup, CommentText } from "../interface/post";
+import { CommentGroup, CommentText, Post, RenderPost } from "../interface/post";
 import { tempData } from "../config/paths";
 
 export const generateBundle: (
@@ -126,7 +126,12 @@ export const spreadWork = <T extends unknown>(work: T[]): T[][] => {
   return workSpreed.filter((e) => e.length > 0);
 };
 
-export const createPlaylist = (comments: CommentGroup[]): CommentGroup[][] => {
+export const createPlaylist = (postData: {
+  post: RenderPost;
+  comments: CommentGroup[];
+}): CommentGroup[][] => {
+  const { comments, post } = postData;
+
   const newComments = comments.map((group, i) => {
     let durationInSeconds = 0;
 
@@ -163,7 +168,7 @@ export const createPlaylist = (comments: CommentGroup[]): CommentGroup[][] => {
   const playlist: CommentGroup[][] = [];
   let items: CommentGroup[] = [];
 
-  let maxTime = 8 * 60;
+  let maxTime = post.maxDuration * 60;
   for (const group of newComments) {
     if (maxTime < 0) {
       playlist.push(items);

@@ -53,7 +53,7 @@ const render = async () => {
     for (let i = 0; i < postsList.length; i++) {
       const post = postsList[i];
 
-      if (post.status === "draft") continue;
+      if (post.status !== "queue") continue;
 
       // // Fetch Post
       const postData = await fetchPostData(post);
@@ -65,7 +65,7 @@ const render = async () => {
       //   readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
       // );
 
-      const playlist = createPlaylist(postData.comments);
+      const playlist = createPlaylist({ post, comments: postData.comments });
 
       // writeFileSync(
       //   join(__dirname, "src", "data", "playlist.json"),

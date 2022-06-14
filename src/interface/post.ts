@@ -79,10 +79,10 @@ export type RedditData = [
 export type RenderPost = {
   title: string;
   duration: number;
-  url: string;
   status: "finish" | "draft" | "queue";
+  url: string;
   subreddit: string;
-  voice?: string;
-  maxDuration?: number;
-  videosCount?: number;
+  maxDuration: number;
+  videosCount: number;
+  voice: string;
 };
