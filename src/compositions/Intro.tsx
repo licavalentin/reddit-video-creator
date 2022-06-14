@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition, getInputProps } from "remotion";
+import { Composition, getInputProps, registerRoot } from "remotion";
 
 import { video } from "../config/video";
 import { Intro as IntroType } from "../interface/compositions";
@@ -52,4 +52,4 @@ const IntroComposition: React.FC = () => {
   );
 };
 
-export default IntroComposition;
+registerRoot(IntroComposition);

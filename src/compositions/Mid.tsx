@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition } from "remotion";
+import { Composition, registerRoot } from "remotion";
 
 import { video } from "../config/video";
 
@@ -23,4 +23,4 @@ const MidComposition: React.FC = () => {
   );
 };
 
-export default MidComposition;
+registerRoot(MidComposition);

@@ -1,5 +1,5 @@
 import React from "react";
-import { getInputProps, Still } from "remotion";
+import { getInputProps, registerRoot, Still } from "remotion";
 
 import { Thumbnail as ThumbnailType } from "../interface/compositions";
 
@@ -43,4 +43,4 @@ const ThumbnailStill: React.FC = () => {
   );
 };
 
-export default ThumbnailStill;
+registerRoot(ThumbnailStill);

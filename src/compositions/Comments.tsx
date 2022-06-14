@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition, getInputProps } from "remotion";
+import { Composition, getInputProps, registerRoot } from "remotion";
 
 import { video } from "../config/video";
 import { CommentsGroup } from "../interface/compositions";
@@ -57,4 +57,4 @@ const CommentsComposition: React.FC = () => {
   );
 };
 
-export default CommentsComposition;
+registerRoot(CommentsComposition);
