@@ -2,6 +2,6 @@ export const video = {
   width: 1920,
   height: 1080,
   fps: 1,
-  fileFormat: "webm",
+  fileFormat: "mp4",
   ffmpegFps: 5,
 };

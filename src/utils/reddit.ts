@@ -167,7 +167,7 @@ export const fetchPostData = async (post: RenderPost) => {
       totalTime += countWords(comment.body as string);
     }
 
-    if (totalTime < post.maxDuration * post.videosCount) {
+    if (totalTime > post.maxDuration * post.videosCount * 60) {
       return comments;
     }
   });
