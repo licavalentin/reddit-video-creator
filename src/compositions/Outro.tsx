@@ -5,6 +5,8 @@ import { video } from "../config/video";
 
 import Outro from "../components/Outro";
 
+import "../styles/main.scss";
+
 const OutroComposition: React.FC = () => {
   const { fps, height, width } = video;
 

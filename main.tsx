@@ -35,11 +35,11 @@ const render = async () => {
 
   try {
     // Create Temp dir to store render files
-    if (existsSync(tmpDir)) {
-      deleteFolder(tmpDir);
-    }
+    // if (existsSync(tmpDir)) {
+    //   deleteFolder(tmpDir);
+    // }
 
-    mkdirSync(tmpDir);
+    // mkdirSync(tmpDir);
 
     const postsList: RenderPost[] = JSON.parse(
       readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
@@ -51,25 +51,25 @@ const render = async () => {
     console.log(`📁 Project dir: ${tmpDir}`);
 
     for (let i = 0; i < postsList.length; i++) {
-      const post = postsList[i];
-      if (post.status !== "queue") continue;
-      // // Fetch Post
-      const postData = await fetchPostData(post);
-      writeFileSync(
-        join(__dirname, "src", "data", "test.json"),
-        JSON.stringify(postData)
-      );
-      // Create Audio Files
-      await createAudio(postData);
-      const playlist = createPlaylist({ post, comments: postData.comments });
-      writeFileSync(
-        join(__dirname, "src", "data", "playlist.json"),
-        JSON.stringify({ post: postData.post, playlist })
-      );
-
-      // const postData = JSON.parse(
-      //   readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
+      // const post = postsList[i];
+      // if (post.status !== "queue") continue;
+      // // // Fetch Post
+      // const postData = await fetchPostData(post);
+      // writeFileSync(
+      //   join(__dirname, "src", "data", "test.json"),
+      //   JSON.stringify(postData)
       // );
+      // // Create Audio Files
+      // await createAudio(postData);
+      // const playlist = createPlaylist({ post, comments: postData.comments });
+      // writeFileSync(
+      //   join(__dirname, "src", "data", "playlist.json"),
+      //   JSON.stringify({ post: postData.post, playlist })
+      // );
+
+      const postData = JSON.parse(
+        readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
+      );
       // Bundle React Code
       console.log("🎥 Generating Video");
       const compositionPath = join(__dirname, "src", "compositions");
@@ -127,7 +127,7 @@ const render = async () => {
           awards: postData.post.all_awardings,
         },
       });
-      for (const [i, videos] of playlist.entries()) {
+      for (const [i, videos] of postData.playlist.entries()) {
         // Generate Comments
         for (const [j, { comments }] of videos.entries()) {
           await generateVideo({

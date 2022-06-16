@@ -5,6 +5,8 @@ import { video } from "../config/video";
 
 import Mid from "../components/Mid";
 
+import "../styles/main.scss";
+
 const MidComposition: React.FC = () => {
   const { fps, height, width } = video;
 

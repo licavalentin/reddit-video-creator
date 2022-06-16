@@ -8,6 +8,8 @@ import Intro from "../components/Intro";
 
 import post from "../data/localPost.json";
 
+import "../styles/main.scss";
+
 const IntroComposition: React.FC = () => {
   const { fps, height, width } = video;
   const inputData = getInputProps() as IntroType;

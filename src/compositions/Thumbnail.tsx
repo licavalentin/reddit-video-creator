@@ -7,6 +7,8 @@ import Thumbnail from "../components/Thumbnail";
 
 import post from "../data/localPost.json";
 
+import "../styles/main.scss";
+
 const ThumbnailStill: React.FC = () => {
   const {
     post: { title, all_awardings, subreddit },

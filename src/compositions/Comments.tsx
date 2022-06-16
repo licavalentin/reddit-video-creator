@@ -9,6 +9,8 @@ import Comments from "../components/Comments";
 
 import post from "../data/localPost.json";
 
+import "../styles/main.scss";
+
 const CommentsComposition: React.FC = () => {
   const { fps, height, width } = video;
   const inputData = getInputProps() as CommentsGroup;
