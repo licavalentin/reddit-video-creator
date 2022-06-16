@@ -15,6 +15,7 @@ import {
 import { video } from "../config/video";
 
 import { CommentGroup, CommentText } from "../interface/post";
+import { createRandomString } from "../utils/helper";
 import { spreadWork } from "../utils/render";
 import { mergeVideos } from "./lib";
 
@@ -145,7 +146,7 @@ const mergeFrames: MergeFrames = async ({ comments, id }) => {
           mergeVideos({
             listPath,
             exportPath: join(homedir(), "Desktop"),
-            title: `video-${id}`,
+            title: createRandomString(4),
           });
 
           resolve(null);

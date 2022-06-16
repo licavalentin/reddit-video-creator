@@ -2,6 +2,12 @@ import { ScrollAnimationHandler } from "../interface/helper";
 import { CommentText } from "../interface/post";
 
 /**
+ * Create Random String
+ */
+export const createRandomString = (size: number) =>
+  (Math.random() + 1).toString(36).substring(size || 7);
+
+/**
  * Convert sentence to time
  */
 export const countWords = (sentence: string): number => {

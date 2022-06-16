@@ -29,6 +29,7 @@ import { getCompositions, renderStill } from "@remotion/renderer";
 import { TCompMetadata } from "remotion";
 import { homedir } from "os";
 import { RenderPost } from "./src/interface/post";
+import { createRandomString } from "./src/utils/helper";
 
 const render = async () => {
   console.time("Render");
@@ -120,7 +121,7 @@ const render = async () => {
       await renderStill({
         composition: thumbnailVideo,
         webpackBundle: stillBundle,
-        output: join(homedir(), "Desktop", "thumbnail.png"),
+        output: join(homedir(), "Desktop", `${createRandomString(4)}.png`),
         inputProps: {
           title: postData.post.title,
           subreddit: postData.post.subreddit,

@@ -35,18 +35,16 @@ const Comments: React.FC<CommentsGroup> = ({ comments, background }) => {
 
   useEffect(() => {
     if (scrollAnimation === undefined) {
-      const data = scrollAnimationHandler({
-        container,
-        comments,
-      });
+      setScrollAnimation(
+        scrollAnimationHandler({
+          container,
+          comments,
+        })
+      );
 
-      if (data) {
-        setScrollAnimation(data);
-
-        continueRender(handle);
-      }
+      continueRender(handle);
     }
-  }, []);
+  }, [scrollAnimation]);
 
   return (
     <Layout src={background}>
