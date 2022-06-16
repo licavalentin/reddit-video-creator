@@ -90,6 +90,7 @@ const render = async () => {
           score: postData.post.score,
         } as Intro,
       });
+
       // Generate Mid
       await generateVideo({
         bundled: await generateBundle(

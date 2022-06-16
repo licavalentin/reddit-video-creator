@@ -4,18 +4,28 @@
   justify-content: center;
   height: 100%;
   position: relative;
+  width: 100%;
+  padding: 0em 4.8em;
+
+  @media (max-width: "1082px") {
+    padding: 0em 1em;
+  }
 
   .intro {
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 1em;
-    margin: 0em 4.8em;
     padding: 1em 2em;
     z-index: 2;
     background-color: var(--background);
     border-radius: var(--radius);
     box-shadow: 0 0 10px 0px black;
+    flex: 1;
+
+    @media (max-width: "1082px") {
+      padding: 1em;
+    }
 
     .score {
       display: flex;
@@ -38,16 +48,23 @@
       display: flex;
       flex-direction: column;
       row-gap: 0.5em;
+      column-gap: 0.5em;
 
       .details__header {
         display: flex;
         align-items: center;
         // flex-direction: row;
         column-gap: 0.7em;
+        row-gap: 0.7em;
 
-        // @media (max-width: var(--mobile)) {
-        //   flex-direction: column;
-        // }
+        @media (max-width: "1082px") {
+          flex-direction: column;
+          align-items: flex-start;
+
+          span {
+            display: none;
+          }
+        }
 
         p,
         span {

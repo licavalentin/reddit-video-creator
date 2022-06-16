@@ -35,11 +35,11 @@ const Intro: React.FC<IntroProps> = ({
             <div className={styles.details__header}>
               <p>Posted by u/{author}</p>
 
-              <span>·</span>
+              {/* <span>·</span>
 
               <p>
                 {new Date(created_utc * 1000).toLocaleString().split(",")[0]}
-              </p>
+              </p> */}
 
               {awards.length > 0 && (
                 <>
