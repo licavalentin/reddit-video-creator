@@ -1,6 +1,6 @@
 # 🎥 Create Reddit videos with JavaScript
 
-## [Example](https://www.youtube.com/channel/UCXt2aUt0pmneWULS_1Nwvyg)
+## [Example](https://youtu.be/oMzfrXO_gdc)
 
 ## 🚀 Installing
 
