@@ -25,6 +25,5 @@ const MidComposition: React.FC = () => {
   );
 };
 
-// registerRoot(MidComposition);
-
-export default MidComposition;
+registerRoot(MidComposition);
+// export default MidComposition;

@@ -22,6 +22,6 @@ const OutroComposition: React.FC = () => {
   );
 };
 
-// registerRoot(OutroComposition);
+registerRoot(OutroComposition);
 
-export default OutroComposition;
+// export default OutroComposition;
