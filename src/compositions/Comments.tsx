@@ -7,7 +7,7 @@ import { Comment, CommentText } from "../interface/post";
 
 import Comments from "../components/Comments";
 
-import post from "../data/localPost.json";
+import playlist from "../data/playlist.json";
 
 import "../styles/main.scss";
 
@@ -37,7 +37,7 @@ const CommentsComposition: React.FC = () => {
         },
       };
 
-    const localComments = post.comments[0].comments;
+    const localComments = playlist.playlist[0][0].comments;
 
     return {
       durationInFrames: calcDuration(localComments),

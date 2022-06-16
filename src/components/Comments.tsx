@@ -42,9 +42,9 @@ const Comments: React.FC<CommentsGroup> = ({ comments, background }) => {
 
       if (data) {
         setScrollAnimation(data);
-      }
 
-      continueRender(handle);
+        continueRender(handle);
+      }
     }
   }, []);
 
