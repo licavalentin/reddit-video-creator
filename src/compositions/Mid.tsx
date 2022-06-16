@@ -23,4 +23,4 @@ const MidComposition: React.FC = () => {
   );
 };
 
-registerRoot(MidComposition);
+export default MidComposition;

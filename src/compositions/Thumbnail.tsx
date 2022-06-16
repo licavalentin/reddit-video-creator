@@ -43,4 +43,4 @@ const ThumbnailStill: React.FC = () => {
   );
 };
 
-registerRoot(ThumbnailStill);
+export default ThumbnailStill;

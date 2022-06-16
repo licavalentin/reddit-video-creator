@@ -57,4 +57,4 @@ const CommentsComposition: React.FC = () => {
   );
 };
 
-registerRoot(CommentsComposition);
+export default CommentsComposition;

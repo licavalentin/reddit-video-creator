@@ -163,11 +163,9 @@ export const fetchPostData = async (post: RenderPost) => {
   let totalTime: number = 0;
 
   const moreClean = commentList.filter((comments) => {
-    for (const comment of comments) {
-      totalTime += countWords(comment.body as string);
-    }
+    totalTime += countWords(comments.map((e) => e.body).join(" "));
 
-    if (totalTime > post.maxDuration * post.videosCount * 60) {
+    if (totalTime < post.maxDuration * post.videosCount * 60) {
       return comments;
     }
   });

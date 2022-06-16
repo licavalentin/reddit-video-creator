@@ -58,6 +58,13 @@ const render = async () => {
       // // Fetch Post
       const postData = await fetchPostData(post);
 
+      writeFileSync(
+        join(__dirname, "src", "data", "test.json"),
+        JSON.stringify(postData)
+      );
+
+      return;
+
       // Create Audio Files
       await createAudio(postData);
 
@@ -71,6 +78,8 @@ const render = async () => {
       //   join(__dirname, "src", "data", "playlist.json"),
       //   JSON.stringify({ post: postData.post, playlist })
       // );
+
+      return;
 
       // Bundle React Code
       console.log("🎥 Generating Video");
