@@ -61,7 +61,7 @@ export const generateAudioFile: AudioGenerator = ({
     try {
       execSync(command, timeout);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   } else {
     const command = `${
@@ -75,7 +75,7 @@ export const generateAudioFile: AudioGenerator = ({
     try {
       execSync(command, timeout);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

@@ -35,6 +35,8 @@ const render = async () => {
   console.time("Render");
 
   try {
+    console.log("start");
+
     // Create Temp dir to store render files
     if (existsSync(tmpDir)) {
       deleteFolder(tmpDir);
@@ -49,32 +51,40 @@ const render = async () => {
     // Check if we have selected posts
     if (postsList.length === 0) throw new Error("Please Add Posts");
 
-    console.log(`📁 Project dir: ${tmpDir}`);
-
     for (let i = 0; i < postsList.length; i++) {
       const post = postsList[i];
+
       if (post.status !== "queue") continue;
-      // // Fetch Post
+
+      // Fetch Post
       const postData = await fetchPostData(post);
-      writeFileSync(
-        join(__dirname, "src", "data", "test.json"),
-        JSON.stringify(postData)
-      );
+
+      // writeFileSync(
+      //   join(__dirname, "src", "data", "test.json"),
+      //   JSON.stringify(postData)
+      // );
+
       // Create Audio Files
       await createAudio(postData);
+
       const playlist = createPlaylist({ post, comments: postData.comments });
-      writeFileSync(
-        join(__dirname, "src", "data", "playlist.json"),
-        JSON.stringify({ post: postData.post, playlist })
-      );
+
+      console.log(`jobs-${i}-${playlist.length - 1}`);
+
+      // writeFileSync(
+      //   join(__dirname, "src", "data", "playlist.json"),
+      //   JSON.stringify({ post: postData.post, playlist })
+      // );
 
       // const postData = JSON.parse(
       //   readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
       // );
+
       // Bundle React Code
-      console.log("🎥 Generating Video");
+
       const compositionPath = join(__dirname, "src", "compositions");
       const bundleDir = join(tmpDir, "bundle");
+
       // Generate Intro Video
       await generateVideo({
         bundled: await generateBundle(
@@ -101,6 +111,7 @@ const render = async () => {
         output: midPath,
         data: {},
       });
+
       // Generate Outro
       await generateVideo({
         bundled: await generateBundle(
@@ -119,6 +130,7 @@ const render = async () => {
       const thumbnailVideo = thumbnailComps.find(
         (c) => c.id === "thumbnail"
       ) as TCompMetadata;
+
       await renderStill({
         composition: thumbnailVideo,
         webpackBundle: stillBundle,
@@ -129,7 +141,8 @@ const render = async () => {
           awards: postData.post.all_awardings,
         },
       });
-      for (const [i, videos] of playlist.entries()) {
+
+      for (const [k, videos] of playlist.entries()) {
         // Generate Comments
         for (const [j, { comments }] of videos.entries()) {
           await generateVideo({
@@ -138,22 +151,23 @@ const render = async () => {
               bundleDir
             ),
             id: "comments",
-            output: commentPath(`${i}-${j}`),
+            output: commentPath(`${k}-${j}`),
             data: {
               comments,
             },
           });
-          console.log(`💬 Video ${i} Comments ${j} Finished`);
         }
+
         await mergeFrames({
           comments: videos,
-          id: i,
+          id: k,
         });
+
+        console.log(`finish-${[i, k].join(",")}`);
       }
-      console.log("🎥 Video Generated Successfully");
     }
   } catch (err) {
-    console.error(err);
+    // console.error(err);
   }
 
   console.timeEnd("Render");

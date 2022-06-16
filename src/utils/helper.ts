@@ -12,7 +12,7 @@ export const createRandomString = (size: number) =>
  */
 export const countWords = (sentence: string): number => {
   const words = sentence.split(" ");
-  return parseFloat((words.length / 170).toFixed(1).replace(".0", "")) * 60;
+  return parseFloat((words.length / 230).toFixed(1).replace(".0", "")) * 60;
 };
 
 /**

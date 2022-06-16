@@ -43,8 +43,6 @@ export const getFolders = (path: string): string[] => {
  * Fetch Post Data
  */
 export const fetchPostData = async (post: RenderPost) => {
-  console.log("📰 Fetching Post");
-
   const nlp = wink(model);
 
   // Check if Url is valid
@@ -243,8 +241,6 @@ export const fetchPostData = async (post: RenderPost) => {
       comments: commentsList,
     };
   });
-
-  console.log("📰 Post Fetched Successfully");
 
   return {
     post: postDetails,

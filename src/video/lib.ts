@@ -60,7 +60,7 @@ export const generateVideoFile: GenerateFileVideo = ({
   try {
     execSync(command, { stdio: "pipe" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 
   // console.log("video-generated");
@@ -83,6 +83,6 @@ export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
   try {
     execSync(command, { stdio: "pipe" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };

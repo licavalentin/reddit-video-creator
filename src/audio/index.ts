@@ -14,8 +14,6 @@ type CreateAudio = (args: {
 
 export const createAudio: CreateAudio = async ({ post, comments }) => {
   return new Promise(async (resolve) => {
-    console.log("🎵 Generating Audio");
-
     mkdirSync(tempData);
     mkdirSync(tempAudio);
 

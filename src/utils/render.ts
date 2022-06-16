@@ -176,7 +176,7 @@ export const createPlaylist = (postData: {
     if (maxTime < 0) {
       playlist.push(items);
       items = [];
-      maxTime = 8 * 60;
+      maxTime = post.maxDuration * 60;
     }
 
     maxTime -= group.durationInSeconds as number;
