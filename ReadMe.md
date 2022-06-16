@@ -1,6 +1,6 @@
 # 🎥 Create Reddit videos with JavaScript
 
-## [Example](https://youtu.be/oMzfrXO_gdc)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/oMzfrXO_gdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 🚀 Installing
 
