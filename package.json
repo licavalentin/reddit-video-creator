@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "remotion preview src/index.tsx",
     "upgrade": "remotion upgrade",
-    "start": "ts-node render.tsx",
+    "start": "ts-node main.tsx",
+    "run": "REACT_APP_RENDER=1 ts-node main.tsx",
     "test": "npx remotion render src/index.tsx comments out/video.mp4",
     "test:th": "npx remotion still src/index.tsx thumbnail out/thumbnail.png"
   },

@@ -52,4 +52,6 @@ const IntroComposition: React.FC = () => {
   );
 };
 
-export default IntroComposition;
+registerRoot(IntroComposition);
+
+// export default IntroComposition;
