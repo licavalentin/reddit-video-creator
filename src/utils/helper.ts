@@ -3,10 +3,12 @@ import { CommentText } from "../interface/post";
 
 /**
  * Convert sentence to time
- * @param sentence Sentence to convert number
  */
-export const countWords = (sentence: string): number =>
-  parseInt(sentence.replace(/[^\d]/g, "") || "0") / 170;
+export const countWords = (sentence: string): number => {
+  const words = sentence.split(" ");
+  return parseFloat((words.length / 170).toFixed(1).replace(".0", "")) * 60;
+};
+
 /**
  * Roundup number to 1k, 1M ...
  * @param number Number to Roundup

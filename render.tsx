@@ -63,113 +63,109 @@ const render = async () => {
         JSON.stringify(postData)
       );
 
-      return;
-
       // Create Audio Files
       await createAudio(postData);
 
-      // const postData = JSON.parse(
-      //   readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
-      // );
-
       const playlist = createPlaylist({ post, comments: postData.comments });
 
-      // writeFileSync(
-      //   join(__dirname, "src", "data", "playlist.json"),
-      //   JSON.stringify({ post: postData.post, playlist })
-      // );
-
-      return;
-
-      // Bundle React Code
-      console.log("🎥 Generating Video");
-
-      const compositionPath = join(__dirname, "src", "compositions");
-      const bundleDir = join(tmpDir, "bundle");
-
-      // Generate Intro Video
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Intro.tsx"),
-          bundleDir
-        ),
-        id: "intro",
-        output: introPath,
-        data: {
-          title: postData.post.title,
-          author: postData.post.author,
-          awards: postData.post.all_awardings,
-          score: postData.post.score,
-        } as Intro,
-      });
-
-      // Generate Mid
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Mid.tsx"),
-          bundleDir
-        ),
-        id: "mid",
-        output: midPath,
-        data: {},
-      });
-
-      // Generate Outro
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Outro.tsx"),
-          bundleDir
-        ),
-        id: "outro",
-        output: outroPath,
-        data: {},
-      });
-
-      const stillBundle = await generateBundle(
-        join(compositionPath, "Thumbnail.tsx"),
-        bundleDir
+      writeFileSync(
+        join(__dirname, "src", "data", "playlist.json"),
+        JSON.stringify({ post: postData.post, playlist })
       );
-      const thumbnailComps = await getCompositions(stillBundle);
-      const thumbnailVideo = thumbnailComps.find(
-        (c) => c.id === "thumbnail"
-      ) as TCompMetadata;
 
-      await renderStill({
-        composition: thumbnailVideo,
-        webpackBundle: stillBundle,
-        output: join(homedir(), "Desktop", "thumbnail.png"),
-        inputProps: {
-          title: postData.post.title,
-          subreddit: postData.post.subreddit,
-          awards: postData.post.all_awardings,
-        },
-      });
+      // // const postData = JSON.parse(
+      // //   readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
+      // // );
 
-      for (const [i, videos] of playlist.entries()) {
-        // Generate Comments
-        for (const [j, { comments }] of videos.entries()) {
-          await generateVideo({
-            bundled: await generateBundle(
-              join(compositionPath, "Comments.tsx"),
-              bundleDir
-            ),
-            id: "comments",
-            output: commentPath(`${i}-${j}`),
-            data: {
-              comments,
-            },
-          });
+      // // Bundle React Code
+      // console.log("🎥 Generating Video");
 
-          console.log(`💬 Video ${i} Comments ${j} Finished`);
-        }
+      // const compositionPath = join(__dirname, "src", "compositions");
+      // const bundleDir = join(tmpDir, "bundle");
 
-        await mergeFrames({
-          comments: videos,
-          id: i,
-        });
-      }
+      // // Generate Intro Video
+      // await generateVideo({
+      //   bundled: await generateBundle(
+      //     join(compositionPath, "Intro.tsx"),
+      //     bundleDir
+      //   ),
+      //   id: "intro",
+      //   output: introPath,
+      //   data: {
+      //     title: postData.post.title,
+      //     author: postData.post.author,
+      //     awards: postData.post.all_awardings,
+      //     score: postData.post.score,
+      //   } as Intro,
+      // });
 
-      console.log("🎥 Video Generated Successfully");
+      // // Generate Mid
+      // await generateVideo({
+      //   bundled: await generateBundle(
+      //     join(compositionPath, "Mid.tsx"),
+      //     bundleDir
+      //   ),
+      //   id: "mid",
+      //   output: midPath,
+      //   data: {},
+      // });
+
+      // // Generate Outro
+      // await generateVideo({
+      //   bundled: await generateBundle(
+      //     join(compositionPath, "Outro.tsx"),
+      //     bundleDir
+      //   ),
+      //   id: "outro",
+      //   output: outroPath,
+      //   data: {},
+      // });
+
+      // const stillBundle = await generateBundle(
+      //   join(compositionPath, "Thumbnail.tsx"),
+      //   bundleDir
+      // );
+      // const thumbnailComps = await getCompositions(stillBundle);
+      // const thumbnailVideo = thumbnailComps.find(
+      //   (c) => c.id === "thumbnail"
+      // ) as TCompMetadata;
+
+      // await renderStill({
+      //   composition: thumbnailVideo,
+      //   webpackBundle: stillBundle,
+      //   output: join(homedir(), "Desktop", "thumbnail.png"),
+      //   inputProps: {
+      //     title: postData.post.title,
+      //     subreddit: postData.post.subreddit,
+      //     awards: postData.post.all_awardings,
+      //   },
+      // });
+
+      // for (const [i, videos] of playlist.entries()) {
+      //   // Generate Comments
+      //   for (const [j, { comments }] of videos.entries()) {
+      //     await generateVideo({
+      //       bundled: await generateBundle(
+      //         join(compositionPath, "Comments.tsx"),
+      //         bundleDir
+      //       ),
+      //       id: "comments",
+      //       output: commentPath(`${i}-${j}`),
+      //       data: {
+      //         comments,
+      //       },
+      //     });
+
+      //     console.log(`💬 Video ${i} Comments ${j} Finished`);
+      //   }
+
+      //   await mergeFrames({
+      //     comments: videos,
+      //     id: i,
+      //   });
+      // }
+
+      // console.log("🎥 Video Generated Successfully");
     }
   } catch (err) {
     console.error(err);

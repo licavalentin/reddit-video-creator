@@ -108,6 +108,7 @@ export const fetchPostData = async (post: RenderPost) => {
 
   const commentList: Comment[][] = [];
   let comments: Comment[] = [];
+  let totalTime: number = post.maxDuration * post.videosCount * 60;
 
   const cleanUpComment = (commentDetails: CommentWrapper) => {
     const {
@@ -141,6 +142,8 @@ export const fetchPostData = async (post: RenderPost) => {
       score,
     });
 
+    totalTime -= countWords(body as string);
+
     if (replies !== "") {
       for (let i = 0; i < (replies as Replies).data.children.length; i++) {
         const element = (replies as Replies).data.children[i] as CommentWrapper;
@@ -153,22 +156,18 @@ export const fetchPostData = async (post: RenderPost) => {
   };
 
   for (const commentTree of data[1].data.children) {
-    if (commentTree.kind === "more") {
+    if (commentTree.kind === "more" || totalTime < 0) {
       break;
     }
 
     cleanUpComment(commentTree);
   }
 
-  let totalTime: number = 0;
+  // const moreClean = commentList.filter((comments) => {
+  //   totalTime -= countWords(comments.map((e) => e.body).join(" "));
 
-  const moreClean = commentList.filter((comments) => {
-    totalTime += countWords(comments.map((e) => e.body).join(" "));
-
-    if (totalTime < post.maxDuration * post.videosCount * 60) {
-      return comments;
-    }
-  });
+  //   if (totalTime > 0) return comments;
+  // });
 
   const selectedComments: CommentGroup[] = [
     ...(() => {
@@ -188,7 +187,7 @@ export const fetchPostData = async (post: RenderPost) => {
 
       return [];
     })(),
-    ...moreClean,
+    ...commentList,
   ].map((comments, i) => {
     let durationInFrames: number = 0;
     const commentsList = comments.map((comment, j) => {

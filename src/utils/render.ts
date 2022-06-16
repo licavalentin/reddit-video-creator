@@ -131,6 +131,9 @@ export const createPlaylist = (postData: {
   comments: CommentGroup[];
 }): CommentGroup[][] => {
   const { comments, post } = postData;
+  if (!existsSync(tempData)) {
+    mkdirSync(tempData);
+  }
 
   const newComments = comments.map((group, i) => {
     let durationInSeconds = 0;
@@ -178,6 +181,10 @@ export const createPlaylist = (postData: {
 
     maxTime -= group.durationInSeconds as number;
     items.push(group);
+  }
+
+  if (items.length > 0) {
+    playlist.push(items);
   }
 
   return playlist;

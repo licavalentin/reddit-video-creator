@@ -30,5 +30,6 @@ build
 content
 authors.json
 test.json
+playlist.json
 /books
 out
