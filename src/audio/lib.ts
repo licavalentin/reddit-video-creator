@@ -22,7 +22,7 @@ export const getVoice = () => {
       `${
         process.platform === "win32"
           ? "bal4web"
-          : "wine /home/john/Cli/bal4web.exe"
+          : "WINEDEBUG=-all wine /home/john/Cli/bal4web.exe"
       } -s m -m`
     ).toString();
 
@@ -67,7 +67,7 @@ export const generateAudioFile: AudioGenerator = ({
     const command = `${
       process.platform === "win32"
         ? "bal4web"
-        : "wine /home/john/Cli/bal4web.exe"
+        : "WINEDEBUG=-all wine /home/john/Cli/bal4web.exe"
     } -s m -l en-Us -iu -n ${
       audio.voice_name
     } -f "${textFilePath}" -w "${outputPath}"`;

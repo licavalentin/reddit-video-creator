@@ -7,6 +7,8 @@ import {
 } from "fs";
 import { join } from "path";
 
+import loading from "loading-cli";
+
 import {
   commentPath,
   introPath,
@@ -30,13 +32,14 @@ import { TCompMetadata } from "remotion";
 import { homedir } from "os";
 import { RenderPost } from "./src/interface/post";
 import { createRandomString } from "./src/utils/helper";
+import moment from "moment";
 
 const render = async () => {
-  console.time("Render");
+  const begin = Date.now();
+
+  const load = loading("🚀 Start").start();
 
   try {
-    console.log("start");
-
     // Create Temp dir to store render files
     if (existsSync(tmpDir)) {
       deleteFolder(tmpDir);
@@ -56,6 +59,7 @@ const render = async () => {
 
       if (post.status !== "queue") continue;
 
+      load.text = `✉️ Fetching Post ${i} - Loading: 0%`;
       // Fetch Post
       const postData = await fetchPostData(post);
 
@@ -64,12 +68,11 @@ const render = async () => {
       //   JSON.stringify(postData)
       // );
 
+      load.text = `🎤 Creating Audio - Loading: 10%`;
       // Create Audio Files
       await createAudio(postData);
 
       const playlist = createPlaylist({ post, comments: postData.comments });
-
-      console.log(`jobs-${i}-${playlist.length - 1}`);
 
       // writeFileSync(
       //   join(__dirname, "src", "data", "playlist.json"),
@@ -81,10 +84,10 @@ const render = async () => {
       // );
 
       // Bundle React Code
-
       const compositionPath = join(__dirname, "src", "compositions");
       const bundleDir = join(tmpDir, "bundle");
 
+      load.text = `🖼️ Rendering: Intro ✨, Mid ✨, Outro ✨, Thumbnail ✨ - Loading: 40%`;
       // Generate Intro Video
       await generateVideo({
         bundled: await generateBundle(
@@ -101,6 +104,8 @@ const render = async () => {
         } as Intro,
       });
 
+      load.text = `🖼️ Rendering: Intro ✅, Mid ✨, Outro ✨, Thumbnail ✨, Comments ✨ - Loading: 43%`;
+
       // Generate Mid
       await generateVideo({
         bundled: await generateBundle(
@@ -112,6 +117,8 @@ const render = async () => {
         data: {},
       });
 
+      load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✨, Thumbnail ✨, Comments ✨ - Loading: 46%`;
+
       // Generate Outro
       await generateVideo({
         bundled: await generateBundle(
@@ -122,6 +129,11 @@ const render = async () => {
         output: outroPath,
         data: {},
       });
+
+      load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✨, Comments ✨ - Loading: 49%`;
+
+      // Generating Thumbnail
+      const thumbnailPath = join(tmpDir, `${createRandomString(4)}.png`);
       const stillBundle = await generateBundle(
         join(compositionPath, "Thumbnail.tsx"),
         bundleDir
@@ -134,13 +146,15 @@ const render = async () => {
       await renderStill({
         composition: thumbnailVideo,
         webpackBundle: stillBundle,
-        output: join(homedir(), "Desktop", `${createRandomString(4)}.png`),
+        output: thumbnailPath,
         inputProps: {
           title: postData.post.title,
           subreddit: postData.post.subreddit,
           awards: postData.post.all_awardings,
         },
       });
+
+      load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✅, Comments ✨ - Loading: 50%`;
 
       for (const [k, videos] of playlist.entries()) {
         // Generate Comments
@@ -162,15 +176,19 @@ const render = async () => {
           comments: videos,
           id: k,
         });
-
-        console.log(`finish-${[i, k].join(",")}`);
       }
+
+      load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✅, Comments ✅ - Loading: 100%`;
     }
   } catch (err) {
     // console.error(err);
   }
 
-  console.timeEnd("Render");
+  const end = Date.now();
+
+  load.text = `🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`;
+
+  load.stop();
 };
 
 render();

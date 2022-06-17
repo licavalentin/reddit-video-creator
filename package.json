@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Create Videos from Reddit Posts",
   "scripts": {
-    "dev": "remotion preview src/index.tsx",
+    "dev": "remotion preview src/index.tsx --props='{\"dev\": \"true\"}'",
     "upgrade": "remotion upgrade",
     "start": "ts-node main.tsx",
     "run": "ts-node main.tsx",
@@ -17,6 +17,8 @@
     "@remotion/cli": "^3.0.19",
     "@remotion/renderer": "^3.0.19",
     "axios": "^0.26.1",
+    "loading-cli": "^1.1.0",
+    "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-textfit": "^1.1.1",
