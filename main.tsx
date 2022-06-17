@@ -60,7 +60,7 @@ const render = async () => {
       if (post.status !== "queue") continue;
 
       const postId = post.url.split("/comments/")[1].split("/")[0];
-      load.text = `✉️ Fetching Post ${postId} - Loading: 0%`;
+      load.text = `✉️ Fetching Post ID: ${postId} - Loading: 0%`;
       // Fetch Post
       const postData = await fetchPostData(post);
 
