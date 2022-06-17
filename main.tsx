@@ -59,7 +59,8 @@ const render = async () => {
 
       if (post.status !== "queue") continue;
 
-      load.text = `✉️ Fetching Post ${i} - Loading: 0%`;
+      const postId = post.url.split("/comments/")[1].split("/")[0];
+      load.text = `✉️ Fetching Post ${postId} - Loading: 0%`;
       // Fetch Post
       const postData = await fetchPostData(post);
 
@@ -68,7 +69,7 @@ const render = async () => {
       //   JSON.stringify(postData)
       // );
 
-      load.text = `🎤 Creating Audio - Loading: 10%`;
+      load.text = `🎤 Creating Audio - Loading: 5%`;
       // Create Audio Files
       await createAudio(postData);
 
