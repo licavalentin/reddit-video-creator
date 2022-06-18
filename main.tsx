@@ -27,6 +27,7 @@ import { fetchPostData } from "./src/utils/reddit";
 import { createRandomString } from "./src/utils/helper";
 import { createAudio } from "./src/audio";
 import mergeFrames from "./src/video";
+import { homedir } from "os";
 
 const render = async () => {
   const begin = Date.now();
@@ -146,7 +147,11 @@ const render = async () => {
       );
 
       // Generating Thumbnail
-      const thumbnailPath = join(tmpDir, `${createRandomString(4)}.png`);
+      const thumbnailPath = join(
+        homedir(),
+        "Desktop",
+        `${createRandomString(4)}.png`
+      );
       const stillBundle = await generateBundle(
         join(compositionPath, "Thumbnail.tsx"),
         bundleDir
