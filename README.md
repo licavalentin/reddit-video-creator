@@ -19,3 +19,4 @@
 - [ ] Implement settings configuring from .json files
 - [ ] Transform to cli
 - [ ] Implement Custom thumbnail resize script
+- [ ] Refactor

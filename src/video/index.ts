@@ -2,6 +2,7 @@ import cluster from "cluster";
 import { existsSync, writeFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
+
 import {
   commentPath,
   ffmpegFile,
@@ -13,8 +14,8 @@ import {
   tempData,
 } from "../config/paths";
 import { video } from "../config/video";
-
 import { CommentGroup, CommentText } from "../interface/post";
+
 import { createRandomString } from "../utils/helper";
 import { spreadWork } from "../utils/render";
 import { mergeVideos } from "./lib";

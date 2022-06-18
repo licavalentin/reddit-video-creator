@@ -1,13 +1,11 @@
-import {
-  existsSync,
-  mkdirSync,
-  mkdtempSync,
-  readFileSync,
-  writeFileSync,
-} from "fs";
+import { existsSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
 
-import loading from "loading-cli";
+import { getCompositions, renderStill } from "@remotion/renderer";
+import { TCompMetadata } from "remotion";
+import moment from "moment";
+
+// import loading from "loading-cli";
 
 import {
   commentPath,
@@ -16,7 +14,8 @@ import {
   outroPath,
   tmpDir,
 } from "./src/config/paths";
-import { Intro, Outro, CommentsGroup } from "./src/interface/compositions";
+import { Intro } from "./src/interface/compositions";
+import { RenderPost } from "./src/interface/post";
 
 import {
   generateVideo,
@@ -25,14 +24,9 @@ import {
   createPlaylist,
 } from "./src/utils/render";
 import { fetchPostData } from "./src/utils/reddit";
+import { createRandomString } from "./src/utils/helper";
 import { createAudio } from "./src/audio";
 import mergeFrames from "./src/video";
-import { getCompositions, renderStill } from "@remotion/renderer";
-import { TCompMetadata } from "remotion";
-import { homedir } from "os";
-import { RenderPost } from "./src/interface/post";
-import { createRandomString } from "./src/utils/helper";
-import moment from "moment";
 
 const render = async () => {
   const begin = Date.now();

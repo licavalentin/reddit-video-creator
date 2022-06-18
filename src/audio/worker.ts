@@ -1,8 +1,9 @@
 import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
-import { tempAudio, tempData } from "../config/paths";
-import { getDuration } from "../video/lib";
 
+import { tempAudio, tempData } from "../config/paths";
+
+import { getDuration } from "../video/lib";
 import { generateAudioFile } from "./lib";
 
 const init = async () => {

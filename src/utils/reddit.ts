@@ -16,7 +16,7 @@ import {
   CommentGroup,
   RenderPost,
 } from "../interface/post";
-import { commentPath, imagePath } from "../config/paths";
+
 import { countWords } from "./helper";
 
 const redditUrl = "https://www.reddit.com";

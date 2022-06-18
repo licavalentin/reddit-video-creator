@@ -1,5 +1,5 @@
 import cluster from "cluster";
-import { mkdirSync, readFileSync, writeFileSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { tempAudio, tempData } from "../config/paths";
 
