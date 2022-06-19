@@ -27,10 +27,5 @@ build
 *.exe
 *.mp4
 *.webm
-content
-authors.json
 test.json
-playlist.json
-/books
-localPost.json
 out

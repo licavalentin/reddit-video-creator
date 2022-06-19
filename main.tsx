@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
 
@@ -67,12 +67,24 @@ const render = async () => {
       // Fetch Post
       const postData = await fetchPostData(post);
 
+      // Store Post for dev
+      writeFileSync(
+        join(__dirname, "src", "data", "localPost.json"),
+        JSON.stringify(postData)
+      );
+
       console.log(`Loading: 5%`);
 
       // Create Audio Files
       await createAudio(postData);
 
       const playlist = createPlaylist({ post, comments: postData.comments });
+
+      // Store Post Playlist for dev
+      writeFileSync(
+        join(__dirname, "src", "data", "playlist.json"),
+        JSON.stringify(playlist)
+      );
 
       // Bundle React Code
       const compositionPath = join(__dirname, "src", "compositions");
@@ -180,7 +192,7 @@ const render = async () => {
       console.log(`Loading: 100%`);
     }
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 
   const end = Date.now();
