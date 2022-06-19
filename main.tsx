@@ -60,7 +60,7 @@ const render = async () => {
       const exportPath = join(
         settings.exportPath !== ""
           ? settings.exportPath
-          : join((homedir(), "Desktop")),
+          : join(homedir(), "Desktop"),
         createRandomString(4)
       );
 
