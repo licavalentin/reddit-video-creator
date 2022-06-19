@@ -85,4 +85,5 @@ export type RenderPost = {
   maxDuration: number;
   videosCount: number;
   voice: string;
+  image?: string;
 };

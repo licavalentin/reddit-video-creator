@@ -1,11 +1,10 @@
 import { existsSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
+import { homedir } from "os";
 
 import { getCompositions, renderStill } from "@remotion/renderer";
 import { TCompMetadata } from "remotion";
 import moment from "moment";
-
-// import loading from "loading-cli";
 
 import {
   commentPath,
@@ -17,6 +16,8 @@ import {
 import { Intro } from "./src/interface/compositions";
 import { RenderPost } from "./src/interface/post";
 
+import settings from "./src/data/settings.json";
+
 import {
   generateVideo,
   generateBundle,
@@ -27,12 +28,10 @@ import { fetchPostData } from "./src/utils/reddit";
 import { createRandomString } from "./src/utils/helper";
 import { createAudio } from "./src/audio";
 import mergeFrames from "./src/video";
-import { homedir } from "os";
 
 const render = async () => {
   const begin = Date.now();
 
-  // const load = loading("🚀 Start").start();
   console.log("🚀 Start");
 
   try {
@@ -56,42 +55,30 @@ const render = async () => {
       if (post.status !== "queue") continue;
 
       const postId = post.url.split("/comments/")[1].split("/")[0];
-      // load.text = `✉️ Fetching Post ID: ${postId} - Loading: 0%`;
-      console.log(`✉️ Fetching Post ID: ${postId} - Loading: 0%`);
+      console.log(`ID: ${postId} - Loading: 0%`);
+
+      const exportPath = join(
+        settings.exportPath !== ""
+          ? settings.exportPath
+          : join((homedir(), "Desktop")),
+        createRandomString(4)
+      );
 
       // Fetch Post
       const postData = await fetchPostData(post);
 
-      // writeFileSync(
-      //   join(__dirname, "src", "data", "test.json"),
-      //   JSON.stringify(postData)
-      // );
-
-      // load.text = `🎤 Creating Audio - Loading: 5%`;
-      console.log(`🎤 Creating Audio - Loading: 5%`);
+      console.log(`Loading: 5%`);
 
       // Create Audio Files
       await createAudio(postData);
 
       const playlist = createPlaylist({ post, comments: postData.comments });
 
-      // writeFileSync(
-      //   join(__dirname, "src", "data", "playlist.json"),
-      //   JSON.stringify({ post: postData.post, playlist })
-      // );
-
-      // const postData = JSON.parse(
-      //   readFileSync(join(__dirname, "src", "data", "playlist.json")).toString()
-      // );
-
       // Bundle React Code
       const compositionPath = join(__dirname, "src", "compositions");
       const bundleDir = join(tmpDir, "bundle");
 
-      // load.text = `🖼️ Rendering: Intro ✨, Mid ✨, Outro ✨, Thumbnail ✨ - Loading: 40%`;
-      console.log(
-        `🖼️ Rendering: Intro ✨, Mid ✨, Outro ✨, Thumbnail ✨ - Loading: 40%`
-      );
+      console.log(`Loading: 40%`);
 
       // Generate Intro Video
       await generateVideo({
@@ -106,13 +93,11 @@ const render = async () => {
           author: postData.post.author,
           awards: postData.post.all_awardings,
           score: postData.post.score,
+          background: post.image,
         } as Intro,
       });
 
-      // load.text = `🖼️ Rendering: Intro ✅, Mid ✨, Outro ✨, Thumbnail ✨, Comments ✨ - Loading: 43%`;
-      console.log(
-        `🖼️ Rendering: Intro ✅, Mid ✨, Outro ✨, Thumbnail ✨, Comments ✨ - Loading: 43%`
-      );
+      console.log(`Loading: 43%`);
 
       // Generate Mid
       await generateVideo({
@@ -122,13 +107,12 @@ const render = async () => {
         ),
         id: "mid",
         output: midPath,
-        data: {},
+        data: {
+          background: post.image,
+        },
       });
 
-      // load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✨, Thumbnail ✨, Comments ✨ - Loading: 46%`;
-      console.log(
-        `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✨, Thumbnail ✨, Comments ✨ - Loading: 46%`
-      );
+      console.log(`Loading: 46%`);
 
       // Generate Outro
       await generateVideo({
@@ -138,20 +122,15 @@ const render = async () => {
         ),
         id: "outro",
         output: outroPath,
-        data: {},
+        data: {
+          background: post.image,
+        },
       });
 
-      // load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✨, Comments ✨ - Loading: 49%`;
-      console.log(
-        `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✨, Comments ✨ - Loading: 49%`
-      );
+      console.log(`Loading: 49%`);
 
       // Generating Thumbnail
-      const thumbnailPath = join(
-        homedir(),
-        "Desktop",
-        `${createRandomString(4)}.png`
-      );
+      const thumbnailPath = join(exportPath, `thumbnail.png`);
       const stillBundle = await generateBundle(
         join(compositionPath, "Thumbnail.tsx"),
         bundleDir
@@ -172,10 +151,7 @@ const render = async () => {
         },
       });
 
-      // load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✅, Comments ✨ - Loading: 50%`;
-      console.log(
-        `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✅, Comments ✨ - Loading: 50%`
-      );
+      console.log(`Loading: 50%`);
 
       for (const [k, videos] of playlist.entries()) {
         // Generate Comments
@@ -189,6 +165,7 @@ const render = async () => {
             output: commentPath(`${k}-${j}`),
             data: {
               comments,
+              background: post.image,
             },
           });
         }
@@ -196,13 +173,11 @@ const render = async () => {
         await mergeFrames({
           comments: videos,
           id: k,
+          exportPath,
         });
       }
 
-      // load.text = `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✅, Comments ✅ - Loading: 100%`;
-      console.log(
-        `🖼️ Rendering: Intro ✅, Mid ✅, Outro ✅, Thumbnail ✅, Comments ✅ - Loading: 100%`
-      );
+      console.log(`Loading: 100%`);
     }
   } catch (err) {
     // console.error(err);
@@ -210,7 +185,6 @@ const render = async () => {
 
   const end = Date.now();
 
-  // load.text = `🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`;
   console.log(`🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`);
 
   // load.stop();

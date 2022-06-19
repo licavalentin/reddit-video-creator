@@ -23,12 +23,13 @@ import { mergeVideos } from "./lib";
 type MergeFrames = (args: {
   comments: CommentGroup[];
   id: string | number;
+  exportPath: string;
 }) => Promise<null>;
 
 /**
  * Merge Frames
  */
-const mergeFrames: MergeFrames = async ({ comments, id }) => {
+const mergeFrames: MergeFrames = async ({ comments, id, exportPath }) => {
   return new Promise((resolve) => {
     const introData = {
       image: imagePath(introPath, 0),
@@ -142,7 +143,7 @@ const mergeFrames: MergeFrames = async ({ comments, id }) => {
 
           mergeVideos({
             listPath,
-            exportPath: join(homedir(), "Desktop"),
+            exportPath,
             title: createRandomString(4),
           });
 

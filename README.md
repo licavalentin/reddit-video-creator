@@ -12,11 +12,11 @@
 ## Todo
 
 - [x] Implement Loading in cli
-  - [] Elaborate more on process loading
-- [ ] Change background image
+  - [ ] Elaborate more on process loading
+- [x] Change background image
 - [ ] Add Video to background
 - [ ] Add Background audio
-- [ ] Implement settings configuring from .json files
+- [x] Implement settings configuring from .json files
 - [ ] Transform to cli
-- [ ] Implement Custom thumbnail resize script
+- [x] Implement Custom thumbnail resize script
 - [ ] Refactor

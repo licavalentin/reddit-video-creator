@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Textfit } from "react-textfit";
+import fitty from "fitty";
 
 import { Thumbnail as ThumbnailProps } from "../interface/compositions";
 
@@ -15,6 +15,8 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   awards,
   background,
 }) => {
+  fitty("#title");
+
   return (
     <Layout src={background}>
       <div className={styles.thumbnail}>
@@ -25,9 +27,9 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         </div>
 
         <div className={styles.thumbnail__title}>
-          <Textfit mode="multi">
-            <h1 className={styles.title}>{title}</h1>
-          </Textfit>
+          <h1 className={styles.title} id="title">
+            {title}
+          </h1>
         </div>
       </div>
     </Layout>

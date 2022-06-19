@@ -1,8 +1,8 @@
 import cluster from "cluster";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
-import { tempAudio, tempData } from "../config/paths";
 
+import { tempAudio, tempData } from "../config/paths";
 import { CommentGroup, CommentText, Post } from "../interface/post";
 
 import { spreadWork } from "../utils/render";
