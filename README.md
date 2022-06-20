@@ -2,7 +2,7 @@
 
 # ⚠️ Under Construction
 
-## 💻 [Download 🍎 🐧 🪟](https://github.com/ValentinHLica/reddit-video-creator-app/releases) - 🍿 [Example](https://youtu.be/xTjnCoePU18)
+## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases) - 🍿 [Example](https://youtu.be/xTjnCoePU18)
 
 ## 🚀 Setup
 
