@@ -17,6 +17,22 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
     mkdirSync(tempData);
     mkdirSync(tempAudio);
 
+    const cleanLetters = (text: string) => {
+      return text
+        .replace(/<br>/g, " ")
+        .replace(
+          /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
+          ""
+        )
+        .replace(/\*/g, "")
+        .replace(/’/g, "'")
+        .replace(/”|“/g, '"')
+        .replaceAll(".", ",")
+        .replaceAll("?", ",")
+        .replaceAll("!", ",")
+        .replaceAll("_", " ");
+    };
+
     const audios: string[] = [];
     for (let i = 0; i < comments.length; i++) {
       const commentGroup = comments[i];
@@ -25,19 +41,7 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
         for (let k = 0; k < body.length; k++) {
           const fileName = [i, j, k].join("-");
 
-          const cleanText = body[k].text
-            .replace(/<br>/g, " ")
-            .replace(
-              /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
-              ""
-            )
-            .replace(/\*/g, "")
-            .replace(/’/g, "'")
-            .replace(/”|“/g, '"')
-            .replaceAll(".", ",")
-            .replaceAll("?", ",")
-            .replaceAll("!", ",")
-            .replaceAll("_", " ");
+          const cleanText = cleanLetters(body[k].text);
 
           if (cleanText.replace(/[^a-zA-Z0-9]+/g, "-").length < 3) {
             continue;
@@ -51,7 +55,10 @@ export const createAudio: CreateAudio = async ({ post, comments }) => {
     }
 
     const introId = "intro";
-    writeFileSync(join(tempData, `${introId}.txt`), post.title as string);
+    writeFileSync(
+      join(tempData, `${introId}.txt`),
+      cleanLetters(post.title as string)
+    );
 
     const outroId = "outro";
     const outroMessage =

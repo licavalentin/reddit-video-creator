@@ -5,6 +5,8 @@ import wink from "wink-nlp";
 import model from "wink-eng-lite-web-model";
 import axios from "axios";
 
+import settings from "../data/settings.json";
+
 import {
   Post,
   Comment,
@@ -123,7 +125,7 @@ export const fetchPostData = async (post: RenderPost) => {
 
     if (
       depth > 2 ||
-      score < 1000 ||
+      score < settings.maxScore ||
       comments[depth] ||
       (body as string) === "[deleted]" ||
       (body as string) === "[removed]"

@@ -35,13 +35,6 @@ const render = async () => {
   console.log("🚀 Start");
 
   try {
-    // Create Temp dir to store render files
-    if (existsSync(tmpDir)) {
-      deleteFolder(tmpDir);
-    }
-
-    mkdirSync(tmpDir);
-
     const postsList: RenderPost[] = JSON.parse(
       readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
     );
@@ -50,6 +43,13 @@ const render = async () => {
     if (postsList.length === 0) throw new Error("Please Add Posts");
 
     for (let i = 0; i < postsList.length; i++) {
+      // Create Temp dir to store render files
+      if (existsSync(tmpDir)) {
+        deleteFolder(tmpDir);
+      }
+
+      mkdirSync(tmpDir);
+
       const post = postsList[i];
 
       if (post.status !== "queue") continue;
@@ -63,6 +63,10 @@ const render = async () => {
           : join(homedir(), "Desktop"),
         createRandomString(4)
       );
+
+      if (!existsSync(exportPath)) {
+        mkdirSync(exportPath);
+      }
 
       // Fetch Post
       const postData = await fetchPostData(post);
