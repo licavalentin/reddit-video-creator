@@ -42,15 +42,13 @@ const render = async () => {
     // Check if we have selected posts
     if (postsList.length === 0) throw new Error("Please Add Posts");
 
-    for (let i = 0; i < postsList.length; i++) {
+    for (const post of postsList) {
       // Create Temp dir to store render files
       if (existsSync(tmpDir)) {
         deleteFolder(tmpDir);
       }
 
       mkdirSync(tmpDir);
-
-      const post = postsList[i];
 
       if (post.status !== "queue") continue;
 

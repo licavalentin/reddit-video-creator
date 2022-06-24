@@ -25,21 +25,25 @@ const Awards: React.FC<Props> = ({ awards, limit, counter = true }) => {
           return null;
         }
 
-        const { name, count } = award;
+        try {
+          const { name, count } = award;
 
-        const { path } = (
-          awardsList as { title: string; path: string }[]
-        ).filter((award) => award.title === name)[0];
+          const { path } = (
+            awardsList as { title: string; path: string }[]
+          ).filter((award) => award.title === name)[0];
 
-        const image = staticFile(`/awards/${path}`);
+          const image = staticFile(`/awards/${path}`);
 
-        return (
-          <li key={index}>
-            <Img src={image} />
+          return (
+            <li key={index}>
+              <Img src={image} />
 
-            {counter && <p>{count}</p>}
-          </li>
-        );
+              {counter && <p>{count}</p>}
+            </li>
+          );
+        } catch (error) {
+          return null;
+        }
       })}
     </ul>
   );
