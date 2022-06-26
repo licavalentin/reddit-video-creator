@@ -32,9 +32,7 @@ export const generateAudioFile: AudioGenerator = ({
   outputPath,
 }) => {
   const command = `${
-    process.platform === "win32"
-      ? "bal4web"
-      : "WINEDEBUG=-all wine /home/john/Desktop/bal4web/bal4web.exe"
+    process.platform === "win32" ? "bal4web" : `wine ${settings.bal4web}`
   } -s m -l en-Us -iu -n ${
     settings.voice !== "" ? settings.voice : voices[0]
   } -f "${textFilePath}" -w "${outputPath}"`;
@@ -42,6 +40,7 @@ export const generateAudioFile: AudioGenerator = ({
   try {
     execSync(command, {
       timeout: 3 * 60000,
+      stdio: "ignore",
     });
   } catch (error) {
     // console.log(error);

@@ -59,6 +59,10 @@ sudo apt install wine64
 
 4. Download [BAL4WEB](http://www.cross-plus-a.com/bweb.htm) and extract files to a folder
 
+```
+bal4web="wine /home/john/Desktop/bal4web/bal4web.exe"
+```
+
 ### 💀 MaxOS
 
 Install [Brew](https://brew.sh/)

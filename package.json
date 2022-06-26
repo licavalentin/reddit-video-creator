@@ -8,7 +8,7 @@
     "start": "ts-node main.tsx",
     "run": "ts-node main.tsx",
     "test": "npx remotion render src/index.tsx comments out/video.mp4",
-    "test:th": "npx remotion still src/index.tsx thumbnail out/thumbnail.png"
+    "test:th": "npx remotion still src/compositions/Thumbnail.tsx thumbnail out/thumbnail.png"
   },
   "author": "Valentin Lica",
   "license": "ISC",
@@ -17,10 +17,10 @@
     "@remotion/cli": "^3.0.22",
     "@remotion/renderer": "^3.0.22",
     "axios": "^0.26.1",
-    "fitty": "^2.3.6",
     "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-scale-text": "^1.2.2",
     "remotion": "^3.0.22",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",

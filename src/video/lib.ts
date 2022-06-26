@@ -13,7 +13,7 @@ type GetDuration = (args: {
  */
 export const getDuration: GetDuration = ({
   filePath,
-  audioTrimDuration = 0.8,
+  audioTrimDuration = 0.6,
 }) => {
   const args = `ffprobe -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 
