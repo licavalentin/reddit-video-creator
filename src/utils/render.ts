@@ -184,12 +184,17 @@ export const createPlaylist = (postData: {
   }
 
   if (items.length > 0) {
-    playlist.push(items);
+    if (playlist.length > 0) {
+      playlist = playlist.map((e, index) => {
+        if (index === playlist.length - 1) {
+          return [...e, ...items];
+        }
 
-    // playlist = [
-    //   ...playlist.slice(0, -2),
-    //   [...playlist.splice(-2)[0].concat(items)],
-    // ];
+        return e;
+      });
+    } else {
+      playlist.push(items);
+    }
   }
 
   return playlist;

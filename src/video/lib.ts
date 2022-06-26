@@ -70,19 +70,26 @@ type MergeVideos = (args: {
   listPath: string;
   exportPath: string;
   title?: string;
+  video?: boolean;
 }) => void;
+
 /**
  * Merge Videos together
  */
-export const mergeVideos: MergeVideos = ({ listPath, exportPath, title }) => {
-  const command = `ffmpeg -y -safe 0 -f concat -i "${listPath}" -c copy "${join(
+export const mergeVideos: MergeVideos = ({
+  listPath,
+  exportPath,
+  title,
+  video = true,
+}) => {
+  const command = `ffmpeg -safe 0 -f concat -i ${listPath} -c copy "${join(
     exportPath,
-    `${title ?? "video"}.${video.fileFormat}`
+    `${title ?? "video"}.${video ? "mp4" : "mp3"}`
   )}"`;
 
   try {
     execSync(command, { stdio: "pipe" });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };

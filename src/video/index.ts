@@ -1,7 +1,8 @@
 import cluster from "cluster";
 import { existsSync, writeFileSync } from "fs";
-import { homedir } from "os";
 import { join } from "path";
+
+import settings from "../data/settings.json";
 
 import {
   commentPath,
@@ -19,6 +20,7 @@ import { CommentGroup, CommentText } from "../interface/post";
 import { createRandomString } from "../utils/helper";
 import { spreadWork } from "../utils/render";
 import { mergeVideos } from "./lib";
+import { addBackgroundMusic } from "../audio/lib";
 
 type MergeFrames = (args: {
   comments: CommentGroup[];
@@ -141,10 +143,21 @@ const mergeFrames: MergeFrames = async ({ comments, id, exportPath }) => {
               .join(" \n")
           );
 
+          const folderId = createRandomString(4);
+
           mergeVideos({
             listPath,
-            exportPath,
-            title: createRandomString(4),
+            exportPath: tempData,
+            title: folderId,
+          });
+
+          addBackgroundMusic({
+            audioPath:
+              settings.backgroundMusic === ""
+                ? join(__dirname, "..", "..", "public", `music.mp3`)
+                : settings.backgroundMusic,
+            outputPath: exportPath,
+            videoPath: join(tempData, `${folderId}.mp4`),
           });
 
           resolve(null);
