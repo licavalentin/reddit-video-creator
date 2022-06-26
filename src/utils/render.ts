@@ -168,7 +168,7 @@ export const createPlaylist = (postData: {
     };
   });
 
-  const playlist: CommentGroup[][] = [];
+  let playlist: CommentGroup[][] = [];
   let items: CommentGroup[] = [];
 
   let maxTime = post.maxDuration * 60;
@@ -185,6 +185,11 @@ export const createPlaylist = (postData: {
 
   if (items.length > 0) {
     playlist.push(items);
+
+    // playlist = [
+    //   ...playlist.slice(0, -2),
+    //   [...playlist.splice(-2)[0].concat(items)],
+    // ];
   }
 
   return playlist;

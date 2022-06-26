@@ -57,6 +57,8 @@ Install Wine **(used for balcon and bal4web)**
 sudo apt install wine64
 ```
 
+4. Download [BAL4WEB](http://www.cross-plus-a.com/bweb.htm) and extract files to a folder
+
 ### 💀 MaxOS
 
 Install [Brew](https://brew.sh/)
@@ -87,7 +89,9 @@ brew install --cask --no-quarantine wine-stable
 - [ ] Add Background audio
 - [x] Implement settings configuring from .json files
 - [ ] Transform to cli
-- [x] Implement Custom thumbnail resize script
+- [ ] Implement Custom thumbnail resize script
+- [ ] Censure Words
+- [ ] Extra content merge into one video
 - [ ] Refactor
 
 <span id="references"></span>

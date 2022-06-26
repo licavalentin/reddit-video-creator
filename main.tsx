@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
 
+import Spinnies from "spinnies";
 import { getCompositions, renderStill } from "@remotion/renderer";
 import { TCompMetadata } from "remotion";
 import moment from "moment";
@@ -32,166 +33,185 @@ import mergeFrames from "./src/video";
 const render = async () => {
   const begin = Date.now();
 
-  console.log("🚀 Start");
+  const spinner = {
+    interval: 80,
+    frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+  };
+  const spinnies = new Spinnies({
+    spinner,
+  });
+
+  spinnies.add("start", { text: "🚀 Start" });
+
+  spinnies.succeed("start");
 
   try {
-    const postsList: RenderPost[] = JSON.parse(
+    const postsData: RenderPost[] = JSON.parse(
       readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
     );
 
-    // Check if we have selected posts
-    if (postsList.length === 0) throw new Error("Please Add Posts");
+    if (postsData.length === 0) throw new Error("Please Add Posts");
 
-    for (const post of postsList) {
-      // Create Temp dir to store render files
-      if (existsSync(tmpDir)) {
-        deleteFolder(tmpDir);
-      }
+    for (const post of postsData) {
+      try {
+        if (existsSync(tmpDir)) {
+          deleteFolder(tmpDir);
+        }
 
-      mkdirSync(tmpDir);
+        mkdirSync(tmpDir);
 
-      if (post.status !== "queue") continue;
+        if (post.status !== "queue") continue;
 
-      const postId = post.url.split("/comments/")[1].split("/")[0];
-      console.log(`ID: ${postId} - Loading: 0%`);
+        const postId = post.url.split("/comments/")[1].split("/")[0];
 
-      const exportPath = join(
-        settings.exportPath !== ""
-          ? settings.exportPath
-          : join(homedir(), "Desktop"),
-        createRandomString(4)
-      );
+        spinnies.add("id", { text: `📋 Post: ${postId} ` });
+        spinnies.succeed("id");
 
-      if (!existsSync(exportPath)) {
+        const exportPath = join(
+          settings.exportPath !== ""
+            ? settings.exportPath
+            : join(homedir(), "Desktop"),
+          postId
+        );
+
+        if (existsSync(exportPath)) {
+          deleteFolder(exportPath);
+        }
+
         mkdirSync(exportPath);
-      }
 
-      // Fetch Post
-      const postData = await fetchPostData(post);
+        spinnies.add("comments", { text: "✍️  Fetching Comments" });
 
-      // Store Post for dev
-      writeFileSync(
-        join(__dirname, "src", "data", "localPost.json"),
-        JSON.stringify(postData)
-      );
+        // Fetch Post
+        const postData = await fetchPostData(post);
 
-      console.log(`Loading: 5%`);
+        // Store Post for dev
+        writeFileSync(
+          join(__dirname, "src", "data", "localPost.json"),
+          JSON.stringify(postData)
+        );
 
-      // Create Audio Files
-      await createAudio(postData);
+        spinnies.succeed("comments");
 
-      const playlist = createPlaylist({ post, comments: postData.comments });
+        spinnies.add("audio", {
+          text: "🎤 Creating Audio ",
+        });
 
-      // Store Post Playlist for dev
-      writeFileSync(
-        join(__dirname, "src", "data", "playlist.json"),
-        JSON.stringify(playlist)
-      );
+        // Create Audio Files
+        await createAudio(postData);
 
-      // Bundle React Code
-      const compositionPath = join(__dirname, "src", "compositions");
-      const bundleDir = join(tmpDir, "bundle");
+        spinnies.succeed("audio");
 
-      console.log(`Loading: 40%`);
+        const playlist = createPlaylist({ post, comments: postData.comments });
 
-      // Generate Intro Video
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Intro.tsx"),
+        // Store Post Playlist for dev
+        writeFileSync(
+          join(__dirname, "src", "data", "playlist.json"),
+          JSON.stringify(playlist)
+        );
+
+        spinnies.add("render", {
+          text: "🍿 Rendering Video",
+        });
+
+        // Bundle React Code
+        const compositionPath = join(__dirname, "src", "compositions");
+        const bundleDir = join(tmpDir, "bundle");
+
+        // Generate Intro Video
+        await generateVideo({
+          bundled: await generateBundle(
+            join(compositionPath, "Intro.tsx"),
+            bundleDir
+          ),
+          id: "intro",
+          output: introPath,
+          data: {
+            title: postData.post.title,
+            author: postData.post.author,
+            awards: postData.post.all_awardings,
+            score: postData.post.score,
+            background: post.image,
+          } as Intro,
+        });
+
+        // Generate Mid
+        await generateVideo({
+          bundled: await generateBundle(
+            join(compositionPath, "Mid.tsx"),
+            bundleDir
+          ),
+          id: "mid",
+          output: midPath,
+          data: {
+            background: post.image,
+          },
+        });
+
+        // Generate Outro
+        await generateVideo({
+          bundled: await generateBundle(
+            join(compositionPath, "Outro.tsx"),
+            bundleDir
+          ),
+          id: "outro",
+          output: outroPath,
+          data: {
+            background: post.image,
+          },
+        });
+
+        // Generating Thumbnail
+        const thumbnailPath = join(exportPath, `thumbnail.png`);
+        const stillBundle = await generateBundle(
+          join(compositionPath, "Thumbnail.tsx"),
           bundleDir
-        ),
-        id: "intro",
-        output: introPath,
-        data: {
-          title: postData.post.title,
-          author: postData.post.author,
-          awards: postData.post.all_awardings,
-          score: postData.post.score,
-          background: post.image,
-        } as Intro,
-      });
+        );
+        const thumbnailComps = await getCompositions(stillBundle);
+        const thumbnailVideo = thumbnailComps.find(
+          (c) => c.id === "thumbnail"
+        ) as TCompMetadata;
 
-      console.log(`Loading: 43%`);
+        await renderStill({
+          composition: thumbnailVideo,
+          webpackBundle: stillBundle,
+          output: thumbnailPath,
+          inputProps: {
+            title: postData.post.title,
+            subreddit: postData.post.subreddit,
+            awards: postData.post.all_awardings,
+          },
+        });
 
-      // Generate Mid
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Mid.tsx"),
-          bundleDir
-        ),
-        id: "mid",
-        output: midPath,
-        data: {
-          background: post.image,
-        },
-      });
+        for (const [k, videos] of playlist.entries()) {
+          // Generate Comments
+          for (const [j, { comments }] of videos.entries()) {
+            await generateVideo({
+              bundled: await generateBundle(
+                join(compositionPath, "Comments.tsx"),
+                bundleDir
+              ),
+              id: "comments",
+              output: commentPath(`${k}-${j}`),
+              data: {
+                comments,
+                background: post.image,
+              },
+            });
+          }
 
-      console.log(`Loading: 46%`);
-
-      // Generate Outro
-      await generateVideo({
-        bundled: await generateBundle(
-          join(compositionPath, "Outro.tsx"),
-          bundleDir
-        ),
-        id: "outro",
-        output: outroPath,
-        data: {
-          background: post.image,
-        },
-      });
-
-      console.log(`Loading: 49%`);
-
-      // Generating Thumbnail
-      const thumbnailPath = join(exportPath, `thumbnail.png`);
-      const stillBundle = await generateBundle(
-        join(compositionPath, "Thumbnail.tsx"),
-        bundleDir
-      );
-      const thumbnailComps = await getCompositions(stillBundle);
-      const thumbnailVideo = thumbnailComps.find(
-        (c) => c.id === "thumbnail"
-      ) as TCompMetadata;
-
-      await renderStill({
-        composition: thumbnailVideo,
-        webpackBundle: stillBundle,
-        output: thumbnailPath,
-        inputProps: {
-          title: postData.post.title,
-          subreddit: postData.post.subreddit,
-          awards: postData.post.all_awardings,
-        },
-      });
-
-      console.log(`Loading: 50%`);
-
-      for (const [k, videos] of playlist.entries()) {
-        // Generate Comments
-        for (const [j, { comments }] of videos.entries()) {
-          await generateVideo({
-            bundled: await generateBundle(
-              join(compositionPath, "Comments.tsx"),
-              bundleDir
-            ),
-            id: "comments",
-            output: commentPath(`${k}-${j}`),
-            data: {
-              comments,
-              background: post.image,
-            },
+          await mergeFrames({
+            comments: videos,
+            id: k,
+            exportPath,
           });
         }
 
-        await mergeFrames({
-          comments: videos,
-          id: k,
-          exportPath,
-        });
+        spinnies.succeed("render");
+      } catch (error) {
+        spinnies.add("error", { text: "Failed" });
+        spinnies.fail("error");
       }
-
-      console.log(`Loading: 100%`);
     }
   } catch (err) {
     console.error(err);
@@ -199,7 +219,11 @@ const render = async () => {
 
   const end = Date.now();
 
-  console.log(`🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`);
+  spinnies.add("finish", {
+    text: `🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`,
+  });
+  spinnies.succeed("finish");
+  spinnies.stopAll();
 
   // load.stop();
 };
