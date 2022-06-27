@@ -24,6 +24,8 @@ import {
   generateBundle,
   deleteFolder,
   createPlaylist,
+  checkBal4web,
+  checkFFmpeg,
 } from "./src/utils/render";
 import { fetchPostData } from "./src/utils/reddit";
 import { createRandomString } from "./src/utils/helper";
@@ -31,26 +33,35 @@ import { createAudio } from "./src/audio";
 import mergeFrames from "./src/video";
 
 const render = async () => {
-  const begin = Date.now();
-
   const spinner = {
     interval: 80,
     frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
   };
-  const spinnies = new Spinnies({
+  const loading = new Spinnies({
     spinner,
+    failColor: "redBright",
+    succeedColor: "greenBright",
+    failPrefix: "❌",
+    succeedPrefix: "✅",
   });
 
-  spinnies.add("start", { text: "🚀 Start" });
-
-  spinnies.succeed("start");
-
   try {
+    const begin = Date.now();
+
+    loading.add("start", { text: "🚀 Start" });
+
+    loading.succeed("start");
+
+    checkBal4web(loading);
+    checkFFmpeg(loading);
+
     const postsData: RenderPost[] = JSON.parse(
       readFileSync(join(__dirname, "src", "data", "posts.json")).toString()
     );
 
-    if (postsData.length === 0) throw new Error("Please Add Posts");
+    if (postsData.length === 0) {
+      throw new Error("Please Add Posts");
+    }
 
     for (const post of postsData) {
       try {
@@ -64,14 +75,14 @@ const render = async () => {
 
         const postId = post.url.split("/comments/")[1].split("/")[0];
 
-        spinnies.add("id", { text: `📋 Post: ${postId} ` });
-        spinnies.succeed("id");
+        loading.add("id", { text: `📋 Post: ${postId} ` });
+        loading.succeed("id");
 
         const exportPath = join(
           settings.exportPath !== ""
             ? settings.exportPath
             : join(homedir(), "Desktop"),
-          postId
+          createRandomString(4)
         );
 
         if (existsSync(exportPath)) {
@@ -80,7 +91,7 @@ const render = async () => {
 
         mkdirSync(exportPath);
 
-        spinnies.add("comments", { text: "✍️  Fetching Comments" });
+        loading.add("comments", { text: "✍️  Fetching Comments" });
 
         // Fetch Post
         const postData = await fetchPostData(post);
@@ -91,16 +102,17 @@ const render = async () => {
           JSON.stringify(postData)
         );
 
-        spinnies.succeed("comments");
+        loading.succeed("comments");
 
-        spinnies.add("audio", {
+        loading.add("audio", {
           text: "🎤 Creating Audio ",
         });
 
+        checkBal4web(loading);
         // Create Audio Files
         await createAudio(postData);
 
-        spinnies.succeed("audio");
+        loading.succeed("audio");
 
         const playlist = createPlaylist({ post, comments: postData.comments });
 
@@ -110,10 +122,11 @@ const render = async () => {
           JSON.stringify(playlist)
         );
 
-        spinnies.add("render", {
+        loading.add("render", {
           text: "🍿 Rendering Video",
         });
 
+        checkFFmpeg(loading);
         // Bundle React Code
         const compositionPath = join(__dirname, "src", "compositions");
         const bundleDir = join(tmpDir, "bundle");
@@ -207,23 +220,21 @@ const render = async () => {
           });
         }
 
-        spinnies.succeed("render");
+        loading.succeed("render");
       } catch (error) {
-        spinnies.add("error", { text: "Failed" });
-        spinnies.fail("error");
+        loading.add("error", { text: "Failed" });
+        loading.fail("error");
       }
     }
-  } catch (err) {
-    console.error(err);
-  }
 
-  const end = Date.now();
+    const end = Date.now();
 
-  spinnies.add("finish", {
-    text: `🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`,
-  });
-  spinnies.succeed("finish");
-  spinnies.stopAll();
+    loading.add("finish", {
+      text: `🚩 Finished in: ${moment.utc(end - begin).format("HH:mm:ss")}`,
+    });
+    loading.succeed("finish");
+    loading.stopAll();
+  } catch (err) {}
 
   // load.stop();
 };

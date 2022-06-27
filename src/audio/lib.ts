@@ -1,9 +1,11 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { tempData, tmpDir } from "../config/paths";
+
+import { tempData } from "../config/paths";
 
 import settings from "../data/settings.json";
+
 import { createRandomString } from "../utils/helper";
 import { getDuration, mergeVideos } from "../video/lib";
 
@@ -37,7 +39,7 @@ export const generateAudioFile: AudioGenerator = ({
   outputPath,
 }) => {
   const command = `${
-    process.platform === "win32" ? "bal4web" : `wine ${settings.bal4web}`
+    process.platform === "win32" ? settings.bal4web : `wine ${settings.bal4web}`
   } -s m -l en-Us -iu -n ${
     settings.voice !== "" ? settings.voice : voices[0]
   } -f "${textFilePath}" -w "${outputPath}"`;
@@ -94,7 +96,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
     });
   }
 
-  const audioCommand = `ffmpeg -y -i "${audioPath}" -filter:a volume=0.03 "${backgroundAudioPath}"`;
+  const audioCommand = `${settings.ffmpeg} -y -i "${audioPath}" -filter:a volume=0.03 "${backgroundAudioPath}"`;
 
   try {
     execSync(audioCommand, { stdio: "pipe" });
@@ -104,7 +106,7 @@ export const addBackgroundMusic: AddBackgroundMusic = async ({
 
   const exportPath = join(outputPath, `${createRandomString(4)}.mp4`);
 
-  const command = `ffmpeg -y -i "${videoPath}" -i "${backgroundAudioPath}" -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -t ${videoDuration} "${exportPath}"`;
+  const command = `${settings.ffmpeg} -y -i "${videoPath}" -i "${backgroundAudioPath}" -filter_complex "[0:a][1:a]amerge=inputs=2[a]" -map 0:v -map [a] -c:v copy -ac 2 -t ${videoDuration} "${exportPath}"`;
 
   try {
     execSync(command, { stdio: "pipe" });

@@ -2,8 +2,9 @@
   "exportPath": "/home/john/Desktop/reddit-videos/",
   "midPoster": "",
   "backgroundMusic": "",
-  "voice": "",
+  "voice": "AriaNeural",
   "maxScore": 1000,
   "bal4web": "/home/john/Desktop/bal4web/bal4web.exe",
-  "audio": "/home/john/Desktop/music.mp3"
+  "ffmpeg": "/home/john/Desktop/ffmpeg/ffmpeg",
+  "ffprobe": "/home/john/Desktop/ffmpeg/ffprobe"
 }

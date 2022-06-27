@@ -14,9 +14,38 @@ import { WebpackOverrideFn, TCompMetadata } from "remotion";
 import { getCompositions, renderFrames } from "@remotion/renderer";
 import { bundle } from "@remotion/bundler";
 
+import settings from "../data/settings.json";
+
 import { CompositionId, CompositionData } from "../interface/compositions";
 import { CommentGroup, CommentText, Post, RenderPost } from "../interface/post";
 import { tempData } from "../config/paths";
+
+export const checkFFmpeg = (loading: Spinnies) => {
+  if (!existsSync(settings.ffmpeg)) {
+    const text = "🎥 FFmpeg file does not exist!";
+    loading.add("error", { text });
+    loading.fail("error");
+    throw new Error(text);
+  }
+
+  if (!existsSync(settings.ffprobe)) {
+    const text = "🎧 FFprobe file does not exist!";
+    loading.add("error", { text });
+    loading.fail("error");
+    throw new Error(text);
+  }
+};
+
+export const checkBal4web = (loading: Spinnies) => {
+  const text = "📼 Bal4web file does not exist!";
+  if (!existsSync(settings.bal4web)) {
+    loading.add("error", { text });
+    loading.fail("error");
+    throw new Error(text);
+  }
+};
+
+export const checkVoice = () => {};
 
 export const generateBundle: (
   path: string,

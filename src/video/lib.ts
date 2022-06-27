@@ -1,7 +1,9 @@
 import { execSync } from "child_process";
+import { existsSync } from "fs";
 import { join } from "path";
 
 import { video } from "../config/video";
+import settings from "../data/settings.json";
 
 type GetDuration = (args: {
   filePath: string;
@@ -15,7 +17,7 @@ export const getDuration: GetDuration = ({
   filePath,
   audioTrimDuration = 0.6,
 }) => {
-  const args = `ffprobe -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
+  const args = `${settings.ffprobe} -i "${filePath}" -show_entries format=duration -v quiet -of csv="p=0"`;
 
   try {
     const value = Number(execSync(args, { stdio: "pipe" }).toString().trim());
@@ -44,7 +46,7 @@ export const generateVideoFile: GenerateFileVideo = ({
   exportPath,
   title,
 }) => {
-  const command = `ffmpeg -y -loop 1 -framerate ${
+  const command = `${settings.ffmpeg} -y -loop 1 -framerate ${
     video.ffmpegFps
   } -i "${image}" ${
     !audio
@@ -82,7 +84,9 @@ export const mergeVideos: MergeVideos = ({
   title,
   video = true,
 }) => {
-  const command = `ffmpeg -safe 0 -f concat -i ${listPath} -c copy "${join(
+  const command = `${
+    settings.ffmpeg
+  } -safe 0 -f concat -i ${listPath} -c copy "${join(
     exportPath,
     `${title ?? "video"}.${video ? "mp4" : "mp3"}`
   )}"`;
