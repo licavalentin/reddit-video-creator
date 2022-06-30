@@ -74,7 +74,7 @@ brew install --cask --no-quarantine wine-stable
   {
     "status": "queue", // queue, draft, finish
     "url": "https://www.reddit.com/r/AskReddit/comments/xxx/xxx", // Post url
-    "maxDuration": 1, // Max Video duration
+    "maxDuration": 8, // Max Video duration
     "videosCount": 1, // Num of videos per set maxDuration
     "image": "/backgrounds/mike-dubyna-gwLO-b1n5Yc-unsplash.jpg" // Video background image /public/<image path>
   }
