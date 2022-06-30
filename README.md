@@ -67,7 +67,7 @@ brew install --cask --no-quarantine wine-stable
 
 ## 🏃 Run
 
-1. Create Reddit Video item at file **_src/data/posts.json_**
+1. Add Reddit Video item at file **_src/data/posts.json_**
 
 ```json
 [
