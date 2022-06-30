@@ -7,6 +7,8 @@ Reddit Video Creator
 
 ## 📼 Create Reddit videos with JavaScript
 
+https://user-images.githubusercontent.com/74852397/176777528-649ec815-441d-4e94-9cfb-09a7bdaf0c74.mp4
+
 ## 💻 [Download App](https://github.com/ValentinHLica/reddit-video-creator-app/releases)
 
 ## 🚀 Setup
