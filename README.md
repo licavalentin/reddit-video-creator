@@ -5,7 +5,7 @@
 Reddit Video Creator
 </h1>
 
-## 📼 Create Reddit videos with JavaScript
+## 📼 Create Reddit Videos with JavaScript
 
 https://user-images.githubusercontent.com/74852397/176777528-649ec815-441d-4e94-9cfb-09a7bdaf0c74.mp4
 
