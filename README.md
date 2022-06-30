@@ -7,7 +7,7 @@ Reddit Video Creator
 
 ## 📼 Create Reddit videos with JavaScript
 
-<video src="./public/example/video.mp4" width="100%"></video>
+[![Video Example](./public/example/thumbnail.png)](./public/example/video.mp4)
 
 ## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases)
 
