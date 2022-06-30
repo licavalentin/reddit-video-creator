@@ -115,6 +115,7 @@ export const generateVideo: GenerateVideo = async ({
     outputDir: output,
     inputProps: data,
     imageFormat: "png",
+    ffmpegExecutable: settings.ffmpeg,
   });
 };
 

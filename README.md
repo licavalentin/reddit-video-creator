@@ -1,69 +1,37 @@
 # 🎥 Create Reddit videos with JavaScript
 
-# ⚠️ Under Construction
-
 ## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases) - 🍿 [Example](https://youtu.be/xTjnCoePU18)
 
 ## 🚀 Setup
 
 For any problems please check [References](#references)
 
-### 💀 Windows
+### 🪟 Windows
 
-1. Download [FFMPEG](https://ffmpeg.org/), [BAL4WEB](http://www.cross-plus-a.com/bweb.htm), [BALCON](http://www.cross-plus-a.com/bconsole.htm) and [NodeJs](https://nodejs.org/), [Git](https://git-scm.com/). Save them in a folder that you wont touch.
-2. Store .exe path for ffmpeg, bal4web and balcon as environment variables [Tutorial](https://www.youtube.com/watch?v=hD9bQE4R6eA) **(same for bal4web and balcon)**
+1. Download [FFMPEG](https://ffmpeg.org/), [BAL4WEB](http://www.cross-plus-a.com/bweb.htm), and [NodeJs](https://nodejs.org/). Save them in a folder that you won't touch and store .exe path for ffmpeg, ffprobe, bal4web into **_/src/data/settings.json_**
 
-### 💀 Linux
+### 🐧 Linux
 
-1. **nvm**
-
-To **install** nvm use the following cURL or Wget command:
+1. Install latest version of NodeJs
 
 ```sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-```
 
-```sh
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-```
-
-Running either of the above commands downloads a script and runs it. The script clones the nvm repository to `~/.nvm`, and attempts to add the source lines from the snippet below to the correct profile file (`~/.bash_profile`, `~/.zshrc`, `~/.profile`, or `~/.bashrc`).
-
-```sh
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-```
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-Install latest version of NodeJs
-
-```sh
 nvm install --lts
 ```
 
-2. **ffmpeg**
+2. Download [FFMPEG](https://ffmpeg.org/), [BAL4WEB](http://www.cross-plus-a.com/bweb.htm). Save them in a folder that you won't touch and store path for ffmpeg, ffprobe, bal4web into **_/src/data/settings.json_**
 
-Update packages list and installing FFmpeg:
-
-```
-sudo apt update
-sudo apt install ffmpeg
-```
-
-3. **wine**
-
-Install Wine **(used for balcon and bal4web)**
+3. Install Wine
 
 ```
 sudo apt install wine64
 ```
 
-4. Download [BAL4WEB](http://www.cross-plus-a.com/bweb.htm) and extract files to a folder
-
-```
-bal4web="wine /home/john/Desktop/bal4web/bal4web.exe"
-```
-
-### 💀 MaxOS
+### 🍎 MaxOS
 
 Install [Brew](https://brew.sh/)
 
@@ -71,13 +39,9 @@ Install [Brew](https://brew.sh/)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Install ffmpeg:
+2. Download [FFMPEG](https://ffmpeg.org/), [BAL4WEB](http://www.cross-plus-a.com/bweb.htm). Save them in a folder that you won't touch and store path for ffmpeg, ffprobe, bal4web into **_/src/data/settings.json_**
 
-```
-brew install ffmpeg
-```
-
-Install Wine **(used for balcon and bal4web)**:
+3. Install Wine
 
 ```
 brew tap homebrew/cask-versions
