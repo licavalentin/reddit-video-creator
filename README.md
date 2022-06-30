@@ -7,7 +7,7 @@ Reddit Video Creator
 
 ## 📼 Create Reddit videos with JavaScript
 
-## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases)
+## 💻 [Download App](https://github.com/ValentinHLica/reddit-video-creator-app/releases)
 
 ## 🚀 Setup
 
@@ -74,7 +74,6 @@ brew install --cask --no-quarantine wine-stable
     "url": "https://www.reddit.com/r/AskReddit/comments/xxx/xxx", // Post url
     "maxDuration": 1, // Max Video duration
     "videosCount": 1, // Num of videos per set maxDuration
-    "voice": "GuyNeural", //  "AriaNeural, JennyNeural, GuyNeural, AmberNeural, AshleyNeural, CoraNeural, ElizabethNeural, MichelleNeural, MonicaNeural, AnaNeural, BrandonNeural, ChristopherNeural, JacobNeural, EricNeural
     "image": "/backgrounds/mike-dubyna-gwLO-b1n5Yc-unsplash.jpg" // Video background image /public/<image path>
   }
 ]
@@ -84,6 +83,22 @@ brew install --cask --no-quarantine wine-stable
 
 ```
 npm start
+```
+
+## ⚙️ Config
+
+Open file **_/src/data/settings.json_**
+
+```json
+{
+  "exportPath": "/home/john/Desktop/reddit-videos/", // Video export Path
+  "backgroundMusic": "", // Video background music, default: /public/music.mp3
+  "voice": "AriaNeural", //  "AriaNeural, JennyNeural, GuyNeural, AmberNeural, AshleyNeural, CoraNeural, ElizabethNeural, MichelleNeural, MonicaNeural, AnaNeural, BrandonNeural, ChristopherNeural, JacobNeural, EricNeural
+  "maxScore": 1000, // Min Reddit Post Comment score
+  "bal4web": "/home/john/Desktop/bal4web/bal4web.exe", // Bal4web executable Path
+  "ffmpeg": "/home/john/Desktop/ffmpeg/ffmpeg", // FFmpeg File Path Path
+  "ffprobe": "/home/john/Desktop/ffmpeg/ffprobe" // FFprobe File Path Path
+}
 ```
 
 ## 🧰 Todo
