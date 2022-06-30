@@ -7,7 +7,9 @@ Reddit Video Creator
 
 ## 📼 Create Reddit videos with JavaScript
 
-## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases) - 🍿 [Example](https://youtu.be/xTjnCoePU18)
+<video src="./public/example/video.mp4" width="100%"></video>
+
+## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases)
 
 ## 🚀 Setup
 
@@ -34,13 +36,21 @@ nvm install --lts
 
 3. Install Wine
 
+Debian:
+
 ```
-sudo apt install wine64
+sudo apt update -y && sudo apt install wine64 -y
 ```
 
-### 🍎 MaxOS
+Arch:
 
-Install [Brew](https://brew.sh/)
+```bash
+sudo pacman -Syu -y && sudo pacman -Syu -y && sudo pacman -S wine-staging -y
+```
+
+### 💀 MaxOS - **_#todo_**
+
+<!-- Install [Brew](https://brew.sh/)
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -53,6 +63,29 @@ Install [Brew](https://brew.sh/)
 ```
 brew tap homebrew/cask-versions
 brew install --cask --no-quarantine wine-stable
+``` -->
+
+## 🏃 Run
+
+1. Create Reddit Video item at file **_src/data/posts.json_**
+
+```json
+[
+  {
+    "status": "queue", // queue, draft, finish
+    "url": "https://www.reddit.com/r/AskReddit/comments/xxx/xxx", // Post url
+    "maxDuration": 1, // Max Video duration
+    "videosCount": 1, // Num of videos per set maxDuration
+    "voice": "GuyNeural", //  "AriaNeural, JennyNeural, GuyNeural, AmberNeural, AshleyNeural, CoraNeural, ElizabethNeural, MichelleNeural, MonicaNeural, AnaNeural, BrandonNeural, ChristopherNeural, JacobNeural, EricNeural
+    "image": "/backgrounds/mike-dubyna-gwLO-b1n5Yc-unsplash.jpg" // Video background image /public/<image path>
+  }
+]
+```
+
+2. Open terminal and run:
+
+```
+npm start
 ```
 
 ## 🧰 Todo

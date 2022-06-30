@@ -222,6 +222,8 @@ const render = async () => {
 
         loading.succeed("render");
       } catch (error) {
+        console.log(error);
+
         loading.add("error", { text: "Failed" });
         loading.fail("error");
       }
@@ -234,7 +236,9 @@ const render = async () => {
     });
     loading.succeed("finish");
     loading.stopAll();
-  } catch (err) {}
+  } catch (error) {
+    console.log(error);
+  }
 
   // load.stop();
 };

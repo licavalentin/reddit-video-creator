@@ -2,7 +2,7 @@
   "exportPath": "/home/john/Desktop/reddit-videos/",
   "backgroundMusic": "",
   "voice": "AriaNeural",
-  "maxScore": 1000,
+  "maxScore": 500,
   "bal4web": "/home/john/Desktop/bal4web/bal4web.exe",
   "ffmpeg": "/home/john/Desktop/ffmpeg/ffmpeg",
   "ffprobe": "/home/john/Desktop/ffmpeg/ffprobe"
