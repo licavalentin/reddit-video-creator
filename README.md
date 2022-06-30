@@ -1,7 +1,11 @@
-<div style="height:60px;width:60px;background-color:#FF4300;border-radius:50%;margin:0 auto 20px auto"></div>
-<h1 align="center">Reddit Video Creator</h1>
+<p align="center">
+    <img alt="Reddit Video Creator" src="./public/logo.svg" width="60" />
+</p>
+<h1 align="center">
+Reddit Video Creator
+</h1>
 
-## 🎥 Create Reddit videos with JavaScript
+## 📼 Create Reddit videos with JavaScript
 
 ## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases) - 🍿 [Example](https://youtu.be/xTjnCoePU18)
 
