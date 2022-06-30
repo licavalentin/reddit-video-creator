@@ -106,15 +106,16 @@ Open file **_/src/data/settings.json_**
 ## 🧰 Todo
 
 - [x] Implement Loading in cli
-  - [ ] Elaborate more on process loading
+  - [x] Elaborate more on process loading
 - [x] Change background image
 - [ ] Add Video to background
 - [x] Add Background audio
 - [x] Implement settings configuring from .json files
 - [ ] Transform to cli
-- [ ] Implement Custom thumbnail resize script
+- [x] Implement Custom thumbnail resize script
 - [ ] Censure Words
-- [ ] Extra content merge into one video
+- [x] Extra content merge into one video
+- [ ] Update Readme setup instructions for macOs
 - [ ] Refactor
 
 <span id="references"></span>
