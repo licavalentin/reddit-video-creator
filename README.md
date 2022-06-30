@@ -1,4 +1,7 @@
-# 🎥 Create Reddit videos with JavaScript
+<div style="height:60px;width:60px;background-color:#FF4300;border-radius:50%;margin:0 auto 20px auto"></div>
+<h1 align="center">Reddit Video Creator</h1>
+
+## 🎥 Create Reddit videos with JavaScript
 
 ## 💻 [App](https://github.com/ValentinHLica/reddit-video-creator-app/releases) - 🍿 [Example](https://youtu.be/xTjnCoePU18)
 
@@ -8,7 +11,7 @@ For any problems please check [References](#references)
 
 ### 🪟 Windows
 
-1. Download [FFMPEG](https://ffmpeg.org/), [BAL4WEB](http://www.cross-plus-a.com/bweb.htm), and [NodeJs](https://nodejs.org/). Save them in a folder that you won't touch and store .exe path for ffmpeg, ffprobe, bal4web into **_/src/data/settings.json_**
+1. Download [FFMPEG](https://ffmpeg.org/), [BAL4WEB](http://www.cross-plus-a.com/bweb.htm) , and [NodeJs](https://nodejs.org/). Save them in a folder that you won't touch and store .exe path for ffmpeg, ffprobe, bal4web into **_/src/data/settings.json_**
 
 ### 🐧 Linux
 
@@ -54,7 +57,7 @@ brew install --cask --no-quarantine wine-stable
   - [ ] Elaborate more on process loading
 - [x] Change background image
 - [ ] Add Video to background
-- [ ] Add Background audio
+- [x] Add Background audio
 - [x] Implement settings configuring from .json files
 - [ ] Transform to cli
 - [ ] Implement Custom thumbnail resize script
