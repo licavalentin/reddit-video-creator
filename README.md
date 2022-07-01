@@ -36,13 +36,13 @@ nvm install --lts
 
 Debian:
 
-```
+```sh
 sudo apt update -y && sudo apt install wine64 -y
 ```
 
 Arch:
 
-```bash
+```sh
 sudo pacman -Syu -y && sudo pacman -Syu -y && sudo pacman -S wine-staging -y
 ```
 
@@ -81,7 +81,7 @@ brew install --cask --no-quarantine wine-stable
 
 2. Open terminal and run:
 
-```
+```sh
 npm i && npm start
 ```
 
