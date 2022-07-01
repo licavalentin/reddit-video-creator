@@ -34,17 +34,17 @@ nvm install --lts
 
 3. Install Wine
 
-   Debian:
+Debian:
 
-   ```sh
-   sudo apt update -y && sudo apt install wine64 -y
-   ```
+```sh
+sudo apt update -y && sudo apt install wine64 -y
+```
 
-   Arch:
+Arch:
 
-   ```sh
-   sudo pacman -Syu -y && sudo pacman -Syu -y && sudo pacman -S wine-staging -y
-   ```
+```sh
+sudo pacman -Syu -y && sudo pacman -Syu -y && sudo pacman -S wine-staging -y
+```
 
 ### 💀 MaxOS - **_#todo_**
 
